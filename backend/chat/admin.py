@@ -1,18 +1,19 @@
 from django.contrib import admin
-from .models import (
-    Message,
-    ThreadMember,
-    MessageAction,
-    ThreadAction,
-    ForwardedMessage,
-    Thread,
-)
 
-admin.site.register(Thread)
-admin.site.register(MessageAction)
-admin.site.register(ThreadAction)
-admin.site.register(ForwardedMessage)
-admin.site.register(ThreadMember)
-admin.site.register(Message)
+from .models import Message, ThreadMember
 
-# Register your models here.
+
+class ThreadMemberAdmin(admin.ModelAdmin):
+    list_display = ["thread", "profile", "unread", "deleted"]
+    list_filter = ["unread", "deleted"]
+    raw_id_fields = ["profile"]
+
+
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ["thread", "sender", "sent_at"]
+    list_filter = ["sent_at", "thread"]
+    raw_id_fields = ["sender"]
+
+
+admin.site.register(Message, MessageAdmin)
+admin.site.register(ThreadMember, ThreadMemberAdmin)

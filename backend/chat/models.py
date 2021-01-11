@@ -1,122 +1,110 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
+from django.utils import timezone
+
+from .signals import message_sent
+from .utils import cached_attribute
 
 
 class Thread(models.Model):
-    "Generated Model"
-    name = models.CharField(
-        max_length=255,
-    )
-    thread_photo = models.URLField()
-    timestamp_created = models.DateTimeField(
-        auto_now_add=True,
-    )
+    subject = models.CharField(max_length=150)
+    profiles = models.ManyToManyField('profile.Profile', through="ThreadMember")
 
+    @classmethod
+    def inbox(cls, profile):
+        return cls.objects.filter(thread_member__profile=profile, thread_member__deleted=False)
 
-class MessageAction(models.Model):
-    "Generated Model"
-    action = models.CharField(
-        max_length=7,
-    )
-    message = models.ForeignKey(
-        "chat.Message",
-        on_delete=models.CASCADE,
-        related_name="messageaction_message",
-    )
-    profile = models.ForeignKey(
-        "chat_user_profile.Profile",
-        on_delete=models.CASCADE,
-        related_name="messageaction_profile",
-    )
-    timestamp_action = models.DateTimeField(
-        auto_now_add=True,
-    )
+    @classmethod
+    def deleted(cls, profile):
+        return cls.objects.filter(thread_member__profile=profile, thread_member__deleted=True)
 
+    @classmethod
+    def unread(cls, profile):
+        return cls.objects.filter(
+            thread_member__profile=profile,
+            thread_member__deleted=False,
+            thread_member__unread=True
+        )
 
-class ThreadAction(models.Model):
-    "Generated Model"
-    action = models.CharField(
-        max_length=7,
-    )
-    thread = models.ForeignKey(
-        "chat.Thread",
-        on_delete=models.CASCADE,
-        related_name="threadaction_thread",
-    )
-    profile = models.ForeignKey(
-        "chat_user_profile.Profile",
-        on_delete=models.CASCADE,
-        related_name="threadaction_profile",
-    )
-    timestamp_action = models.DateTimeField(
-        auto_now_add=True,
-    )
+    def __str__(self):
+        return f"{self.subject}: {', '.join([str(profile) for profile in self.profiles.all()])}"
 
+    def get_absolute_url(self):
+        return reverse("chat:thread", args=[self.pk])
 
-class ForwardedMessage(models.Model):
-    "Generated Model"
-    message = models.ForeignKey(
-        "chat.Message",
-        on_delete=models.CASCADE,
-        related_name="forwardedmessage_message",
-    )
-    forwarded_by = models.ForeignKey(
-        "chat_user_profile.Profile",
-        on_delete=models.CASCADE,
-        related_name="forwardedmessage_forwarded_by",
-    )
-    forwarded_to = models.ForeignKey(
-        "chat.Thread",
-        on_delete=models.CASCADE,
-        related_name="forwardedmessage_forwarded_to",
-    )
-    timestamp_forwarded = models.DateTimeField(
-        auto_now_add=True,
-    )
+    @property
+    @cached_attribute
+    def first_message(self):
+        return self.messages.all()[0]
+
+    @property
+    @cached_attribute
+    def latest_message(self):
+        return self.messages.order_by("-sent_at")[0]
+
+    @classmethod
+    def ordered(cls, objs):
+        """
+        Returns the iterable ordered the correct way, this is a class method
+        because we don"t know what the type of the iterable will be.
+        """
+        objs = list(objs)
+        objs.sort(key=lambda o: o.latest_message.sent_at, reverse=True)
+        return objs
 
 
 class ThreadMember(models.Model):
-    "Generated Model"
-    profile = models.ForeignKey(
-        "chat_user_profile.Profile",
-        on_delete=models.CASCADE,
-        related_name="threadmember_profile",
-    )
-    thread = models.ForeignKey(
-        "chat.Thread",
-        on_delete=models.CASCADE,
-        related_name="threadmember_thread",
-    )
-    is_admin = models.BooleanField()
-    timestamp_joined = models.DateTimeField(
-        auto_now_add=True,
-    )
-    timestamp_left = models.DateTimeField()
-    last_rejoined = models.DateTimeField()
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE, related_name='thread_member')
+    profile = models.ForeignKey('profile.Profile', on_delete=models.CASCADE, related_name='thread_member')
+
+    unread = models.BooleanField()
+    deleted = models.BooleanField()
 
 
 class Message(models.Model):
-    "Generated Model"
-    message = models.TextField()
-    thread = models.ForeignKey(
-        "chat.Thread",
-        on_delete=models.CASCADE,
-        related_name="message_thread",
-    )
-    sent_by = models.ForeignKey(
-        "chat.ThreadMember",
-        on_delete=models.CASCADE,
-        related_name="message_sent_by",
-    )
-    attachment = models.URLField()
-    is_draft = models.BooleanField()
-    is_delivered = models.BooleanField()
-    is_read = models.BooleanField()
-    timestamp_created = models.DateTimeField(
-        auto_now_add=True,
-    )
-    timestamp_delivered = models.DateTimeField()
-    timestamp_read = models.DateTimeField()
+    thread = models.ForeignKey(Thread, related_name="messages", on_delete=models.CASCADE)
 
+    sender = models.ForeignKey('profile.Profile', related_name="sent_messages", on_delete=models.CASCADE)
+    sent_at = models.DateTimeField(default=timezone.now)
+    content = models.TextField()
+    attachment = models.URLField(null=True, blank=True, )
 
-# Create your models here.
+    @classmethod
+    def new_reply(cls, thread, profile, content):
+        """
+        Create a new reply for an existing Thread.
+
+        Mark thread as unread for all other participants, and
+        mark thread as read by replier.
+        """
+        msg = cls.objects.create(thread=thread, sender=profile, content=content)
+        thread.thread_member.exclude(profile=profile).update(deleted=False, unread=True)
+        thread.thread_member.filter(profile=profile).update(deleted=False, unread=False)
+        message_sent.send(sender=cls, message=msg, thread=thread, reply=True)
+        return msg
+
+    @classmethod
+    def new_message(cls, from_profile, to_profiles, subject, content):
+        """
+        Create a new Message and Thread.
+
+        Mark thread as unread for all recipients, and
+        mark thread as read and deleted from inbox by creator.
+        """
+        thread = Thread.objects.create(subject=subject)
+        for profile_id in to_profiles:
+            thread.thread_member.create(profile_id=profile_id, deleted=False, unread=True)
+        thread.thread_member.create(profile=from_profile, deleted=True, unread=False)
+        msg = cls.objects.create(thread=thread, sender=from_profile, content=content)
+        message_sent.send(sender=cls, message=msg, thread=thread, reply=False)
+        return msg
+
+    class Meta:
+        ordering = ("sent_at",)
+
+    def get_absolute_url(self):
+        return self.thread.get_absolute_url()
+
+    def __str__(self):
+        return f'{self.content}'

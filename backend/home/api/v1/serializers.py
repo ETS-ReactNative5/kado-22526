@@ -16,7 +16,7 @@ User = get_user_model()
 class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "name", "email", "password")
+        fields = ("id", "user_type", "email", "password",)
         extra_kwargs = {
             "password": {"write_only": True, "style": {"input_type": "password"}},
             "email": {
@@ -28,9 +28,9 @@ class SignupSerializer(serializers.ModelSerializer):
     def _get_request(self):
         request = self.context.get("request")
         if (
-            request
-            and not isinstance(request, HttpRequest)
-            and hasattr(request, "_request")
+                request
+                and not isinstance(request, HttpRequest)
+                and hasattr(request, "_request")
         ):
             request = request._request
         return request
@@ -51,6 +51,7 @@ class SignupSerializer(serializers.ModelSerializer):
             username=generate_unique_username(
                 [validated_data.get("name"), validated_data.get("email"), "user"]
             ),
+            user_type=validated_data.get('user_type')
         )
         user.set_password(validated_data.get("password"))
         user.save()

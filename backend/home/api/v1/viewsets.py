@@ -1,12 +1,11 @@
-from rest_framework import viewsets
-from rest_framework import authentication
-from .serializers import HomePageSerializer, CustomTextSerializer
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.authtoken.serializers import AuthTokenSerializer
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_auth.registration.views import RegisterView, LoginView
+from rest_auth.views import PasswordResetView
 
 from home.api.v1.serializers import (
     SignupSerializer,
@@ -49,6 +48,18 @@ class CustomTextViewSet(ModelViewSet):
 class HomePageViewSet(ModelViewSet):
     serializer_class = HomePageSerializer
     queryset = HomePage.objects.all()
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
-    permission_classes = [IsAdminUser]
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = [IsAuthenticated]
     http_method_names = ["get", "put", "patch"]
+
+
+class RegisterViewToken(RegisterView):
+    authentication_classes = ()
+
+
+class LoginViewToken(LoginView):
+    authentication_classes = ()
+
+
+class ResetPasswordViewToken(PasswordResetView):
+    authentication_classes = ()

@@ -1,22 +1,13 @@
 from django.urls import path, include
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.routers import DefaultRouter
-from .viewsets import (
-    MessageViewSet,
-    ThreadMemberViewSet,
-    MessageActionViewSet,
-    ThreadActionViewSet,
-    ForwardedMessageViewSet,
-    ThreadViewSet,
-)
+
+from .viewsets import ChatViewSet, ThreadViewSet
 
 router = DefaultRouter()
-router.register("thread", ThreadViewSet)
-router.register("messageaction", MessageActionViewSet)
-router.register("threadaction", ThreadActionViewSet)
-router.register("forwardedmessage", ForwardedMessageViewSet)
-router.register("threadmember", ThreadMemberViewSet)
-router.register("message", MessageViewSet)
+router.register('chat',     ChatViewSet)
+router.register('thread', ThreadViewSet)
 
 urlpatterns = [
-    path("", include(router.urls)),
+    path("", include(router.urls))
 ]

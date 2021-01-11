@@ -1,0 +1,8 @@
+ .navbar { display: none }
+ .login-container { margin: 15% auto;}
+ .forgot-password { float: right; margin-bottom: 25px; }
+ .login-container .form-check { display: none }
+ .login-container h6 { color: #081971}
+ .login-container label { display: none }
+ .login-container .col-md-6 { padding: 5%}
+ .login-footer { margin-top: 25%; }
