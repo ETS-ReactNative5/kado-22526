@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
 
-class ChatUserProfileConfig(AppConfig):
+class ProfileConfig(AppConfig):
     name = "profile"
+    label = "profile"

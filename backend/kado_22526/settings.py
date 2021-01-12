@@ -44,12 +44,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    "profile",
-    "chat_user"
 ]
 LOCAL_APPS = [
     "home",
     "users.apps.UsersConfig",
+    "profile.apps.ProfileConfig",
+    "chat_user"
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",

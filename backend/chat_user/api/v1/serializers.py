@@ -3,8 +3,9 @@ from django.http import HttpRequest
 from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
 
-from profile.models import Profile
 from chat_user.models import Thread, Message
+
+Profile = apps.get_model(app_label='profile', model_name='Profile')
 
 
 class MessageSerializer(serializers.ModelSerializer):
