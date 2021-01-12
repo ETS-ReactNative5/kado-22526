@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.http import HttpRequest
+from django.apps import apps
 from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
 
