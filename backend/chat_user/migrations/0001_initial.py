@@ -28,13 +28,13 @@ class Migration(migrations.Migration):
                 ('unread', models.BooleanField()),
                 ('deleted', models.BooleanField()),
                 ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='thread_member', to='profile.Profile')),
-                ('thread', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='thread_member', to='chat.Thread')),
+                ('thread', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='thread_member', to='chat_user.Thread')),
             ],
         ),
         migrations.AddField(
             model_name='thread',
             name='profiles',
-            field=models.ManyToManyField(through='chat.ThreadMember', to='profile.Profile'),
+            field=models.ManyToManyField(through='chat_user.ThreadMember', to='profile.Profile'),
         ),
         migrations.CreateModel(
             name='Message',
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('content', models.TextField()),
                 ('attachment', models.URLField(blank=True, null=True)),
                 ('sender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sent_messages', to='profile.Profile')),
-                ('thread', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='messages', to='chat.Thread')),
+                ('thread', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='messages', to='chat_user.Thread')),
             ],
             options={
                 'ordering': ('sent_at',),

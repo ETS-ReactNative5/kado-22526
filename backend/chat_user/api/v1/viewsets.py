@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import authentication, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from chat.models import Thread, Message
+from chat_user.models import Thread, Message
 
 from .serializers import (
     MessageSerializer, ThreadSerializer
