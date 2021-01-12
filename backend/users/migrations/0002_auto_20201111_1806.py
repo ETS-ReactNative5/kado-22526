@@ -10,13 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name="user",
-            name="group",
-            field=models.ManyToManyField(
-                blank=True, related_name="user_group", to="course.Group"
-            ),
-        ),
         migrations.AlterField(
             model_name="user",
             name="name",
