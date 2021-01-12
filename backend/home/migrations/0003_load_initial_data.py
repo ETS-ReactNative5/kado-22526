@@ -17,7 +17,7 @@ def create_homepage(apps, schema_editor):
             You can view list of packages selected for this application below.
         </p>"""
 
-    HomePage.objects.create(body=homepage_body)
+    HomePage.objects.bulk_create([HomePage(title=page, body=homepage_body) for page in ['Home Page', 'About Us']])
 
 
 def create_site(apps, schema_editor):
@@ -34,14 +34,13 @@ def create_site(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ("home", "0001_initial"),
+        ("home", "0002_auto_20210109_0630"),
         ("sites", "0002_alter_domain_unique"),
     ]
 
     operations = [
-        migrations.RunPython(create_customtext),
-        migrations.RunPython(create_homepage),
-        migrations.RunPython(create_site),
+        migrations.RunPython(create_customtext, reverse_code=migrations.RunPython.noop),
+        migrations.RunPython(create_homepage, reverse_code=migrations.RunPython.noop),
+        migrations.RunPython(create_site, reverse_code=migrations.RunPython.noop),
     ]

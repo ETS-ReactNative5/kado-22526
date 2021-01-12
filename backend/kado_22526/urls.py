@@ -15,28 +15,32 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.decorators.csrf import csrf_exempt
 from allauth.account.views import confirm_email
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from home.api.v1.viewsets import LoginViewToken, RegisterViewToken, ResetPasswordViewToken
+from users.views import AdminAccountForgotPassword
 
 urlpatterns = [
     path("", include("home.urls")),
+    path('accounts/forgot-password/', AdminAccountForgotPassword.as_view(), name="account_forgot_password"),
     path("accounts/", include("allauth.urls")),
     path("api/v1/", include("home.api.v1.urls")),
     path("admin/", admin.site.urls),
     path("users/", include("users.urls", namespace="users")),
+    path('rest-auth/login/', csrf_exempt(LoginViewToken.as_view()), name='rest_login'),
+    path('rest-auth/registration/', csrf_exempt(RegisterViewToken.as_view()), name='rest_register'),
+    path('rest-auth/password/reset/', csrf_exempt(ResetPasswordViewToken.as_view()), name='rest_reset_password'),
     path("rest-auth/", include("rest_auth.urls")),
     # Override email confirm to use allauth's HTML view instead of rest_auth's API view
     path("rest-auth/registration/account-confirm-email/<str:key>/", confirm_email),
     path("rest-auth/registration/", include("rest_auth.registration.urls")),
-    path("api/v1/", include("course.api.v1.urls")),
-    path("course/", include("course.urls")),
     path("home/", include("home.urls")),
     path("api/v1/", include("chat.api.v1.urls")),
-    path("chat/", include("chat.urls")),
-    path("api/v1/", include("chat_user_profile.api.v1.urls")),
-    path("chat_user_profile/", include("chat_user_profile.urls")),
+    path("api/v1/", include("profile.api.v1.urls")),
+    path("profile/", include("profile.urls")),
     path("api/v1/", include("users.api.v1.urls")),
 ]
 

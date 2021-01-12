@@ -17,11 +17,10 @@ import logging
 env = environ.Env()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DEBUG", default=False)
+DEBUG = env.bool("DEBUG", default=True)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -35,7 +34,6 @@ SITE_ID = 1
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_SSL_REDIRECT = env.bool("SECURE_REDIRECT", default=False)
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,9 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    "course",
-    "chat",
-    "chat_user_profile",
+    "profile",
+    "chat"
 ]
 LOCAL_APPS = [
     "home",
@@ -67,6 +64,7 @@ THIRD_PARTY_APPS = [
     "django_extensions",
     "drf_yasg",
     "storages",
+    "corsheaders",
     # start fcm_django push notifications
     "fcm_django",
     # end fcm_django push notifications
@@ -81,6 +79,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "kado_22526.urls"
@@ -103,7 +103,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "kado_22526.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -116,7 +115,6 @@ DATABASES = {
 
 if env.str("DATABASE_URL", default=None):
     DATABASES = {"default": env.db()}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -136,7 +134,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -145,7 +142,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -193,9 +189,10 @@ AUTH_USER_MODEL = "users.User"
 EMAIL_HOST = env.str("EMAIL_HOST", "smtp.sendgrid.net")
 EMAIL_HOST_USER = env.str("SENDGRID_USERNAME", "")
 EMAIL_HOST_PASSWORD = env.str("SENDGRID_PASSWORD", "")
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
+EMAIL_PORT = env.str("EMAIL_PORT", 587)
+EMAIL_USE_TLS = env.str("EMAIL_USE_TLS", True)
+SERVER_EMAIL = 'root@my-domain.com'
+DEFAULT_FROM_EMAIL = 'info@kado-backend-22526.com'
 
 # AWS S3 config
 AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", "")
@@ -204,10 +201,10 @@ AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", "")
 AWS_STORAGE_REGION = env.str("AWS_STORAGE_REGION", "")
 
 USE_S3 = (
-    AWS_ACCESS_KEY_ID
-    and AWS_SECRET_ACCESS_KEY
-    and AWS_STORAGE_BUCKET_NAME
-    and AWS_STORAGE_REGION
+        AWS_ACCESS_KEY_ID
+        and AWS_SECRET_ACCESS_KEY
+        and AWS_STORAGE_BUCKET_NAME
+        and AWS_STORAGE_REGION
 )
 
 if USE_S3:
@@ -221,7 +218,6 @@ if USE_S3:
     )
     MEDIA_URL = "/mediafiles/"
     MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
-
 
 # start fcm_django push notifications
 FCM_DJANGO_SETTINGS = {"FCM_SERVER_KEY": env.str("FCM_SERVER_KEY", "")}
@@ -240,3 +236,42 @@ if DEBUG or not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD):
             "You should setup `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` env vars to send emails."
         )
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# CORS settings
+CORS_ALLOWED_ORIGINS = [
+    "https://web.postman.co",
+    "http://localhost",
+    "http://127.0.0.0",
+    "http://127.0.0.0:8000",
+    "http://127.0.0.0:8081",
+]
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'cache-control',
+    'postman-token'
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
+    )
+}

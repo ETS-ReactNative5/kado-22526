@@ -1,9 +1,5 @@
-from django.conf import settings
 from django.db import models
-
-# Create your models here.
-
-from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
 class CustomText(models.Model):
@@ -24,12 +20,25 @@ class CustomText(models.Model):
 
 
 class HomePage(models.Model):
+    title = models.CharField(
+        'Page Title',
+        max_length=150,
+        blank=True,
+        null=True,
+    )
     body = models.TextField()
 
     @property
     def api(self):
         return f"/api/v1/homepage/{self.id}/"
 
+    def __str__(self):
+        return f'{self.title}'
+
+
     @property
     def field(self):
         return "body"
+
+    class Meta:
+        verbose_name = _("Page")

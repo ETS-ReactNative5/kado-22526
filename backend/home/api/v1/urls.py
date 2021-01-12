@@ -13,7 +13,7 @@ router = DefaultRouter()
 router.register("signup", SignupViewSet, basename="signup")
 router.register("login", LoginViewSet, basename="login")
 router.register("customtext", CustomTextViewSet)
-router.register("homepage", HomePageViewSet)
+router.register("pages", HomePageViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),

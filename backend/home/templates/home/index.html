@@ -8,15 +8,7 @@
       {{ homepage.body|safe }}
     </div>
     <div class="row mt-0 mb-5">
-        {% for package in packages %}
-            <div class="col-md-4 mt-5">
-                <div class="card">
-                  <div class="card-body text-center">
-                    <a class="card-title" href="{{package.url}}">{{package.name}}</a>
-                  </div>
-                </div>
-            </div>
-        {% endfor %}
+
     </div>
     <div class="top-140-pad">
         <div class="sticky pull-right">

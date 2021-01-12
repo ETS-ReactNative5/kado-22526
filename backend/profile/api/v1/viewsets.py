@@ -1,5 +1,6 @@
 from rest_framework import authentication
-from chat_user_profile.models import VerificationCode, Profile, Contact
+from rest_framework.permissions import IsAuthenticated
+from profile.models import VerificationCode, Profile, Contact
 from .serializers import (
     VerificationCodeSerializer,
     ProfileSerializer,
@@ -20,9 +21,9 @@ class VerificationCodeViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
     authentication_classes = (
-        authentication.SessionAuthentication,
         authentication.TokenAuthentication,
     )
+    permission_classes = [IsAuthenticated]
     queryset = Profile.objects.all()
 
 

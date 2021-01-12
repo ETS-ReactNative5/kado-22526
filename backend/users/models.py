@@ -1,8 +1,25 @@
-from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+
+from .enums import StudentEnum, CompanyEnum
+
+"""
+ System user types
+    User type 1: Undergraduate Students “u/s”
+    User type 2: Graduate Students “g/s”
+    User type 3: International Students “i/s”
+    User type 4: Companies “c”
+    User type 5: Start-ups “s”
+
+"""
+User_types = (
+    (StudentEnum.undergraduate.name, StudentEnum.undergraduate.value),
+    (StudentEnum.graduate.name, StudentEnum.undergraduate.value),
+    (StudentEnum.international.name, StudentEnum.international.value),
+    (CompanyEnum.companies.name, CompanyEnum.companies.value),
+    (CompanyEnum.start_up.name, CompanyEnum.start_up.value),
+)
 
 
 class User(AbstractUser):
@@ -44,6 +61,8 @@ class User(AbstractUser):
         blank=True,
         auto_now=True,
     )
+
+    user_type = models.CharField('User Type', choices=User_types, default=None, null=True, blank=True, max_length=15)
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})

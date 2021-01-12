@@ -1,72 +1,44 @@
-from rest_framework import authentication
-from chat.models import (
-    Message,
-    ThreadMember,
-    MessageAction,
-    ThreadAction,
-    ForwardedMessage,
-    Thread,
-)
+from django.shortcuts import get_object_or_404
+from rest_framework import authentication, viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from chat.models import Thread, Message
+
 from .serializers import (
-    MessageSerializer,
-    ThreadMemberSerializer,
-    MessageActionSerializer,
-    ThreadActionSerializer,
-    ForwardedMessageSerializer,
-    ThreadSerializer,
+    MessageSerializer, ThreadSerializer
 )
-from rest_framework import viewsets
+
+
+class ChatViewSet(viewsets.ModelViewSet):
+    serializer_class = MessageSerializer
+    authentication_classes = (
+        # authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    )
+    permission_classes = [IsAuthenticated]
+    queryset = Message.objects.all()
 
 
 class ThreadViewSet(viewsets.ModelViewSet):
     serializer_class = ThreadSerializer
     authentication_classes = (
-        authentication.SessionAuthentication,
+        # authentication.SessionAuthentication,
         authentication.TokenAuthentication,
     )
+    permission_classes = [IsAuthenticated]
     queryset = Thread.objects.all()
 
+    def list(self, request):
+        queryset = Thread.ordered(Thread.inbox(self.request.user)).distinct()
+        serializer = ThreadSerializer(queryset, many=True)
+        return Response(serializer.data)
 
-class MessageActionViewSet(viewsets.ModelViewSet):
-    serializer_class = MessageActionSerializer
-    authentication_classes = (
-        authentication.SessionAuthentication,
-        authentication.TokenAuthentication,
-    )
-    queryset = MessageAction.objects.all()
+    def retrieve(self, request, pk=None):
+        user = self.request.user
+        profile = user.profile if hasattr(user, 'profile') else Profile.objects.create(user=user)
+        queryset = Thread.objects.filter(thread_member__profile=profile)
+        thread = get_object_or_404(queryset, pk=pk)
+        thread.thread_member.filter(profile_id=profile.id).update(unread=False)
+        serializer = ThreadSerializer(thread)
 
-
-class ThreadActionViewSet(viewsets.ModelViewSet):
-    serializer_class = ThreadActionSerializer
-    authentication_classes = (
-        authentication.SessionAuthentication,
-        authentication.TokenAuthentication,
-    )
-    queryset = ThreadAction.objects.all()
-
-
-class ForwardedMessageViewSet(viewsets.ModelViewSet):
-    serializer_class = ForwardedMessageSerializer
-    authentication_classes = (
-        authentication.SessionAuthentication,
-        authentication.TokenAuthentication,
-    )
-    queryset = ForwardedMessage.objects.all()
-
-
-class ThreadMemberViewSet(viewsets.ModelViewSet):
-    serializer_class = ThreadMemberSerializer
-    authentication_classes = (
-        authentication.SessionAuthentication,
-        authentication.TokenAuthentication,
-    )
-    queryset = ThreadMember.objects.all()
-
-
-class MessageViewSet(viewsets.ModelViewSet):
-    serializer_class = MessageSerializer
-    authentication_classes = (
-        authentication.SessionAuthentication,
-        authentication.TokenAuthentication,
-    )
-    queryset = Message.objects.all()
+        return Response(serializer.data)
