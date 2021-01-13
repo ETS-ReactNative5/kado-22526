@@ -39,8 +39,8 @@ urlpatterns = [
     path("rest-auth/registration/", include("rest_auth.registration.urls")),
     path("home/", include("home.urls")),
     path("api/v1/", include("chat_user.api.v1.urls")),
-    path("api/v1/", include("profile.api.v1.urls")),
-    path("profile/", include("profile.urls")),
+    path("api/v1/", include("chat_profile.api.v1.urls")),
+    path("profile/", include("chat_profile.urls")),
     path("api/v1/", include("users.api.v1.urls")),
 ]
 

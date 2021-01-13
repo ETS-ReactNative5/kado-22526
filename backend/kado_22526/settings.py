@@ -48,8 +48,8 @@ INSTALLED_APPS = [
 LOCAL_APPS = [
     "home",
     "users.apps.UsersConfig",
-    "profile.apps.ProfileConfig",
-    "chat_user"
+    "chat_profile",
+    "chat_user",
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",

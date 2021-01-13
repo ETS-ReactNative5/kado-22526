@@ -8,7 +8,7 @@ class VerificationCode(models.Model):
         max_length=255,
     )
     sent_to = models.ForeignKey(
-        "profile.Profile",
+        "chat_profile.Profile",
         on_delete=models.CASCADE,
         related_name="verificationcode_sent_to",
     )
@@ -71,7 +71,7 @@ class Contact(models.Model):
         related_name="contact_added_by",
     )
     added_profile = models.ForeignKey(
-        "profile.Profile",
+        "chat_profile.Profile",
         on_delete=models.CASCADE,
         related_name="contact_added_profile",
     )

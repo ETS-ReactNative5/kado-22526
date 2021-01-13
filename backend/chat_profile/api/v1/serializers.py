@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.http import HttpRequest
 from django.utils.translation import ugettext_lazy as _
-from profile.models import VerificationCode, Profile, Contact
+from chat_profile.models import VerificationCode, Profile, Contact
 
 
 class VerificationCodeSerializer(serializers.ModelSerializer):

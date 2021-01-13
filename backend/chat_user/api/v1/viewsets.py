@@ -37,7 +37,7 @@ class ThreadViewSet(viewsets.ModelViewSet):
         user = self.request.user
         profile = user.profile if hasattr(user, 'profile') else Profile.objects.create(user=user)
         queryset = Thread.objects.filter(thread_member__profile=profile)
-        thread = get_object_or_404(queryset, pk=pk)
+        thread = queryset.filter(pk=pk).first()
         thread.thread_member.filter(profile_id=profile.id).update(unread=False)
         serializer = ThreadSerializer(thread)
 

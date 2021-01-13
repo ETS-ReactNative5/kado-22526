@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class ProfileConfig(AppConfig):
-    name = "profile"
-    label = "profile"
+    name = "chat_profile"
+    label = "chat_profile"

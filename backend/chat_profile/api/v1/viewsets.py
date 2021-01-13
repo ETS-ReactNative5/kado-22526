@@ -1,6 +1,6 @@
 from rest_framework import authentication
 from rest_framework.permissions import IsAuthenticated
-from profile.models import VerificationCode, Profile, Contact
+from chat_profile.models import VerificationCode, Profile, Contact
 from .serializers import (
     VerificationCodeSerializer,
     ProfileSerializer,

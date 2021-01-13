@@ -5,11 +5,12 @@ from django.utils import timezone
 
 from .signals import message_sent
 from .utils import cached_attribute
+# from chat_profile.models import Profile
 
 
 class Thread(models.Model):
     subject = models.CharField(max_length=150)
-    profiles = models.ManyToManyField('profile.Profile', through="ThreadMember")
+    profiles = models.ManyToManyField('chat_profile.Profile', through="ThreadMember")
 
     @classmethod
     def inbox(cls, profile):
@@ -56,7 +57,7 @@ class Thread(models.Model):
 
 class ThreadMember(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE, related_name='thread_member')
-    profile = models.ForeignKey('profile.Profile', on_delete=models.CASCADE, related_name='thread_member')
+    profile = models.ForeignKey('chat_profile.Profile', on_delete=models.CASCADE, related_name='thread_member')
 
     unread = models.BooleanField()
     deleted = models.BooleanField()
@@ -65,7 +66,7 @@ class ThreadMember(models.Model):
 class Message(models.Model):
     thread = models.ForeignKey(Thread, related_name="messages", on_delete=models.CASCADE)
 
-    sender = models.ForeignKey('profile.Profile', related_name="sent_messages", on_delete=models.CASCADE)
+    sender = models.ForeignKey('chat_profile.Profile', related_name="sent_messages", on_delete=models.CASCADE)
     sent_at = models.DateTimeField(default=timezone.now)
     content = models.TextField()
     attachment = models.URLField(null=True, blank=True, )

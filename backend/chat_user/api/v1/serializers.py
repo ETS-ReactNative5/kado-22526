@@ -5,8 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
 
 from chat_user.models import Thread, Message
-
-Profile = apps.get_model(app_label='profile', model_name='Profile')
+from chat_profile.models import Profile
 
 
 class MessageSerializer(serializers.ModelSerializer):
