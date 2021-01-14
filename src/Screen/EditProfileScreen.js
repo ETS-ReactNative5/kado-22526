@@ -1,8 +1,9 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-
-import uset from '../Assets/Image/usert.png';
+import calander from '../Assets/Image/calander.png';
+import uset from '../Assets/Image/user.png';
+import editButton from '../Assets/Image/editbtn.png';
 import {BackHeader, Header, Input} from '../Components';
 import {
   buttonColor,
@@ -18,46 +19,61 @@ const EditProfileScreen = ({goBack, navigate}) => {
       <ScrollView contentContainerStyle={styles.bodyContainer}>
         <View style={styles.body}>
           <View style={styles.imageContainer}>
-            <Image resizeMode="cover" style={styles.image} source={uset} />
+            <TouchableOpacity>
+              <Image resizeMode="cover" style={styles.image} source={uset} />
+              <TouchableOpacity style={styles.editBtnContainer}>
+                <Image source={editButton} />
+              </TouchableOpacity>
+            </TouchableOpacity>
           </View>
-          <Input
-            secureTextEntry={false}
-            iconShow={false}
-            placeholder="Full Name"
-          />
-          <Input
-            secureTextEntry={true}
-            iconShow={true}
-            placeholder="Location"
-            iconName="map-marker-alt"
-          />
+          <View style={{marginTop: 50}}>
+            <Input
+              secureTextEntry={false}
+              iconShow={false}
+              placeholder="Full Name"
+            />
+          </View>
 
-          <Input secureTextEntry={true} iconShow={false} placeholder="Phone" />
-          <Input
-            secureTextEntry={true}
-            iconShow={true}
-            iconName="chevron-down"
-            placeholder="Gender"
-          />
+          <View style={styles.inputCOntainer}>
+            <Input
+              secureTextEntry={false}
+              iconShow={true}
+              placeholder="Location"
+              iconName="map-marker-alt"
+            />
+          </View>
+          <View style={styles.inputCOntainer}>
+            <Input
+              secureTextEntry={false}
+              keyboardType="numeric"
+              iconShow={false}
+              placeholder="Phone"
+            />
+          </View>
+          <View style={styles.inputCOntainer}>
+            <Input
+              secureTextEntry={false}
+              iconShow={true}
+              iconName="chevron-down"
+              placeholder="Gender"
+            />
+          </View>
 
-          <Input
-            secureTextEntry={true}
-            iconShow={true}
-            iconName="calendar-week"
-            placeholder="Date of birth"
-          />
+          <View style={styles.inputCOntainer}>
+            <Input
+              secureTextEntry={false}
+              iconShow={true}
+              iconName="calendar-week"
+              placeholder="Date of birth"
+              image={true}
+              fromImage={calander}
+            />
+          </View>
 
           <TouchableOpacity
             onPress={() => navigate('AboutUs')}
             style={styles.registerBtnContainer}>
             <Text style={styles.registerText}>Save</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.footer}>
-          <Text style={styles.alreadyText}>Already have an account?</Text>
-          <TouchableOpacity>
-            <Text style={styles.loginText}>Log in</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -72,7 +88,7 @@ const styles = ScaledSheet.create({
   },
 
   bodyContainer: {
-    flex: 1,
+    // flex: 1,
     padding: '1@s',
     paddingBottom: '20@s',
     justifyContent: 'space-between',
@@ -81,6 +97,7 @@ const styles = ScaledSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '50@s',
+    marginBottom: '100@s',
   },
   text: {
     fontSize: '17@s',
@@ -99,7 +116,7 @@ const styles = ScaledSheet.create({
   registerBtnContainer: {
     padding: '10@s',
     backgroundColor: buttonColor,
-    marginTop: '20@s',
+    marginTop: '30@s',
     borderRadius: '5@s',
     justifyContent: 'center',
     alignItems: 'center',
@@ -140,12 +157,21 @@ const styles = ScaledSheet.create({
   image: {
     height: '128@s',
     width: '128@s',
-    borderRadius: 50,
+    borderRadius: 35,
     resizeMode: 'cover',
   },
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: '20@s',
+  },
+  editBtnContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: '-7@s',
+  },
+  inputCOntainer: {
+    marginTop: '5@s',
   },
 });
 

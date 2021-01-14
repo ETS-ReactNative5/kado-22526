@@ -22,14 +22,16 @@ const LoginScreen = ({navigate, handlePassword, showPassword}) => {
             <Image source={logo} />
           </View>
           <Input secureTextEntry={false} iconShow={false} placeholder="Email" />
-          <Input
-            secureTextEntry={showPassword}
-            iconShow={true}
-            iconName={showPassword ? 'eye' : 'eye-slash'}
-            placeholder="Password"
-            showPasswordData={true}
-            handlePassword={handlePassword}
-          />
+          <View style={{marginTop: 10}}>
+            <Input
+              secureTextEntry={showPassword}
+              iconShow={true}
+              iconName={showPassword ? 'eye' : 'eye-slash'}
+              placeholder="Password"
+              showPasswordData={true}
+              handlePassword={handlePassword}
+            />
+          </View>
 
           <View style={styles.forgotPasswordContainer}>
             <TouchableOpacity>
@@ -46,7 +48,7 @@ const LoginScreen = ({navigate, handlePassword, showPassword}) => {
 
         <View style={styles.footer}>
           <Text style={styles.alreadyText}>Don’t have an account?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate('SignUp')}>
             <Text style={styles.loginText}>Register</Text>
           </TouchableOpacity>
         </View>
@@ -90,7 +92,7 @@ const styles = ScaledSheet.create({
   registerBtnContainer: {
     padding: '10@s',
     backgroundColor: buttonColor,
-    marginTop: '20@s',
+    marginTop: '30@s',
     borderRadius: '5@s',
     justifyContent: 'center',
     alignItems: 'center',

@@ -5,6 +5,8 @@ import {DrawerContentScrollView} from '@react-navigation/drawer';
 import Animated from 'react-native-reanimated';
 import {themeColor, white} from '../Utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
+import userIcon from '../Assets/Image/userIcon.png';
+import aboutIcon from '../Assets/Image/aboutIcon.png';
 
 import whiteLogo from '../Assets/Image/whiteLogo.png';
 
@@ -22,22 +24,26 @@ const Drawer = ({navigation, progress, ...rest}) => {
       {...rest}>
       <Animated.View style={styles.container}>
         <View style={styles.body}>
-          <Image source={whiteLogo} />
+          <TouchableOpacity onPress={() => navigation.navigate('NewsFeed')}>
+            <Image source={whiteLogo} />
+          </TouchableOpacity>
           <Text style={styles.descText}>
-            Copy Find work, build resume, gain industry experience, and foster
+            Find work, build resume, gain industry experience, and foster
             professional relationships
           </Text>
           <View style={{marginTop: 20}}>
             <TouchableOpacity
               style={styles.btn}
               onPress={() => navigation.navigate('AboutUs')}>
-              <Icon color={white} size={17} name="info-circle" />
+              {/* <Icon color={white} size={17} name="info-circle" /> */}
+              <Image source={aboutIcon} />
               <Text style={styles.btnText}>About us</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.btn}
               onPress={() => navigation.navigate('EditProfile')}>
-              <Icon color={white} size={17} name="user-alt" />
+              <Image source={userIcon} />
+              {/* <Icon color={white} size={17} name="user-alt" /> */}
               <Text style={styles.btnText}>Kado Pro</Text>
             </TouchableOpacity>
           </View>

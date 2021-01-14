@@ -10,6 +10,8 @@ const grayColor = '#8A8A8A';
 const blackColorText = '#464646';
 const buttonGrayBack = '#E9E9E9';
 
+// font family
+
 export {
   themeColor,
   buttonColor,

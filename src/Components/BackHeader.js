@@ -20,7 +20,7 @@ const BackHeader = ({goBack, image}) => {
         )}
       </View>
 
-      <View></View>
+      <View style={{width: 35}}></View>
     </View>
   );
 };

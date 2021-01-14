@@ -50,6 +50,7 @@ const styles = ScaledSheet.create({
     lineHeight: '21@s',
     color: themeColor,
     fontWeight: 'bold',
+    marginBottom: '20@s',
   },
 });
 

@@ -39,7 +39,7 @@ const styles = ScaledSheet.create({
   image: {
     height: '34@s',
     width: '34@s',
-    borderRadius: '15@s',
+    borderRadius: '8@s',
     marginLeft: '20@s',
   },
 });

@@ -1,6 +1,7 @@
 import React from 'react';
-import {TextInput, TouchableOpacity, View} from 'react-native';
+import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+
 import {ScaledSheet} from 'react-native-size-matters';
 
 const Input = ({
@@ -11,6 +12,9 @@ const Input = ({
   handlePassword,
   showPasswordData,
   handleConPassword,
+  keyboardType,
+  image,
+  fromImage,
 }) => {
   return (
     <View style={styles.inputContainer}>
@@ -19,11 +23,16 @@ const Input = ({
         style={styles.input}
         placeholderTextColor={'#999999'}
         placeholder={placeholder}
+        keyboardType={keyboardType}
       />
       {iconShow ? (
         <TouchableOpacity
           onPress={showPasswordData ? handlePassword : handleConPassword}>
-          <Icon name={iconName} size={18} />
+          {image ? (
+            <Image source={fromImage} />
+          ) : (
+            <Icon name={iconName} size={18} />
+          )}
         </TouchableOpacity>
       ) : null}
     </View>

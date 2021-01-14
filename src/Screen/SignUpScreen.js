@@ -32,26 +32,36 @@ const SignUpScreen = ({
           <Input
             secureTextEntry={false}
             iconShow={true}
-            placeholder="User Type"
+            placeholder="User type"
             iconName="chevron-down"
           />
-          <Input secureTextEntry={false} iconShow={false} placeholder="Email" />
-          <Input
-            secureTextEntry={showPassword}
-            handlePassword={handlePassword}
-            iconShow={true}
-            showPasswordData={true}
-            placeholder="Password"
-            iconName={showPassword ? 'eye' : 'eye-slash'}
-          />
-          <Input
-            secureTextEntry={showConPassword}
-            iconShow={true}
-            placeholder="Confirm Password"
-            iconName={showConPassword ? 'eye' : 'eye-slash'}
-            showPasswordData={false}
-            handleConPassword={handleConPassword}
-          />
+          <View style={{marginTop: 5}}>
+            <Input
+              secureTextEntry={false}
+              iconShow={false}
+              placeholder="Email"
+            />
+          </View>
+          <View style={{marginTop: 5}}>
+            <Input
+              secureTextEntry={showPassword}
+              handlePassword={handlePassword}
+              iconShow={true}
+              showPasswordData={true}
+              placeholder="Password"
+              iconName={showPassword ? 'eye' : 'eye-slash'}
+            />
+          </View>
+          <View style={{marginTop: 5}}>
+            <Input
+              secureTextEntry={showConPassword}
+              iconShow={true}
+              placeholder="Password"
+              iconName={showConPassword ? 'eye' : 'eye-slash'}
+              showPasswordData={false}
+              handleConPassword={handleConPassword}
+            />
+          </View>
 
           <TouchableOpacity
             onPress={() => navigate('Login')}
@@ -62,7 +72,7 @@ const SignUpScreen = ({
 
         <View style={styles.footer}>
           <Text style={styles.alreadyText}>Already have an account?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate('Login')}>
             <Text style={styles.loginText}>Log in</Text>
           </TouchableOpacity>
         </View>
@@ -92,7 +102,7 @@ const styles = ScaledSheet.create({
     fontSize: '17@s',
     lineHeight: '20@s',
     color: themeColor,
-    fontWeight: 'normal',
+    fontWeight: '700',
     textAlign: 'center',
     marginTop: '10@s',
   },
@@ -105,7 +115,7 @@ const styles = ScaledSheet.create({
   registerBtnContainer: {
     padding: '10@s',
     backgroundColor: buttonColor,
-    marginTop: '20@s',
+    marginTop: '30@s',
     borderRadius: '5@s',
     justifyContent: 'center',
     alignItems: 'center',
