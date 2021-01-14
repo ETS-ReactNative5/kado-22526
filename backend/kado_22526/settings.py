@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    "channels",
 ]
 LOCAL_APPS = [
     "home",
@@ -100,8 +101,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = "kado_22526.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -274,4 +273,19 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication'
     )
+}
+
+# Channels
+ASGI_APPLICATION = "kado_22526.routing.application"
+
+WEB_SOCKET_PORT = env.str("WEB_SOCKET_PORT", 6379)
+WEB_SOCKET_HOST = env.str("WEB_SOCKET_HOST", 'redis')
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            # "hosts": [('127.0.0.1', 6379)],
+            "hosts": [(WEB_SOCKET_HOST, 6379)],
+        },
+    },
 }
