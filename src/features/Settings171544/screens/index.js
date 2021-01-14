@@ -14,7 +14,7 @@ export default class Root extends PureComponent {
         <Button
           onPress={() => this.props.navigation.navigate('Settings')}
           style={styles.item}>
-          Settings 
+          Settings
         </Button>
 
         <Button
