@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from django.http import HttpRequest
-from django.apps import apps
 from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
 
@@ -12,10 +11,11 @@ class MessageSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField('get_sender_username')
     thread_id = serializers.IntegerField(required=False, )
     to_profile_ids = serializers.ListField(required=False, )
+    sender_id = serializers.IntegerField(required=False)
 
     class Meta:
         model = Message
-        fields = ['thread_id', "content", "attachment", "username", "sent_at", "to_profile_ids"]
+        fields = ['sender_id', 'thread_id', "content", "attachment", "username", "sent_at", "to_profile_ids"]
 
     def get_thread_id(self, obj):
         return obj.id
@@ -24,7 +24,7 @@ class MessageSerializer(serializers.ModelSerializer):
         return [profile.id for profile in obj.thread.profiles.all()]
 
     def get_sender_username(self, obj):
-        return obj.sender.fullname()
+        return obj.sender.user.username # fullname()
 
     def get_thread(self, obj):
         return getattr(obj, 'thread', None)

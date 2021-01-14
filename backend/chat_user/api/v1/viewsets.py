@@ -1,12 +1,17 @@
-from django.shortcuts import get_object_or_404
-from rest_framework import authentication, viewsets
+import logging
+from rest_framework import authentication, viewsets, serializers
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from django.utils.translation import ugettext_lazy as _
+
 from chat_user.models import Thread, Message
+from chat_profile.models import Profile
 
 from .serializers import (
     MessageSerializer, ThreadSerializer
 )
+
+logger = logging.getLogger(__name__)
 
 
 class ChatViewSet(viewsets.ModelViewSet):
@@ -22,7 +27,7 @@ class ChatViewSet(viewsets.ModelViewSet):
 class ThreadViewSet(viewsets.ModelViewSet):
     serializer_class = ThreadSerializer
     authentication_classes = (
-        # authentication.SessionAuthentication,
+        authentication.SessionAuthentication,
         authentication.TokenAuthentication,
     )
     permission_classes = [IsAuthenticated]
@@ -36,9 +41,13 @@ class ThreadViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, pk=None):
         user = self.request.user
         profile = user.profile if hasattr(user, 'profile') else Profile.objects.create(user=user)
-        queryset = Thread.objects.filter(thread_member__profile=profile)
+        queryset = Thread.objects.filter(profiles__id__in=[profile.id])
         thread = queryset.filter(pk=pk).first()
-        thread.thread_member.filter(profile_id=profile.id).update(unread=False)
-        serializer = ThreadSerializer(thread)
+        if thread:
+            thread.thread_member.filter(profile_id=profile.id).update(unread=False)
+            serializer = ThreadSerializer(thread)
 
-        return Response(serializer.data)
+            return Response(serializer.data)
+        raise serializers.ValidationError(
+            _("Thread with id %s not found." % pk)
+        )
