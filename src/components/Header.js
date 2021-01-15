@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {themeColor} from '../Utils/Theme/Color';
+import {themeColor} from '../utils/Theme/Color';
 
 const Header = ({navigate}) => {
   return (

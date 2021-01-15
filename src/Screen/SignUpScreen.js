@@ -1,16 +1,15 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-import {Button} from 'native-base';
-import {ScaledSheet} from 'react-native-size-matters';
 
-import logo from '../Assets/Image/logo.png';
+import logo from '../assets/Image/logo.png';
 import {Header, Input} from '../Components';
 import {
   buttonColor,
   lightBlackColor,
   themeColor,
   white,
-} from '../Utils/Theme/Color';
+} from '../utils/Theme/Color';
+import {ScaledSheet} from 'react-native-size-matters';
 
 const SignUpScreen = ({
   navigate,

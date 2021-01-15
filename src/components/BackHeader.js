@@ -2,11 +2,11 @@ import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScaledSheet} from 'react-native-size-matters';
-import {themeColor} from '../Utils/Theme/Color';
+import {themeColor} from '../utils/Theme/Color';
 
-import logo from '../Assets/Image/logo.png';
+import logo from '../assets/Image/logo.png';
 
-const BackHeader = ({goBack, image}) => {
+const BackHeader = ({goBack, image, title}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={goBack} style={{padding: 10}}>
@@ -16,11 +16,11 @@ const BackHeader = ({goBack, image}) => {
         {image ? (
           <Image source={logo} />
         ) : (
-          <Text style={styles.text}>Edit Profile</Text>
+          <Text style={styles.text}>{title}</Text>
         )}
       </View>
 
-      <View style={{width: 35}}></View>
+      <View style={{width: 35}} />
     </View>
   );
 };

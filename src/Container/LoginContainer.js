@@ -3,9 +3,9 @@ import {SafeAreaView, Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {LoginScreen} from '../Screen';
 
-const LoginContainer = (props) => {
+const LoginContainer = props => {
   const [showPassword, setShowPasssword] = useState(true);
-  const navigate = async (routeName) => {
+  const navigate = async routeName => {
     const {navigation} = props;
     if (routeName === 'drawer') {
       navigation.openDrawer();

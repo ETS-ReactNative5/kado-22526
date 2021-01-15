@@ -10,10 +10,11 @@ import {
   SignUpContainer,
   AboutUsContainer,
   NewsFeedContainer,
+  MessageContainer,
 } from '../Container';
 import {DrawerContentData} from '../Components';
 import Animated from 'react-native-reanimated';
-import {ScaledSheet} from 'react-native-size-matters';
+
 import {themeColor, white} from './Theme/Color';
 
 const Stack = createStackNavigator();
@@ -47,6 +48,11 @@ const App = ({style}) => {
           component={AboutUsContainer}
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          name="Message"
+          component={MessageContainer}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </Animated.View>
   );
@@ -54,10 +60,10 @@ const App = ({style}) => {
 
 const Drawer = createDrawerNavigator();
 
-const MyDrawer = (props) => {
+const MyDrawer = props => {
   // const [state, setState] = React.useState(Animated.Value(0));
   const [state, setState] = React.useState(new Animated.Value(0));
-  const navigate = async (routeName) => {
+  const navigate = async routeName => {
     const {navigation} = props;
     await navigation.navigate(routeName);
   };
@@ -89,12 +95,12 @@ const MyDrawer = (props) => {
       // drawerContent={(props) => (
       //   <DrawerContentData navigate={navigate} {...props} />
       // )}
-      drawerContent={(props) => {
+      drawerContent={props => {
         setState(props.progress);
         return <DrawerContentData {...props} />;
       }}>
       <Drawer.Screen name="Screens">
-        {(props) => <App {...props} style={animatedStyle} />}
+        {props => <App {...props} style={animatedStyle} />}
       </Drawer.Screen>
       {/* <Drawer.Screen name="Home" component={App} style={animatedStyle} /> */}
     </Drawer.Navigator>

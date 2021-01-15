@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, TextInput, FlatList} from 'react-native';
-import {ScaledSheet} from 'react-native-size-matters';
 import {Container, Header, Content, Tab, Tabs} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {FeedCard, FeedHeader} from '../Components';
@@ -12,7 +11,8 @@ import {
   textBlackColor,
   themeColor,
   white,
-} from '../Utils/Theme/Color';
+} from '../utils/Theme/Color';
+import {ScaledSheet} from 'react-native-size-matters';
 
 const DATA = [
   {

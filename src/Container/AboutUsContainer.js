@@ -4,7 +4,7 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {EditProfileScreen} from '../Screen';
 import AboutUsScreen from '../Screen/AboutUsScreen';
 
-const AboutUsContainer = (props) => {
+const AboutUsContainer = props => {
   const goBack = () => {
     const {navigation} = props;
     navigation.goBack();

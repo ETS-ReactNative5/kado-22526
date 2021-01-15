@@ -4,10 +4,10 @@ import {SafeAreaView, Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {SignUpScreen} from '../Screen';
 
-const SignUpContainer = (props) => {
+const SignUpContainer = props => {
   const [showPassword, setShowPasssword] = useState(true);
   const [showConPassword, setShowConPasssword] = useState(true);
-  const navigate = async (routeName) => {
+  const navigate = async routeName => {
     const {navigation} = props;
     if (routeName === 'drawer') {
       navigation.openDrawer();

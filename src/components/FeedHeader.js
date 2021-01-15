@@ -1,10 +1,10 @@
 import React from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import comment from '../Assets/Image/comment.png';
-import user from '../Assets/Image/user.png';
+import comment from '../assets/Image/comment.png';
+import user from '../assets/Image/user.png';
 import {ScaledSheet} from 'react-native-size-matters';
-import {themeColor} from '../Utils/Theme/Color';
+import {themeColor} from '../utils/Theme/Color';
 
 const FeedHeader = ({navigate}) => {
   return (

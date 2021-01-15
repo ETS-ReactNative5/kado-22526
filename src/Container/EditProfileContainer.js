@@ -3,13 +3,13 @@ import {SafeAreaView, Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {EditProfileScreen} from '../Screen';
 
-const EditProfileContainer = (props) => {
+const EditProfileContainer = props => {
   const goBack = () => {
     const {navigation} = props;
     navigation.goBack();
   };
 
-  const navigate = async (routeName) => {
+  const navigate = async routeName => {
     const {navigation} = props;
     await navigation.navigate(routeName);
   };

@@ -1,21 +1,21 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-import {ScaledSheet} from 'react-native-size-matters';
-import calander from '../Assets/Image/calander.png';
-import uset from '../Assets/Image/user.png';
-import editButton from '../Assets/Image/editbtn.png';
+import calander from '../assets/Image/calander.png';
+import uset from '../assets/Image/user.png';
+import editButton from '../assets/Image/editbtn.png';
 import {BackHeader, Header, Input} from '../Components';
 import {
   buttonColor,
   lightBlackColor,
   themeColor,
   white,
-} from '../Utils/Theme/Color';
+} from '../utils/Theme/Color';
+import {ScaledSheet} from 'react-native-size-matters';
 
 const EditProfileScreen = ({goBack, navigate}) => {
   return (
     <View style={styles.container}>
-      <BackHeader goBack={goBack} />
+      <BackHeader title="Edit Profile" goBack={goBack} />
       <ScrollView contentContainerStyle={styles.bodyContainer}>
         <View style={styles.body}>
           <View style={styles.imageContainer}>

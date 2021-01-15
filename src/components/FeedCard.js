@@ -8,7 +8,7 @@ import {
   grayColor,
   lightBlackColor,
   themeColor,
-} from '../Utils/Theme/Color';
+} from '../utils/Theme/Color';
 import {FeedButton} from '.';
 
 const DATA = [

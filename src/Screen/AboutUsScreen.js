@@ -1,9 +1,9 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {ScaledSheet} from 'react-native-size-matters';
-import {lightBlackColor, themeColor, white} from '../Utils/Theme/Color';
+import {lightBlackColor, themeColor, white} from '../utils/Theme/Color';
 import {BackHeader} from '../Components';
+import {ScaledSheet} from 'react-native-size-matters';
 
 const AboutUsScreen = ({goBack}) => {
   return (

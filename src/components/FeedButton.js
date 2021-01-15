@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import {buttonGrayBack} from '../Utils/Theme/Color';
+import {buttonGrayBack} from '../utils/Theme/Color';
 
 const FeedButton = ({title}) => {
   return (
