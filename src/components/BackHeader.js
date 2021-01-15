@@ -36,6 +36,8 @@ const styles = ScaledSheet.create({
     fontSize: '16@s',
     lineHeight: '24@s',
     marginTop: '4@s',
+    color: themeColor,
+    fontWeight: 'bold',
   },
 });
 

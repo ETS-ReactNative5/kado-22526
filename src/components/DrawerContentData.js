@@ -34,7 +34,7 @@ const Drawer = ({navigation, progress, ...rest}) => {
           <View style={{marginTop: 20}}>
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => navigation.navigate('Message')}>
+              onPress={() => navigation.navigate('AboutUs')}>
               {/* <Icon color={white} size={17} name="info-circle" /> */}
               <Image source={aboutIcon} />
               <Text style={styles.btnText}>About us</Text>
@@ -45,6 +45,13 @@ const Drawer = ({navigation, progress, ...rest}) => {
               <Image source={userIcon} />
               {/* <Icon color={white} size={17} name="user-alt" /> */}
               <Text style={styles.btnText}>Kado Pro</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => navigation.navigate('Message')}>
+              <Image source={userIcon} />
+              {/* <Icon color={white} size={17} name="user-alt" /> */}
+              <Text style={styles.btnText}>Messages</Text>
             </TouchableOpacity>
           </View>
         </View>

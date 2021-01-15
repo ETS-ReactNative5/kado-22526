@@ -5,6 +5,7 @@ import DrawerContentData from './DrawerContentData';
 import FeedHeader from './FeedHeader';
 import FeedCard from './FeedCard';
 import FeedButton from './FeedButton';
+import MessageCard from './MessageCard';
 
 export {
   Input,
@@ -14,4 +15,5 @@ export {
   FeedHeader,
   FeedCard,
   FeedButton,
+  MessageCard
 };

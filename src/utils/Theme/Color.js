@@ -9,6 +9,9 @@ const textBlackColor = '#292929';
 const grayColor = '#8A8A8A';
 const blackColorText = '#464646';
 const buttonGrayBack = '#E9E9E9';
+const placeHolderColor = '#C0BFCD';
+const lightGrayColor = '#F2F2F5';
+const positionColor = '#817F9B';
 
 // font family
 
@@ -22,4 +25,7 @@ export {
   grayColor,
   blackColorText,
   buttonGrayBack,
+  lightGrayColor,
+  placeHolderColor,
+  positionColor,
 };
