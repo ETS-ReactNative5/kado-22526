@@ -51,7 +51,14 @@ const Drawer = ({navigation, progress, ...rest}) => {
               onPress={() => navigation.navigate('Message')}>
               <Image source={userIcon} />
               {/* <Icon color={white} size={17} name="user-alt" /> */}
-              <Text style={styles.btnText}>Messages</Text>
+              <Text style={styles.btnText}>Message</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => navigation.navigate('Explore')}>
+              <Image source={userIcon} />
+              {/* <Icon color={white} size={17} name="user-alt" /> */}
+              <Text style={styles.btnText}>Explore</Text>
             </TouchableOpacity>
           </View>
         </View>

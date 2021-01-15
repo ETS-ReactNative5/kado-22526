@@ -4,6 +4,8 @@ import EditProfileContainer from './EditProfileContainer';
 import AboutUsContainer from './AboutUsContainer';
 import NewsFeedContainer from './NewsFeedContainer';
 import MessageContainer from './MessageContainer';
+import ExploreContainer from './ExploreContainer';
+
 export {
   SignUpContainer,
   LoginContainer,
@@ -11,4 +13,5 @@ export {
   AboutUsContainer,
   NewsFeedContainer,
   MessageContainer,
+  ExploreContainer,
 };

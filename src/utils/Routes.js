@@ -11,6 +11,7 @@ import {
   AboutUsContainer,
   NewsFeedContainer,
   MessageContainer,
+  ExploreContainer,
 } from '../Container';
 import {DrawerContentData} from '../Components';
 import Animated from 'react-native-reanimated';
@@ -51,6 +52,11 @@ const App = ({style}) => {
         <Stack.Screen
           name="Message"
           component={MessageContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Explore"
+          component={ExploreContainer}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
