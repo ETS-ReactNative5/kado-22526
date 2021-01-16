@@ -5,6 +5,8 @@ from django.utils import timezone
 
 from .signals import message_sent
 from .utils import cached_attribute
+
+
 # from chat_profile.models import Profile
 
 
@@ -13,8 +15,17 @@ class Thread(models.Model):
     profiles = models.ManyToManyField('chat_profile.Profile', through="ThreadMember")
 
     @classmethod
-    def inbox(cls, profile):
-        return cls.objects.filter(thread_member__profile=profile, thread_member__deleted=False)
+    def inbox(cls, profile, search_query=None):
+        queryset = cls.objects.filter(thread_member__profile=profile, thread_member__deleted=False)
+        if search_query:
+            # Filter messages by content, profile first, last and user names
+            queryset = queryset.filter(
+                models.Q(messages__content__icontains=search_query) |
+                models.Q(profiles__user__first_name__icontains=search_query) |
+                models.Q(profiles__user__last_name__icontains=search_query) |
+                models.Q(profiles__user__username__icontains=search_query)
+            )
+        return queryset
 
     @classmethod
     def deleted(cls, profile):

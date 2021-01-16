@@ -14,9 +14,14 @@
 <script>
         const roomName = JSON.parse(document.getElementById('thread_id').textContent);
         var user_id = {{ user.id }};
+        var host = window.location.host;
+        var socket_protocol = 'ws://';
+        if (window.location.protocol === 'https:') {
+            socket_protocol = 'wss://';
+        }
         const chatSocket = new WebSocket(
-            'ws://'
-            + window.location.host
+           socket_protocol
+            + host
             + '/ws/chat/'
             + {{thread_id}}
             + '/'
