@@ -31,12 +31,15 @@ class ThreadViewSet(viewsets.ModelViewSet):
         authentication.TokenAuthentication,
     )
     permission_classes = [IsAuthenticated]
+    search_fields = ['q']
     queryset = Thread.objects.all()
 
-    def list(self, request):
-        queryset = Thread.ordered(Thread.inbox(self.request.user)).distinct()
-        serializer = ThreadSerializer(queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        user = self.request.user
+        search_query = self.request.query_params.get('q')
+        profile = user.profile if hasattr(user, 'profile') else Profile.objects.create(user=user)
+        queryset = Thread.ordered(Thread.inbox(profile, search_query))
+        return queryset
 
     def retrieve(self, request, pk=None):
         user = self.request.user
@@ -49,5 +52,5 @@ class ThreadViewSet(viewsets.ModelViewSet):
 
             return Response(serializer.data)
         raise serializers.ValidationError(
-            _("Thread with id %s not found." % pk)
+            {"errors": _("Thread with id %s not found." % pk)}
         )

@@ -1,7 +1,9 @@
+import json
 from rest_framework import serializers
 from django.http import HttpRequest
 from django.utils.translation import ugettext_lazy as _
 from chat_profile.models import VerificationCode, Profile, Contact
+from kado_22526.utils import update_object
 
 
 class VerificationCodeSerializer(serializers.ModelSerializer):
@@ -10,12 +12,33 @@ class VerificationCodeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class ProfileThreadSerializer(serializers.ModelSerializer):
+    """ Show relevant fields information for chat thread """
+
+    class Meta:
+        model = Profile
+        fields = ('id', 'photo', 'fullname')
+
+
 class ProfileSerializer(serializers.ModelSerializer):
     fullname = serializers.CharField()
 
     class Meta:
         model = Profile
-        fields = ("id", "photo", "fullname", "location", "mobile_number", "gender", "birthdate")
+        fields = (
+            "id", "photo", "fullname",
+            "location", "mobile_number", "gender", "birthdate",
+            "allowed_to_work",
+            "field_of_study",
+            "hours_per_week",
+            "pay_margin_max",
+            "pay_margin_min",
+            "services",
+            "skills",
+            "university",
+            "work_type",
+            "years_of_experience",
+        )
 
     def _get_request(self):
         request = self.context.get("request")
@@ -38,17 +61,14 @@ class ProfileSerializer(serializers.ModelSerializer):
         user = self._get_request().user
         if instance.user.id != user.id:
             raise serializers.ValidationError(
-                _("You can only edit your own profile.")
+                {"error": _("You can only edit your own profile.")}
             )
-        instance.photo = validated_data.get('photo', instance.photo)
-        instance.location = validated_data.get('location', instance.location)
-        instance.mobile_number = validated_data.get('mobile_number', instance.mobile_number)
-        instance.gender = validated_data.get('gender', instance.gender)
-        instance.birthdate = validated_data.get('birthdate', instance.birthdate)
-        instance.save()
+        fullname = validated_data.get('fullname', False)
+
+        instance = update_object(instance, validated_data)
 
         if validated_data.get('fullname'):
-            fullname = validated_data.get('fullname', ' ').split(' ')
+            fullname = fullname.split(' ')
             instance.user.first_name = fullname.pop(0)
             instance.user.last_name = " ".join(el for el in fullname)
             instance.user.save()
@@ -56,18 +76,18 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = self._get_request().user
+        if hasattr(user, 'profile'):
+            raise serializers.ValidationError(
+                {"error": _("This User has a profile!")}
+            )
         profile = Profile(user=user)
-        profile.photo = validated_data.get('photo', '')
-        profile.location = validated_data.get('location', '')
-        profile.mobile_number = validated_data.get('mobile_number', '')
-        profile.gender = validated_data.get('gender')
-        profile.birthdate = validated_data.get('birthdate')
-        profile.save()
-        if validated_data.get('fullname'):
-            fullname = validated_data.get('fullname', ' ').split(' ')
-            user.first_name = fullname.pop(0)
-            user.last_name = " ".join(el for el in fullname)
-            user.save()
+        fullname = validated_data.get('fullname', False)
+        profile = update_object(profile, validated_data)
+        if fullname:
+            fullname = fullname.split(' ')
+            profile.user.first_name = fullname.pop(0)
+            profile.user.last_name = " ".join(el for el in fullname)
+            profile.user.save()
         return profile
 
 
