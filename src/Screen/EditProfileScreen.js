@@ -3,7 +3,7 @@ import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import calander from '../assets/Image/calander.png';
 import uset from '../assets/Image/user.png';
 import editButton from '../assets/Image/editbtn.png';
-import {BackHeader, Header, Input} from '../Components';
+import {BackHeader, Header, Input} from '../components';
 import {
   buttonColor,
   lightBlackColor,

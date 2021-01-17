@@ -12,7 +12,7 @@ import {
   NewsFeedContainer,
   MessageContainer,
 } from '../Container';
-import {DrawerContentData} from '../Components';
+import {DrawerContentData} from '../components';
 import Animated from 'react-native-reanimated';
 
 import {themeColor, white} from './Theme/Color';
