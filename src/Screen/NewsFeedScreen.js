@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TextInput, FlatList} from 'react-native';
 import {Container, Header, Content, Tab, Tabs} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {FeedCard, FeedHeader} from '../Components';
+import {FeedCard, FeedHeader} from '../components';
 import {
   blackColorText,
   buttonColor,

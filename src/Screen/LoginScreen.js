@@ -3,7 +3,7 @@ import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 
 import logo from '../assets/Image/logo.png';
-import {Header, Input} from '../Components';
+import {Header, Input} from '../components';
 import {
   buttonColor,
   lightBlackColor,

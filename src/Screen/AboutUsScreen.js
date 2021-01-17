@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {lightBlackColor, themeColor, white} from '../utils/Theme/Color';
-import {BackHeader} from '../Components';
+import {BackHeader} from '../components';
 import {ScaledSheet} from 'react-native-size-matters';
 
 const AboutUsScreen = ({goBack}) => {

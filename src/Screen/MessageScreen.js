@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {BackHeader} from '../Components';
+import {BackHeader} from '../components';
 
 const MessageScreen = () => {
   return (
