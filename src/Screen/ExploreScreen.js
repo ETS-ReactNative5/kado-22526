@@ -13,7 +13,7 @@ import {
 import {BackHeader} from '../Components';
 import {themeColor} from '../utils/Theme/Color';
 
-const ExploreScreen = ({goBack}) => {
+const ExploreScreen = ({goBack, navigate}) => {
   return (
     <View style={styles.container}>
       <BackHeader goBack={goBack} title="Explore" />
@@ -45,7 +45,9 @@ const ExploreScreen = ({goBack}) => {
             <LogoutIcon />
             <Text style={styles.text}>Logout</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.itemContainer}>
+          <TouchableOpacity
+            onPress={() => navigate('DeleteAccount')}
+            style={styles.itemContainer}>
             <DeleteIcon />
             <Text style={styles.text}>Delete Account</Text>
           </TouchableOpacity>

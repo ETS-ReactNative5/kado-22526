@@ -12,6 +12,7 @@ import {
   NewsFeedContainer,
   MessageContainer,
   ExploreContainer,
+  DeleteAccountContainer,
 } from '../Container';
 import {DrawerContentData} from '../Components';
 import Animated from 'react-native-reanimated';
@@ -57,6 +58,11 @@ const App = ({style}) => {
         <Stack.Screen
           name="Explore"
           component={ExploreContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="DeleteAccount"
+          component={DeleteAccountContainer}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

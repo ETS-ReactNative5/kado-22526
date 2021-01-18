@@ -5,6 +5,7 @@ import AboutUsContainer from './AboutUsContainer';
 import NewsFeedContainer from './NewsFeedContainer';
 import MessageContainer from './MessageContainer';
 import ExploreContainer from './ExploreContainer';
+import DeleteAccountContainer from './DeleteAccountContainer';
 
 export {
   SignUpContainer,
@@ -14,4 +15,5 @@ export {
   NewsFeedContainer,
   MessageContainer,
   ExploreContainer,
+  DeleteAccountContainer,
 };

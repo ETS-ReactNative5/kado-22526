@@ -9,9 +9,17 @@ const ExploreContainer = props => {
     const {navigation} = props;
     navigation.goBack();
   };
+  const navigate = async routeName => {
+    const {navigation} = props;
+    if (routeName === 'drawer') {
+      navigation.openDrawer();
+    } else {
+      await navigation.navigate(routeName);
+    }
+  };
   return (
     <View style={styles.container}>
-      <ExploreScreen goBack={goBack} />
+      <ExploreScreen navigate={navigate} goBack={goBack} />
     </View>
   );
 };
