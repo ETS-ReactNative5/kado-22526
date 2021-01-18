@@ -7,9 +7,6 @@ from .signals import message_sent
 from .utils import cached_attribute
 
 
-# from chat_profile.models import Profile
-
-
 class Thread(models.Model):
     subject = models.CharField(max_length=150)
     profiles = models.ManyToManyField('chat_profile.Profile', through="ThreadMember")
