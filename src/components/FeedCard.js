@@ -9,7 +9,7 @@ import {
   lightBlackColor,
   themeColor,
 } from '../utils/Theme/Color';
-import {FeedButton} from '.';
+import {FeedButton} from './FeedButton';
 
 const DATA = [
   {
