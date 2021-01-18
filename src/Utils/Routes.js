@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import { StyleSheet } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 /// Screen Containers
 import {
   EditProfileContainer,
@@ -10,43 +10,50 @@ import {
   SignUpContainer,
   AboutUsContainer,
   NewsFeedContainer,
+  ChatContainer
 } from '../Container';
-import {DrawerContentData} from '../Components';
+import { DrawerContentData } from '../Components';
 import Animated from 'react-native-reanimated';
-import {ScaledSheet} from 'react-native-size-matters';
-import {themeColor, white} from './Theme/Color';
+import { ScaledSheet } from 'react-native-size-matters';
+import { themeColor, white } from './Theme/Color';
 
 const Stack = createStackNavigator();
-const App = ({style}) => {
+const App = ({ style }) => {
   return (
     <Animated.View style={StyleSheet.flatten([styles.stack, style])}>
       <Stack.Navigator>
+
+        <Stack.Screen
+          name="EditProfile"
+          component={EditProfileContainer}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="SignUp"
           component={SignUpContainer}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Login"
           component={LoginContainer}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="EditProfile"
-          component={EditProfileContainer}
-          options={{headerShown: false}}
-        />
-
         <Stack.Screen
           name="NewsFeed"
           component={NewsFeedContainer}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="AboutUs"
           component={AboutUsContainer}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="Chat"
+          component={ChatContainer}
+          options={{ headerShown: false }}
+        />
+
       </Stack.Navigator>
     </Animated.View>
   );
@@ -58,7 +65,7 @@ const MyDrawer = (props) => {
   // const [state, setState] = React.useState(Animated.Value(0));
   const [state, setState] = React.useState(new Animated.Value(0));
   const navigate = async (routeName) => {
-    const {navigation} = props;
+    const { navigation } = props;
     await navigation.navigate(routeName);
   };
 
@@ -72,20 +79,20 @@ const MyDrawer = (props) => {
     outputRange: [10, 20],
   });
 
-  const animatedStyle = {borderRadius, transform: [{scale}]};
+  const animatedStyle = { borderRadius, transform: [{ scale }] };
   return (
     <Drawer.Navigator
       initialRouteName="Home"
       drawerType="slide"
       drawerStyle={styles.drawerStyles}
       overlayColor="transparent"
-      contentContainerStyle={{flex: 1}}
+      contentContainerStyle={{ flex: 1 }}
       drawerContentOptions={{
         activeBackgroundColor: white,
         activeTintColor: 'green',
         inactiveTintColor: 'green',
       }}
-      sceneContainerStyle={{backgroundColor: themeColor}}
+      sceneContainerStyle={{ backgroundColor: themeColor }}
       // drawerContent={(props) => (
       //   <DrawerContentData navigate={navigate} {...props} />
       // )}

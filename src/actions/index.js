@@ -1,0 +1,7 @@
+import * as Auth from './auth';
+// import * as Groups from './groups';
+import * as FeatureAds from './featureAds';
+import * as Products from './products'
+// import * as StoreOfGroup from './store'
+// export const ActionCreators = Object.assign({}, Auth, Groups, GroupsBuySession,StoreOfGroup);
+export const ActionCreators = Object.assign({}, Auth, FeatureAds, Products);
