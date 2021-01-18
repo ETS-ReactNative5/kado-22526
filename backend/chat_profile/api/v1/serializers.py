@@ -1,4 +1,3 @@
-import json
 from rest_framework import serializers
 from django.http import HttpRequest
 from django.utils.translation import ugettext_lazy as _

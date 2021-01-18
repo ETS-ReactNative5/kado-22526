@@ -43,6 +43,7 @@ urlpatterns = [
     path("api/v1/", include("chat_profile.api.v1.urls")),
     path("profile/", include("chat_profile.urls")),
     path("api/v1/", include("users.api.v1.urls")),
+    path("api/v1/", include("job.api.v1.urls"))
 ]
 
 admin.site.site_header = "Kado"

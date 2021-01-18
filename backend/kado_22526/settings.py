@@ -51,6 +51,7 @@ LOCAL_APPS = [
     "users.apps.UsersConfig",
     "chat_profile",
     "chat_user",
+    "job",
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
