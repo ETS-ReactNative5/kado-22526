@@ -284,7 +284,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [(WEB_SOCKET_HOST, 6379)],
+            "hosts": [env.str('REDIS_URL', 'redis://localhost:6379')],
         },
     },
 }
