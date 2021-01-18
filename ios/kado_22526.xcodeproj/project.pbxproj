@@ -19,6 +19,7 @@
 		20322AB7DFF24C4EA511C256 /* Merriweather-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81DF4236A99D4A709ED2D261 /* Merriweather-Italic.ttf */; };
 		2511B32A63584791852AB44B /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0370C43804734F8989BE25EE /* OpenSans-Italic.ttf */; };
 		2626FA13119A47B7B5E4D14C /* Merriweather-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEB7F9516140407291C96D71 /* Merriweather-Regular.ttf */; };
+		2A773A3425B5C55000616D08 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -179,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A773A3425B5C55000616D08 /* JavaScriptCore.framework in Frameworks */,
 				D44699BCD7D9742ED80C7741 /* libPods-kado_22526.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
