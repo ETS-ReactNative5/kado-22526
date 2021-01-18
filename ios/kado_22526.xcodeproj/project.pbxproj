@@ -941,6 +941,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 367A6BF6786D8ED84CED572A /* Pods-kado_22526.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					"$(inherited)",
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Crowdbotics Corporation (6YKR59QXKM)";
