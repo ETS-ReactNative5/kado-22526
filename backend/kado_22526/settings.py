@@ -279,7 +279,7 @@ REST_FRAMEWORK = {
 ASGI_APPLICATION = "kado_22526.routing.application"
 
 WEB_SOCKET_PORT = env.str("WEB_SOCKET_PORT", 6379)
-WEB_SOCKET_HOST = env.str("WEB_SOCKET_HOST", 'redis')
+WEB_SOCKET_HOST = env.str("WEB_SOCKET_HOST", '127.0.0.1')
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
