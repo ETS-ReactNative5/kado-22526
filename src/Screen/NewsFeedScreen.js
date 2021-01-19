@@ -1,8 +1,7 @@
 import React from 'react';
-import {View, Text, TextInput, FlatList} from 'react-native';
-import {Container, Header, Content, Tab, Tabs} from 'native-base';
+import { View, Text, TextInput, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {FeedCard, FeedHeader} from '../components';
+import { FeedCard, FeedHeader } from '../components';
 import {
   blackColorText,
   buttonColor,
@@ -12,7 +11,7 @@ import {
   themeColor,
   white,
 } from '../utils/Theme/Color';
-import {ScaledSheet} from 'react-native-size-matters';
+import { ScaledSheet } from 'react-native-size-matters';
 
 const DATA = [
   {
@@ -29,8 +28,8 @@ const DATA = [
   },
 ];
 
-const NewsFeedContainer = ({navigate}) => {
-  const renderItem = ({item}) => <FeedCard title={item.title} />;
+const NewsFeedContainer = ({ navigate }) => {
+  const renderItem = ({ item }) => <FeedCard title={item.title} />;
 
   return (
     <View style={styles.container}>
@@ -54,20 +53,20 @@ const NewsFeedContainer = ({navigate}) => {
           />
         </View>
 
-        <View style={styles.tabContainer}>
+        {/* <View style={styles.tabContainer}>
           <Tabs
             locked={true}
-            tabBarUnderlineStyle={{backgroundColor: buttonColor}}>
+            tabBarUnderlineStyle={{ backgroundColor: buttonColor }}>
             <Tab
-              tabStyle={{backgroundColor: white}}
-              activeTabStyle={{backgroundColor: white}}
+              tabStyle={{ backgroundColor: white }}
+              activeTabStyle={{ backgroundColor: white }}
               activeTextStyle={{
                 color: textBlackColor,
                 fontWeight: 'bold',
                 fontSize: 15,
                 lineHeight: 18,
               }}
-              textStyle={{color: '#8E8E8E'}}
+              textStyle={{ color: '#8E8E8E' }}
               heading="Feed">
               <FlatList
                 showsVerticalScrollIndicator={false}
@@ -76,20 +75,20 @@ const NewsFeedContainer = ({navigate}) => {
               />
             </Tab>
             <Tab
-              tabStyle={{backgroundColor: white}}
-              activeTabStyle={{backgroundColor: white}}
+              tabStyle={{ backgroundColor: white }}
+              activeTabStyle={{ backgroundColor: white }}
               activeTextStyle={{
                 color: textBlackColor,
                 fontWeight: 'bold',
                 fontSize: 15,
                 lineHeight: 18,
               }}
-              textStyle={{color: '#8E8E8E'}}
+              textStyle={{ color: '#8E8E8E' }}
               heading="Saved">
               <Text>Saved</Text>
             </Tab>
           </Tabs>
-        </View>
+        </View> */}
       </View>
     </View>
   );

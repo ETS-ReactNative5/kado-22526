@@ -1,18 +1,18 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import calander from '../assets/Image/calander.png';
-import uset from '../assets/Image/user.png';
+import user from '../assets/Image/user.png';
 import editButton from '../assets/Image/editbtn.png';
-import {BackHeader, Header, Input} from '../components';
+import { BackHeader, Header, Input } from '../components';
 import {
   buttonColor,
   lightBlackColor,
   themeColor,
   white,
 } from '../utils/Theme/Color';
-import {ScaledSheet} from 'react-native-size-matters';
+import { ScaledSheet } from 'react-native-size-matters';
 
-const EditProfileScreen = ({goBack, navigate}) => {
+const EditProfileScreen = ({ goBack, navigate }) => {
   return (
     <View style={styles.container}>
       <BackHeader title="Edit Profile" goBack={goBack} />
@@ -20,13 +20,13 @@ const EditProfileScreen = ({goBack, navigate}) => {
         <View style={styles.body}>
           <View style={styles.imageContainer}>
             <TouchableOpacity>
-              <Image resizeMode="cover" style={styles.image} source={uset} />
+              <Image resizeMode="cover" style={styles.image} source={user} />
               <TouchableOpacity style={styles.editBtnContainer}>
                 <Image source={editButton} />
               </TouchableOpacity>
             </TouchableOpacity>
           </View>
-          <View style={{marginTop: 50}}>
+          <View style={{ marginTop: 50 }}>
             <Input
               secureTextEntry={false}
               iconShow={false}
