@@ -1,15 +1,16 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 import logo from '../assets/Image/logo.png';
-import {Header, Input} from '../components';
+import { Header, Input } from '../components';
 import {
   buttonColor,
   lightBlackColor,
+  lightButtonColor,
   themeColor,
   white,
 } from '../utils/Theme/Color';
-import {ScaledSheet} from 'react-native-size-matters';
+import { ScaledSheet } from 'react-native-size-matters';
 
 const SignUpScreen = ({
   navigate,
@@ -17,6 +18,9 @@ const SignUpScreen = ({
   handlePassword,
   showConPassword,
   handleConPassword,
+  handleChange,
+  handleSubmit
+
 }) => {
   return (
     <View style={styles.container}>
@@ -33,15 +37,17 @@ const SignUpScreen = ({
             iconShow={true}
             placeholder="User type"
             iconName="chevron-down"
+            onChange={(value) => handleChange('user_type', value)}
           />
-          <View style={{marginTop: 5}}>
+          <View style={{ marginTop: 5 }}>
             <Input
               secureTextEntry={false}
               iconShow={false}
               placeholder="Email"
+              onChange={(value) => handleChange('email', value)}
             />
           </View>
-          <View style={{marginTop: 5}}>
+          <View style={{ marginTop: 5 }}>
             <Input
               secureTextEntry={showPassword}
               handlePassword={handlePassword}
@@ -49,9 +55,10 @@ const SignUpScreen = ({
               showPasswordData={true}
               placeholder="Password"
               iconName={showPassword ? 'eye' : 'eye-slash'}
+              onChange={(value) => handleChange('password', value)}
             />
           </View>
-          <View style={{marginTop: 5}}>
+          <View style={{ marginTop: 5 }}>
             <Input
               secureTextEntry={showConPassword}
               iconShow={true}
@@ -63,7 +70,7 @@ const SignUpScreen = ({
           </View>
 
           <TouchableOpacity
-            onPress={() => navigate('Login')}
+            onPress={() => handleSubmit()}
             style={styles.registerBtnContainer}>
             <Text style={styles.registerText}>Register</Text>
           </TouchableOpacity>

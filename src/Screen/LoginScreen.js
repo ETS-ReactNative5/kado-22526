@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-import {ScaledSheet} from 'react-native-size-matters';
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
 
 import logo from '../assets/Image/logo.png';
-import {Header, Input} from '../components';
+import { Header, Input } from '../components';
 import {
   buttonColor,
   lightBlackColor,
@@ -11,7 +11,7 @@ import {
   white,
 } from '../utils/Theme/Color';
 
-const LoginScreen = ({navigate, handlePassword, showPassword}) => {
+const LoginScreen = ({ navigate, handlePassword, showPassword, handleChange, handleSubmit }) => {
   return (
     <View style={styles.container}>
       <Header navigate={navigate} />
@@ -21,8 +21,8 @@ const LoginScreen = ({navigate, handlePassword, showPassword}) => {
           <View style={styles.imageContainer}>
             <Image source={logo} />
           </View>
-          <Input secureTextEntry={false} iconShow={false} placeholder="Email" />
-          <View style={{marginTop: 10}}>
+          <Input secureTextEntry={false} iconShow={false} placeholder="Email" onChange={(value) => handleChange('email', value)} />
+          <View style={{ marginTop: 10 }}>
             <Input
               secureTextEntry={showPassword}
               iconShow={true}
@@ -30,6 +30,7 @@ const LoginScreen = ({navigate, handlePassword, showPassword}) => {
               placeholder="Password"
               showPasswordData={true}
               handlePassword={handlePassword}
+              onChange={(value) => handleChange('password', value)}
             />
           </View>
 
@@ -40,7 +41,7 @@ const LoginScreen = ({navigate, handlePassword, showPassword}) => {
           </View>
 
           <TouchableOpacity
-            onPress={() => navigate('EditProfile')}
+            onPress={() => handleSubmit()}
             style={styles.registerBtnContainer}>
             <Text style={styles.registerText}>Login</Text>
           </TouchableOpacity>

@@ -71,9 +71,9 @@ const EditProfileScreen = ({ goBack, navigate }) => {
           </View>
 
           <TouchableOpacity
-            onPress={() => navigate('AboutUs')}
+            onPress={() => navigate('Profile')}
             style={styles.registerBtnContainer}>
-            <Text style={styles.registerText}>Save</Text>
+            <Text style={styles.registerText}>Next</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

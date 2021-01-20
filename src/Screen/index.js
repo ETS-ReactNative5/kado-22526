@@ -4,6 +4,10 @@ import EditProfileScreen from './EditProfileScreen';
 import AboutUsScreen from './AboutUsScreen';
 import NewsFeedScreen from './NewsFeedScreen';
 import MessageScreen from './MessageScreen';
+import ExploreScreen from './ExploreScreen';
+import DeleteAccountScreen from './DeleteAccountScreen';
+import ProfileScreen from './ProfileScreen';
+
 export {
   SignUpScreen,
   LoginScreen,
@@ -11,4 +15,7 @@ export {
   AboutUsScreen,
   NewsFeedScreen,
   MessageScreen,
+  ExploreScreen,
+  DeleteAccountScreen,
+  ProfileScreen
 };

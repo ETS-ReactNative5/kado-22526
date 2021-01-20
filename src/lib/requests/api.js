@@ -68,7 +68,7 @@ class Api {
     //const host = 'https://sheltered-inlet-30058.herokuapp.com/api/v1/'
     //const host = 'https://localhost:3000/api/v1/'
     // const host = 'https://mobile-cartzy-backend.herokuapp.com/'
-    const host = 'https://api.mobilecartzy.com/'
+    const host = 'https://kado-22526.botics.co/'
     const url = `${host}${route}`;
     let options = Object.assign({ method: verb }, params ? { body: params } : null);
     options.headers = await Api.headersMultiForm();
@@ -100,7 +100,7 @@ class Api {
     //const host = 'https://sheltered-inlet-30058.herokuapp.com/api/v1/';
     //const host = 'https://localhost:3000/api/v1/'
     // const host = 'https://mobile-cartzy-backend.herokuapp.com/'
-    const host = 'https://api.mobilecartzy.com/'
+    const host = 'https://kado-22526.botics.co/'
     const url = `${host}${route}`;
     let options = Object.assign(
       { method: verb },

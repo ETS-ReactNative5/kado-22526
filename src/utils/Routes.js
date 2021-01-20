@@ -11,7 +11,10 @@ import {
   AboutUsContainer,
   NewsFeedContainer,
   MessageContainer,
-  ChatContainer
+  ChatContainer,
+  ExploreContainer,
+  DeleteAccountContainer,
+  ProfileContainer
 } from '../Container';
 import { DrawerContentData } from '../components';
 import Animated from 'react-native-reanimated';
@@ -22,12 +25,7 @@ const Stack = createStackNavigator();
 const App = ({ style }) => {
   return (
     <Animated.View style={StyleSheet.flatten([styles.stack, style])}>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Chat"
-          component={ChatContainer}
-          options={{ headerShown: false }}
-        />
+      <Stack.Navigator initialRouteName="NewsFeed">
         <Stack.Screen
           name="SignUp"
           component={SignUpContainer}
@@ -59,6 +57,27 @@ const App = ({ style }) => {
           component={MessageContainer}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="Chat"
+          component={ChatContainer}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Explore"
+          component={ExploreContainer}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DeleteAccount"
+          component={DeleteAccountContainer}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileContainer}
+          options={{ headerShown: false }}
+        />
+
 
       </Stack.Navigator>
     </Animated.View>

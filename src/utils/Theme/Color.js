@@ -1,8 +1,9 @@
 
 const lightGrayBack = "#F2F2F5"
-const themeColor = '#081971';
+const themeColor = '#030037';
 const darkBlue = "#3A3967"
-const buttonColor = '#38B6FF';
+const buttonColor = '#001CD6';
+const lightButtonColor = "#001CD6";
 const white = '#FFFFFF';
 const lightBlackColor = '#262626';
 const lightGray = '#EFEFEF';
@@ -26,5 +27,6 @@ export {
   buttonGrayBack,
   lightGrayBack,
   chatBackColor,
-  darkBlue
+  darkBlue,
+  lightButtonColor
 };

@@ -5,6 +5,9 @@ import AboutUsContainer from './AboutUsContainer';
 import NewsFeedContainer from './NewsFeedContainer';
 import MessageContainer from './MessageContainer';
 import ChatContainer from './ChatContainer';
+import ExploreContainer from './ExploreContainer';
+import DeleteAccountContainer from './DeleteAccountContainer';
+import ProfileContainer from './ProfileContainer';
 
 export {
   SignUpContainer,
@@ -14,4 +17,7 @@ export {
   AboutUsContainer,
   NewsFeedContainer,
   MessageContainer,
+  ExploreContainer,
+  DeleteAccountContainer,
+  ProfileContainer
 };

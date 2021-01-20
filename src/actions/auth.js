@@ -33,25 +33,26 @@ function setForgotValidationError(errors) {
 //   }
 // }
 
-export function login(params, handle, navigate) {
+export function login(params, navigate) {
   return (dispatch) => {
     dispatch(setIsLoading(true));
-    Api.post('user/login', params)
+    console.log("params", params)
+
+    Api.post('rest-auth/login/', params)
       .then((resp) => {
-        Storage.storeData("currentUser", resp.user)
-        Storage.storeData('access_token', `${resp.token}`);
-        console.log("user token", resp.token)
+        // Storage.storeData("currentUser", resp.user)
+        Storage.storeData('access_token', `${resp.key}`);
+        console.log("user token", resp)
         dispatch(setIsLoading(false));
         ToastAndroid.showWithGravity(
           "Logged In Successes",
           ToastAndroid.LONG,
           ToastAndroid.CENTER
         );
-        handle();
         // navigate('Login')
       })
       .catch((err) => {
-        console.log("error", params)
+        console.log("error", err)
 
         if (params?.email?.length === 0 || params?.email?.password === 0) {
           dispatch(
@@ -79,7 +80,7 @@ export function login(params, handle, navigate) {
 export function signUp(params, navigate) {
   return (dispatch) => {
     dispatch(setIsLoading(true));
-    Api.post('user', params)
+    Api.post('rest-auth/registration/', params)
       .then((resp) => {
         // navigation.navigate('SignUpVerification', {
         //   email: params.email,
@@ -90,71 +91,71 @@ export function signUp(params, navigate) {
         dispatch(setIsLoading(false));
       })
       .catch((err) => {
-        alert(err.errorDetails)
+        console.log(err)
         // console.log("errrorrss", err)
         dispatch(setForgotValidationError(err.errors));
         dispatch(setIsLoading(false));
       });
   };
 }
-export function getUser(params, navigate) {
-  return (dispatch) => {
-    dispatch(setIsLoading(true));
-    Api.get(`user/${params}`)
-      .then((resp) => {
-        console.log("user retrived", resp)
-        dispatch(userInfoAction(resp.user))
-        dispatch(setIsLoading(false));
-      })
-      .catch((err) => {
-        console.log(err.errorDetails.name)
-        if (err.errorDetails.name === 'TokenExpiredError') {
-          navigate('Login')
-        }
-        // if (err.errorDetails) {
-        //   if (errorDetails.name === 'TokenExpiredError') {
+// export function getUser(params, navigate) {
+//   return (dispatch) => {
+//     dispatch(setIsLoading(true));
+//     Api.get(`user/${params}`)
+//       .then((resp) => {
+//         console.log("user retrived", resp)
+//         dispatch(userInfoAction(resp.user))
+//         dispatch(setIsLoading(false));
+//       })
+//       .catch((err) => {
+//         console.log(err.errorDetails.name)
+//         if (err.errorDetails.name === 'TokenExpiredError') {
+//           navigate('Login')
+//         }
+//         // if (err.errorDetails) {
+//         //   if (errorDetails.name === 'TokenExpiredError') {
 
-        //   }
-        // }
-        dispatch(setForgotValidationError(err.errors));
-        dispatch(setIsLoading(false));
-      });
-  };
-}
-export function updateProfile(id, params) {
-  console.log("id", params)
-  return (dispatch) => {
-    dispatch(setIsLoading(true));
-    Api.put(`user/${id}`, params)
-      .then((resp) => {
-        console.log("user updated", resp)
-        // dispatch(userInfoAction(resp.user))
-        dispatch(setIsLoading(false));
-      })
-      .catch((err) => {
-        console.log(err)
-        dispatch(setForgotValidationError(err.errors));
-        dispatch(setIsLoading(false));
-      });
-  };
-}
-export function updatePassword(id, params) {
-  console.log("id", params)
-  return (dispatch) => {
-    dispatch(setIsLoading(true));
-    Api.put(`user/updatePassword/${id}`, params)
-      .then((resp) => {
-        console.log("pass updated", resp)
-        // dispatch(userInfoAction(resp.user))
-        dispatch(setIsLoading(false));
-      })
-      .catch((err) => {
-        console.log(err)
-        dispatch(setForgotValidationError(err.errors));
-        dispatch(setIsLoading(false));
-      });
-  };
-}
+//         //   }
+//         // }
+//         dispatch(setForgotValidationError(err.errors));
+//         dispatch(setIsLoading(false));
+//       });
+//   };
+// }
+// export function updateProfile(id, params) {
+//   console.log("id", params)
+//   return (dispatch) => {
+//     dispatch(setIsLoading(true));
+//     Api.put(`user/${id}`, params)
+//       .then((resp) => {
+//         console.log("user updated", resp)
+//         // dispatch(userInfoAction(resp.user))
+//         dispatch(setIsLoading(false));
+//       })
+//       .catch((err) => {
+//         console.log(err)
+//         dispatch(setForgotValidationError(err.errors));
+//         dispatch(setIsLoading(false));
+//       });
+//   };
+// }
+// export function updatePassword(id, params) {
+//   console.log("id", params)
+//   return (dispatch) => {
+//     dispatch(setIsLoading(true));
+//     Api.put(`user/updatePassword/${id}`, params)
+//       .then((resp) => {
+//         console.log("pass updated", resp)
+//         // dispatch(userInfoAction(resp.user))
+//         dispatch(setIsLoading(false));
+//       })
+//       .catch((err) => {
+//         console.log(err)
+//         dispatch(setForgotValidationError(err.errors));
+//         dispatch(setIsLoading(false));
+//       });
+//   };
+// }
 // export function forgetPassword(params, navigation) {
 //   return (dispatch) => {
 //     dispatch(setIsLoading(true));

@@ -5,7 +5,8 @@ import { ScaledSheet } from 'react-native-size-matters';
 import Bubble from 'react-native-gifted-chat/lib/Bubble';
 import { grayColor, lightBlackColor, themeColor, white, lightGrayBack, chatBackColor, darkBlue } from '../utils/Theme/Color';
 import { BackHeader } from '../components';
-import primary from '../assets/Image/primary.png'
+import primary from '../assets/Image/primary.png';
+import chatUser from '../assets/Image/chatUser.png'
 import { GiftedChat } from 'react-native-gifted-chat'
 const ChatScreen = ({ goBack }) => {
   const [messages, setMessages] = useState([]);
@@ -86,7 +87,17 @@ const ChatScreen = ({ goBack }) => {
   }, [])
   return (
     <View style={styles.container}>
-      <BackHeader goBack={goBack} image={true} />
+
+      <View style={styles.header}>
+        <TouchableOpacity style={{ padding: 7 }} onPress={() => goBack()}>
+          <Icon size={18} color={themeColor} name="arrow-left" />
+        </TouchableOpacity>
+
+        <View style={styles.rightContainer}>
+          <Image style={styles.image} source={chatUser} />
+          <Text numberOfLines={1} style={styles.headerText}>fahad</Text>
+        </View>
+      </View>
       <View style={{ padding: 10, flex: 1 }}>
         <GiftedChat
           messages={messages}
@@ -133,6 +144,29 @@ const styles = ScaledSheet.create({
     fontWeight: 'bold',
     marginBottom: '20@s',
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: '10@s'
+  },
+  rightContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: '10@s'
+  },
+  image: {
+    height: '30@s',
+    width: '30@s',
+    borderRadius: '60@s'
+  },
+  headerText: {
+    marginLeft: '10@s',
+    fontSize: '16@s',
+    lineHeight: '24@s',
+    fontWeight: '600',
+    color: themeColor,
+    width: '200@s'
+  }
 });
 
 export default ChatScreen;
