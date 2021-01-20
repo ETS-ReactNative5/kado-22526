@@ -49,7 +49,7 @@ export function login(params, navigate) {
           ToastAndroid.LONG,
           ToastAndroid.CENTER
         );
-        // navigate('Login')
+        navigate('NewsFeed')
       })
       .catch((err) => {
         console.log("error", err)
@@ -98,30 +98,31 @@ export function signUp(params, navigate) {
       });
   };
 }
-// export function getUser(params, navigate) {
-//   return (dispatch) => {
-//     dispatch(setIsLoading(true));
-//     Api.get(`user/${params}`)
-//       .then((resp) => {
-//         console.log("user retrived", resp)
-//         dispatch(userInfoAction(resp.user))
-//         dispatch(setIsLoading(false));
-//       })
-//       .catch((err) => {
-//         console.log(err.errorDetails.name)
-//         if (err.errorDetails.name === 'TokenExpiredError') {
-//           navigate('Login')
-//         }
-//         // if (err.errorDetails) {
-//         //   if (errorDetails.name === 'TokenExpiredError') {
+export function getUser() {
+  return (dispatch) => {
+    console.log("storage", Storage.retrieveData('access_token'))
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/profile/`)
+      .then((resp) => {
+        console.log("user retrived", resp)
+        // dispatch(userInfoAction(resp.user))
+        dispatch(setIsLoading(false));
+      })
+      .catch((err) => {
+        console.log(err)
+        // if (err.errorDetails.name === 'TokenExpiredError') {
+        //   // navigate('Login')
+        // }
+        // if (err.errorDetails) {
+        //   if (errorDetails.name === 'TokenExpiredError') {
 
-//         //   }
-//         // }
-//         dispatch(setForgotValidationError(err.errors));
-//         dispatch(setIsLoading(false));
-//       });
-//   };
-// }
+        //   }
+        // }
+        dispatch(setForgotValidationError(err.errors));
+        dispatch(setIsLoading(false));
+      });
+  };
+}
 // export function updateProfile(id, params) {
 //   console.log("id", params)
 //   return (dispatch) => {

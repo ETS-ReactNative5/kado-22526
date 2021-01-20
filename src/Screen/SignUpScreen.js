@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+// import { Picker } from '@react-native-picker/picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 import logo from '../assets/Image/logo.png';
 import { Header, Input } from '../components';
@@ -22,6 +24,8 @@ const SignUpScreen = ({
   handleSubmit
 
 }) => {
+  const [country, setIt] = useState('uk');
+  var data = [["Big Data", "Hadoop", "Spark", "Hive"], ["Data Science", "Python", "Ruby"]];
   return (
     <View style={styles.container}>
       <Header navigate={navigate} />
@@ -32,12 +36,33 @@ const SignUpScreen = ({
           <Text style={styles.text}>Remote freelance jobs for students</Text>
         </View>
         <View style={styles.body}>
-          <Input
+          {/* <Input
             secureTextEntry={false}
             iconShow={true}
             placeholder="User type"
             iconName="chevron-down"
             onChange={(value) => handleChange('user_type', value)}
+          /> */}
+          <DropDownPicker
+            items={[
+              { label: 'Undergraduate Students', value: 'undergraduate', selected: true },
+              { label: 'Graduate Students', value: 'graduate' },
+              { label: 'International Students', value: 'international Students' },
+              { label: 'Companies ', value: 'companies' },
+              { label: 'Start-up', value: 'start_up' },
+            ]}
+            containerStyle={{ height: 40 }}
+            style={{ backgroundColor: '#fafafa' }}
+            itemStyle={{
+              justifyContent: 'flex-start'
+            }}
+            dropDownStyle={{ backgroundColor: '#fafafa' }}
+            labelStyle={{
+              fontSize: 14,
+              textAlign: 'left',
+              color: '#000'
+            }}
+            onChangeItem={item => handleChange('user_type', item.value)}
           />
           <View style={{ marginTop: 5 }}>
             <Input

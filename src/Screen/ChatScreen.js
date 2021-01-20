@@ -10,7 +10,8 @@ import chatUser from '../assets/Image/chatUser.png'
 import { GiftedChat } from 'react-native-gifted-chat'
 const ChatScreen = ({ goBack }) => {
   const [messages, setMessages] = useState([]);
-
+  const [customMessage, setCustomMessage] = useState('')
+  const [textfield, setTextField] = useState('')
   useEffect(() => {
     setMessages([
       {
@@ -26,12 +27,27 @@ const ChatScreen = ({ goBack }) => {
     ])
   }, [])
 
+  const setChatArray = (text) => {
+    const mss = {
+      _id: 2,
+      text: text,
+      createdAt: new Date(),
+      user: {
+        _id: 1,
+        name: 'Developer',
+        avatar: 'https://placeimg.com/140/140/any',
+      },
+    }
+    setCustomMessage(mss)
+    setTextField(text)
+  }
+
   const customtInputToolbar = props => {
-    console.log("props salman moiz", props);
     return (
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <TextInput
           {...props}
+          value={`${textfield}`}
           style={{
             backgroundColor: lightGrayBack,
             borderTopColor: "#E8E8E8",
@@ -40,9 +56,9 @@ const ChatScreen = ({ goBack }) => {
             width: '83%',
             borderRadius: 5
           }}
-
+          onChangeText={(value) => setChatArray(value)}
         />
-        <TouchableOpacity onPress={() => props.onSend(messages)}>
+        <TouchableOpacity onPress={() => { setMessages(previousMessages => GiftedChat.append(previousMessages, customMessage)), setTextField('') }}>
           <Image source={primary} />
         </TouchableOpacity>
       </View>
@@ -50,13 +66,13 @@ const ChatScreen = ({ goBack }) => {
     );
   };
 
-  const quickReply = () => {
-    return (
-      <View style={{ backgroundColor: 'red' }}>
-        <Text>Salman</Text>
-      </View>
-    )
-  }
+  // const quickReply = () => {
+  //   return (
+  //     <View style={{ backgroundColor: 'red' }}>
+  //       <Text>test</Text>
+  //     </View>
+  //   )
+  // }
 
   const renderBubble = (props) => {
     return (

@@ -11,7 +11,7 @@ class Api {
     return {
       'Content-Type': 'application/json',
       // Authorization: await Storage.retrieveData('access_token'),
-      Authorization: `Bearer ${token}`
+      Authorization: `Token ${token}`
 
     };
   }
@@ -25,7 +25,7 @@ class Api {
       'Content-Type': 'multipart/form-data',
       //Authorization: await Storage.retrieveData('access_token'),
       //authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhaGlsYWhtYWQxMjU4QGdtYWlsLmNvbSIsImlhdCI6MTU5ODk1MjA3NH0.9U-UGXHVfyzUIpaECyRDJlfPadBy_ykM0sUc_UA_aM4'
-      Authorization: `Bearer ${token}`
+      Authorization: `Token ${token}`
     };
   }
 

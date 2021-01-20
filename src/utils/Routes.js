@@ -25,7 +25,7 @@ const Stack = createStackNavigator();
 const App = ({ style }) => {
   return (
     <Animated.View style={StyleSheet.flatten([styles.stack, style])}>
-      <Stack.Navigator initialRouteName="NewsFeed">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="SignUp"
           component={SignUpContainer}
