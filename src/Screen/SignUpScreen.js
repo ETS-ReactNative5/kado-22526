@@ -24,8 +24,6 @@ const SignUpScreen = ({
   handleSubmit
 
 }) => {
-  const [country, setIt] = useState('uk');
-  var data = [["Big Data", "Hadoop", "Spark", "Hive"], ["Data Science", "Python", "Ruby"]];
   return (
     <View style={styles.container}>
       <Header navigate={navigate} />
