@@ -5,11 +5,12 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {
   blackColorText,
   buttonColor,
+  feedItemBack,
   grayColor,
   lightBlackColor,
   themeColor,
 } from '../utils/Theme/Color';
-import {FeedButton} from './FeedButton';
+import {FeedButton} from './index';
 
 const DATA = [
   {
@@ -20,9 +21,14 @@ const DATA = [
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
     title: 'Website Development',
   },
+  {
+    id: '3ac68c-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Website Development',
+  },
 ];
 
 const FeedCard = () => {
+  // const myItem = return ()
   const renderItem = ({item}) => <FeedButton title={item.title} />;
   return (
     <View style={styles.container}>
@@ -34,7 +40,7 @@ const FeedCard = () => {
           <Text style={styles.postColor}>Posted 10h ago</Text>
         </View>
         <TouchableOpacity style={styles.heartContaine}>
-          <Icon color={themeColor} size={18} name="heart" />
+          <Icon color={buttonColor} size={18} name="heart" />
         </TouchableOpacity>
       </View>
       <View style={styles.descContainer}>
@@ -60,6 +66,8 @@ const FeedCard = () => {
           renderItem={renderItem}
           data={DATA}
         />
+        {/* <FeedButton title="Website Redesign" />
+        <FeedButton title="Website Development" /> */}
       </View>
     </View>
   );
@@ -67,7 +75,7 @@ const FeedCard = () => {
 
 const styles = ScaledSheet.create({
   container: {
-    backgroundColor: '#F9F9F9',
+    backgroundColor: feedItemBack,
     padding: '10@s',
     borderRadius: '10@s',
     marginTop: '10@s',

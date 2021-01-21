@@ -1,17 +1,17 @@
 import React from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import comment from '../assets/Image/comment.png';
-import user from '../assets/Image/user.png';
-import { ScaledSheet } from 'react-native-size-matters';
-import { themeColor } from '../utils/Theme/Color';
+import user from '../assets/Image/usersss.png';
+import {ScaledSheet} from 'react-native-size-matters';
+import {buttonColor, themeColor} from '../utils/Theme/Color';
 
-const FeedHeader = ({ navigate }) => {
+const FeedHeader = ({navigate}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigate('drawer')}>
-        <Icon name="bars" color={themeColor} size={20} />
-      </TouchableOpacity >
+        <Icon name="bars" color={buttonColor} size={20} />
+      </TouchableOpacity>
       <View style={styles.leftContainer}>
         <TouchableOpacity onPress={() => navigate('Message')}>
           <Image source={comment} />

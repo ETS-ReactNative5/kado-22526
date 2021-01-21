@@ -2,15 +2,15 @@ import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScaledSheet} from 'react-native-size-matters';
-import {themeColor} from '../utils/Theme/Color';
+import {buttonColor, themeColor} from '../utils/Theme/Color';
 
 import logo from '../assets/Image/logo.png';
 
-const BackHeader = ({goBack, image, title}) => {
+const BackHeader = ({goBack, image, title, right}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={goBack} style={{padding: 10}}>
-        <Icon name="arrow-left" color={themeColor} size={18} />
+        <Icon name="arrow-left" color={buttonColor} size={18} />
       </TouchableOpacity>
       <View>
         {image ? (
@@ -20,7 +20,13 @@ const BackHeader = ({goBack, image, title}) => {
         )}
       </View>
 
-      <View style={{width: 35}} />
+      <View style={{width: 35}}>
+        {right ? (
+          <TouchableOpacity style={styles.iconContainer}>
+            <Icon name="plus" color={themeColor} />
+          </TouchableOpacity>
+        ) : null}
+      </View>
     </View>
   );
 };
@@ -36,6 +42,15 @@ const styles = ScaledSheet.create({
     fontSize: '16@s',
     lineHeight: '24@s',
     marginTop: '4@s',
+  },
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '20@s',
+    width: '20@s',
+    borderRadius: '100@s',
+    borderWidth: 2,
+    borderColor: buttonColor,
   },
 });
 

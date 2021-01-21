@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { ScaledSheet } from 'react-native-size-matters';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {ScaledSheet} from 'react-native-size-matters';
 import {
   JobsIcon,
   CompanyIcon,
@@ -10,10 +10,10 @@ import {
   LogoutIcon,
   DeleteIcon,
 } from '../assets/Image';
-import { BackHeader } from '../components';
-import { themeColor } from '../utils/Theme/Color';
+import {BackHeader} from '../components';
+import {themeColor} from '../utils/Theme/Color';
 
-const ExploreScreen = ({ goBack, navigate }) => {
+const ExploreScreen = ({goBack, navigate}) => {
   return (
     <View style={styles.container}>
       <BackHeader goBack={goBack} title="Explore" />
@@ -27,10 +27,7 @@ const ExploreScreen = ({ goBack, navigate }) => {
             <CompanyIcon />
             <Text style={styles.text}>Companies</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.itemContainer}>
-            <MentorIcon />
-            <Text style={styles.text}>mentorship</Text>
-          </TouchableOpacity>
+
           <TouchableOpacity style={styles.itemContainer}>
             <PaymentsIcon />
             <Text style={styles.text}>Payments</Text>

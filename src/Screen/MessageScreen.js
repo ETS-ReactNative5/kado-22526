@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, TextInput, FlatList, ScrollView } from 'react-native';
+import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { ScaledSheet } from 'react-native-size-matters';
-import { BackHeader, MessageCard } from '../components';
-// import userImage from '../assets/Image/userImage.png';
-// import userImageTwo from '../assets/Image/userImageTwo.png';
+import {ScaledSheet} from 'react-native-size-matters';
+import {BackHeader, MessageCard} from '../components';
+import userImage from '../assets/Image/userImage.png';
+import userImageTwo from '../assets/Image/userImageTwo.png';
 import userImageThre from '../assets/Image/chatUser.png';
 import {
   blackColorText,
@@ -26,35 +26,35 @@ const DATA = [
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
     title: 'Jane Cooper',
-    image: userImageThre,
+    image: userImage,
     position: 'Wordpress Long-term dev',
     desc: 'Hello!',
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
     title: 'Albert Flores',
-    image: userImageThre,
+    image: userImageTwo,
     position: 'Wordpress Long-term dev',
     desc: 'It was a pleasure to meet you!',
   },
   {
     id: '58694-3da1-471f-bd96-145571e29d72',
     title: 'Albert Flores',
-    image: userImageThre,
+    image: userImage,
     position: 'Wordpress Long-term dev',
     desc: 'It was a pleasure to meet you!',
   },
   {
     id: '5869f-3da1-471f-bd96-145571e29d72',
     title: 'Albert Flores',
-    image: userImageThre,
+    image: userImage,
     position: 'Wordpress Long-term dev',
     desc: 'It was a pleasure to meet you!',
   },
   {
     id: '58694a0f1-471f-bd96-145571e29d72',
     title: 'Albert Flores',
-    image: userImageThre,
+    image: userImageTwo,
     position: 'Wordpress Long-term dev',
     desc: 'It was a pleasure to meet you!',
   },
@@ -68,14 +68,14 @@ const DATA = [
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
     title: 'Albert Flores',
-    image: userImageThre,
+    image: userImage,
     position: 'Wordpress Long-term dev',
     desc: 'It was a pleasure to meet you!',
   },
   {
     id: '58694a0f-3da1-471f145571e29d72',
     title: 'Albert Flores',
-    image: userImageThre,
+    image: userImageTwo,
     position: 'Wordpress Long-term dev',
     desc: 'It was a pleasure to meet you!',
   },
@@ -89,21 +89,21 @@ const DATA = [
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
     title: 'Albert Flores',
-    image: userImageThre,
+    image: userImage,
     position: 'Wordpress Long-term dev',
     desc: 'It was a pleasure to meet you!',
   },
   {
     id: '58694a0f-3da1-471f-bd9',
     title: 'Salman saleem',
-    image: userImageThre,
+    image: userImageTwo,
     position: 'Wordpress Long-term dev',
     desc: 'It was a pleasure to meet you!',
   },
 ];
 
-const MessageScreen = ({ goBack, navigate }) => {
-  const renderItem = ({ item }) => (
+const MessageScreen = ({goBack, navigate}) => {
+  const renderItem = ({item}) => (
     <MessageCard
       positon={item.position}
       image={item.image}
@@ -114,7 +114,7 @@ const MessageScreen = ({ goBack, navigate }) => {
   );
   return (
     <View style={styles.conainer}>
-      <BackHeader goBack={goBack} title="Messages" />
+      <BackHeader right={true} goBack={goBack} title="Messages" />
       <ScrollView>
         <View style={styles.body}>
           <View style={styles.searchContainer}>
@@ -126,7 +126,7 @@ const MessageScreen = ({ goBack, navigate }) => {
             />
           </View>
         </View>
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <FlatList renderItem={renderItem} data={DATA} />
           <Text style={styles.feedMessage}>
             This is the end of your messages feed! 🎉
