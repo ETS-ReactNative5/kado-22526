@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 // import DropDownPicker from 'react-native-dropdown-picker';
 
 import logo from '../assets/Image/logo.png';
-import { Header, Input } from '../components';
+import {Header, Input} from '../components';
 import {
   buttonColor,
   lightBlackColor,
@@ -11,7 +11,7 @@ import {
   themeColor,
   white,
 } from '../utils/Theme/Color';
-import { ScaledSheet } from 'react-native-size-matters';
+import {ScaledSheet} from 'react-native-size-matters';
 
 const SignUpScreen = ({
   navigate,
@@ -20,12 +20,11 @@ const SignUpScreen = ({
   showConPassword,
   handleConPassword,
   handleChange,
-  handleSubmit
-
+  handleSubmit,
 }) => {
   return (
     <View style={styles.container}>
-      <Header navigate={navigate} />
+      {/* <Header navigate={navigate} /> */}
 
       <ScrollView contentContainerStyle={styles.bodyContainer}>
         <View style={styles.imageContainer}>
@@ -54,15 +53,15 @@ const SignUpScreen = ({
             }}
             onChangeItem={item => handleChange('user_type', item.value)}
           /> */}
-          <View style={{ marginTop: 5 }}>
+          <View style={{marginTop: 5}}>
             <Input
               secureTextEntry={false}
               iconShow={false}
               placeholder="Email"
-              onChange={(value) => handleChange('email', value)}
+              onChange={value => handleChange('email', value)}
             />
           </View>
-          <View style={{ marginTop: 5 }}>
+          <View style={{marginTop: 5}}>
             <Input
               secureTextEntry={showPassword}
               handlePassword={handlePassword}
@@ -70,10 +69,10 @@ const SignUpScreen = ({
               showPasswordData={true}
               placeholder="Password"
               iconName={showPassword ? 'eye' : 'eye-slash'}
-              onChange={(value) => handleChange('password', value)}
+              onChange={value => handleChange('password', value)}
             />
           </View>
-          <View style={{ marginTop: 5 }}>
+          <View style={{marginTop: 5}}>
             <Input
               secureTextEntry={showConPassword}
               iconShow={true}

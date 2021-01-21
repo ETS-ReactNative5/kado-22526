@@ -1,7 +1,7 @@
 import * as types from './types';
 import Api from '../lib/requests/api';
 import Storage from '../lib/requests/storage';
-import { ToastAndroid } from "react-native";
+import {ToastAndroid} from 'react-native';
 
 function setIsLoading(loading) {
   return {
@@ -16,7 +16,6 @@ function userInfoAction(userInfo) {
     userInfo,
   };
 }
-
 
 function setForgotValidationError(errors) {
   return {
@@ -34,26 +33,25 @@ function setForgotValidationError(errors) {
 // }
 
 export function login(params, navigate) {
-  navigate('NewsFeed');
-  return (dispatch) => {
+  return dispatch => {
     dispatch(setIsLoading(true));
-    console.log("params", params)
+    console.log('params', params);
 
     Api.post('rest-auth/login/', params)
-      .then((resp) => {
+      .then(resp => {
         // Storage.storeData("currentUser", resp.user)
         Storage.storeData('access_token', `${resp.key}`);
-        console.log("user token", resp)
+        console.log('user token', resp);
         dispatch(setIsLoading(false));
         ToastAndroid.showWithGravity(
-          "Logged In Successes",
+          'Logged In Successes',
           ToastAndroid.LONG,
-          ToastAndroid.CENTER
+          ToastAndroid.BOTTOM,
         );
-        navigate('NewsFeed')
+        navigate('NewsFeed');
       })
-      .catch((err) => {
-        console.log("error", err)
+      .catch(err => {
+        console.log('error', err);
 
         if (params?.email?.length === 0 || params?.email?.password === 0) {
           dispatch(
@@ -65,10 +63,11 @@ export function login(params, navigate) {
           );
         } else {
           // alert(err.errorDetails)
+          console.log('err', err);
           ToastAndroid.showWithGravity(
-            err.errorDetails,
+            'Email or Password is not valid',
             ToastAndroid.LONG,
-            ToastAndroid.CENTER
+            ToastAndroid.BOTTOM,
           );
           dispatch(setForgotValidationError(err.errors));
         }
@@ -79,20 +78,20 @@ export function login(params, navigate) {
 }
 
 export function signUp(params, navigate) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(setIsLoading(true));
     Api.post('rest-auth/registration/', params)
-      .then((resp) => {
+      .then(resp => {
         // navigation.navigate('SignUpVerification', {
         //   email: params.email,
         // });
         // alert("Account Created Sign In To Continue")
-        console.log("created", resp)
-        navigate('Login')
+        console.log('created', resp);
+        navigate('Login');
         dispatch(setIsLoading(false));
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(err => {
+        console.log(err);
         // console.log("errrorrss", err)
         dispatch(setForgotValidationError(err.errors));
         dispatch(setIsLoading(false));
@@ -100,17 +99,17 @@ export function signUp(params, navigate) {
   };
 }
 export function getUser() {
-  return (dispatch) => {
-    console.log("storage", Storage.retrieveData('access_token'))
+  return dispatch => {
+    console.log('storage', Storage.retrieveData('access_token'));
     dispatch(setIsLoading(true));
     Api.get(`api/v1/profile/`)
-      .then((resp) => {
-        console.log("user retrived", resp)
+      .then(resp => {
+        console.log('user retrived', resp);
         // dispatch(userInfoAction(resp.user))
         dispatch(setIsLoading(false));
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(err => {
+        console.log(err);
         // if (err.errorDetails.name === 'TokenExpiredError') {
         //   // navigate('Login')
         // }
@@ -188,7 +187,6 @@ export function getUser() {
 //     dispatch(setForgotValidationError());
 //   };
 // }
-
 
 // export function VerifyCode(params, navigation, component) {
 //   return (dispatch) => {
