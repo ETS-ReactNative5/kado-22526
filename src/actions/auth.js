@@ -34,6 +34,7 @@ function setForgotValidationError(errors) {
 // }
 
 export function login(params, navigate) {
+  navigate('NewsFeed');
   return (dispatch) => {
     dispatch(setIsLoading(true));
     console.log("params", params)

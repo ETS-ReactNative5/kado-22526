@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
-// import { Picker } from '@react-native-picker/picker';
-import DropDownPicker from 'react-native-dropdown-picker';
+// import DropDownPicker from 'react-native-dropdown-picker';
 
 import logo from '../assets/Image/logo.png';
 import { Header, Input } from '../components';
@@ -34,14 +33,7 @@ const SignUpScreen = ({
           <Text style={styles.text}>Remote freelance jobs for students</Text>
         </View>
         <View style={styles.body}>
-          {/* <Input
-            secureTextEntry={false}
-            iconShow={true}
-            placeholder="User type"
-            iconName="chevron-down"
-            onChange={(value) => handleChange('user_type', value)}
-          /> */}
-          <DropDownPicker
+          {/* <DropDownPicker
             items={[
               { label: 'Undergraduate Students', value: 'undergraduate', selected: true },
               { label: 'Graduate Students', value: 'graduate' },
@@ -61,7 +53,7 @@ const SignUpScreen = ({
               color: '#000'
             }}
             onChangeItem={item => handleChange('user_type', item.value)}
-          />
+          /> */}
           <View style={{ marginTop: 5 }}>
             <Input
               secureTextEntry={false}
@@ -85,7 +77,7 @@ const SignUpScreen = ({
             <Input
               secureTextEntry={showConPassword}
               iconShow={true}
-              placeholder="Password"
+              placeholder="Confirm Password"
               iconName={showConPassword ? 'eye' : 'eye-slash'}
               showPasswordData={false}
               handleConPassword={handleConPassword}

@@ -16,9 +16,9 @@ const FeedHeader = ({ navigate }) => {
         <TouchableOpacity onPress={() => navigate('Message')}>
           <Image source={comment} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigate('Profile')}>
-          <Image style={styles.image} source={user} />
-        </TouchableOpacity>
+
+        <Image style={styles.image} source={user} />
+
       </View>
     </View>
   );

@@ -53,8 +53,8 @@ const EditProfileScreen = ({ goBack, navigate }) => {
           <View style={styles.inputCOntainer}>
             <Input
               secureTextEntry={false}
-              iconShow={true}
-              iconName="chevron-down"
+              // iconShow={true}
+              // iconName="chevron-down"
               placeholder="Gender"
             />
           </View>

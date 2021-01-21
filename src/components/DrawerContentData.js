@@ -44,15 +44,14 @@ const Drawer = ({ navigation, progress, ...rest }) => {
               onPress={() => navigation.navigate('EditProfile')}>
               <Image source={userIcon} />
               {/* <Icon color={white} size={17} name="user-alt" /> */}
-              <Text style={styles.btnText}>Kado Pro</Text>
+              <Text style={styles.btnText}>Profile</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.btn}
               onPress={() => navigation.navigate('Message')}>
               <Image source={userIcon} />
-              {/* <Icon color={white} size={17} name="user-alt" /> */}
               <Text style={styles.btnText}>Message</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               style={styles.btn}
               onPress={() => navigation.navigate('Explore')}>
