@@ -14,7 +14,7 @@ import {
 const LoginScreen = ({ navigate, handlePassword, showPassword, handleChange, handleSubmit }) => {
   return (
     <View style={styles.container}>
-      <Header navigate={navigate} />
+      {/* <Header navigate={navigate} /> */}
       <ScrollView contentContainerStyle={styles.bodyContainer}>
         <View>{/* <Image source={logo} /> */}</View>
         <View style={styles.body}>

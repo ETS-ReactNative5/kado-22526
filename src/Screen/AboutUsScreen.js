@@ -1,17 +1,17 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {lightBlackColor, themeColor, white} from '../utils/Theme/Color';
-import {BackHeader} from '../components';
-import {ScaledSheet} from 'react-native-size-matters';
+import { lightBlackColor, themeColor, white } from '../utils/Theme/Color';
+import { BackHeader } from '../components';
+import { ScaledSheet } from 'react-native-size-matters';
 
-const AboutUsScreen = ({goBack}) => {
+const AboutUsScreen = ({ goBack }) => {
   return (
     <View style={styles.container}>
       <BackHeader goBack={goBack} image={true} />
       <View style={styles.body}>
         <Text style={styles.heading}>About Us</Text>
-        <Text style={styles.text}>
+        {/* <Text style={styles.text}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nulla a
           elit, sed. Porttitor varius morbi dictum laoreet egestas diam ultrices
           duis. Nullam massa feugiat gravida aliquam augue scelerisque sed
@@ -20,7 +20,7 @@ const AboutUsScreen = ({goBack}) => {
           sed. Porttitor varius morbi dictum laoreet egestas diam ultrices duis.
           Nullam massa feugiat gravida aliquam augue scelerisque sed purus,
           consectetur. Mollis vitae, elit arcu mauris at dictum.
-        </Text>
+        </Text> */}
       </View>
     </View>
   );
