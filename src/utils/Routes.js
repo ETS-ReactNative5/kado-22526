@@ -22,11 +22,35 @@ import Animated from 'react-native-reanimated';
 import {themeColor, white} from './Theme/Color';
 
 const Stack = createStackNavigator();
+
+const LoginStack = createStackNavigator();
+
+const Auth = () => {
+  return (
+    <LoginStack.Navigator initialRouteName="Login">
+      <Stack.Screen
+        name="SignUp"
+        component={SignUpContainer}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={LoginContainer}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Home"
+        component={MyDrawer}
+        options={{headerShown: false}}
+      />
+    </LoginStack.Navigator>
+  );
+};
 const App = ({style}) => {
   return (
     <Animated.View style={StyleSheet.flatten([styles.stack, style])}>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen
+      <Stack.Navigator initialRouteName="NewsFeed">
+        {/* <Stack.Screen
           name="SignUp"
           component={SignUpContainer}
           options={{headerShown: false}}
@@ -35,7 +59,7 @@ const App = ({style}) => {
           name="Login"
           component={LoginContainer}
           options={{headerShown: false}}
-        />
+        /> */}
         <Stack.Screen
           name="EditProfile"
           component={EditProfileContainer}
@@ -133,6 +157,9 @@ const MyDrawer = props => {
 
 const MainScreen = createSwitchNavigator(
   {
+    Auth: {
+      screen: Auth,
+    },
     Home: {
       screen: App,
     },
@@ -141,7 +168,7 @@ const MainScreen = createSwitchNavigator(
     },
   },
   {
-    initialRouteName: 'MyDrawer',
+    initialRouteName: 'Auth',
   },
 );
 

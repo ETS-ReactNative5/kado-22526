@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
-import { ScaledSheet } from 'react-native-size-matters';
+import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
+import {ScaledSheet} from 'react-native-size-matters';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import logo from '../assets/Image/logo.png';
-import { Header, Input } from '../components';
+import {Header, Input} from '../components';
 import {
   buttonColor,
   lightBlackColor,
@@ -11,18 +12,33 @@ import {
   white,
 } from '../utils/Theme/Color';
 
-const LoginScreen = ({ navigate, handlePassword, showPassword, handleChange, handleSubmit }) => {
+const LoginScreen = ({
+  navigate,
+  handlePassword,
+  showPassword,
+  handleChange,
+  handleSubmit,
+  goBack,
+}) => {
   return (
     <View style={styles.container}>
       {/* <Header navigate={navigate} /> */}
+      <TouchableOpacity style={{padding: 20}}>
+        <Icon name="arrow-left" size={18} color={buttonColor} />
+      </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.bodyContainer}>
         <View>{/* <Image source={logo} /> */}</View>
         <View style={styles.body}>
           <View style={styles.imageContainer}>
             <Image source={logo} />
           </View>
-          <Input secureTextEntry={false} iconShow={false} placeholder="Email" onChange={(value) => handleChange('email', value)} />
-          <View style={{ marginTop: 10 }}>
+          <Input
+            secureTextEntry={false}
+            iconShow={false}
+            placeholder="Email"
+            onChange={value => handleChange('email', value)}
+          />
+          <View style={{marginTop: 10}}>
             <Input
               secureTextEntry={showPassword}
               iconShow={true}
@@ -30,7 +46,7 @@ const LoginScreen = ({ navigate, handlePassword, showPassword, handleChange, han
               placeholder="Password"
               showPasswordData={true}
               handlePassword={handlePassword}
-              onChange={(value) => handleChange('password', value)}
+              onChange={value => handleChange('password', value)}
             />
           </View>
 

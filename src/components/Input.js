@@ -1,8 +1,8 @@
 import React from 'react';
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import { ScaledSheet } from 'react-native-size-matters';
+import {ScaledSheet} from 'react-native-size-matters';
 
 const Input = ({
   placeholder,
@@ -15,7 +15,7 @@ const Input = ({
   keyboardType,
   image,
   fromImage,
-  onChange
+  onChange,
 }) => {
   return (
     <View style={styles.inputContainer}>
@@ -33,8 +33,8 @@ const Input = ({
           {image ? (
             <Image source={fromImage} />
           ) : (
-              <Icon name={iconName} size={18} />
-            )}
+            <Icon name={iconName} size={18} />
+          )}
         </TouchableOpacity>
       ) : null}
     </View>
@@ -52,6 +52,7 @@ const styles = ScaledSheet.create({
     alignItems: 'center',
     paddingRight: '10@s',
     marginTop: '10@s',
+    borderRadius: '8@s',
   },
   input: {
     fontSize: '14@s',

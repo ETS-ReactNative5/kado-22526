@@ -48,7 +48,7 @@ export function login(params, navigate) {
           ToastAndroid.LONG,
           ToastAndroid.BOTTOM,
         );
-        navigate('NewsFeed');
+        navigate('Home');
       })
       .catch(err => {
         console.log('error', err);
