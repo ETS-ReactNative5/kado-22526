@@ -2,7 +2,7 @@ import React from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import comment from '../assets/Image/comment.png';
-import user from '../assets/Image/usersss.png';
+import user from '../assets/Image/userImageTwo.png';
 import {ScaledSheet} from 'react-native-size-matters';
 import {buttonColor, themeColor} from '../utils/Theme/Color';
 
@@ -18,7 +18,6 @@ const FeedHeader = ({navigate}) => {
         </TouchableOpacity>
 
         <Image style={styles.image} source={user} />
-
       </View>
     </View>
   );

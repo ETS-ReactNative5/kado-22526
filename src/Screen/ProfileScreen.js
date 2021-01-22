@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import calander from '../assets/Image/calander.png';
-import uset from '../assets/Image/usersss.png';
+import uset from '../assets/Image/userImageTwo.png';
 import editButton from '../assets/Image/editbtn.png';
 import {BackHeader, Header, Input} from '../components';
 import {
