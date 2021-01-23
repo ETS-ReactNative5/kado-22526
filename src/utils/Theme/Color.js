@@ -13,6 +13,9 @@ const buttonGrayBack = '#E9E9E9';
 const chatBackColor = '#E1E4F6';
 const skillBackColor = '#E1E4F6';
 const feedItemBack = '#F7F7F9';
+const lightBlue = '#E5E8FB';
+const aliceGrey = '#B3B3B3';
+const fadeBlue = '#6677E6';
 
 // font family
 
@@ -32,4 +35,7 @@ export {
   lightButtonColor,
   skillBackColor,
   feedItemBack,
+  lightBlue,
+  aliceGrey,
+  fadeBlue,
 };

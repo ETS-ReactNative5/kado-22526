@@ -12,6 +12,7 @@ import {
   NewsFeedContainer,
   MessageContainer,
   ChatContainer,
+  NewMessageContainer,
   ExploreContainer,
   DeleteAccountContainer,
   ProfileContainer,
@@ -99,6 +100,11 @@ const App = ({style}) => {
         <Stack.Screen
           name="Profile"
           component={ProfileContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NewMessage"
+          component={NewMessageContainer}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
