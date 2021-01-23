@@ -3,6 +3,7 @@ import {Tabs, Tab} from 'native-base';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 // import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {Formik} from 'formik';
 import logo from '../assets/Image/logo.png';
 import {Header, Input} from '../components';
 import {
@@ -14,6 +15,8 @@ import {
   textBlackColor,
 } from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
+import {USER_TYPES} from '../constants/profile';
+import SignUpForm from './SignUpForm';
 
 const SignUpScreen = ({
   navigate,
@@ -21,14 +24,13 @@ const SignUpScreen = ({
   handlePassword,
   showConPassword,
   handleConPassword,
-  handleChange,
   handleSubmit,
   goBack,
 }) => {
   return (
     <View style={styles.container}>
       {/* <Header navigate={navigate} /> */}
-      <TouchableOpacity onPress={goBack} style={{padding: 20}}>
+      <TouchableOpacity onPress={goBack} style={styles.goBackButon}>
         <Icon name="arrow-left" size={18} color={buttonColor} />
       </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.bodyContainer}>
@@ -66,64 +68,34 @@ const SignUpScreen = ({
               <Tab
                 tabStyle={{backgroundColor: white}}
                 activeTabStyle={{backgroundColor: white}}
-                activeTextStyle={{
-                  color: textBlackColor,
-                  fontWeight: 'bold',
-                  fontSize: 15,
-                  lineHeight: 18,
-                }}
-                textStyle={{color: '#8E8E8E'}}
+                activeTextStyle={styles.activeTabStyle}
+                textStyle={styles.tabTextStyle}
                 heading="Companies">
-                <View style={{padding: 20}}>
-                  <View style={{marginTop: 5}}>
-                    <Input
-                      secureTextEntry={false}
-                      iconShow={false}
-                      placeholder="Email"
-                      onChange={value => handleChange('email', value)}
-                    />
-                  </View>
-                  <View style={{marginTop: 5}}>
-                    <Input
-                      secureTextEntry={showPassword}
-                      handlePassword={handlePassword}
-                      iconShow={true}
-                      showPasswordData={true}
-                      placeholder="Password"
-                      iconName={showPassword ? 'eye' : 'eye-slash'}
-                      onChange={value => handleChange('password', value)}
-                    />
-                  </View>
-                  <View style={{marginTop: 5}}>
-                    <Input
-                      secureTextEntry={showConPassword}
-                      iconShow={true}
-                      placeholder="Confirm Password"
-                      iconName={showConPassword ? 'eye' : 'eye-slash'}
-                      showPasswordData={false}
-                      handleConPassword={handleConPassword}
-                    />
-                  </View>
-
-                  <TouchableOpacity
-                    onPress={() => handleSubmit()}
-                    style={styles.registerBtnContainer}>
-                    <Text style={styles.registerText}>Register</Text>
-                  </TouchableOpacity>
-                </View>
+                <SignUpForm
+                  showPassword={showPassword}
+                  handlePassword={handlePassword}
+                  showConPassword={showConPassword}
+                  handleConPassword={handleConPassword}
+                  submit={handleSubmit}
+                  userType={USER_TYPES.company.name}
+                />
               </Tab>
+
               <Tab
                 tabStyle={{backgroundColor: white}}
                 activeTabStyle={{backgroundColor: white}}
-                activeTextStyle={{
-                  color: textBlackColor,
-                  fontWeight: 'bold',
-                  fontSize: 15,
-                  lineHeight: 18,
-                }}
-                textStyle={{color: '#8E8E8E'}}
-                heading="Students"
-              />
+                activeTextStyle={styles.activeTabStyle}
+                textStyle={styles.tabTextStyle}
+                heading="Students">
+                <SignUpForm
+                  showPassword={showPassword}
+                  handlePassword={handlePassword}
+                  showConPassword={showConPassword}
+                  handleConPassword={handleConPassword}
+                  submit={handleSubmit}
+                  userType={USER_TYPES.student.name}
+                />
+              </Tab>
             </Tabs>
           </View>
         </View>
@@ -144,7 +116,6 @@ const styles = ScaledSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-
   bodyContainer: {
     flex: 1,
 
@@ -200,6 +171,18 @@ const styles = ScaledSheet.create({
   tabContainer: {
     flex: 1,
     marginTop: '20@s',
+  },
+  activeTabStyle: {
+    color: textBlackColor,
+    fontWeight: 'bold',
+    fontSize: 15,
+    lineHeight: 18,
+  },
+  tabTextStyle: {
+    color: '#8E8E8E',
+  },
+  goBackButon: {
+    padding: 20,
   },
 });
 

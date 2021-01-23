@@ -1,15 +1,14 @@
 import React from 'react';
 import {useState} from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {SignUpScreen} from '../Screen';
 import {signUp} from '../actions/auth';
 
 const SignUpContainer = props => {
   const [showPassword, setShowPasssword] = useState(true);
   const [showConPassword, setShowConPasssword] = useState(true);
-  const [signUpForm, setSignUpForm] = useState({});
   const dispatch = useDispatch();
   const navigate = async routeName => {
     const {navigation} = props;
@@ -32,14 +31,8 @@ const SignUpContainer = props => {
   const handleConPassword = () => {
     setShowConPasssword(!showConPassword);
   };
-  const handleChange = (name, value) => {
-    setSignUpForm({
-      ...signUpForm,
-      [name]: value,
-    });
-  };
-  const handleSubmit = () => {
-    dispatch(signUp(signUpForm, navigate));
+  const handleSubmit = signUpData => {
+    dispatch(signUp(signUpData, navigate));
     // console.log("form data", params)
   };
   return (
@@ -50,7 +43,6 @@ const SignUpContainer = props => {
         handlePassword={handlePassword}
         handleConPassword={handleConPassword}
         navigate={navigate}
-        handleChange={handleChange}
         handleSubmit={handleSubmit}
         goBack={goBack}
       />
