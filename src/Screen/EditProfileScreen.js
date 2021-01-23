@@ -59,17 +59,6 @@ const EditProfileScreen = ({goBack, navigate}) => {
             />
           </View>
 
-          <View style={styles.inputCOntainer}>
-            <Input
-              secureTextEntry={false}
-              iconShow={true}
-              iconName="calendar-week"
-              placeholder="Date of birth"
-              image={true}
-              fromImage={calander}
-            />
-          </View>
-
           <TouchableOpacity
             onPress={() => navigate('Profile')}
             style={styles.registerBtnContainer}>
