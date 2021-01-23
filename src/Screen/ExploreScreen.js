@@ -4,16 +4,20 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {
   JobsIcon,
   CompanyIcon,
-  MentorIcon,
   FaqIcon,
   PaymentsIcon,
   LogoutIcon,
   DeleteIcon,
 } from '../assets/Image';
 import {BackHeader} from '../components';
+import Storage from '../lib/requests/storage';
 import {themeColor} from '../utils/Theme/Color';
 
 const ExploreScreen = ({goBack, navigate}) => {
+  const logOut = () => {
+    Storage.removeData('access_token');
+    navigate('Login');
+  };
   return (
     <View style={styles.container}>
       <BackHeader goBack={goBack} title="Explore" />
@@ -38,7 +42,7 @@ const ExploreScreen = ({goBack, navigate}) => {
           </TouchableOpacity>
         </View>
         <View>
-          <TouchableOpacity style={styles.itemContainer}>
+          <TouchableOpacity style={styles.itemContainer} onPress={logOut}>
             <LogoutIcon />
             <Text style={styles.text}>Logout</Text>
           </TouchableOpacity>
