@@ -1,38 +1,28 @@
 import Storage from './storage';
 
+const HOST = 'https://kado-22526.botics.co/';
 class Api {
-
   static async headers() {
-    let token = ''
+    let token = '';
     await Storage.retrieveData('access_token').then(resp => {
-      token = resp
-    })
-    // console.log("token", token)
+      token = resp;
+    });
     return {
       'Content-Type': 'application/json',
-      // Authorization: await Storage.retrieveData('access_token'),
-      Authorization: `Token ${token}`
-
+      Authorization: `Token ${token}`,
     };
   }
 
   static async headersMultiForm() {
-    let token = ''
+    let token = '';
     await Storage.retrieveData('access_token').then(resp => {
-      token = resp
-    })
+      token = resp;
+    });
     return {
       'Content-Type': 'multipart/form-data',
-      //Authorization: await Storage.retrieveData('access_token'),
-      //authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhaGlsYWhtYWQxMjU4QGdtYWlsLmNvbSIsImlhdCI6MTU5ODk1MjA3NH0.9U-UGXHVfyzUIpaECyRDJlfPadBy_ykM0sUc_UA_aM4'
-      Authorization: `Token ${token}`
+      Authorization: `Token ${token}`,
     };
   }
-
-  // static setStorage(resp) {
-  //   console.log(resp)
-  //   Storage.storeData('access_token', `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhaGlsYWhtYWQxMjU4QGdtYWlsLmNvbSIsImlhdCI6MTU5OTA0MjI0N30.di2AchDXzbAHfROD5U2e1o6ogcVawPOTEPUT39BmOlM`);
-  // }
 
   static setAuth(resp) {
     Storage.storeData('isAuthenticated', true);
@@ -63,18 +53,12 @@ class Api {
   }
 
   static async xhrMultiForm(route, params, verb) {
-    // const host = 'https://fast-savannah-09511.herokuapp.com/api/v1/';
-    // const host = 'https://9fe191ccdd0a.ngrok.io/api/v1/';
-    //const host = 'https://sheltered-inlet-30058.herokuapp.com/api/v1/'
-    //const host = 'https://localhost:3000/api/v1/'
-    // const host = 'https://mobile-cartzy-backend.herokuapp.com/'
-    const host = 'https://kado-22526.botics.co/'
-    const url = `${host}${route}`;
-    let options = Object.assign({ method: verb }, params ? { body: params } : null);
+    const url = `${HOST}${route}`;
+    let options = Object.assign({method: verb}, params ? {body: params} : null);
     options.headers = await Api.headersMultiForm();
     console.log(url, options);
     return fetch(url, options)
-      .then((resp) => {
+      .then(resp => {
         let json = resp.json();
         if (resp.ok) {
           if (route === 'login') {
@@ -82,11 +66,11 @@ class Api {
           }
           return json;
         }
-        return json.then((err) => {
+        return json.then(err => {
           throw err;
         });
       })
-      .then((json) => {
+      .then(json => {
         if (route === 'login') {
           this.setAuth(json);
         }
@@ -95,21 +79,15 @@ class Api {
   }
 
   static async xhr(route, params, verb) {
-    //const host = 'https://fast-savannah-09511.herokuapp.com/api/v1/';
-    // const host = 'https://9fe191ccdd0a.ngrok.io/api/v1/';
-    //const host = 'https://sheltered-inlet-30058.herokuapp.com/api/v1/';
-    //const host = 'https://localhost:3000/api/v1/'
-    // const host = 'https://mobile-cartzy-backend.herokuapp.com/'
-    const host = 'https://kado-22526.botics.co/'
-    const url = `${host}${route}`;
+    const url = `${HOST}${route}`;
     let options = Object.assign(
-      { method: verb },
-      params ? { body: JSON.stringify(params) } : null,
+      {method: verb},
+      params ? {body: JSON.stringify(params)} : null,
     );
     options.headers = await Api.headers();
     console.log(url, options);
     return fetch(url, options)
-      .then((resp) => {
+      .then(resp => {
         // console.log("test", getToken())
         // console.log("access", Storage.retrieveData('access_token'))
         let json = resp.json();
@@ -119,11 +97,11 @@ class Api {
           }
           return json;
         }
-        return json.then((err) => {
+        return json.then(err => {
           throw err;
         });
       })
-      .then((json) => {
+      .then(json => {
         if (route === 'login') {
           this.setAuth(json);
         }
