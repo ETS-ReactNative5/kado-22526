@@ -8,6 +8,7 @@ import ChatContainer from './ChatContainer';
 import ExploreContainer from './ExploreContainer';
 import DeleteAccountContainer from './DeleteAccountContainer';
 import ProfileContainer from './ProfileContainer';
+import NewMessageContainer from './NewMessageContainer';
 
 export {
   SignUpContainer,
@@ -19,5 +20,6 @@ export {
   MessageContainer,
   ExploreContainer,
   DeleteAccountContainer,
-  ProfileContainer
+  ProfileContainer,
+  NewMessageContainer,
 };

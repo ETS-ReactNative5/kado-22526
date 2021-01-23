@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScaledSheet} from 'react-native-size-matters';
 import {BackHeader, MessageCard} from '../components';
@@ -12,6 +19,7 @@ import {
   lightGrayColor,
   placeHolderColor,
   themeColor,
+  buttonColor,
 } from '../utils/Theme/Color';
 
 const DATA = [
@@ -114,7 +122,23 @@ const MessageScreen = ({goBack, navigate}) => {
   );
   return (
     <View style={styles.conainer}>
-      <BackHeader right={true} goBack={goBack} title="Messages" />
+      <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={goBack} style={{padding: 10}}>
+          <Icon name="arrow-left" color={buttonColor} size={18} />
+        </TouchableOpacity>
+        <View>
+          <Text style={styles.headerText}>Messages</Text>
+        </View>
+
+        <View style={{width: 35}}>
+          <TouchableOpacity
+            style={styles.iconContainer}
+            onPress={() => navigate('NewMessage')}>
+            <Icon name="plus" color={themeColor} />
+          </TouchableOpacity>
+        </View>
+      </View>
+
       <ScrollView>
         <View style={styles.body}>
           <View style={styles.searchContainer}>
@@ -166,6 +190,26 @@ const styles = ScaledSheet.create({
     fontSize: '10@s',
     lineHeight: '13@s',
     marginBottom: '20@s',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '10@s',
+  },
+  headerText: {
+    fontSize: '16@s',
+    lineHeight: '24@s',
+    marginTop: '4@s',
+  },
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '20@s',
+    width: '20@s',
+    borderRadius: '100@s',
+    borderWidth: 2,
+    borderColor: buttonColor,
   },
 });
 
