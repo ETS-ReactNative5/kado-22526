@@ -7,6 +7,7 @@ import MessageScreen from './MessageScreen';
 import ExploreScreen from './ExploreScreen';
 import DeleteAccountScreen from './DeleteAccountScreen';
 import ProfileScreen from './ProfileScreen';
+import JobsScreen from './JobsScreen';
 
 export {
   SignUpScreen,
@@ -17,5 +18,6 @@ export {
   MessageScreen,
   ExploreScreen,
   DeleteAccountScreen,
-  ProfileScreen
+  ProfileScreen,
+  JobsScreen,
 };

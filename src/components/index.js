@@ -6,6 +6,10 @@ import FeedHeader from './FeedHeader';
 import FeedCard from './FeedCard';
 import FeedButton from './FeedButton';
 import MessageCard from './MessageCard';
+import BottomHeader from './BottomHeader';
+import SheetItems from './SheetItems';
+import BottomDate from './BottomDate';
+import Filters from './Filters';
 
 export {
   Input,
@@ -15,5 +19,9 @@ export {
   FeedHeader,
   FeedCard,
   FeedButton,
-  MessageCard
+  MessageCard,
+  BottomHeader,
+  SheetItems,
+  BottomDate,
+  Filters,
 };

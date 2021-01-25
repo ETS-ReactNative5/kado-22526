@@ -16,6 +16,7 @@ import {
   ExploreContainer,
   DeleteAccountContainer,
   ProfileContainer,
+  JobsContainer,
 } from '../Container';
 import {DrawerContentData} from '../components';
 import Animated from 'react-native-reanimated';
@@ -51,16 +52,6 @@ const App = ({style}) => {
   return (
     <Animated.View style={StyleSheet.flatten([styles.stack, style])}>
       <Stack.Navigator initialRouteName="NewsFeed">
-        {/* <Stack.Screen
-          name="SignUp"
-          component={SignUpContainer}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Login"
-          component={LoginContainer}
-          options={{headerShown: false}}
-        /> */}
         <Stack.Screen
           name="EditProfile"
           component={EditProfileContainer}
@@ -103,8 +94,8 @@ const App = ({style}) => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="NewMessage"
-          component={NewMessageContainer}
+          name="Jobs"
+          component={JobsContainer}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
