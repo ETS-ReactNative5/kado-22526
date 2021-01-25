@@ -16,9 +16,11 @@ User = get_user_model()
 
 
 class SignupSerializer(serializers.ModelSerializer):
+    user_type = serializers.CharField(required=False)
+
     class Meta:
         model = User
-        fields = ("id", "user_type", "email", "password",)
+        fields = ("id", "email", "password", "user_type")
         extra_kwargs = {
             "password": {"write_only": True, "style": {"input_type": "password"}},
             "email": {
@@ -53,10 +55,11 @@ class SignupSerializer(serializers.ModelSerializer):
             username=generate_unique_username(
                 [validated_data.get("name"), validated_data.get("email"), "user"]
             ),
-            user_type=validated_data.get('user_type')
         )
         user.set_password(validated_data.get("password"))
         user.save()
+        # Create user profile
+        Profile.objects.create(user=user, profile_type=validated_data.get('user_type'), )
         request = self._get_request()
         setup_user_email(request, user, [])
         return user

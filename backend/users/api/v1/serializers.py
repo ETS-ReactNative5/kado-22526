@@ -16,9 +16,8 @@ class PrivateField(serializers.ReadOnlyField):
 
 class UserSerializer(serializers.ModelSerializer):
     email = PrivateField()
-    user_type = PrivateField()
     is_staff = PrivateField()
 
     class Meta:
         model = User
-        fields = ("id", "username", "first_name", "last_name", "is_staff", "user_type", "email")
+        fields = ("id", "username", "first_name", "last_name", "is_staff", "email")

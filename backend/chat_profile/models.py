@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MaxValueValidator, MinValueValidator
-from .enums import WorkTypeEnum
+from .enums import StudentEnum, CompanyEnum, WorkTypeEnum
 
 
 class VerificationCode(models.Model):
@@ -32,6 +32,23 @@ Work_types = (
     (WorkTypeEnum.ongoing_project.name, WorkTypeEnum.ongoing_project.value)
 )
 
+"""
+ System profile types
+    Profile type 1: Undergraduate Students “u/s”
+    Profile type 2: Graduate Students “g/s”
+    Profile type 3: International Students “i/s”
+    Profile type 4: Companies “c”
+    Profile type 5: Start-ups “s”
+
+"""
+Profile_types = (
+    (StudentEnum.undergraduate.name, StudentEnum.undergraduate.value),
+    (StudentEnum.graduate.name, StudentEnum.undergraduate.value),
+    (StudentEnum.international.name, StudentEnum.international.value),
+    (CompanyEnum.companies.name, CompanyEnum.companies.value),
+    (CompanyEnum.start_up.name, CompanyEnum.start_up.value),
+)
+
 
 class Profile(models.Model):
     "Generated Model"
@@ -46,6 +63,8 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         related_name="profile",
     )
+    profile_type = models.CharField('Profile Type', choices=Profile_types, default=None, null=True, blank=True,
+                                    max_length=15)
     mobile_number = models.CharField(
         max_length=20, null=True, blank=True,
     )
@@ -143,5 +162,3 @@ class Contact(models.Model):
     timestamp_created = models.DateTimeField(
         auto_now_add=True,
     )
-
-# Create your models here.

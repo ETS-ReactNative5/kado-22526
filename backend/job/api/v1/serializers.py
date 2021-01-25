@@ -11,16 +11,32 @@ class JobSerializer(serializers.ModelSerializer):
     owner = serializers.SerializerMethodField(required=False, read_only=True)
     time_since = serializers.SerializerMethodField()
     time_sent = serializers.SerializerMethodField()
+    time_frame = serializers.SerializerMethodField()
     is_favorite = serializers.SerializerMethodField()
     favorite = serializers.BooleanField(required=False)
 
     class Meta:
         model = Job
         fields = (
-            "id", "title", "description",
-            "owner", "sent_at", "time_since",
-            "time_sent", "skills", "experience_level",
-            "time_frame", "is_favorite", "favorite"
+            "id",
+            "title",
+            "description",
+            "skills",
+            "experience_level",
+            "job_category",
+            "job_type",
+            "start_date",
+            "end_date",
+            "hours_per_week",
+            "payment_per_hour",
+            "field",
+            "owner",
+            "sent_at",
+            "time_since",
+            "time_sent",
+            "is_favorite",
+            "favorite",
+            "time_frame"
         )
 
     def get_is_favorite(self, instance):
@@ -37,6 +53,14 @@ class JobSerializer(serializers.ModelSerializer):
 
     def get_time_since(self, obj):
         return timesince(obj.sent_at)
+
+    def get_time_frame(self, obj):
+        try:
+            duration, rem = divmod((obj.end_date - obj.start_date).days, 31)
+            prefix = 'months' if duration < 12 else 'years'
+            return f'{duration} {prefix}+' if rem > 0 else f'{duration} {prefix}'
+        except:
+            return ''
 
     def _get_request(self):
         request = self.context.get("request")
