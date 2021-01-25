@@ -36,6 +36,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "skills",
             "university",
             "work_type",
+            "profile_type",
             "years_of_experience",
         )
 

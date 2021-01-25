@@ -13,7 +13,7 @@ class UserViewSet(viewsets.ModelViewSet):
         authentication.TokenAuthentication,
         authentication.SessionAuthentication,
     )
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, ]
     queryset = User.objects.all()
 
     def destroy(self, request, *args, **kwargs):

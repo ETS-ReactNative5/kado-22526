@@ -11,3 +11,22 @@ class WorkTypeEnum(Enum):
     remote = 'Remote'
     one_time = 'One Time Project'
     ongoing_project = 'Ongoing Project'
+
+
+class StudentEnum(Enum):
+    undergraduate = 'Undergraduate Students “u/s”'
+    graduate = 'Graduate Students “g/s”'
+    international = 'International Students “i/s”'
+
+
+class CompanyEnum(Enum):
+    companies = 'Companies “c”'
+    start_up = 'Start-ups “s”'
+
+
+student_type_options = [student.name for student in StudentEnum]
+company_type_options = [company.name for company in CompanyEnum]
+
+all_profile_type_options = [{'name': item.name, 'value': item.value} for item in StudentEnum] + [
+    {'name': item.name, 'value': item.value} for item in StudentEnum]
+work_type_options = [{'name': item.name, 'value': item.value} for item in WorkTypeEnum]
