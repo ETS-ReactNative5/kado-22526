@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Image, TextInput, TouchableOpacity, View, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import {ScaledSheet} from 'react-native-size-matters';
@@ -58,6 +58,8 @@ const styles = ScaledSheet.create({
     fontSize: '14@s',
     lineHeight: '18@s',
     width: '90%',
+    padding: Platform.OS === 'ios' ? 10 : null,
+    height: Platform.OS === 'ios' ? 40 : null,
   },
 });
 

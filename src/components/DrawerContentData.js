@@ -55,8 +55,8 @@ const Drawer = ({ navigation, progress, ...rest }) => {
             <TouchableOpacity
               style={styles.btn}
               onPress={() => navigation.navigate('Explore')}>
-              <Image source={userIcon} />
-              {/* <Icon color={white} size={17} name="user-alt" /> */}
+              <Icon color={white} size={20} name="compass" />
+
               <Text style={styles.btnText}>Explore</Text>
             </TouchableOpacity>
           </View>
