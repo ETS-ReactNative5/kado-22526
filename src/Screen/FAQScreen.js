@@ -55,9 +55,7 @@ const FAQScreen = ({goBack, navigate}) => {
       </View>
 
       <View style={styles.inputfieldcontainerPadding}>
-        <TouchableOpacity
-          onPress={() => navigate('Payment')}
-          style={styles.registerBtnContainer}>
+        <TouchableOpacity style={styles.registerBtnContainer}>
           <Text style={styles.registerText}>Submit</Text>
         </TouchableOpacity>
       </View>

@@ -9,7 +9,7 @@ import {themeColor} from '../utils/Theme/Color';
 
 const CompaniesItem = ({title, image, navigate}) => {
   return (
-    <TouchableOpacity onPress={() => navigate('FAQ')} style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <View style={styles.leftContainer}>
         <Image source={image} style={styles.image} />
         <View style={styles.textContainer}>
