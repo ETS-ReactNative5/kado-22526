@@ -1,6 +1,7 @@
 import React, {useRef} from 'react';
 import {View, Text, TextInput, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icons from 'react-native-vector-icons/MaterialIcons';
 import {
   BottomDate,
   BottomHeader,
@@ -11,8 +12,10 @@ import {
 } from '../components';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {
+  amountBorder,
   blackColorText,
   buttonColor,
+  feedItemBack,
   lightBlackColor,
   lightGray,
   textBlackColor,
@@ -43,6 +46,7 @@ const JobsScreen = ({navigate}) => {
   const refRBSheetProject = useRef();
   const refRBSheetDate = useRef();
   const refRBSheetLocation = useRef();
+  const refRBSheetPay = useRef();
   return (
     <View style={styles.container}>
       <FeedHeader navigate={navigate} rightBtns={true} />
@@ -64,7 +68,7 @@ const JobsScreen = ({navigate}) => {
             borderTopLeftRadius: 15,
           },
         }}>
-        <BottomHeader refRBSheet={refRBSheet} title="Header" />
+        <BottomHeader refRBSheet={refRBSheet} title="Sort by Category" />
         <SheetItems refRBSheet={refRBSheet} title="Services" />
         <SheetItems refRBSheet={refRBSheet} title="Project" />
       </RBSheet>
@@ -123,6 +127,76 @@ const JobsScreen = ({navigate}) => {
         <BottomDate title="Finish" placeholder="DD/MM/YYY " />
         <BottomDate title="Availability" placeholder="Total hours per week" />
       </RBSheet>
+
+      <RBSheet
+        ref={refRBSheetLocation}
+        closeOnPressMask={true}
+        animationType="fade"
+        height={300}
+        customStyles={{
+          wrapper: {
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          },
+          draggableIcon: {
+            backgroundColor: '#000',
+            borderTopRightRadius: 30,
+            borderTopLeftRadius: 30,
+          },
+          container: {
+            borderTopRightRadius: 15,
+            borderTopLeftRadius: 15,
+          },
+        }}>
+        <BottomHeader refRBSheet={refRBSheetLocation} title="Sort by Date" />
+        <View style={styles.locationContainer}>
+          <TextInput
+            placeholderTextColor="rgba(rgba(41, 41, 41, 0.2))"
+            style={styles.inputLocation}
+            placeholder="Type in your location"
+          />
+        </View>
+      </RBSheet>
+
+      <RBSheet
+        ref={refRBSheetPay}
+        closeOnPressMask={true}
+        animationType="fade"
+        height={200}
+        customStyles={{
+          wrapper: {
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          },
+          draggableIcon: {
+            backgroundColor: '#000',
+            borderTopRightRadius: 30,
+            borderTopLeftRadius: 30,
+          },
+          container: {
+            borderTopRightRadius: 15,
+            borderTopLeftRadius: 15,
+          },
+        }}>
+        <BottomHeader refRBSheet={refRBSheetPay} title="Sort by Pay" />
+        <View style={styles.paymentContainer}>
+          <View style={styles.amountContainer}>
+            <TextInput
+              placeholderTextColor="rgba(rgba(41, 41, 41, 0.2))"
+              style={styles.inputLocation}
+              placeholder="Min $"
+              keyboardType="numeric"
+            />
+          </View>
+
+          <View style={styles.amountContainer}>
+            <TextInput
+              placeholderTextColor="rgba(rgba(41, 41, 41, 0.2))"
+              style={styles.inputLocation}
+              placeholder="Max $"
+              keyboardType="numeric"
+            />
+          </View>
+        </View>
+      </RBSheet>
       <View style={styles.body}>
         <View style={styles.headerTextContainer}>
           <Text style={styles.helloText}>Hello, </Text>
@@ -143,7 +217,21 @@ const JobsScreen = ({navigate}) => {
           />
         </View>
 
-        <Filters />
+        <View>
+          <View style={styles.filtersContainer}>
+            <Text style={styles.filterText}>Filters:</Text>
+            <TouchableOpacity>
+              <Icons name="clear" size={22} color={buttonColor} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.categoryContainer}>
+            <Filters refRBSheet={refRBSheet} title="Catetgory" />
+            <Filters refRBSheet={refRBSheetProject} title="Type of project" />
+            <Filters refRBSheet={refRBSheetDate} title="Date" />
+            <Filters refRBSheet={refRBSheetLocation} title="Location" />
+            <Filters refRBSheet={refRBSheetPay} title="Payment" />
+          </View>
+        </View>
 
         <View style={styles.tabContainer}>
           <FlatList
@@ -205,6 +293,47 @@ const styles = ScaledSheet.create({
   tabContainer: {
     flex: 1,
     marginTop: '14@s',
+  },
+  categoryContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  filtersContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'center',
+    padding: '10@s',
+  },
+  filterText: {
+    fontSize: '14@s',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: '20@s',
+    letterSpacing: '1@s',
+    color: buttonColor,
+  },
+  locationContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inputLocation: {
+    color: blackColorText,
+    fontSize: '15@s',
+    lineHeight: '18@s',
+  },
+  paymentContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: '15@s',
+  },
+  amountContainer: {
+    width: '49%',
+    borderColor: amountBorder,
+    borderWidth: 1,
+    borderRadius: '5@s',
+    paddingLeft: '10@s',
+    backgroundColor: feedItemBack,
   },
 });
 export default JobsScreen;

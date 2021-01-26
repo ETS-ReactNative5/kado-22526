@@ -16,6 +16,7 @@ const feedItemBack = '#F7F7F9';
 const lightBlue = '#E5E8FB';
 const aliceGrey = '#B3B3B3';
 const fadeBlue = '#6677E6';
+const amountBorder = '#C0BFCD';
 
 // font family
 
@@ -38,4 +39,5 @@ export {
   lightBlue,
   aliceGrey,
   fadeBlue,
+  amountBorder,
 };
