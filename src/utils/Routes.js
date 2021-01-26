@@ -17,6 +17,9 @@ import {
   DeleteAccountContainer,
   ProfileContainer,
   JobsContainer,
+  CompaniesContainer,
+  FAQContainer,
+  PaymentContainer,
 } from '../Container';
 import {DrawerContentData} from '../components';
 import Animated from 'react-native-reanimated';
@@ -96,6 +99,23 @@ const App = ({style}) => {
         <Stack.Screen
           name="Jobs"
           component={JobsContainer}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="Company"
+          component={CompaniesContainer}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="FAQ"
+          component={FAQContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Payment"
+          component={PaymentContainer}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

@@ -10,6 +10,9 @@ import DeleteAccountContainer from './DeleteAccountContainer';
 import ProfileContainer from './ProfileContainer';
 import NewMessageContainer from './NewMessageContainer';
 import JobsContainer from './JobsContainer';
+import FAQContainer from './FAQContainer';
+import CompaniesContainer from './CompaniesContainer';
+import PaymentContainer from './PaymentContainer';
 export {
   SignUpContainer,
   ChatContainer,
@@ -23,4 +26,7 @@ export {
   ProfileContainer,
   NewMessageContainer,
   JobsContainer,
+  CompaniesContainer,
+  FAQContainer,
+  PaymentContainer,
 };

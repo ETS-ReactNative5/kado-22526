@@ -10,6 +10,8 @@ import BottomHeader from './BottomHeader';
 import SheetItems from './SheetItems';
 import BottomDate from './BottomDate';
 import Filters from './Filters';
+import CompaniesItem from './CompaniesItem';
+import SearchBar from './SearchBar';
 
 export {
   Input,
@@ -24,4 +26,6 @@ export {
   SheetItems,
   BottomDate,
   Filters,
+  CompaniesItem,
+  SearchBar,
 };

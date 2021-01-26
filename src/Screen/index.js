@@ -8,7 +8,9 @@ import ExploreScreen from './ExploreScreen';
 import DeleteAccountScreen from './DeleteAccountScreen';
 import ProfileScreen from './ProfileScreen';
 import JobsScreen from './JobsScreen';
-
+import CompaniesScreen from './CompaniesScreen';
+import FAQScreen from './FAQScreen';
+import PaymentScreen from './PaymentScreen';
 export {
   SignUpScreen,
   LoginScreen,
@@ -20,4 +22,7 @@ export {
   DeleteAccountScreen,
   ProfileScreen,
   JobsScreen,
+  CompaniesScreen,
+  FAQScreen,
+  PaymentScreen,
 };

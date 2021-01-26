@@ -8,6 +8,7 @@ import {
   FeedCard,
   FeedHeader,
   Filters,
+  SearchBar,
   SheetItems,
 } from '../components';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -205,17 +206,7 @@ const JobsScreen = ({navigate}) => {
           </Text>
         </View>
 
-        <View style={styles.searchContainer}>
-          <View style={styles.searchIconContainer}>
-            <Icon name="search" size={20} color={buttonColor} />
-          </View>
-
-          <TextInput
-            placeholder="Search for your next jobs..."
-            style={styles.input}
-            placeholderTextColor="#8E8E8E"
-          />
-        </View>
+        <SearchBar placeHolder="Search for your next jobs..." />
 
         <View>
           <View style={styles.filtersContainer}>
@@ -270,25 +261,6 @@ const styles = ScaledSheet.create({
     color: themeColor,
     fontWeight: 'bold',
     width: '65%',
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: lightGray,
-    padding: '10@s',
-    borderRadius: '12@s',
-  },
-  searchIconContainer: {
-    width: '10%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    padding: 0,
-    lineHeight: '18@s',
-    fontSize: '15@s',
-    color: blackColorText,
-    paddingRight: '15@s',
   },
   tabContainer: {
     flex: 1,

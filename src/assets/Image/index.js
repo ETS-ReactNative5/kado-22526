@@ -5,7 +5,7 @@ import FaqIcon from './FaqIcon';
 import PaymentsIcon from './PaymentsIcon';
 import LogoutIcon from './LogoutIcon';
 import DeleteIcon from './DeleteIcon';
-
+import InfoIcon from './InfoIcon';
 export {
   JobsIcon,
   CompanyIcon,
@@ -14,4 +14,5 @@ export {
   PaymentsIcon,
   LogoutIcon,
   DeleteIcon,
+  InfoIcon,
 };

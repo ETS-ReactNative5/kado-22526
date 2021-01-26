@@ -1,18 +1,23 @@
 import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import {DeleteAccountScreen} from '../Screen';
-import AboutUsScreen from '../Screen/AboutUsScreen';
+import {CompaniesScreen} from '../Screen';
+import {white} from '../utils/Theme/Color';
 
-const DeleteAccountContainer = props => {
+const CompaniesContainer = props => {
   const goBack = () => {
     const {navigation} = props;
     navigation.goBack();
   };
 
+  const navigate = async routeName => {
+    const {navigation} = props;
+    await navigation.navigate(routeName);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <DeleteAccountScreen goBack={goBack} />
+      <CompaniesScreen navigate={navigate} goBack={goBack} />
     </SafeAreaView>
   );
 };
@@ -20,7 +25,8 @@ const DeleteAccountContainer = props => {
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
+    backgroundColor: white,
   },
 });
 
-export default DeleteAccountContainer;
+export default CompaniesContainer;
