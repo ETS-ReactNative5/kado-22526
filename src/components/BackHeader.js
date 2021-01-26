@@ -5,19 +5,17 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {buttonColor, themeColor} from '../utils/Theme/Color';
 
 import logo from '../assets/Image/logo.png';
+import {BackArrow, MainLogo} from '../assets/Image';
 
 const BackHeader = ({goBack, image, title, right}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={goBack} style={{padding: 10}}>
-        <Icon name="arrow-left" color={buttonColor} size={18} />
+        <BackArrow />
+        {/* <Icon name="arrow-left" color={buttonColor} size={18} /> */}
       </TouchableOpacity>
       <View>
-        {image ? (
-          <Image source={logo} />
-        ) : (
-          <Text style={styles.text}>{title}</Text>
-        )}
+        {image ? <MainLogo /> : <Text style={styles.text}>{title}</Text>}
       </View>
 
       <View style={{width: 35}}>

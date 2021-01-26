@@ -14,10 +14,10 @@ const FeedHeader = ({navigate, rightBtns}) => {
       </TouchableOpacity>
       {rightBtns ? null : (
         <View style={styles.leftContainer}>
-          <TouchableOpacity onPress={() => navigate('Jobs')}>
+          <TouchableOpacity onPress={() => navigate('Message')}>
             <Image source={comment} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigate('Company')}>
+          <TouchableOpacity>
             <Image style={styles.image} source={user} />
           </TouchableOpacity>
         </View>

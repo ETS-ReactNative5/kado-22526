@@ -199,13 +199,6 @@ const JobsScreen = ({navigate}) => {
         </View>
       </RBSheet>
       <View style={styles.body}>
-        <View style={styles.headerTextContainer}>
-          <Text style={styles.helloText}>Hello, </Text>
-          <Text numberOfLines={1} style={styles.userName}>
-            Dan Smith
-          </Text>
-        </View>
-
         <SearchBar placeHolder="Search for your next jobs..." />
 
         <View>
@@ -279,10 +272,10 @@ const styles = ScaledSheet.create({
   filterText: {
     fontSize: '14@s',
     fontStyle: 'normal',
-    fontWeight: '500',
+    fontWeight: '800',
     lineHeight: '20@s',
     letterSpacing: '1@s',
-    color: buttonColor,
+    color: themeColor,
   },
   locationContainer: {
     flex: 1,

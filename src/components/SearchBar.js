@@ -4,13 +4,14 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {View, TextInput} from 'react-native';
 import {blackColorText, buttonColor, lightGray} from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
+import {SearchIcon} from '../assets/Image';
 
 const SearchBar = ({placeHolder}) => {
   return (
     <View style={styles.searchHeader}>
       <View style={styles.searchContainer}>
         <View style={styles.searchIconContainer}>
-          <Icon name="search" size={20} color={buttonColor} />
+          <SearchIcon />
         </View>
 
         <TextInput
@@ -28,7 +29,7 @@ const styles = ScaledSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: lightGray,
-    padding: '10@s',
+    padding: '5@s',
     borderRadius: '7@s',
   },
   searchIconContainer: {

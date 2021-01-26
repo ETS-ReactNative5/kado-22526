@@ -6,6 +6,10 @@ import PaymentsIcon from './PaymentsIcon';
 import LogoutIcon from './LogoutIcon';
 import DeleteIcon from './DeleteIcon';
 import InfoIcon from './InfoIcon';
+import SearchIcon from './SearchIcon';
+import BackArrow from './BackArrow';
+import PaymentImage from './PaymentImage';
+import MainLogo from './MainLogo';
 export {
   JobsIcon,
   CompanyIcon,
@@ -15,4 +19,8 @@ export {
   LogoutIcon,
   DeleteIcon,
   InfoIcon,
+  SearchIcon,
+  BackArrow,
+  PaymentImage,
+  MainLogo,
 };

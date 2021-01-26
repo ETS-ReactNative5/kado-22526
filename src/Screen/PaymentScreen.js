@@ -7,13 +7,14 @@ import payment from '../assets/Image/payment.png';
 import {Text} from 'react-native';
 import {buttonColor} from '../utils/Theme/Color';
 import {TouchableOpacity} from 'react-native';
+import {PaymentImage} from '../assets/Image';
 
 const PaymentScreen = ({goBack}) => {
   return (
     <View style={styles.container}>
       <BackHeader image={true} goBack={goBack} />
       <View style={styles.imageContainer}>
-        <Image source={payment} />
+        <PaymentImage />
       </View>
       <TouchableOpacity>
         <Text style={styles.heading}>Payment</Text>
