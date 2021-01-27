@@ -13,6 +13,7 @@ import {
   white,
 } from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
+import {ActivityIndicator} from 'react-native';
 
 const DATA = [
   {
@@ -29,8 +30,25 @@ const DATA = [
   },
 ];
 
-const NewsFeedContainer = ({navigate}) => {
-  const renderItem = ({item}) => <FeedCard title={item.title} />;
+const NewsFeedContainer = ({navigate, jobList, saveJobsList, isLoading}) => {
+  console.log('jobs', jobList);
+  const renderItem = ({item}) => (
+    <FeedCard
+      title={item.title}
+      description={item?.description}
+      experience_level={item?.experience_level}
+      skills={item?.skills}
+    />
+  );
+
+  const savedRenderItem = ({item}) => (
+    <FeedCard
+      title={item.title}
+      description={item?.description}
+      experience_level={item?.experience_level}
+      skills={item?.skills}
+    />
+  );
 
   return (
     <View style={styles.container}>
@@ -60,11 +78,15 @@ const NewsFeedContainer = ({navigate}) => {
               }}
               textStyle={{color: '#8E8E8E'}}
               heading="Feed">
-              <FlatList
-                showsVerticalScrollIndicator={false}
-                renderItem={renderItem}
-                data={DATA}
-              />
+              {isLoading ? (
+                <View>
+                  <ActivityIndicator />
+                </View>
+              ) : jobList?.length === 0 ? (
+                <Text>No jobs</Text>
+              ) : (
+                <FlatList renderItem={renderItem} data={jobList} />
+              )}
             </Tab>
             <Tab
               tabStyle={{backgroundColor: white}}
@@ -76,8 +98,19 @@ const NewsFeedContainer = ({navigate}) => {
                 lineHeight: 18,
               }}
               textStyle={{color: '#8E8E8E'}}
-              heading="Saved"
-            />
+              heading="Saved">
+              {isLoading ? (
+                <View>
+                  <ActivityIndicator />
+                </View>
+              ) : saveJobsList?.length === 0 ? (
+                <View style={styles.empty}>
+                  <Text>No saved jobs</Text>
+                </View>
+              ) : (
+                <FlatList renderItem={renderItem} data={saveJobsList} />
+              )}
+            </Tab>
           </Tabs>
         </View>
       </View>
@@ -115,6 +148,12 @@ const styles = ScaledSheet.create({
   tabContainer: {
     flex: 1,
     marginTop: '20@s',
+  },
+
+  empty: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 export default NewsFeedContainer;

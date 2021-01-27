@@ -10,6 +10,7 @@ import SearchIcon from './SearchIcon';
 import BackArrow from './BackArrow';
 import PaymentImage from './PaymentImage';
 import MainLogo from './MainLogo';
+import FollowIcon from './FollowIcon';
 export {
   JobsIcon,
   CompanyIcon,
@@ -23,4 +24,5 @@ export {
   BackArrow,
   PaymentImage,
   MainLogo,
+  FollowIcon,
 };

@@ -20,6 +20,7 @@ import {
   CompaniesContainer,
   FAQContainer,
   PaymentContainer,
+  CompanyInfoContainer,
 } from '../Container';
 import {DrawerContentData} from '../components';
 import Animated from 'react-native-reanimated';
@@ -116,6 +117,11 @@ const App = ({style}) => {
         <Stack.Screen
           name="Payment"
           component={PaymentContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="CompanyInfo"
+          component={CompanyInfoContainer}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

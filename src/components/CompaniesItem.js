@@ -7,14 +7,16 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {InfoIcon} from '../assets/Image';
 import {themeColor} from '../utils/Theme/Color';
 
-const CompaniesItem = ({title, image, navigate}) => {
+const CompaniesItem = ({title, image, navigate, subtitle}) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      onPress={() => navigate('CompanyInfo')}
+      style={styles.container}>
       <View style={styles.leftContainer}>
         <Image source={image} style={styles.image} />
         <View style={styles.textContainer}>
           <Text style={styles.heading}>{title}</Text>
-          <Text style={styles.subHeading}>Salman, saleem</Text>
+          <Text style={styles.subHeading}>{subtitle}</Text>
         </View>
       </View>
       <View>
@@ -56,7 +58,7 @@ const styles = ScaledSheet.create({
     fontSize: '13@s',
     lineHeight: '16@s',
     color: themeColor,
-    textTransform: 'capitalize',
+
     fontWeight: 'bold',
   },
   subHeading: {

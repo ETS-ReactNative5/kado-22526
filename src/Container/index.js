@@ -13,6 +13,8 @@ import JobsContainer from './JobsContainer';
 import FAQContainer from './FAQContainer';
 import CompaniesContainer from './CompaniesContainer';
 import PaymentContainer from './PaymentContainer';
+import CompanyInfoContainer from './CompanyInfoContainer';
+
 export {
   SignUpContainer,
   ChatContainer,
@@ -29,4 +31,5 @@ export {
   CompaniesContainer,
   FAQContainer,
   PaymentContainer,
+  CompanyInfoContainer,
 };

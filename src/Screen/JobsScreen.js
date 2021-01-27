@@ -25,6 +25,7 @@ import {
 } from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
 import {TouchableOpacity} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 
 const DATA = [
   {
@@ -41,8 +42,25 @@ const DATA = [
   },
 ];
 
-const JobsScreen = ({navigate}) => {
-  const renderItem = ({item}) => <FeedCard title={item.title} />;
+const JobsScreen = ({
+  navigate,
+  jobList,
+  isLoading,
+  josCategoryList,
+  typeProList,
+}) => {
+  console.log('jobss list', josCategoryList);
+  const renderItem = ({item}) => (
+    <FeedCard
+      title={item?.title}
+      description={item?.description}
+      experience_level={item?.experience_level}
+      skills={item?.skills}
+    />
+  );
+
+  const renderCategory = ({item}) => <SheetItems title={item?.value} />;
+  const renderProTypes = ({item}) => <SheetItems title={item?.value} />;
   const refRBSheet = useRef();
   const refRBSheetProject = useRef();
   const refRBSheetDate = useRef();
@@ -70,8 +88,8 @@ const JobsScreen = ({navigate}) => {
           },
         }}>
         <BottomHeader refRBSheet={refRBSheet} title="Sort by Category" />
-        <SheetItems refRBSheet={refRBSheet} title="Services" />
-        <SheetItems refRBSheet={refRBSheet} title="Project" />
+
+        <FlatList renderItem={renderCategory} data={josCategoryList} />
       </RBSheet>
 
       <RBSheet
@@ -97,11 +115,7 @@ const JobsScreen = ({navigate}) => {
           refRBSheet={refRBSheetProject}
           title="Sort by Type of Project"
         />
-        <SheetItems refRBSheet={refRBSheetProject} title="Part-time" />
-        <SheetItems refRBSheet={refRBSheetProject} title="Full-time" />
-        <SheetItems refRBSheet={refRBSheetProject} title="Remote" />
-        <SheetItems refRBSheet={refRBSheetProject} title="One-time Project" />
-        <SheetItems refRBSheet={refRBSheetProject} title="Ongoing Project" />
+        <FlatList renderItem={renderProTypes} data={typeProList} />
       </RBSheet>
 
       <RBSheet
@@ -218,11 +232,21 @@ const JobsScreen = ({navigate}) => {
         </View>
 
         <View style={styles.tabContainer}>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            renderItem={renderItem}
-            data={DATA}
-          />
+          {isLoading ? (
+            <View style={styles.empty}>
+              <ActivityIndicator color={blackColorText} />
+            </View>
+          ) : jobList.length === 0 ? (
+            <View style={styles.empty}>
+              <Text>No jobs</Text>
+            </View>
+          ) : (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              renderItem={renderItem}
+              data={jobList}
+            />
+          )}
         </View>
       </View>
     </View>
@@ -299,6 +323,11 @@ const styles = ScaledSheet.create({
     borderRadius: '5@s',
     paddingLeft: '10@s',
     backgroundColor: feedItemBack,
+  },
+  empty: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 export default JobsScreen;

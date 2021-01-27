@@ -27,15 +27,15 @@ const DATA = [
   },
 ];
 
-const FeedCard = () => {
+const FeedCard = ({title, description, experience_level, skills}) => {
   // const myItem = return ()
-  const renderItem = ({item}) => <FeedButton title={item.title} />;
+  const renderItem = ({item}) => <FeedButton title={item} />;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
           <Text numberOfLines={1} style={styles.heading}>
-            Word Press (Front end) Developer needed needed needed needed
+            {title}
           </Text>
           <Text style={styles.postColor}>Posted 10h ago</Text>
         </View>
@@ -44,14 +44,11 @@ const FeedCard = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.descContainer}>
-        <Text>
-          Experience working with popular WordPress page builders particularly
-          Beaver Builder and Elementor
-        </Text>
+        <Text>{description}</Text>
       </View>
       <View style={styles.monthContainer}>
         <View>
-          <Text style={styles.monthHeading}>Intermediate</Text>
+          <Text style={styles.monthHeading}>{experience_level}</Text>
           <Text style={styles.monthText}>Experience Level</Text>
         </View>
         <View>
@@ -64,7 +61,7 @@ const FeedCard = () => {
           showsHorizontalScrollIndicator={false}
           horizontal={true}
           renderItem={renderItem}
-          data={DATA}
+          data={skills}
         />
         {/* <FeedButton title="Website Redesign" />
         <FeedButton title="Website Development" /> */}
@@ -116,7 +113,7 @@ const styles = ScaledSheet.create({
   },
   monthContainer: {
     width: '75%',
-    padding: '10@s',
+
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -125,6 +122,7 @@ const styles = ScaledSheet.create({
     fontSize: '11@s',
     lineHeight: '13@s',
     fontWeight: 'bold',
+    textTransform: 'capitalize',
   },
   monthText: {
     color: blackColorText,
