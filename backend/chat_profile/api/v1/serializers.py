@@ -21,6 +21,7 @@ class ProfileThreadSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     fullname = serializers.CharField()
+    # photo = serializers.FileField(required=False) # TODO: upload files to AWS
 
     class Meta:
         model = Profile
@@ -30,14 +31,15 @@ class ProfileSerializer(serializers.ModelSerializer):
             "allowed_to_work",
             "field_of_study",
             "hours_per_week",
-            "pay_margin_max",
-            "pay_margin_min",
+            "max_pay",
+            "min_pay",
             "services",
             "skills",
             "university",
             "work_type",
             "profile_type",
             "years_of_experience",
+            "company_name"
         )
 
     def _get_request(self):

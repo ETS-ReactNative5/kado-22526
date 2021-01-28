@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MaxValueValidator, MinValueValidator
-from .enums import StudentEnum, CompanyEnum, WorkTypeEnum
 
+from .enums import StudentEnum, CompanyEnum, WorkTypeEnum
+from .utils import validate_profile_search_params
 
 class VerificationCode(models.Model):
     "Generated Model"
@@ -104,7 +105,7 @@ class Profile(models.Model):
         null=True,
         default=0
     )
-    pay_margin_min = models.IntegerField(
+    min_pay = models.IntegerField(
         verbose_name='Minimum pay',
         validators=[
             MinValueValidator(0)
@@ -113,7 +114,7 @@ class Profile(models.Model):
         null=True,
         default=0
     )
-    pay_margin_max = models.IntegerField(
+    max_pay = models.IntegerField(
         verbose_name='Maximum pay',
         validators=[
             MinValueValidator(0)
@@ -134,6 +135,19 @@ class Profile(models.Model):
         auto_now=True,
     )
     last_login = models.DateTimeField(null=True, blank=True, )
+
+    @classmethod
+    def search(cls, search_query=None, **kwargs):
+        params = validate_profile_search_params(kwargs.get('params', {}))
+        queryset = cls.objects.all()
+        if search_query:
+            queryset = queryset.filter(
+                models.Q(company_name__icontains=search_query) |
+                models.Q(user__last_name__icontains=search_query) |
+                models.Q(user__first_name__icontains=search_query) |
+                models.Q(university__icontains=search_query)
+            )
+        return queryset.filter(**params)
 
     def fullname(self):
         """ Display either first name and last name or username """
