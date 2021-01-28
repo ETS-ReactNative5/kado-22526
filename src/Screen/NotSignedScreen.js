@@ -2,7 +2,7 @@ import React from 'react';
 import {Tabs, Tab} from 'native-base';
 import {View, Text, TextInput, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {FeedCard, FeedHeader, SearchBar} from '../components';
+import {FeedCard, FeedHeader, NotSignedCard, SearchBar} from '../components';
 import {
   blackColorText,
   buttonColor,
@@ -15,10 +15,20 @@ import {
 import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
 
-const NewsFeedContainer = ({navigate, jobList, saveJobsList, isLoading}) => {
- 
+const DATA = [
+  {
+    id: 1,
+    title: 'First',
+  },
+  {
+    id: 2,
+    title: 'First',
+  },
+];
+
+const NotSignedScreen = ({navigate, jobList, saveJobsList, isLoading}) => {
   const renderItem = ({item}) => (
-    <FeedCard
+    <NotSignedCard
       title={item.title}
       description={item?.description}
       experience_level={item?.experience_level}
@@ -63,15 +73,16 @@ const NewsFeedContainer = ({navigate, jobList, saveJobsList, isLoading}) => {
               }}
               textStyle={{color: '#8E8E8E'}}
               heading="Feed">
-              {isLoading ? (
+              <FlatList renderItem={renderItem} data={DATA} />
+              {/* {isLoading ? (
                 <View>
                   <ActivityIndicator />
                 </View>
               ) : jobList?.length === 0 ? (
                 <Text>No jobs</Text>
               ) : (
-                <FlatList renderItem={renderItem} data={jobList} />
-              )}
+                <FlatList renderItem={renderItem} data={DATA} />
+              )} */}
             </Tab>
             <Tab
               tabStyle={{backgroundColor: white}}
@@ -141,4 +152,4 @@ const styles = ScaledSheet.create({
     alignItems: 'center',
   },
 });
-export default NewsFeedContainer;
+export default NotSignedScreen;

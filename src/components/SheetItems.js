@@ -11,10 +11,13 @@ import {
   themeColor,
 } from '../utils/Theme/Color';
 
-const SheetItems = ({title, refRBSheet}) => {
+const SheetItems = ({title, refRBSheet, handleJobFilter, name, paramName}) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => refRBSheet.current.close()}>
+      <TouchableOpacity
+        onPress={() => {
+          refRBSheet.current.close(), handleJobFilter(paramName, name);
+        }}>
         <Text style={styles.text}>{title}</Text>
       </TouchableOpacity>
     </View>

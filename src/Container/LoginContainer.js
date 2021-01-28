@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {useDispatch, useSelector} from 'react-redux';
@@ -8,6 +8,8 @@ const LoginContainer = props => {
   const [showPassword, setShowPasssword] = useState(true);
   const [loginForm, setLogInForm] = useState({});
   const dispatch = useDispatch();
+  const isloading = useSelector(state => state.auth.isLoading);
+
   const navigate = async routeName => {
     const {navigation} = props;
     if (routeName === 'drawer') {
@@ -16,6 +18,10 @@ const LoginContainer = props => {
       await navigation.navigate(routeName);
     }
   };
+
+  useEffect(() => {
+    console.log('isloafiasnfsdf', isloading);
+  });
 
   const goBack = () => {
     const {navigation} = props;
@@ -43,6 +49,7 @@ const LoginContainer = props => {
         goBack={goBack}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
+        isloading={isloading}
       />
     </SafeAreaView>
   );

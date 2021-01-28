@@ -16,6 +16,7 @@ const Input = ({
   image,
   fromImage,
   onChange,
+  value,
 }) => {
   return (
     <View style={styles.inputContainer}>
@@ -26,6 +27,7 @@ const Input = ({
         placeholder={placeholder}
         keyboardType={keyboardType}
         onChangeText={onChange}
+        defaultValue={value}
       />
       {iconShow ? (
         <TouchableOpacity

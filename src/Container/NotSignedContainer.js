@@ -1,19 +1,15 @@
 import React, {useEffect} from 'react';
 import {SafeAreaView} from 'react-native';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
 import {useDispatch, useSelector} from 'react-redux';
-import {ActionCreators} from '../actions';
 import {ScaledSheet} from 'react-native-size-matters';
-import {NewsFeedScreen} from '../Screen';
+import {NotSignedScreen} from '../Screen';
 
 import {fetchAlljOBS, fetchAllSavedJobs} from '../actions/jobs';
 
-const NewsFeedContainer = props => {
+const NotSignedContainer = props => {
   const dispatch = useDispatch();
-  const jobList = useSelector(state => state.jobs.jobList);
-  const saveJobsList = useSelector(state => state.jobs.saveJobsList);
-  const isloading = useSelector(state => state.jobs.isloading);
+  const {jobList, saveJobsList, isloading} = useSelector(state => state.jobs);
+
   const navigate = async routeName => {
     const {navigation} = props;
     if (routeName === 'drawer') {
@@ -29,7 +25,7 @@ const NewsFeedContainer = props => {
   }, []);
   return (
     <SafeAreaView style={styles.container}>
-      <NewsFeedScreen
+      <NotSignedScreen
         saveJobsList={saveJobsList}
         jobList={jobList}
         navigate={navigate}
@@ -45,4 +41,4 @@ const styles = ScaledSheet.create({
   },
 });
 
-export default NewsFeedContainer;
+export default NotSignedContainer;

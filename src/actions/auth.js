@@ -3,10 +3,10 @@ import Api from '../lib/requests/api';
 import Storage from '../lib/requests/storage';
 import {ToastAndroid} from 'react-native';
 
-function setIsLoading(loading) {
+function setIsLoading(isLoading) {
   return {
     type: types.IS_LOADING,
-    loading,
+    isLoading,
   };
 }
 
@@ -36,13 +36,12 @@ export function login(params, navigate) {
   navigate('Home');
   return dispatch => {
     dispatch(setIsLoading(true));
-    console.log('params', params);
 
     Api.post('rest-auth/login/', params)
       .then(resp => {
         // Storage.storeData("currentUser", resp.user)
-        Storage.storeData('access_token', `${resp.key}`);
-        console.log('user token', resp);
+        Storage.storeData('access_token', resp);
+        console.log('user token', resp.key);
         dispatch(setIsLoading(false));
         ToastAndroid.showWithGravity(
           'Logged In Successes',

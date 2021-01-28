@@ -45,11 +45,11 @@ const DATA = [
 const JobsScreen = ({
   navigate,
   jobList,
-  isLoading,
+  isloading,
   josCategoryList,
   typeProList,
+  handleJobFilter,
 }) => {
-  console.log('jobss list', josCategoryList);
   const renderItem = ({item}) => (
     <FeedCard
       title={item?.title}
@@ -59,8 +59,24 @@ const JobsScreen = ({
     />
   );
 
-  const renderCategory = ({item}) => <SheetItems title={item?.value} />;
-  const renderProTypes = ({item}) => <SheetItems title={item?.value} />;
+  const renderCategory = ({item}) => (
+    <SheetItems
+      handleJobFilter={handleJobFilter}
+      refRBSheet={refRBSheet}
+      title={item?.value}
+      name={item?.name}
+      paramName="job_category"
+    />
+  );
+  const renderProTypes = ({item}) => (
+    <SheetItems
+      handleJobFilter={handleJobFilter}
+      refRBSheet={refRBSheetProject}
+      title={item?.value}
+      name={item?.name}
+      paramName="job_type"
+    />
+  );
   const refRBSheet = useRef();
   const refRBSheetProject = useRef();
   const refRBSheetDate = useRef();
@@ -162,12 +178,15 @@ const JobsScreen = ({
             borderTopLeftRadius: 15,
           },
         }}>
-        <BottomHeader refRBSheet={refRBSheetLocation} title="Sort by Date" />
+        <BottomHeader
+          refRBSheet={refRBSheetLocation}
+          title="Sort by Location"
+        />
         <View style={styles.locationContainer}>
           <TextInput
             placeholderTextColor="rgba(rgba(41, 41, 41, 0.2))"
             style={styles.inputLocation}
-            placeholder="Type in your location"
+            placeholder="Type in your Location"
           />
         </View>
       </RBSheet>
@@ -232,7 +251,7 @@ const JobsScreen = ({
         </View>
 
         <View style={styles.tabContainer}>
-          {isLoading ? (
+          {isloading ? (
             <View style={styles.empty}>
               <ActivityIndicator color={blackColorText} />
             </View>

@@ -36,10 +36,17 @@ function getTypesProject(typeProList) {
   };
 }
 
-export function fetchAlljOBS() {
+function getSortBy(sortbyList) {
+  return {
+    type: types.SORT_BY,
+    sortbyList: sortbyList,
+  };
+}
+
+export function fetchAlljOBS(param, sortbyString) {
   return dispatch => {
     dispatch(setIsLoading(true));
-    Api.get(`api/v1/job/`)
+    Api.get(`api/v1/job/?${param}=${sortbyString}`)
       .then(resp => {
         dispatch(getJobs(resp?.results));
         dispatch(setIsLoading(false));
@@ -87,12 +94,29 @@ export function fetchjobsCategory() {
 }
 
 export function fetchProjectsType() {
-  console.log('salman ');
   return dispatch => {
     dispatch(setIsLoading(true));
     Api.get(`api/v1/job_types`)
       .then(resp => {
         dispatch(getTypesProject(resp));
+        dispatch(setIsLoading(false));
+        console.log('jobsssss', resp);
+      })
+      .catch(err => {
+        console.log('errpr', err);
+
+        dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function fetchSortBy(param, sortbyString) {
+  console.log('salman ', sortbyString);
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/job/?${param}=${sortbyString}`)
+      .then(resp => {
+        dispatch(getSortBy(resp));
         dispatch(setIsLoading(false));
         console.log('jobsssss', resp);
       })

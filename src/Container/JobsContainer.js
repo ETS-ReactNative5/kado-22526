@@ -1,26 +1,32 @@
 import React, {useEffect} from 'react';
 import {SafeAreaView} from 'react-native';
-import {View, Text} from 'react-native';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import {ActionCreators} from '../actions';
+import {useDispatch, useSelector} from 'react-redux';
 import {ScaledSheet} from 'react-native-size-matters';
 import {JobsScreen} from '../Screen';
 import {white} from '../utils/Theme/Color';
 
+import {
+  fetchAllSavedJobs,
+  fetchAlljOBS,
+  fetchProjectsType,
+  fetchjobsCategory,
+} from '../actions/jobs';
+
 const JobsContainer = props => {
   const {
-    fetchAlljOBS,
     jobList,
-    fetchAllSavedJobs,
+
     saveJobsList,
-    fetchjobsCategory,
-    josCategoryList,
-    isLoading,
+    isloading,
     typeProList,
-    fetchProjectsType,
-  } = props;
-  console.log('propsss', props);
+  } = useSelector(state => state.jobs);
+
+  const dispatch = useDispatch();
+
+  const josCategoryList = useSelector(state => state.jobs.josCategoryList);
+
+  console.log('josCategoryList', josCategoryList);
+
   const goBack = () => {
     const {navigation} = props;
     navigation.goBack();
@@ -35,11 +41,15 @@ const JobsContainer = props => {
   };
 
   useEffect(() => {
-    fetchAlljOBS();
-    fetchAllSavedJobs();
-    fetchjobsCategory();
-    fetchProjectsType();
+    dispatch(fetchAlljOBS());
+    dispatch(fetchAllSavedJobs());
+    dispatch(fetchjobsCategory());
+    dispatch(fetchProjectsType());
   }, []);
+
+  const handleJobFilter = (key, param) => {
+    dispatch(fetchAlljOBS(key, param));
+  };
   return (
     <SafeAreaView style={styles.container}>
       <JobsScreen
@@ -48,8 +58,9 @@ const JobsContainer = props => {
         navigate={navigate}
         goBack={goBack}
         josCategoryList={josCategoryList}
-        isLoading={isLoading}
+        isloading={isloading}
         typeProList={typeProList}
+        handleJobFilter={handleJobFilter}
       />
     </SafeAreaView>
   );
@@ -62,21 +73,4 @@ const styles = ScaledSheet.create({
   },
 });
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(ActionCreators, dispatch);
-};
-
-const mapStateToProps = state => {
-  return {
-    isLoading: state.jobs.isLoading,
-    jobList: state.jobs.jobList,
-    saveJobsList: state.jobs.saveJobsList,
-    josCategoryList: state.jobs.josCategoryList,
-    typeProList: state.jobs.typeProList,
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(JobsContainer);
+export default JobsContainer;

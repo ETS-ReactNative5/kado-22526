@@ -1,5 +1,13 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
+
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -18,6 +26,7 @@ const LoginScreen = ({
   showPassword,
   handleChange,
   handleSubmit,
+  isloading,
   goBack,
 }) => {
   return (
@@ -59,7 +68,11 @@ const LoginScreen = ({
           <TouchableOpacity
             onPress={() => handleSubmit()}
             style={styles.registerBtnContainer}>
-            <Text style={styles.registerText}>Login</Text>
+            {isloading ? (
+              <ActivityIndicator color={white} />
+            ) : (
+              <Text style={styles.registerText}>Login</Text>
+            )}
           </TouchableOpacity>
         </View>
 

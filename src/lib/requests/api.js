@@ -9,7 +9,7 @@ class Api {
     });
     return {
       'Content-Type': 'application/json',
-      Authorization: `key ${token}`,
+      Authorization: `Token ${token.key}`,
     };
   }
 

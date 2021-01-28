@@ -14,6 +14,7 @@ import FAQContainer from './FAQContainer';
 import CompaniesContainer from './CompaniesContainer';
 import PaymentContainer from './PaymentContainer';
 import CompanyInfoContainer from './CompanyInfoContainer';
+import NotSignedContainer from './NotSignedContainer';
 
 export {
   SignUpContainer,
@@ -32,4 +33,5 @@ export {
   FAQContainer,
   PaymentContainer,
   CompanyInfoContainer,
+  NotSignedContainer,
 };

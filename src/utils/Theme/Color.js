@@ -19,6 +19,7 @@ const fadeBlue = '#6677E6';
 const amountBorder = '#C0BFCD';
 const addressColor = '#817F9B';
 const btnBackColor = '#ECECF6';
+const paragraphColor = '#424069';
 
 // font family
 
@@ -44,4 +45,5 @@ export {
   amountBorder,
   addressColor,
   btnBackColor,
+  paragraphColor,
 };

@@ -12,6 +12,8 @@ import CompaniesScreen from './CompaniesScreen';
 import FAQScreen from './FAQScreen';
 import PaymentScreen from './PaymentScreen';
 import CompanyInfoScreen from './CompanyInfoScreen';
+import NotSignedScreen from './NotSignedScreen';
+
 export {
   SignUpScreen,
   LoginScreen,
@@ -27,4 +29,5 @@ export {
   FAQScreen,
   PaymentScreen,
   CompanyInfoScreen,
+  NotSignedScreen,
 };

@@ -1,16 +1,16 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { DrawerContentScrollView } from '@react-navigation/drawer';
+import {DrawerContentScrollView} from '@react-navigation/drawer';
 import Animated from 'react-native-reanimated';
-import { themeColor, white } from '../utils/Theme/Color';
-import { ScaledSheet } from 'react-native-size-matters';
+import {themeColor, white} from '../utils/Theme/Color';
+import {ScaledSheet} from 'react-native-size-matters';
 import userIcon from '../assets/Image/userIcon.png';
 import aboutIcon from '../assets/Image/aboutIcon.png';
 
 import whiteLogo from '../assets/Image/whiteLogo.png';
 
-const Drawer = ({ navigation, progress, ...rest }) => {
+const Drawer = ({navigation, progress, ...rest}) => {
   // console.log('progress', progress);
 
   const translateX = Animated.interpolate(progress, {
@@ -20,7 +20,7 @@ const Drawer = ({ navigation, progress, ...rest }) => {
   return (
     <DrawerContentScrollView
       scrollEnabled={false}
-      contentContainerStyle={{ flex: 1, backgroundColor: themeColor }}
+      contentContainerStyle={{flex: 1, backgroundColor: themeColor}}
       {...rest}>
       <Animated.View style={styles.container}>
         <View style={styles.body}>
@@ -31,7 +31,7 @@ const Drawer = ({ navigation, progress, ...rest }) => {
             Find work, build resume, gain industry experience, and foster
             professional relationships
           </Text>
-          <View style={{ marginTop: 20 }}>
+          <View style={{marginTop: 20}}>
             <TouchableOpacity
               style={styles.btn}
               onPress={() => navigation.navigate('AboutUs')}>
@@ -46,18 +46,20 @@ const Drawer = ({ navigation, progress, ...rest }) => {
               {/* <Icon color={white} size={17} name="user-alt" /> */}
               <Text style={styles.btnText}>Profile</Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity
-              style={styles.btn}
-              onPress={() => navigation.navigate('Message')}>
-              <Image source={userIcon} />
-              <Text style={styles.btnText}>Message</Text>
-            </TouchableOpacity> */}
+
             <TouchableOpacity
               style={styles.btn}
               onPress={() => navigation.navigate('Explore')}>
               <Icon color={white} size={20} name="compass" />
 
               <Text style={styles.btnText}>Explore</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => navigation.navigate('NotSigned')}>
+              <Image source={userIcon} />
+              {/* <Icon color={white} size={17} name="user-alt" /> */}
+              <Text style={styles.btnText}>Not Signed in</Text>
             </TouchableOpacity>
           </View>
         </View>

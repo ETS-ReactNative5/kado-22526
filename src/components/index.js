@@ -12,6 +12,7 @@ import BottomDate from './BottomDate';
 import Filters from './Filters';
 import CompaniesItem from './CompaniesItem';
 import SearchBar from './SearchBar';
+import NotSignedCard from './NotSignedCard';
 
 export {
   Input,
@@ -28,4 +29,5 @@ export {
   Filters,
   CompaniesItem,
   SearchBar,
+  NotSignedCard,
 };
