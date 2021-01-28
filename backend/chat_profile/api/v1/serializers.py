@@ -39,7 +39,8 @@ class ProfileSerializer(serializers.ModelSerializer):
             "work_type",
             "profile_type",
             "years_of_experience",
-            "company_name"
+            "company_name",
+            "bio"
         )
 
     def _get_request(self):

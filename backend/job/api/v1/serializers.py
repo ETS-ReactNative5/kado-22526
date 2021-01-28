@@ -74,15 +74,14 @@ class JobSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         user = self._get_request().user
-        if user.id != instance.owner.user.id:
-            raise serializers.ValidationError(
-                {"error": _("You can only edit your own job feed.")}
-            )
-
-        instance = update_object(instance, validated_data)
         favorite = validated_data.get('favorite', -1)
         if favorite != -1:
             instance.favorites.add(user.profile) if favorite else instance.favorites.remove(user.profile)
+        if user.id != instance.owner.user.id:
+            return instance
+
+        instance = update_object(instance, validated_data)
+
         return instance
 
     def create(self, validated_data):

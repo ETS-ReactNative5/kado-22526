@@ -66,6 +66,7 @@ class Profile(models.Model):
     )
     profile_type = models.CharField('Profile Type', choices=Profile_types, default=None, null=True, blank=True,
                                     max_length=15)
+    bio = models.TextField(null=True, blank=True,)
     mobile_number = models.CharField(
         max_length=20, null=True, blank=True,
     )
