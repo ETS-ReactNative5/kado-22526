@@ -7,13 +7,18 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {InfoIcon} from '../assets/Image';
 import {themeColor} from '../utils/Theme/Color';
 
-const CompaniesItem = ({title, image, navigate, subtitle}) => {
+const CompaniesItem = ({title, image, navigate, subtitle, id}) => {
   return (
     <TouchableOpacity
-      onPress={() => navigate('CompanyInfo')}
+      onPress={() => navigate('CompanyInfo', title)}
       style={styles.container}>
       <View style={styles.leftContainer}>
-        <Image source={image} style={styles.image} />
+        <Image
+          resizeMode="center"
+          resizeMethod="resize"
+          source={{uri: image}}
+          style={styles.image}
+        />
         <View style={styles.textContainer}>
           <Text style={styles.heading}>{title}</Text>
           <Text style={styles.subHeading}>{subtitle}</Text>

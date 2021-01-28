@@ -43,10 +43,43 @@ function getSortBy(sortbyList) {
   };
 }
 
-export function fetchAlljOBS(param, sortbyString) {
+export function fetchAlljOBS(param, sortbyString, min_pay, min_amount) {
   return dispatch => {
     dispatch(setIsLoading(true));
-    Api.get(`api/v1/job/?${param}=${sortbyString}`)
+    Api.get(`api/v1/job/?${param}=${sortbyString}&${min_pay}=${min_amount}`)
+      .then(resp => {
+        dispatch(getJobs(resp?.results));
+        dispatch(setIsLoading(false));
+      })
+      .catch(err => {
+        console.log('errpr', err);
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function fetchAllJobsAmount(min_type, min_amount, max_type, max_amount) {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/job/?${min_type}=${min_amount}&${max_type}=${max_amount}`)
+      .then(resp => {
+        dispatch(getJobs(resp?.results));
+        dispatch(setIsLoading(false));
+      })
+      .catch(err => {
+        console.log('errpr', err);
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function fetchAllJobsDate(start_date, from_date, end_date, to_date) {
+  console.log('skalaan', start_date, from_date, end_date, to_date);
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/job/?${start_date}=${from_date}&${end_date}=${to_date}`)
       .then(resp => {
         dispatch(getJobs(resp?.results));
         dispatch(setIsLoading(false));

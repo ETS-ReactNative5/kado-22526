@@ -7,7 +7,13 @@ import {TouchableOpacity} from 'react-native';
 import {buttonColor, feedItemBack, themeColor} from '../utils/Theme/Color';
 import {TextInput} from 'react-native';
 
-const BottomDate = ({title, placeholder, refRBSheet}) => {
+const BottomDate = ({
+  title,
+  placeholder,
+  refRBSheet,
+  onPress,
+  onChangeText,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.body}>
@@ -15,11 +21,12 @@ const BottomDate = ({title, placeholder, refRBSheet}) => {
           <Text style={styles.text}>{title}</Text>
         </View>
 
-        <View style={styles.inputContainer}>
+        <View onPress={onPress} style={styles.inputContainer}>
           <TextInput
             placeholderTextColor="rgba(41, 41, 41, 0.2)"
             style={styles.input}
             placeholder={placeholder}
+            onChangeText={onChangeText}
           />
         </View>
       </View>

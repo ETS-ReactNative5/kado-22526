@@ -19,6 +19,7 @@ import newyork from '../assets/Image/newyork.png';
 import hp from '../assets/Image/hp.png';
 import carfor from '../assets/Image/carfor.png';
 import eroksi from '../assets/Image/eroksi.png';
+import {ActivityIndicator} from 'react-native';
 
 const DATA = [
   {
@@ -83,13 +84,14 @@ const DATA = [
   },
 ];
 
-const CompaniesScreen = ({goBack, navigate}) => {
+const CompaniesScreen = ({goBack, navigate, isloading, companyList}) => {
   const renderItem = ({item}) => (
     <CompaniesItem
-      image={item.image}
-      title={item.title}
+      image={item.photo}
+      title={item.fullname}
       navigate={navigate}
-      subtitle={item.subtitle}
+      subtitle={item.location}
+      id={item?.id}
     />
   );
   return (
@@ -99,7 +101,17 @@ const CompaniesScreen = ({goBack, navigate}) => {
         <SearchBar placeHolder="Search companies..." />
       </View>
 
-      <FlatList renderItem={renderItem} data={DATA} />
+      {isloading ? (
+        <View style={styles.empty}>
+          <ActivityIndicator />
+        </View>
+      ) : companyList?.count === 0 ? (
+        <View style={styles.empty}>
+          <Text>No Companies</Text>
+        </View>
+      ) : (
+        <FlatList renderItem={renderItem} data={companyList?.results} />
+      )}
     </View>
   );
 };
@@ -129,6 +141,11 @@ const styles = ScaledSheet.create({
   },
   searchHeader: {
     padding: '10@s',
+  },
+  empty: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

@@ -2,6 +2,7 @@ import React, {useRef} from 'react';
 import {View, Text, TextInput, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icons from 'react-native-vector-icons/MaterialIcons';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {
   BottomDate,
   BottomHeader,
@@ -26,6 +27,7 @@ import {
 import {ScaledSheet} from 'react-native-size-matters';
 import {TouchableOpacity} from 'react-native';
 import {ActivityIndicator} from 'react-native';
+import {ScrollView} from 'react-native';
 
 const DATA = [
   {
@@ -49,7 +51,26 @@ const JobsScreen = ({
   josCategoryList,
   typeProList,
   handleJobFilter,
+  handleChange,
+  data,
+  handleAmountFilter,
+  handleDateFilter,
+  isDatePickerVisible,
+  setDatePickerVisibility,
 }) => {
+  const showDatePicker = () => {
+    console.log('salman saleem', isDatePickerVisible);
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = date => {
+    console.warn('A date has been picked: ', date);
+    hideDatePicker();
+  };
   const renderItem = ({item}) => (
     <FeedCard
       title={item?.title}
@@ -130,6 +151,7 @@ const JobsScreen = ({
         <BottomHeader
           refRBSheet={refRBSheetProject}
           title="Sort by Type of Project"
+          data={data.location}
         />
         <FlatList renderItem={renderProTypes} data={typeProList} />
       </RBSheet>
@@ -153,10 +175,30 @@ const JobsScreen = ({
             borderTopLeftRadius: 15,
           },
         }}>
-        <BottomHeader refRBSheet={refRBSheetDate} title="Sort by Date" />
-        <BottomDate title="Start" placeholder="DD/MM/YYY " />
-        <BottomDate title="Finish" placeholder="DD/MM/YYY " />
-        <BottomDate title="Availability" placeholder="Total hours per week" />
+        <BottomHeader
+          dateClick={true}
+          refRBSheet={refRBSheetDate}
+          title="Sort by Date"
+          data={data}
+          handleDateFilter={handleDateFilter}
+        />
+        <BottomDate
+          handleChange={handleChange}
+          title="Start"
+          placeholder="DD/MM/YYY"
+          onChangeText={value => handleChange('start_date', value)}
+        />
+        <BottomDate
+          handleChange={handleChange}
+          title="Finish"
+          placeholder="DD/MM/YYY "
+          onChangeText={value => handleChange('end_date', value)}
+        />
+        <BottomDate
+          handleChange={handleChange}
+          title="Availability"
+          placeholder="Total hours per week"
+        />
       </RBSheet>
 
       <RBSheet
@@ -181,12 +223,15 @@ const JobsScreen = ({
         <BottomHeader
           refRBSheet={refRBSheetLocation}
           title="Sort by Location"
+          click={true}
+          handleJobFilter={handleJobFilter}
         />
         <View style={styles.locationContainer}>
           <TextInput
             placeholderTextColor="rgba(rgba(41, 41, 41, 0.2))"
             style={styles.inputLocation}
             placeholder="Type in your Location"
+            onChangeText={value => handleChange('location', value)}
           />
         </View>
       </RBSheet>
@@ -210,7 +255,13 @@ const JobsScreen = ({
             borderTopLeftRadius: 15,
           },
         }}>
-        <BottomHeader refRBSheet={refRBSheetPay} title="Sort by Pay" />
+        <BottomHeader
+          handleAmountFilter={handleAmountFilter}
+          refRBSheet={refRBSheetPay}
+          title="Sort by Pay"
+          min_data={data?.min_pay}
+          max_data={data?.max_pay}
+        />
         <View style={styles.paymentContainer}>
           <View style={styles.amountContainer}>
             <TextInput
@@ -218,6 +269,7 @@ const JobsScreen = ({
               style={styles.inputLocation}
               placeholder="Min $"
               keyboardType="numeric"
+              onChangeText={value => handleChange('min_pay', value)}
             />
           </View>
 
@@ -227,6 +279,7 @@ const JobsScreen = ({
               style={styles.inputLocation}
               placeholder="Max $"
               keyboardType="numeric"
+              onChangeText={value => handleChange('max_pay', value)}
             />
           </View>
         </View>
@@ -242,11 +295,13 @@ const JobsScreen = ({
             </TouchableOpacity>
           </View>
           <View style={styles.categoryContainer}>
-            <Filters refRBSheet={refRBSheet} title="Catetgory" />
-            <Filters refRBSheet={refRBSheetProject} title="Type of project" />
-            <Filters refRBSheet={refRBSheetDate} title="Date" />
-            <Filters refRBSheet={refRBSheetLocation} title="Location" />
-            <Filters refRBSheet={refRBSheetPay} title="Payment" />
+            <ScrollView contentContainerStyle={styles.categoryContainer}>
+              <Filters refRBSheet={refRBSheet} title="Catetgory" />
+              <Filters refRBSheet={refRBSheetProject} title="Type of project" />
+              <Filters refRBSheet={refRBSheetDate} title="Date" />
+              <Filters refRBSheet={refRBSheetLocation} title="Location" />
+              <Filters refRBSheet={refRBSheetPay} title="Payment" />
+            </ScrollView>
           </View>
         </View>
 

@@ -6,16 +6,52 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {TouchableOpacity} from 'react-native';
 import {buttonColor, feedItemBack, themeColor} from '../utils/Theme/Color';
 
-const BottomHeader = ({title, refRBSheet}) => {
+const BottomHeader = ({
+  title,
+  refRBSheet,
+  click,
+  handleJobFilter,
+  data,
+  handleAmountFilter,
+  min_data,
+  max_data,
+  dateClick,
+  handleDateFilter,
+}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => refRBSheet.current.close()}>
         <Icon name="clear" size={24} color={buttonColor} />
       </TouchableOpacity>
       <Text style={styles.text}>{title}</Text>
-      <TouchableOpacity onPress={() => refRBSheet.current.close()}>
-        <Icon name="done" size={24} color={buttonColor} />
-      </TouchableOpacity>
+      {dateClick ? (
+        <TouchableOpacity
+          onPress={() => {
+            refRBSheet.current.close(),
+              handleDateFilter(data?.start_date, data?.end_date);
+          }}>
+          <Icon name="done" size={24} color={buttonColor} />
+        </TouchableOpacity>
+      ) : (
+        <View>
+          {click ? (
+            <TouchableOpacity
+              onPress={() => {
+                refRBSheet.current.close(), handleJobFilter('location', data);
+              }}>
+              <Icon name="done" size={24} color={buttonColor} />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => {
+                refRBSheet.current.close(),
+                  handleAmountFilter(min_data, max_data);
+              }}>
+              <Icon name="done" size={24} color={buttonColor} />
+            </TouchableOpacity>
+          )}
+        </View>
+      )}
     </View>
   );
 };

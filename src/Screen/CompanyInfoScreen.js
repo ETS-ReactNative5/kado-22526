@@ -16,7 +16,8 @@ import {BackArrow, FollowIcon} from '../assets/Image';
 import {Image} from 'react-native';
 import {ScrollView} from 'react-native';
 
-const CompanyInfoScreen = ({goBack}) => {
+const CompanyInfoScreen = ({goBack, singleCompany}) => {
+  console.log('comasdasdsad', singleCompany);
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -26,14 +27,18 @@ const CompanyInfoScreen = ({goBack}) => {
           </TouchableOpacity>
         </ImageBackground>
         <View style={styles.imageContainer}>
-          <Image resizeMode="contain" style={styles.centerImage} source={IBM} />
+          <Image
+            resizeMode="contain"
+            style={styles.centerImage}
+            source={{uri: singleCompany?.results[0]?.photo}}
+          />
         </View>
         <View style={styles.headingContianer}>
           <Text numberOfLines={1} style={styles.heading}>
-            IBM
+            {singleCompany?.results[0]?.fullname}
           </Text>
           <Text numberOfLines={1} style={styles.adderess}>
-            Corona, California, USA
+            {singleCompany?.results[0]?.location}
           </Text>
 
           <View style={styles.followerContainer}>
@@ -98,6 +103,7 @@ const styles = ScaledSheet.create({
   centerImage: {
     height: '118@s',
     width: '118@s',
+    borderRadius: '110@s',
   },
   imageContainer: {
     justifyContent: 'center',
