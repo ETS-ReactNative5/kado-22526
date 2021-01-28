@@ -27,7 +27,7 @@ urlpatterns = [
     path("", include("home.urls")),
     path('accounts/forgot-password/', AdminAccountForgotPassword.as_view(), name="account_forgot_password"),
     path("accounts/", include("allauth.urls")),
-    path("api/v1/", include("home.api.v1.urls")),
+
     path("admin/", admin.site.urls),
     path("users/", include("users.urls", namespace="users")),
     path('rest-auth/login/', csrf_exempt(LoginViewToken.as_view()), name='rest_login'),
@@ -39,11 +39,17 @@ urlpatterns = [
     path("rest-auth/registration/", include("rest_auth.registration.urls")),
     path("home/", include("home.urls")),
     path('chat/', include('chat_user.urls', )),
-    path("api/v1/", include("chat_user.api.v1.urls", namespace='chat')),
-    path("api/v1/", include("chat_profile.api.v1.urls")),
+    path('api/v1/', include([
+        path("", include("chat_user.api.v1.urls", namespace='chat')),
+        path("", include("chat_profile.api.v1.urls")),
+        path("", include("users.api.v1.urls")),
+        path("", include("job.api.v1.urls")),
+        path("", include("home.api.v1.urls")),
+        path("", include("faq.api.v1.urls")),
+    ])),
+
     path("profile/", include("chat_profile.urls")),
-    path("api/v1/", include("users.api.v1.urls")),
-    path("api/v1/", include("job.api.v1.urls"))
+
 ]
 
 admin.site.site_header = "Kado"

@@ -52,6 +52,7 @@ LOCAL_APPS = [
     "chat_profile",
     "chat_user",
     "job",
+    "faq"
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
