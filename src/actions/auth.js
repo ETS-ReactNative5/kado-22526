@@ -33,7 +33,6 @@ function setForgotValidationError(errors) {
 // }
 
 export function login(params, navigate) {
-  navigate('Home');
   return dispatch => {
     dispatch(setIsLoading(true));
 
