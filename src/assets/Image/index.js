@@ -5,7 +5,12 @@ import FaqIcon from './FaqIcon';
 import PaymentsIcon from './PaymentsIcon';
 import LogoutIcon from './LogoutIcon';
 import DeleteIcon from './DeleteIcon';
-
+import InfoIcon from './InfoIcon';
+import SearchIcon from './SearchIcon';
+import BackArrow from './BackArrow';
+import PaymentImage from './PaymentImage';
+import MainLogo from './MainLogo';
+import FollowIcon from './FollowIcon';
 export {
   JobsIcon,
   CompanyIcon,
@@ -14,4 +19,10 @@ export {
   PaymentsIcon,
   LogoutIcon,
   DeleteIcon,
+  InfoIcon,
+  SearchIcon,
+  BackArrow,
+  PaymentImage,
+  MainLogo,
+  FollowIcon,
 };

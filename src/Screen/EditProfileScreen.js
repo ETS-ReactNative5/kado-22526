@@ -11,8 +11,17 @@ import {
   white,
 } from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
+import {ActivityIndicator} from 'react-native';
 
-const EditProfileScreen = ({goBack, navigate}) => {
+const EditProfileScreen = ({
+  goBack,
+  navigate,
+  isloading,
+  profileDetail,
+  handleChange,
+  handleUpdateProfile,
+  updateLoading,
+}) => {
   return (
     <View style={styles.container}>
       <BackHeader title="Edit Profile" goBack={goBack} />
@@ -30,7 +39,11 @@ const EditProfileScreen = ({goBack, navigate}) => {
             <Input
               secureTextEntry={false}
               iconShow={false}
-              placeholder="Full Name"
+              placeholder={
+                isloading ? `Full Name` : `${profileDetail?.fullname}`
+              }
+              // value={isloading ? `Full Name` : `${profileDetail?.fullname}`}
+              onChange={value => handleChange('fullname', value)}
             />
           </View>
 
@@ -38,8 +51,12 @@ const EditProfileScreen = ({goBack, navigate}) => {
             <Input
               secureTextEntry={false}
               iconShow={true}
-              placeholder="Location"
+              placeholder={
+                isloading ? `Location` : `${profileDetail?.location}`
+              }
               iconName="map-marker-alt"
+              // value={isloading ? `Location` : `${profileDetail?.location}`}
+              onChange={value => handleChange('location', value)}
             />
           </View>
           <View style={styles.inputCOntainer}>
@@ -47,7 +64,11 @@ const EditProfileScreen = ({goBack, navigate}) => {
               secureTextEntry={false}
               keyboardType="numeric"
               iconShow={false}
-              placeholder="Phone"
+              placeholder={
+                isloading ? 'Phone' : `${profileDetail?.mobile_number}`
+              }
+              // value={isloading ? 'Phone' : `${profileDetail?.mobile_number}`}
+              onChange={value => handleChange('mobile_number', value)}
             />
           </View>
           <View style={styles.inputCOntainer}>
@@ -60,9 +81,13 @@ const EditProfileScreen = ({goBack, navigate}) => {
           </View>
 
           <TouchableOpacity
-            onPress={() => navigate('Profile')}
+            onPress={() => handleUpdateProfile()}
             style={styles.registerBtnContainer}>
-            <Text style={styles.registerText}>Next</Text>
+            {updateLoading ? (
+              <ActivityIndicator color={white} />
+            ) : (
+              <Text style={styles.registerText}>Next</Text>
+            )}
           </TouchableOpacity>
         </View>
       </ScrollView>

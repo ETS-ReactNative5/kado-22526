@@ -2,7 +2,7 @@ import React from 'react';
 import {Tabs, Tab} from 'native-base';
 import {View, Text, TextInput, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {FeedCard, FeedHeader} from '../components';
+import {FeedCard, FeedHeader, SearchBar} from '../components';
 import {
   blackColorText,
   buttonColor,
@@ -13,24 +13,27 @@ import {
   white,
 } from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
+import {ActivityIndicator} from 'react-native';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
+const NewsFeedContainer = ({navigate, jobList, saveJobsList, isLoading}) => {
+ 
+  const renderItem = ({item}) => (
+    <FeedCard
+      title={item.title}
+      description={item?.description}
+      experience_level={item?.experience_level}
+      skills={item?.skills}
+    />
+  );
 
-const NewsFeedContainer = ({navigate}) => {
-  const renderItem = ({item}) => <FeedCard title={item.title} />;
+  const savedRenderItem = ({item}) => (
+    <FeedCard
+      title={item.title}
+      description={item?.description}
+      experience_level={item?.experience_level}
+      skills={item?.skills}
+    />
+  );
 
   return (
     <View style={styles.container}>
@@ -42,17 +45,8 @@ const NewsFeedContainer = ({navigate}) => {
             Dan Smith
           </Text>
         </View>
-        <View style={styles.searchContainer}>
-          <View style={styles.searchIconContainer}>
-            <Icon name="search" size={20} color={buttonColor} />
-          </View>
 
-          <TextInput
-            placeholder="Search for your next jobs..."
-            style={styles.input}
-            placeholderTextColor="#8E8E8E"
-          />
-        </View>
+        <SearchBar placeHolder="Search for your next jobs..." />
 
         <View style={styles.tabContainer}>
           <Tabs
@@ -69,11 +63,15 @@ const NewsFeedContainer = ({navigate}) => {
               }}
               textStyle={{color: '#8E8E8E'}}
               heading="Feed">
-              <FlatList
-                showsVerticalScrollIndicator={false}
-                renderItem={renderItem}
-                data={DATA}
-              />
+              {isLoading ? (
+                <View>
+                  <ActivityIndicator />
+                </View>
+              ) : jobList?.length === 0 ? (
+                <Text>No jobs</Text>
+              ) : (
+                <FlatList renderItem={renderItem} data={jobList} />
+              )}
             </Tab>
             <Tab
               tabStyle={{backgroundColor: white}}
@@ -85,8 +83,19 @@ const NewsFeedContainer = ({navigate}) => {
                 lineHeight: 18,
               }}
               textStyle={{color: '#8E8E8E'}}
-              heading="Saved"
-            />
+              heading="Saved">
+              {isLoading ? (
+                <View style={styles.empty}>
+                  <ActivityIndicator color={blackColorText} />
+                </View>
+              ) : saveJobsList?.length === 0 ? (
+                <View style={styles.empty}>
+                  <Text>No saved jobs</Text>
+                </View>
+              ) : (
+                <FlatList renderItem={savedRenderItem} data={saveJobsList} />
+              )}
+            </Tab>
           </Tabs>
         </View>
       </View>
@@ -120,28 +129,16 @@ const styles = ScaledSheet.create({
     fontWeight: 'bold',
     width: '65%',
   },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: lightGray,
-    padding: '10@s',
-    borderRadius: '12@s',
-  },
-  searchIconContainer: {
-    width: '10%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    padding: 0,
-    lineHeight: '18@s',
-    fontSize: '15@s',
-    color: blackColorText,
-    paddingRight: '15@s',
-  },
+
   tabContainer: {
     flex: 1,
     marginTop: '20@s',
+  },
+
+  empty: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 export default NewsFeedContainer;

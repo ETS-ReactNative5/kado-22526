@@ -6,19 +6,22 @@ import user from '../assets/Image/userImageTwo.png';
 import {ScaledSheet} from 'react-native-size-matters';
 import {buttonColor, themeColor} from '../utils/Theme/Color';
 
-const FeedHeader = ({navigate}) => {
+const FeedHeader = ({navigate, rightBtns}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigate('drawer')}>
         <Icon name="bars" color={buttonColor} size={20} />
       </TouchableOpacity>
-      <View style={styles.leftContainer}>
-        <TouchableOpacity onPress={() => navigate('Message')}>
-          <Image source={comment} />
-        </TouchableOpacity>
-
-        <Image style={styles.image} source={user} />
-      </View>
+      {rightBtns ? null : (
+        <View style={styles.leftContainer}>
+          <TouchableOpacity onPress={() => navigate('Message')}>
+            <Image source={comment} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image style={styles.image} source={user} />
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };

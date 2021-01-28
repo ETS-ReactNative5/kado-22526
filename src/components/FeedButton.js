@@ -22,9 +22,10 @@ const styles = ScaledSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: '40@s',
-    marginLeft: '10@s',
+    marginRight: '10@s',
     paddingRight: '15@s',
     paddingLeft: '15@s',
+    marginTop: '10@s',
   },
   text: {
     color: buttonColor,

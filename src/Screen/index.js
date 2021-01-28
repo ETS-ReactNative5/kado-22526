@@ -7,6 +7,12 @@ import MessageScreen from './MessageScreen';
 import ExploreScreen from './ExploreScreen';
 import DeleteAccountScreen from './DeleteAccountScreen';
 import ProfileScreen from './ProfileScreen';
+import JobsScreen from './JobsScreen';
+import CompaniesScreen from './CompaniesScreen';
+import FAQScreen from './FAQScreen';
+import PaymentScreen from './PaymentScreen';
+import CompanyInfoScreen from './CompanyInfoScreen';
+import NotSignedScreen from './NotSignedScreen';
 
 export {
   SignUpScreen,
@@ -17,5 +23,11 @@ export {
   MessageScreen,
   ExploreScreen,
   DeleteAccountScreen,
-  ProfileScreen
+  ProfileScreen,
+  JobsScreen,
+  CompaniesScreen,
+  FAQScreen,
+  PaymentScreen,
+  CompanyInfoScreen,
+  NotSignedScreen,
 };

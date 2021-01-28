@@ -117,8 +117,6 @@ const styles = ScaledSheet.create({
     backgroundColor: 'white',
   },
   bodyContainer: {
-    flex: 1,
-
     paddingBottom: '20@s',
   },
   imageContainer: {

@@ -23,20 +23,29 @@ const ExploreScreen = ({goBack, navigate}) => {
       <BackHeader goBack={goBack} title="Explore" />
       <View style={styles.body}>
         <View>
-          <TouchableOpacity style={styles.itemContainer}>
+          <TouchableOpacity
+            onPress={() => navigate('Jobs')}
+            style={styles.itemContainer}>
             <JobsIcon />
             <Text style={styles.text}>Jobs</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.itemContainer}>
+
+          <TouchableOpacity
+            onPress={() => navigate('Company')}
+            style={styles.itemContainer}>
             <CompanyIcon />
             <Text style={styles.text}>Companies</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.itemContainer}>
+          <TouchableOpacity
+            onPress={() => navigate('Payment')}
+            style={styles.itemContainer}>
             <PaymentsIcon />
             <Text style={styles.text}>Payments</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.itemContainer}>
+          <TouchableOpacity
+            onPress={() => navigate('FAQ')}
+            style={styles.itemContainer}>
             <FaqIcon />
             <Text style={styles.text}>FAQ</Text>
           </TouchableOpacity>
