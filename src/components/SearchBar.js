@@ -6,7 +6,7 @@ import {blackColorText, buttonColor, lightGray} from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
 import {SearchIcon} from '../assets/Image';
 
-const SearchBar = ({placeHolder}) => {
+const SearchBar = ({placeHolder, onChangeText}) => {
   return (
     <View style={styles.searchHeader}>
       <View style={styles.searchContainer}>
@@ -18,6 +18,7 @@ const SearchBar = ({placeHolder}) => {
           placeholder={placeHolder}
           style={styles.input}
           placeholderTextColor="#8E8E8E"
+          onChangeText={onChangeText}
         />
       </View>
     </View>

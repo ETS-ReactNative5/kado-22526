@@ -2,7 +2,6 @@ import React, {useRef} from 'react';
 import {View, Text, TextInput, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icons from 'react-native-vector-icons/MaterialIcons';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {
   BottomDate,
   BottomHeader,
@@ -59,7 +58,6 @@ const JobsScreen = ({
   setDatePickerVisibility,
 }) => {
   const showDatePicker = () => {
-    console.log('salman saleem', isDatePickerVisible);
     setDatePickerVisibility(true);
   };
 
@@ -310,7 +308,7 @@ const JobsScreen = ({
             <View style={styles.empty}>
               <ActivityIndicator color={blackColorText} />
             </View>
-          ) : jobList.length === 0 ? (
+          ) : jobList?.length === 0 ? (
             <View style={styles.empty}>
               <Text>No jobs</Text>
             </View>

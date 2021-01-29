@@ -9,9 +9,7 @@ import {themeColor} from '../utils/Theme/Color';
 
 const CompaniesItem = ({title, image, navigate, subtitle, id}) => {
   return (
-    <TouchableOpacity
-      onPress={() => navigate('CompanyInfo', title)}
-      style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <View style={styles.leftContainer}>
         <Image
           resizeMode="center"
@@ -25,7 +23,9 @@ const CompaniesItem = ({title, image, navigate, subtitle, id}) => {
         </View>
       </View>
       <View>
-        <TouchableOpacity style={styles.infoContainer}>
+        <TouchableOpacity
+          onPress={() => navigate('CompanyInfo', title)}
+          style={styles.infoContainer}>
           <InfoIcon />
         </TouchableOpacity>
       </View>

@@ -9,7 +9,6 @@ import {white} from '../utils/Theme/Color';
 import {fetchCompanyByName} from '../actions/company';
 
 const CompanyInfoContainer = props => {
-  console.log('propsssssss', props);
   const {params} = props.route;
   const {singleCompany, isloading} = useSelector(state => state.company);
   const goBack = () => {

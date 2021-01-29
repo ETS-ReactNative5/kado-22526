@@ -11,6 +11,14 @@ export const jobs = createReducer(INITIAL_STATE, {
       jobList: action.jobList,
     };
   },
+
+  [types.ALL_JOBS](state, action) {
+    return {
+      ...state,
+      allJobs: action.allJobs,
+    };
+  },
+
   [types.SAVED_JOBS](state, action) {
     return {
       ...state,

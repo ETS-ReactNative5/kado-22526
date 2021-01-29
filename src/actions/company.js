@@ -29,10 +29,8 @@ export function fetchCompanies() {
       .then(resp => {
         dispatch(getCompanies(resp));
         dispatch(setIsLoading(false));
-        console.log('resp', resp);
       })
       .catch(err => {
-        console.log('errpr', err);
         // dispatch(setfetchCommunityGroupError(err.errors));
         dispatch(setIsLoading(false));
       });
@@ -46,7 +44,6 @@ export function fetchCompanyByName(companyName) {
       .then(resp => {
         dispatch(getSingleCompanies(resp));
         dispatch(setIsLoading(false));
-        console.log('resp', resp);
       })
       .catch(err => {
         console.log('errpr', err);

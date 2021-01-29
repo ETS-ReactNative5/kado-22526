@@ -13,6 +13,7 @@ import Filters from './Filters';
 import CompaniesItem from './CompaniesItem';
 import SearchBar from './SearchBar';
 import NotSignedCard from './NotSignedCard';
+import FaqItems from './FaqItems';
 
 export {
   Input,
@@ -30,4 +31,5 @@ export {
   CompaniesItem,
   SearchBar,
   NotSignedCard,
+  FaqItems,
 };

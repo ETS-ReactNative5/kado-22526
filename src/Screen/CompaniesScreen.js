@@ -21,69 +21,6 @@ import carfor from '../assets/Image/carfor.png';
 import eroksi from '../assets/Image/eroksi.png';
 import {ActivityIndicator} from 'react-native';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'IBM',
-    subtitle: 'Corona, California',
-    image: IBM,
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Coca-Cola',
-    subtitle: 'Corona, California',
-    image: cocacola,
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Huawei',
-    subtitle: 'Corona, California',
-    image: huwei,
-  },
-  {
-    id: '1',
-    title: 'Samsung Galaxy',
-    subtitle: 'Corona, California',
-    image: samsung,
-  },
-  {
-    id: '2',
-    title: 'Twitter',
-    subtitle: 'Corona, California',
-    image: twitter,
-  },
-  {
-    id: '3',
-    title: 'CNN',
-    subtitle: 'Corona, California',
-    image: cnn,
-  },
-  {
-    id: '4',
-    title: 'The New York Times',
-    subtitle: 'Corona, California',
-    image: newyork,
-  },
-  {
-    id: '5',
-    title: 'HP',
-    subtitle: 'Corona, California',
-    image: hp,
-  },
-  {
-    id: '6',
-    title: 'Carefour',
-    subtitle: 'Corona, California',
-    image: carfor,
-  },
-  {
-    id: '7',
-    title: 'EROSKI',
-    subtitle: 'Corona, California',
-    image: eroksi,
-  },
-];
-
 const CompaniesScreen = ({goBack, navigate, isloading, companyList}) => {
   const renderItem = ({item}) => (
     <CompaniesItem

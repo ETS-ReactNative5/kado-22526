@@ -17,7 +17,6 @@ import {Image} from 'react-native';
 import {ScrollView} from 'react-native';
 
 const CompanyInfoScreen = ({goBack, singleCompany}) => {
-  console.log('comasdasdsad', singleCompany);
   return (
     <View style={styles.container}>
       <ScrollView>

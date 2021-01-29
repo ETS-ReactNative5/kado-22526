@@ -10,7 +10,7 @@ import {Image} from 'react-native';
 
 const CompaniesContainer = props => {
   const {isloading, companyList} = useSelector(state => state.company);
-  console.log(useSelector(state => console.log(state)));
+
   const dispatch = useDispatch();
   const goBack = () => {
     const {navigation} = props;

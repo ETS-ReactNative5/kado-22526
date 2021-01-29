@@ -35,9 +35,7 @@ const EditProfileContainer = props => {
     await Storage.retrieveData('access_token').then(item => {
       token = item?.profile_id;
       setprofileid(item?.profile_id);
-      // console.log('itemssssssss', item?.profile_id);
     });
-    // console.log('items key', token);
     dispatch(fetchProfile(token));
   };
 

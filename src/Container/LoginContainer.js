@@ -19,9 +19,7 @@ const LoginContainer = props => {
     }
   };
 
-  useEffect(() => {
-    console.log('isloafiasnfsdf', isloading);
-  });
+  useEffect(() => {});
 
   const goBack = () => {
     const {navigation} = props;
@@ -38,7 +36,6 @@ const LoginContainer = props => {
   };
   const handleSubmit = () => {
     dispatch(login(loginForm, navigate));
-    // console.log("form data", params)
   };
   return (
     <SafeAreaView style={styles.container}>

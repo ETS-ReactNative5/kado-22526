@@ -40,7 +40,6 @@ export function login(params, navigate) {
       .then(resp => {
         // Storage.storeData("currentUser", resp.user)
         Storage.storeData('access_token', resp);
-        console.log('user token', resp.key);
         dispatch(setIsLoading(false));
         ToastAndroid.showWithGravity(
           'Logged In Successes',
@@ -50,9 +49,7 @@ export function login(params, navigate) {
         navigate('Home');
       })
       .catch(err => {
-        console.log('error', err);
-
-        if (params?.email?.length === 0 || params?.email?.password === 0) {
+        if (params?.email?.length === 0 || params?.password?.length === 0) {
           dispatch(
             setForgotValidationError([
               {

@@ -1,8 +1,16 @@
 import React from 'react';
-import {Text, View, TextInput, TouchableOpacity} from 'react-native';
+import {ScrollView} from 'react-native';
+import {ActivityIndicator} from 'react-native';
+import {Text, View, TextInput, TouchableOpacity, FlatList} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {BackHeader, CompaniesItem, FeedButton, SearchBar} from '../components';
+import {
+  BackHeader,
+  CompaniesItem,
+  FeedButton,
+  SearchBar,
+  FaqItems,
+} from '../components';
 import {
   blackColorText,
   buttonColor,
@@ -10,55 +18,62 @@ import {
   white,
 } from '../utils/Theme/Color';
 
-const FAQScreen = ({goBack, navigate}) => {
-  const renderItem = ({item}) => (
-    <CompaniesItem image={item.image} title={item.title} />
-  );
+const FAQScreen = ({
+  goBack,
+  navigate,
+  faqList,
+  handleChange,
+  submitFaq,
+  isloading,
+  dispatch,
+  fetchAllFaq,
+}) => {
+  const renderItem = ({item}) => <FaqItems title={item?.question} />;
   return (
     <View style={styles.container}>
       <BackHeader goBack={goBack} title="FAQ's" />
       <View style={{padding: 15}}>
-        <SearchBar placeHolder="Search FAQ’s..." />
+        <SearchBar
+          onChangeText={value => dispatch(fetchAllFaq(value))}
+          placeHolder="Search FAQ’s..."
+        />
       </View>
 
-      <TouchableOpacity style={styles.borderContainer}>
-        <Text style={styles.differneceText}>What is Kado</Text>
-      </TouchableOpacity>
+      <ScrollView>
+        {isloading ? (
+          <ActivityIndicator color={blackColorText} />
+        ) : (
+          <FlatList renderItem={renderItem} data={faqList?.results} />
+        )}
 
-      <TouchableOpacity style={styles.borderContainer}>
-        <Text style={styles.differneceText}>
-          What’s the difference between finding clients online, versus locally?
-        </Text>
-      </TouchableOpacity>
+        <View style={styles.centerContainer}>
+          <View style={styles.questionContainer}>
+            <Text style={styles.questionText}>Don’t see your question?</Text>
+            <TouchableOpacity>
+              <Text style={styles.visitText}>Visit our Help Center</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.inputfieldcontainerPadding}>
+          <View style={styles.inputfieldContainer}>
+            <TextInput
+              style={styles.typequestionText}
+              placeholder="Type your question to submit..."
+              placeholderTextColor="#C0BFCD"
+              multiline={true}
+              onChangeText={value => handleChange('question', value)}
+            />
+          </View>
+        </View>
 
-      <TouchableOpacity style={styles.borderContainer}>
-        <Text style={styles.differneceText}>How does KADO make money?</Text>
-      </TouchableOpacity>
-
-      <View style={styles.centerContainer}>
-        <View style={styles.questionContainer}>
-          <Text style={styles.questionText}>Don’t see your question?</Text>
-          <TouchableOpacity>
-            <Text style={styles.visitText}>Visit our Help Center</Text>
+        <View style={styles.inputfieldcontainerPadding}>
+          <TouchableOpacity
+            onPress={() => submitFaq()}
+            style={styles.registerBtnContainer}>
+            <Text style={styles.registerText}>Submit</Text>
           </TouchableOpacity>
         </View>
-      </View>
-      <View style={styles.inputfieldcontainerPadding}>
-        <View style={styles.inputfieldContainer}>
-          <TextInput
-            style={styles.typequestionText}
-            placeholder="Type your question to submit..."
-            placeholderTextColor="#C0BFCD"
-            multiline={true}
-          />
-        </View>
-      </View>
-
-      <View style={styles.inputfieldcontainerPadding}>
-        <TouchableOpacity style={styles.registerBtnContainer}>
-          <Text style={styles.registerText}>Submit</Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
     </View>
   );
 };

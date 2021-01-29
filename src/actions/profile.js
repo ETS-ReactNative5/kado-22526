@@ -39,7 +39,6 @@ export function fetchProfile(profile_id) {
         dispatch(setIsLoading(false));
       })
       .catch(err => {
-        console.log('errpr', err);
         // dispatch(setfetchCommunityGroupError(err.errors));
         dispatch(setIsLoading(false));
       });
@@ -47,18 +46,14 @@ export function fetchProfile(profile_id) {
 }
 
 export function updateProfile(profile_id, param) {
-  console.log('asdasdsdasn salmans alsaeeem', profile_id);
   return dispatch => {
     dispatch(updateProfileLoading(true));
     Api.put(`api/v1/profile/${profile_id}/`, param)
       .then(resp => {
         dispatch(updateProfileFunc(resp));
         dispatch(updateProfileLoading(false));
-
-        console.log('param', resp);
       })
       .catch(err => {
-        console.log('errpr', err);
         // dispatch(setfetchCommunityGroupError(err.errors));
         dispatch(updateProfileLoading(false));
       });

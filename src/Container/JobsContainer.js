@@ -13,17 +13,15 @@ import {
   fetchProjectsType,
   fetchjobsCategory,
   fetchAllJobsDate,
+  fetchJobs,
 } from '../actions/jobs';
 
 const JobsContainer = props => {
-  const {
-    jobList,
+  const {jobList, saveJobsList, isloading, typeProList} = useSelector(
+    state => state.jobs,
+  );
 
-    saveJobsList,
-    isloading,
-    typeProList,
-  } = useSelector(state => state.jobs);
-
+  const sdsds = useSelector(state => console.log('sdadas', state));
   const dispatch = useDispatch();
 
   const [data, setData] = useState('');
@@ -32,8 +30,6 @@ const JobsContainer = props => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const josCategoryList = useSelector(state => state.jobs.josCategoryList);
-
-  console.log('josCategoryList', josCategoryList);
 
   const goBack = () => {
     const {navigation} = props;
@@ -49,6 +45,7 @@ const JobsContainer = props => {
   };
 
   useEffect(() => {
+    dispatch(fetchJobs());
     dispatch(fetchAlljOBS());
     dispatch(fetchAllSavedJobs());
     dispatch(fetchjobsCategory());
@@ -72,7 +69,6 @@ const JobsContainer = props => {
       ...data,
       [name]: value,
     });
-    console.log('datatata', data);
   };
   return (
     <SafeAreaView style={styles.container}>

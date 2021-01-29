@@ -43,6 +43,21 @@ function getSortBy(sortbyList) {
   };
 }
 
+export function fetchJobs() {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/job/`)
+      .then(resp => {
+        dispatch(getJobs(resp?.results));
+        dispatch(setIsLoading(false));
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setIsLoading(false));
+      });
+  };
+}
+
 export function fetchAlljOBS(param, sortbyString, min_pay, min_amount) {
   return dispatch => {
     dispatch(setIsLoading(true));
@@ -52,7 +67,6 @@ export function fetchAlljOBS(param, sortbyString, min_pay, min_amount) {
         dispatch(setIsLoading(false));
       })
       .catch(err => {
-        console.log('errpr', err);
         // dispatch(setfetchCommunityGroupError(err.errors));
         dispatch(setIsLoading(false));
       });
@@ -68,7 +82,6 @@ export function fetchAllJobsAmount(min_type, min_amount, max_type, max_amount) {
         dispatch(setIsLoading(false));
       })
       .catch(err => {
-        console.log('errpr', err);
         // dispatch(setfetchCommunityGroupError(err.errors));
         dispatch(setIsLoading(false));
       });
@@ -76,7 +89,6 @@ export function fetchAllJobsAmount(min_type, min_amount, max_type, max_amount) {
 }
 
 export function fetchAllJobsDate(start_date, from_date, end_date, to_date) {
-  console.log('skalaan', start_date, from_date, end_date, to_date);
   return dispatch => {
     dispatch(setIsLoading(true));
     Api.get(`api/v1/job/?${start_date}=${from_date}&${end_date}=${to_date}`)
@@ -85,7 +97,6 @@ export function fetchAllJobsDate(start_date, from_date, end_date, to_date) {
         dispatch(setIsLoading(false));
       })
       .catch(err => {
-        console.log('errpr', err);
         // dispatch(setfetchCommunityGroupError(err.errors));
         dispatch(setIsLoading(false));
       });
@@ -99,10 +110,8 @@ export function fetchAllSavedJobs() {
       .then(resp => {
         dispatch(getSavedJobs(resp?.results));
         dispatch(setIsLoading(false));
-        console.log('jobsssss', resp);
       })
       .catch(err => {
-        console.log('errpr', err);
         // dispatch(setfetchCommunityGroupError(err.errors));
         dispatch(setIsLoading(false));
       });
@@ -116,10 +125,8 @@ export function fetchjobsCategory() {
       .then(resp => {
         dispatch(getJobsCategories(resp));
         dispatch(setIsLoading(false));
-        console.log('jobsssss', resp);
       })
       .catch(err => {
-        console.log('errpr', err);
         // dispatch(setfetchCommunityGroupError(err.errors));
         dispatch(setIsLoading(false));
       });
@@ -133,29 +140,22 @@ export function fetchProjectsType() {
       .then(resp => {
         dispatch(getTypesProject(resp));
         dispatch(setIsLoading(false));
-        console.log('jobsssss', resp);
       })
       .catch(err => {
-        console.log('errpr', err);
-
         dispatch(setIsLoading(false));
       });
   };
 }
 
 export function fetchSortBy(param, sortbyString) {
-  console.log('salman ', sortbyString);
   return dispatch => {
     dispatch(setIsLoading(true));
     Api.get(`api/v1/job/?${param}=${sortbyString}`)
       .then(resp => {
         dispatch(getSortBy(resp));
         dispatch(setIsLoading(false));
-        console.log('jobsssss', resp);
       })
       .catch(err => {
-        console.log('errpr', err);
-
         dispatch(setIsLoading(false));
       });
   };

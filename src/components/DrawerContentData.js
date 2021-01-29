@@ -11,8 +11,6 @@ import aboutIcon from '../assets/Image/aboutIcon.png';
 import whiteLogo from '../assets/Image/whiteLogo.png';
 
 const Drawer = ({navigation, progress, ...rest}) => {
-  // console.log('progress', progress);
-
   const translateX = Animated.interpolate(progress, {
     inputRange: [0, 1],
     outputRange: [1, 0.8],
@@ -53,13 +51,6 @@ const Drawer = ({navigation, progress, ...rest}) => {
               <Icon color={white} size={20} name="compass" />
 
               <Text style={styles.btnText}>Explore</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => navigation.navigate('NotSigned')}>
-              <Image source={userIcon} />
-              {/* <Icon color={white} size={17} name="user-alt" /> */}
-              <Text style={styles.btnText}>Not Signed in</Text>
             </TouchableOpacity>
           </View>
         </View>
