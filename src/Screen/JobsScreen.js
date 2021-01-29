@@ -23,25 +23,12 @@ import {
   themeColor,
   white,
 } from '../utils/Theme/Color';
+
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {ScaledSheet} from 'react-native-size-matters';
 import {TouchableOpacity} from 'react-native';
 import {ActivityIndicator} from 'react-native';
 import {ScrollView} from 'react-native';
-
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
 
 const JobsScreen = ({
   navigate,
@@ -55,20 +42,17 @@ const JobsScreen = ({
   handleAmountFilter,
   handleDateFilter,
   isDatePickerVisible,
-  setDatePickerVisibility,
+  handleConfirm,
+  showDatePicker,
+  dateText,
+  hideDatePicker,
+  isDatePickerVisibleSecond,
+  showDatePickerSecond,
+  hideDatePickerSecond,
+  handleConfirmSecond,
+  endDate,
 }) => {
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = date => {
-    console.warn('A date has been picked: ', date);
-    hideDatePicker();
-  };
+  console.log(dateText);
   const renderItem = ({item}) => (
     <FeedCard
       title={item?.title}
@@ -189,13 +173,19 @@ const JobsScreen = ({
           handleChange={handleChange}
           title="Start"
           placeholder="DD/MM/YYY"
+          value={`${dateText}`}
+          // handleChange={() =>}
           onChangeText={value => handleChange('start_date', value)}
+          onPress={() => showDatePicker()}
         />
+
         <BottomDate
           handleChange={handleChange}
           title="Finish"
           placeholder="DD/MM/YYY "
+          value={`${endDate}`}
           onChangeText={value => handleChange('end_date', value)}
+          onPress={() => showDatePickerSecond()}
         />
         <BottomDate
           handleChange={handleChange}
@@ -289,7 +279,19 @@ const JobsScreen = ({
       </RBSheet>
       <View style={styles.body}>
         <SearchBar placeHolder="Search for your next jobs..." />
+        <View>
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+          />
 
+          <DateTimePickerModal
+            isVisible={isDatePickerVisibleSecond}
+            onConfirm={handleConfirmSecond}
+            onCancel={hideDatePickerSecond}
+          />
+        </View>
         <View>
           <View style={styles.filtersContainer}>
             <Text style={styles.filterText}>Filters:</Text>

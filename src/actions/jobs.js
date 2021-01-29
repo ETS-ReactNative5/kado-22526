@@ -89,6 +89,7 @@ export function fetchAllJobsAmount(min_type, min_amount, max_type, max_amount) {
 }
 
 export function fetchAllJobsDate(start_date, from_date, end_date, to_date) {
+  console.log('safasfafasd', start_date, from_date, end_date, to_date);
   return dispatch => {
     dispatch(setIsLoading(true));
     Api.get(`api/v1/job/?${start_date}=${from_date}&${end_date}=${to_date}`)

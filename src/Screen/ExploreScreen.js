@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {
@@ -21,6 +21,7 @@ const ExploreScreen = ({goBack, navigate}) => {
   return (
     <View style={styles.container}>
       <BackHeader goBack={goBack} title="Explore" />
+
       <View style={styles.body}>
         <View>
           <TouchableOpacity

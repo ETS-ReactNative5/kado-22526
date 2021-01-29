@@ -13,6 +13,7 @@ const BottomDate = ({
   refRBSheet,
   onPress,
   onChangeText,
+  value,
 }) => {
   return (
     <View style={styles.container}>
@@ -21,14 +22,16 @@ const BottomDate = ({
           <Text style={styles.text}>{title}</Text>
         </View>
 
-        <View onPress={onPress} style={styles.inputContainer}>
+        <TouchableOpacity onPress={onPress} style={styles.inputContainer}>
           <TextInput
             placeholderTextColor="rgba(41, 41, 41, 0.2)"
             style={styles.input}
             placeholder={placeholder}
             onChangeText={onChangeText}
+            editable={false}
+            value={value}
           />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
