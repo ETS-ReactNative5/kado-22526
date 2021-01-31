@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from django.utils.translation import ugettext_lazy as _
 from chat_profile.models import VerificationCode, Profile, Contact
 from kado_22526.utils import update_object
+from core.aws import S3
 
 
 class VerificationCodeSerializer(serializers.ModelSerializer):
@@ -21,12 +22,12 @@ class ProfileThreadSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     fullname = serializers.CharField()
-    # photo = serializers.FileField(required=False) # TODO: upload files to AWS
+    photo_file = serializers.FileField(required=False)
 
     class Meta:
         model = Profile
         fields = (
-            "id", "photo", "fullname",
+            "id", "photo", "photo_file", "fullname",
             "location", "mobile_number", "gender", "birthdate",
             "allowed_to_work",
             "field_of_study",
@@ -67,15 +68,19 @@ class ProfileSerializer(serializers.ModelSerializer):
                 {"error": _("You can only edit your own profile.")}
             )
         fullname = validated_data.get('fullname', False)
-
-        instance = update_object(instance, validated_data)
+        if validated_data.get('photo_file'):
+            photo = validated_data.get('photo_file')
+            payload = {'file_name': photo._name, 'data': photo}
+            upload_response = S3.upload_file(payload)
+            validated_data['photo'] = upload_response
+        updated_instance = update_object(instance, validated_data)
 
         if validated_data.get('fullname'):
             fullname = fullname.split(' ')
-            instance.user.first_name = fullname.pop(0)
-            instance.user.last_name = " ".join(el for el in fullname)
-            instance.user.save()
-        return instance
+            updated_instance.user.first_name = fullname.pop(0)
+            updated_instance.user.last_name = " ".join(el for el in fullname)
+            updated_instance.user.save()
+        return updated_instance
 
     def create(self, validated_data):
         user = self._get_request().user
@@ -85,6 +90,12 @@ class ProfileSerializer(serializers.ModelSerializer):
             )
         profile = Profile(user=user)
         fullname = validated_data.get('fullname', False)
+        if validated_data.get('photo_file'):
+            photo = validated_data.get('photo_file')
+            payload = {'file_name': photo._name, 'data': photo}
+            upload_response = S3.upload_file(payload)
+            validated_data['photo'] = upload_response
+
         profile = update_object(profile, validated_data)
         if fullname:
             fullname = fullname.split(' ')
