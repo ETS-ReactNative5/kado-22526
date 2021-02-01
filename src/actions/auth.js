@@ -49,24 +49,14 @@ export function login(params, navigate) {
         navigate('Home');
       })
       .catch(err => {
-        if (params?.email?.length === 0 || params?.password?.length === 0) {
-          dispatch(
-            setForgotValidationError([
-              {
-                message: 'Please enter your email and password ',
-              },
-            ]),
-          );
-        } else {
-          // alert(err.errorDetails)
-          console.log('err', err);
-          ToastAndroid.showWithGravity(
-            'Email or Password is not valid',
-            ToastAndroid.LONG,
-            ToastAndroid.BOTTOM,
-          );
-          dispatch(setForgotValidationError(err.errors));
-        }
+        console.warn('err', err);
+        ToastAndroid.showWithGravity(
+          JSON.stringify(err), // TODO: display user friendly login error
+          // 'Email or Password is not valid',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+        );
+        dispatch(setForgotValidationError(err.errors));
 
         dispatch(setIsLoading(false));
       });
@@ -96,7 +86,6 @@ export function signUp(params, navigate) {
 }
 export function getUser() {
   return dispatch => {
-    console.log('storage', Storage.retrieveData('access_token'));
     dispatch(setIsLoading(true));
     Api.get(`api/v1/profile/`)
       .then(resp => {
