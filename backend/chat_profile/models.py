@@ -74,6 +74,10 @@ class Profile(models.Model):
         max_length=100,
         null=True, blank=True,
     )
+    tagline = models.CharField(
+        max_length=100,
+        null=True, blank=True,
+    )
     location = models.CharField('User Location', default=None, null=True, blank=True, max_length=255)
     company_name = models.CharField('Company', default=None, null=True, blank=True, max_length=255)
     photo = models.URLField(null=True, blank=True, )
