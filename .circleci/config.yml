@@ -221,7 +221,7 @@ jobs:
 
       - run:
           name: Build and upload to appetize.io
-          command: bundle exec fastlane deploy_appetize
+          command: bundle exec ios beta
           working_directory: ios
 
       - store_artifacts:
