@@ -31,10 +31,6 @@ const LoginScreen = ({
 }) => {
   return (
     <View style={styles.container}>
-      {/* <Header navigate={navigate} /> */}
-      <TouchableOpacity style={{padding: 20}}>
-        <Icon name="arrow-left" size={18} color={buttonColor} />
-      </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.bodyContainer}>
         <View>{/* <Image source={logo} /> */}</View>
         <View style={styles.body}>

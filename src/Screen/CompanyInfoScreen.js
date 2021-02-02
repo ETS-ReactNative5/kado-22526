@@ -39,18 +39,10 @@ const CompanyInfoScreen = ({goBack, singleCompany}) => {
           <Text numberOfLines={1} style={styles.adderess}>
             {singleCompany?.results[0]?.location}
           </Text>
-
-          <View style={styles.followerContainer}>
-            <View>
-              <Text style={styles.countText}>1208</Text>
-              <Text style={styles.followersText}>followers</Text>
-            </View>
-            <View>
-              <Text style={styles.countText}>1208</Text>
-              <Text style={styles.followersText}>followings</Text>
-            </View>
+          <View style={styles.headingContianer}>
+            <Text style={styles.subHeader}>10</Text>
+            <Text style={styles.adderess}>Jobs Posted</Text>
           </View>
-
           <View style={styles.textContainer}>
             <Text style={styles.paragraph}>
               International Business Machines Corporation (IBM) is an American
@@ -67,10 +59,6 @@ const CompanyInfoScreen = ({goBack, singleCompany}) => {
           </View>
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity style={styles.footerbtn}>
-            <FollowIcon />
-            <Text style={styles.footerText}>Follow</Text>
-          </TouchableOpacity>
           <TouchableOpacity style={styles.footerbtn}>
             <Icon name="language" size={20} color={buttonColor} />
             <Text style={styles.footerText}>Contact</Text>
@@ -117,6 +105,12 @@ const styles = ScaledSheet.create({
     textAlign: 'center',
     width: '90%',
   },
+  subHeader: {
+    fontSize: '20@s',
+    lineHeight: '38@s',
+    color: themeColor,
+    fontWeight: '400',
+  },
 
   headingContianer: {
     marginTop: '10@s',
@@ -129,12 +123,6 @@ const styles = ScaledSheet.create({
     color: addressColor,
     textAlign: 'center',
     width: '90%',
-  },
-  followerContainer: {
-    width: '50%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: '10@s',
   },
   countText: {
     color: themeColor,
@@ -161,7 +149,7 @@ const styles = ScaledSheet.create({
   footer: {
     padding: '20@s',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   footerbtn: {
     backgroundColor: btnBackColor,
