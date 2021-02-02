@@ -5,6 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from .enums import StudentEnum, CompanyEnum, WorkTypeEnum
 from .utils import validate_profile_search_params
 
+
 class VerificationCode(models.Model):
     "Generated Model"
     code = models.CharField(
@@ -52,7 +53,6 @@ Profile_types = (
 
 
 class Profile(models.Model):
-    "Generated Model"
     MALE = "Male"
     FEMALE = "Female"
     GENDER_CHOICES = (
@@ -64,9 +64,11 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         related_name="profile",
     )
+    favorites = models.ManyToManyField('chat_profile.Profile', related_name='favorite_profiles', blank=True, )
+
     profile_type = models.CharField('Profile Type', choices=Profile_types, default=None, null=True, blank=True,
                                     max_length=15)
-    bio = models.TextField(null=True, blank=True,)
+    bio = models.TextField(null=True, blank=True, )
     mobile_number = models.CharField(
         max_length=20, null=True, blank=True,
     )
@@ -142,8 +144,9 @@ class Profile(models.Model):
     last_login = models.DateTimeField(null=True, blank=True, )
 
     @classmethod
-    def search(cls, search_query=None, **kwargs):
+    def search(cls, search_query=None,  **kwargs):
         params = validate_profile_search_params(kwargs.get('params', {}))
+
         queryset = cls.objects.all()
         if search_query:
             queryset = queryset.filter(

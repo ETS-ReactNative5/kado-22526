@@ -21,8 +21,9 @@ class ProfileThreadSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    fullname = serializers.CharField()
+    fullname = serializers.CharField(required=False)
     photo_file = serializers.FileField(required=False)
+    favorite = serializers.BooleanField(required=False)
 
     class Meta:
         model = Profile
@@ -41,7 +42,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "profile_type",
             "years_of_experience",
             "company_name",
-            "bio"
+            "bio", "favorite"
         )
 
     def _get_request(self):
@@ -63,10 +64,14 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         user = self._get_request().user
+        favorite = validated_data.get('favorite', None)
+        if favorite is not None:
+            if favorite:
+                instance.favorites.add(user.profile)
+            else:
+                instance.favorites.remove(user.profile)
         if instance.user.id != user.id:
-            raise serializers.ValidationError(
-                {"error": _("You can only edit your own profile.")}
-            )
+            return instance
         fullname = validated_data.get('fullname', False)
         if validated_data.get('photo_file'):
             photo = validated_data.get('photo_file')

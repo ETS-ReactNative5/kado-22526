@@ -5,6 +5,8 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from chat_user.api.v1.serializers import MessageSerializer
 from chat_profile.models import Profile
 from chat_user.models import Thread, Message
+from core.aws import S3
+from core.utils.file_utils import decode_base64_file
 
 logger = logging.getLogger(__name__)
 
@@ -45,13 +47,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
         to_profile_ids = text_data_json.get('to_profile_ids', '')
         attachment = text_data_json.get('attachment', '')
         profile = user.profile if hasattr(user, 'profile') else Profile.objects.create(user=user)
-
         data = {
             'thread_id': self.thread_id,
             'to_profile_ids': to_profile_ids,
             'content': message,
             'attachment': attachment
         }
+        if attachment:
+            io_file, file_name = decode_base64_file(attachment)
+            upload_response = S3.upload_file({'data': io_file, 'file_name': file_name})
+            data['attachment'] = upload_response
 
         validated_data = MessageSerializer(data=data)
         if validated_data.is_valid():
@@ -66,7 +71,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 msg = Message.new_reply(
                     profile=profile,
                     thread=thread,
-                    content=data.get('content', '')
+                    content=data.get('content', ''),
+                    attachment=data.get('attachment')
                 )
             else:
                 if len(data.get('to_profile_ids', [])) == 0:
@@ -76,7 +82,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     profile,
                     to_profiles=data.get('to_profile_ids'),
                     subject=subject,
-                    content=data.get('content', '')
+                    content=data.get('content', ''),
+                    attachment=data.get('attachment')
                 )
             logger.warning('Message %s, saved successfully' % msg.content)
         else:
@@ -90,6 +97,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'message': message,
                 'thread_id': self.thread_id,
                 'sender_id': profile.id,
+                'attachment': data.get('attachment'),
                 'username': user.username  # TODO: user profile.fullname
             }
         )

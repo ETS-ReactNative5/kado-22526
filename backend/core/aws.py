@@ -1,3 +1,4 @@
+import logging
 import os
 import boto3
 from botocore.config import Config
@@ -17,6 +18,8 @@ AWS_CONFIG = Config(
     }
 )
 KEY = os.urandom(32)
+
+logger = logging.getLogger(__name__)
 
 
 class AWS(object):
@@ -49,7 +52,7 @@ class S3(AWS):
         return cls()._get_buckets()
 
     def _get_buckets(self):
-        return [bucket.file for bucket in self.s3.Bucket(self.bucket_name).objects.all()]
+        return [bucket for bucket in self.s3.Bucket(self.bucket_name).objects.all()]
 
     @classmethod
     def upload_file(cls, payload):
@@ -64,6 +67,7 @@ class S3(AWS):
                 ExtraArgs={'ACL': 'public-read'}
 
             )
-            return f"https://{self.bucket_name}.s3.amazonaws.com/{payload.get('data')}"
-        except:
+            return f"https://{self.bucket_name}.s3.amazonaws.com/{payload.get('file_name')}"
+        except Exception as e:
+            logger.warning(msg=e)
             return ''
