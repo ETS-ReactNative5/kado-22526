@@ -53,6 +53,7 @@ class Job(models.Model):
     @classmethod
     def search(cls, search_query=None, **kwargs):
         params = validate_search_params(kwargs.get('params', {}))
+
         queryset = cls.objects.filter(deleted=False)
         if search_query:
             queryset = queryset.filter(
@@ -62,6 +63,7 @@ class Job(models.Model):
                 models.Q(owner__company_name__icontains=search_query) |
                 models.Q(description__icontains=search_query)
             )
+
         start_date = params.pop('start_date', None)
         end_date = params.pop('end_date', None)
         min_pay = params.pop('min_pay', None)

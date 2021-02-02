@@ -80,21 +80,21 @@ class Message(models.Model):
     attachment = models.URLField(null=True, blank=True, )
 
     @classmethod
-    def new_reply(cls, thread, profile, content):
+    def new_reply(cls, thread, profile, content, attachment=''):
         """
         Create a new reply for an existing Thread.
 
         Mark thread as unread for all other participants, and
         mark thread as read by replier.
         """
-        msg = cls.objects.create(thread=thread, sender=profile, content=content)
+        msg = cls.objects.create(thread=thread, sender=profile, content=content, attachment=attachment)
         thread.thread_member.exclude(profile=profile).update(deleted=False, unread=True)
         thread.thread_member.filter(profile=profile).update(deleted=False, unread=False)
         message_sent.send(sender=cls, message=msg, thread=thread, reply=True)
         return msg
 
     @classmethod
-    def new_message(cls, from_profile, to_profiles, subject, content):
+    def new_message(cls, from_profile, to_profiles, subject, content, attachment=''):
         """
         Create a new Message and Thread.
 
@@ -105,7 +105,7 @@ class Message(models.Model):
         for profile_id in to_profiles:
             thread.thread_member.create(profile_id=profile_id, deleted=False, unread=True)
         thread.thread_member.create(profile=from_profile, deleted=True, unread=False)
-        msg = cls.objects.create(thread=thread, sender=from_profile, content=content)
+        msg = cls.objects.create(thread=thread, sender=from_profile, content=content, attachment=attachment)
         message_sent.send(sender=cls, message=msg, thread=thread, reply=False)
         return msg
 

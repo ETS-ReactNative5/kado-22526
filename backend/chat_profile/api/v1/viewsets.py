@@ -33,7 +33,15 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         search_query = self.request.query_params.get('search', None)
+        favorite = self.request.query_params.get('favorite', None)
+
+        profile = self.request.user.profile if hasattr(self.request.user, 'profile') else None
         queryset = Profile.search(search_query, params=self.request.query_params)
+
+        if profile and self.request.parser_context.get('kwargs', {}).get('pk', None) is None:
+            queryset = queryset.exclude(id=profile.id)
+        if favorite:
+            queryset = queryset.filter(favorites__id=profile.id)
         return queryset
 
 
