@@ -51,8 +51,7 @@ export function login(params, navigate) {
       .catch(err => {
         console.warn('err', err);
         ToastAndroid.showWithGravity(
-          JSON.stringify(err), // TODO: display user friendly login error
-          // 'Email or Password is not valid',
+          'Email or Password is not valid',
           ToastAndroid.LONG,
           ToastAndroid.BOTTOM,
         );
