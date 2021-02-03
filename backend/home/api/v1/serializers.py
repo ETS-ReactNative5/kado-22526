@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.http import HttpRequest
+from django.contrib.auth.models import Group
 from django.utils.translation import ugettext_lazy as _
 from allauth.account import app_settings as allauth_settings
 from allauth.account.forms import ResetPasswordForm
@@ -11,12 +12,13 @@ from rest_auth.serializers import PasswordResetSerializer
 from rest_framework.authtoken.models import Token
 from home.models import HomePage, CustomText
 from chat_profile.models import Profile
+from users.enums import user_groups
 
 User = get_user_model()
 
 
 class SignupSerializer(serializers.ModelSerializer):
-    user_type = serializers.CharField(required=False)
+    user_type = serializers.ChoiceField(choices=user_groups, required=False)
 
     class Meta:
         model = User
@@ -58,8 +60,13 @@ class SignupSerializer(serializers.ModelSerializer):
         )
         user.set_password(validated_data.get("password"))
         user.save()
+
+        # add user to group
+        group = Group.objects.get(name=validated_data.get('user_type'))
+        user.groups.add(group)
+
         # Create user profile
-        Profile.objects.create(user=user, profile_type=validated_data.get('user_type'), )
+        Profile.objects.create(user=user)
         request = self._get_request()
         setup_user_email(request, user, [])
         return user
@@ -95,10 +102,14 @@ class PasswordSerializer(PasswordResetSerializer):
 
 class TokenSerializer(serializers.ModelSerializer):
     profile_id = serializers.SerializerMethodField()
+    user_groups = serializers.SerializerMethodField()
 
     class Meta:
         model = Token
-        fields = ('key', 'user', 'profile_id')
+        fields = ('key', 'user', 'profile_id', 'user_groups')
+
+    def get_user_groups(self, instance):
+        return [group.name for group in instance.user.groups.all()]
 
     def get_profile_id(self, _):
         user = self.instance.user

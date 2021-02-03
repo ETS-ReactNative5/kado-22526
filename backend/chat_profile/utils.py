@@ -1,4 +1,5 @@
 from .enums import student_type_options, company_type_options
+from users.enums import UserGroups
 
 QUERY_CONTAINMENT = '__icontain'
 
@@ -11,12 +12,8 @@ def validate_profile_search_params(params):
     validated_params = {}
     # allow users to filter students & companies
     profile_type = params.get('profile_type', None)
-    if profile_type == 'student':
-        # filter where profile type is graduate, undergraduate or international
-        validated_params['profile_type__in'] = student_type_options
-    elif profile_type == 'company':
-        # filter where profile type is companies or start-ups
-        validated_params['profile_type__in'] = company_type_options
+    if profile_type:
+        validated_params['user__groups__name__contains'] = profile_type
 
     for param in allowed_params:
         if param in params.keys():
