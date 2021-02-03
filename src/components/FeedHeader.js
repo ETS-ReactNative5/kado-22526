@@ -5,17 +5,21 @@ import comment from '../assets/Image/comment.png';
 import user from '../assets/Image/userImageTwo.png';
 import {ScaledSheet} from 'react-native-size-matters';
 import {buttonColor, themeColor} from '../utils/Theme/Color';
+import {DrawerIcon, MessageIcon} from '../assets/Image';
 
 const FeedHeader = ({navigate, rightBtns}) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigate('drawer')}>
-        <Icon name="bars" color={buttonColor} size={20} />
+      <TouchableOpacity
+        style={styles.drawerIconContainer}
+        onPress={() => navigate('drawer')}>
+        <DrawerIcon />
       </TouchableOpacity>
       {rightBtns ? null : (
         <View style={styles.leftContainer}>
           <TouchableOpacity onPress={() => navigate('Message')}>
-            <Image source={comment} />
+            {/* <Image source={comment} /> */}
+            <MessageIcon />
           </TouchableOpacity>
           <TouchableOpacity>
             <Image style={styles.image} source={user} />
@@ -43,6 +47,9 @@ const styles = ScaledSheet.create({
     width: '34@s',
     borderRadius: '8@s',
     marginLeft: '20@s',
+  },
+  drawerIconContainer: {
+    padding: '5@s',
   },
 });
 

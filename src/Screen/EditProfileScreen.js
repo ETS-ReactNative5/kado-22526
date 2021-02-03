@@ -12,6 +12,7 @@ import {
 } from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
+import {EditProfileIcon} from '../assets/Image';
 
 const EditProfileScreen = ({
   goBack,
@@ -28,12 +29,21 @@ const EditProfileScreen = ({
       <ScrollView contentContainerStyle={styles.bodyContainer}>
         <View style={styles.body}>
           <View style={styles.imageContainer}>
-            <TouchableOpacity>
-              <Image resizeMode="cover" style={styles.image} source={user} />
+            <View>
+              {profileDetail?.photo === null ? (
+                <Image resizeMode="cover" style={styles.image} source={user} />
+              ) : (
+                <Image
+                  resizeMode="cover"
+                  style={styles.image}
+                  source={{uri: profileDetail?.photo}}
+                />
+              )}
+
               <TouchableOpacity style={styles.editBtnContainer}>
-                <Image source={editButton} />
+                <EditProfileIcon />
               </TouchableOpacity>
-            </TouchableOpacity>
+            </View>
           </View>
           <View style={{marginTop: 50}}>
             <Input
@@ -182,7 +192,7 @@ const styles = ScaledSheet.create({
   editBtnContainer: {
     position: 'absolute',
     bottom: 0,
-    right: '-7@s',
+    right: '0@s',
   },
   inputCOntainer: {
     marginTop: '5@s',

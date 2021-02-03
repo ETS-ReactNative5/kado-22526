@@ -1,6 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
+import {themeColor} from '../utils/Theme/Color';
 const Faqitems = ({title}) => {
   return (
     <TouchableOpacity style={styles.borderContainer}>
@@ -21,7 +22,7 @@ const styles = ScaledSheet.create({
     fontWeight: '500',
     lineHeight: '15@s',
     textAlign: 'left',
-    color: '#030037',
+    color: themeColor,
   },
 });
 export default Faqitems;

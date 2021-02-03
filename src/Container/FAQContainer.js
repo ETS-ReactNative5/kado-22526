@@ -11,7 +11,7 @@ const FAQContainer = props => {
   const [data, setData] = useState('');
   const dispatch = useDispatch();
   const [update, setUpdate] = useState(false);
-  const {faqList, isloading} = useSelector(state => state.faq);
+  const {faqList, isloading, submitLoading} = useSelector(state => state.faq);
   const goBack = () => {
     const {navigation} = props;
     navigation.goBack();
@@ -23,12 +23,11 @@ const FAQContainer = props => {
   };
 
   useEffect(() => {
-    console.log('salman');
     dispatch(fetchFaq());
   }, []);
 
   useEffect(() => {
-    dispatch(fetchAllFaq());
+    dispatch(fetchFaq());
   }, [update]);
 
   const handleChange = (name, value) => {
@@ -54,6 +53,7 @@ const FAQContainer = props => {
         isloading={isloading}
         dispatch={dispatch}
         fetchAllFaq={fetchAllFaq}
+        submitLoading={submitLoading}
       />
     </SafeAreaView>
   );

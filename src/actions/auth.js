@@ -47,6 +47,7 @@ export function login(params, navigate) {
           ToastAndroid.BOTTOM,
         );
         navigate('Home');
+        console.log('respppp', resp);
       })
       .catch(err => {
         console.warn('err', err);

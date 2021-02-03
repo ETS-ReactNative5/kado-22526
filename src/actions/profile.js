@@ -1,5 +1,6 @@
 import {ToastAndroid} from 'react-native';
 import Api from '../lib/requests/api';
+import Storage from '../lib/requests/storage';
 import * as types from './types';
 
 function setIsLoading(isloading) {
@@ -30,7 +31,15 @@ function updateProfileFunc(updateProfileList) {
   };
 }
 
+function deleteUser(userDeleteData) {
+  return {
+    type: types.DELETE_PROFILE,
+    userDeleteData: userDeleteData,
+  };
+}
+
 export function fetchProfile(profile_id) {
+  console.log('saladasd', profile_id);
   return dispatch => {
     dispatch(setIsLoading(true));
     Api.get(`api/v1/profile/${profile_id}/`)
@@ -56,6 +65,24 @@ export function updateProfile(profile_id, param) {
       .catch(err => {
         // dispatch(setfetchCommunityGroupError(err.errors));
         dispatch(updateProfileLoading(false));
+      });
+  };
+}
+
+export function userDelete(user_id, navigate) {
+  console.log('user_id', user_id);
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.delete(`api/v1/user/${user_id}/`)
+      .then(resp => {
+        dispatch(deleteUser(resp));
+        dispatch(setIsLoading(false));
+        Storage.removeData('access_token');
+        navigate('Login');
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setIsLoading(false));
       });
   };
 }

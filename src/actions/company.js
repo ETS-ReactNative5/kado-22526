@@ -44,6 +44,7 @@ export function fetchCompanyByName(companyName) {
       .then(resp => {
         dispatch(getSingleCompanies(resp));
         dispatch(setIsLoading(false));
+        dispatch(getCompanies(resp));
       })
       .catch(err => {
         console.log('errpr', err);

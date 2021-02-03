@@ -15,6 +15,7 @@ import {
   blackColorText,
   buttonColor,
   lightGray,
+  themeColor,
   white,
 } from '../utils/Theme/Color';
 
@@ -27,7 +28,9 @@ const FAQScreen = ({
   isloading,
   dispatch,
   fetchAllFaq,
+  submitLoading,
 }) => {
+  console.log('submitLoading', submitLoading);
   const renderItem = ({item}) => <FaqItems title={item?.question} />;
   return (
     <View style={styles.container}>
@@ -43,7 +46,9 @@ const FAQScreen = ({
         {isloading ? (
           <ActivityIndicator color={blackColorText} />
         ) : (
-          <FlatList renderItem={renderItem} data={faqList?.results} />
+          <View style={{height: 300}}>
+            <FlatList renderItem={renderItem} data={faqList?.results} />
+          </View>
         )}
 
         <View style={styles.centerContainer}>
@@ -70,7 +75,11 @@ const FAQScreen = ({
           <TouchableOpacity
             onPress={() => submitFaq()}
             style={styles.registerBtnContainer}>
-            <Text style={styles.registerText}>Submit</Text>
+            {submitLoading ? (
+              <ActivityIndicator color={white} />
+            ) : (
+              <Text style={styles.registerText}>Submit</Text>
+            )}
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -90,7 +99,7 @@ const styles = ScaledSheet.create({
     fontWeight: '500',
     lineHeight: '15@s',
     textAlign: 'left',
-    color: '#030037',
+    color: themeColor,
   },
   moneyText: {
     fontSize: '13@s',
@@ -101,7 +110,7 @@ const styles = ScaledSheet.create({
     marginTop: '10@s',
     marginBottom: '10@s',
     padding: '10@s',
-    color: '#030037',
+    color: themeColor,
   },
   borderbottomContainer: {
     borderBottomWidth: 1,
@@ -120,7 +129,7 @@ const styles = ScaledSheet.create({
     fontStyle: 'normal',
     fontWeight: '400',
     lineHeight: '18@s',
-    color: '#030037',
+    color: themeColor,
     marginRight: '3@s',
   },
   visitText: {
@@ -146,7 +155,7 @@ const styles = ScaledSheet.create({
     fontWeight: '400',
     lineHeight: '18@s',
     textAlign: 'left',
-    color: '#030037',
+    color: themeColor,
   },
   inputfieldcontainerPadding: {
     padding: '15@s',

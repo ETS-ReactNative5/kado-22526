@@ -1,6 +1,7 @@
 import React from 'react';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import TimeAgo from 'react-native-timeago';
 import {ScaledSheet} from 'react-native-size-matters';
 import {
   blackColorText,
@@ -12,22 +13,18 @@ import {
 } from '../utils/Theme/Color';
 import {FeedButton} from './index';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Website Redesign',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Website Development',
-  },
-  {
-    id: '3ac68c-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Website Development',
-  },
-];
-
-const FeedCard = ({title, description, experience_level, skills}) => {
+const FeedCard = ({
+  title,
+  description,
+  experience_level,
+  skills,
+  sent_at,
+  time_frame,
+  is_favorite,
+  addFavorite,
+  id,
+  removeFavoriteJob,
+}) => {
   // const myItem = return ()
   const renderItem = ({item}) => <FeedButton title={item} />;
   return (
@@ -37,10 +34,20 @@ const FeedCard = ({title, description, experience_level, skills}) => {
           <Text numberOfLines={1} style={styles.heading}>
             {title}
           </Text>
-          <Text style={styles.postColor}>Posted 10h ago</Text>
+          <Text style={styles.postColor}>
+            Posted {<TimeAgo time={sent_at} />}
+          </Text>
         </View>
         <TouchableOpacity style={styles.heartContaine}>
-          <Icon color={buttonColor} size={18} name="heart" />
+          {is_favorite ? (
+            <TouchableOpacity onPress={() => removeFavoriteJob(id)}>
+              <Icon color="red" solid={true} size={18} name="heart" />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={() => addFavorite(id)}>
+              <Icon color={buttonColor} size={18} name="heart" />
+            </TouchableOpacity>
+          )}
         </TouchableOpacity>
       </View>
       <View style={styles.descContainer}>
@@ -52,7 +59,7 @@ const FeedCard = ({title, description, experience_level, skills}) => {
           <Text style={styles.monthText}>Experience Level</Text>
         </View>
         <View>
-          <Text style={styles.monthHeading}>6 months+</Text>
+          <Text style={styles.monthHeading}>{time_frame} +</Text>
           <Text style={styles.monthText}>Time Frame</Text>
         </View>
       </View>

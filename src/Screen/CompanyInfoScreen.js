@@ -15,56 +15,63 @@ import {TouchableOpacity} from 'react-native';
 import {BackArrow, FollowIcon} from '../assets/Image';
 import {Image} from 'react-native';
 import {ScrollView} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 
-const CompanyInfoScreen = ({goBack, singleCompany}) => {
+const CompanyInfoScreen = ({goBack, singleCompany, isloading}) => {
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <ImageBackground style={styles.imageBack} source={IBMBack}>
-          <TouchableOpacity onPress={goBack} style={styles.arrowBack}>
-            <BackArrow />
-          </TouchableOpacity>
-        </ImageBackground>
-        <View style={styles.imageContainer}>
-          <Image
-            resizeMode="contain"
-            style={styles.centerImage}
-            source={{uri: singleCompany?.results[0]?.photo}}
-          />
+      {isloading ? (
+        <View style={styles.empty}>
+          <ActivityIndicator />
         </View>
-        <View style={styles.headingContianer}>
-          <Text numberOfLines={1} style={styles.heading}>
-            {singleCompany?.results[0]?.fullname}
-          </Text>
-          <Text numberOfLines={1} style={styles.adderess}>
-            {singleCompany?.results[0]?.location}
-          </Text>
+      ) : (
+        <ScrollView>
+          <ImageBackground style={styles.imageBack} source={IBMBack}>
+            <TouchableOpacity onPress={goBack} style={styles.arrowBack}>
+              <BackArrow />
+            </TouchableOpacity>
+          </ImageBackground>
+          <View style={styles.imageContainer}>
+            <Image
+              resizeMode="contain"
+              style={styles.centerImage}
+              source={{uri: singleCompany?.results[0]?.photo}}
+            />
+          </View>
           <View style={styles.headingContianer}>
-            <Text style={styles.subHeader}>10</Text>
-            <Text style={styles.adderess}>Jobs Posted</Text>
-          </View>
-          <View style={styles.textContainer}>
-            <Text style={styles.paragraph}>
-              International Business Machines Corporation (IBM) is an American
-              multinational technology and consulting company headquartered in
-              Armonk, New York, with more than 350,000 employees serving clients
-              in 170 countries. On October 8, 2020,
+            <Text numberOfLines={1} style={styles.heading}>
+              {singleCompany?.results[0]?.fullname}
             </Text>
-            <Text style={styles.paragraph}>
-              IBM announced it was spinning off the Managed Infrastructure
-              Services unit of its Global Technology Services division into a
-              new public company, an action expected to be completed by the end
-              of 2021.
+            <Text numberOfLines={1} style={styles.adderess}>
+              {singleCompany?.results[0]?.location}
             </Text>
+            <View style={styles.headingContianer}>
+              <Text style={styles.subHeader}>10</Text>
+              <Text style={styles.adderess}>Jobs Posted</Text>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.paragraph}>
+                International Business Machines Corporation (IBM) is an American
+                multinational technology and consulting company headquartered in
+                Armonk, New York, with more than 350,000 employees serving
+                clients in 170 countries. On October 8, 2020,
+              </Text>
+              <Text style={styles.paragraph}>
+                IBM announced it was spinning off the Managed Infrastructure
+                Services unit of its Global Technology Services division into a
+                new public company, an action expected to be completed by the
+                end of 2021.
+              </Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.footer}>
-          <TouchableOpacity style={styles.footerbtn}>
-            <Icon name="language" size={20} color={buttonColor} />
-            <Text style={styles.footerText}>Contact</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+          <View style={styles.footer}>
+            <TouchableOpacity style={styles.footerbtn}>
+              <Icon name="language" size={20} color={buttonColor} />
+              <Text style={styles.footerText}>Contact</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 };
@@ -166,6 +173,11 @@ const styles = ScaledSheet.create({
     color: themeColor,
     fontWeight: '600',
     marginLeft: '10@s',
+  },
+  empty: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

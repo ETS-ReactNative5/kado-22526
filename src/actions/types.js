@@ -1,6 +1,8 @@
 // import { exp } from "react-native/Libraries/Animated/src/Easing";
 
 export const IS_LOADING = 'IS_LOADING';
+export const FAVORITE_LOADING = 'FAVORITE_LOADING';
+export const SUBMIT_LOADING = 'SUBMIT_LOADING';
 export const UPDATE_LOADING = 'UPDATE_LOADING';
 export const IS_FORGOT_VALIDATION_ERROR = 'IS_FORGOT_VALIDATION_ERROR';
 export const TEXT_STORE = 'TEXT_STORE';
@@ -20,7 +22,11 @@ export const FETCH_USER_ADS = 'FETCH_USER_ADS';
 export const FETCH_USER_ORDERS = 'FETCH_USER_ORDERS';
 export const USER_PROFILE = 'USER_PROFILE';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
+export const DELETE_PROFILE = 'DELETE_PROFILE';
 export const SORT_BY = 'SORT_BY';
+export const ADD_FAVORITE = 'ADD_FAVORITE';
+export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
 export const SINGLE_COMPANY = 'SINGLE_COMPANY';
 export const ALL_FAQ = 'ALL_FAQ';
+export const ALL_FAQ_LIST = 'ALL_FAQ_LIST';
 export const ADD_FAQ = 'ADD_FAQ';

@@ -22,6 +22,7 @@ import {
   PaymentContainer,
   CompanyInfoContainer,
   NotSignedContainer,
+  HowWorkContainer,
 } from '../Container';
 import {DrawerContentData} from '../components';
 import Animated from 'react-native-reanimated';
@@ -129,6 +130,12 @@ const App = ({style}) => {
         <Stack.Screen
           name="NotSigned"
           component={NotSignedContainer}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="HowWork"
+          component={HowWorkContainer}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

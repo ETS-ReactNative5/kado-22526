@@ -8,6 +8,20 @@ function setIsLoading(isloading) {
   };
 }
 
+function setSubmitLoaing(submitLoading) {
+  return {
+    type: types.SUBMIT_LOADING,
+    submitLoading,
+  };
+}
+
+function allFaq(allFaqList) {
+  return {
+    type: types.ALL_FAQ_LIST,
+    allFaqList: allFaqList,
+  };
+}
+
 function getFaq(faqList) {
   return {
     type: types.ALL_FAQ,
@@ -55,15 +69,15 @@ export function fetchAllFaq(text) {
 
 export function addFaq(data) {
   return dispatch => {
-    dispatch(setIsLoading(true));
+    dispatch(setSubmitLoaing(true));
     Api.post(`api/v1/faq/`, data)
       .then(resp => {
-        dispatch(submitFaq(resp));
+        dispatch(setSubmitLoaing(resp));
         dispatch(setIsLoading(false));
       })
       .catch(err => {
         // dispatch(setfetchCommunityGroupError(err.errors));
-        dispatch(setIsLoading(false));
+        dispatch(setSubmitLoaing(false));
       });
   };
 }

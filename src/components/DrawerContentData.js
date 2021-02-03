@@ -9,6 +9,7 @@ import userIcon from '../assets/Image/userIcon.png';
 import aboutIcon from '../assets/Image/aboutIcon.png';
 
 import whiteLogo from '../assets/Image/whiteLogo.png';
+import {ProfileIcon, SearchIcon, WhiteSearchIcon} from '../assets/Image';
 
 const Drawer = ({navigation, progress, ...rest}) => {
   const translateX = Animated.interpolate(progress, {
@@ -39,9 +40,15 @@ const Drawer = ({navigation, progress, ...rest}) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => navigation.navigate('EditProfile')}>
-              <Image source={userIcon} />
+              onPress={() => navigation.navigate('HowWork')}>
+              <WhiteSearchIcon />
               {/* <Icon color={white} size={17} name="user-alt" /> */}
+              <Text style={styles.btnText}> How it works</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => navigation.navigate('EditProfile')}>
+              <ProfileIcon />
               <Text style={styles.btnText}>Profile</Text>
             </TouchableOpacity>
 
@@ -75,7 +82,7 @@ const styles = ScaledSheet.create({
     marginTop: '20@s',
   },
   btn: {
-    backgroundColor: '#04135F',
+    backgroundColor: '#001CD6',
     padding: '10@s',
     borderRadius: '8@s',
     flexDirection: 'row',

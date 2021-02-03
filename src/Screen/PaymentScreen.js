@@ -34,7 +34,7 @@ const styles = ScaledSheet.create({
   },
   heading: {
     textAlign: 'center',
-    marginTop: '20@s',
+    marginTop: '50@s',
     color: buttonColor,
     fontSize: '18@s',
     lineHeight: '21@s',

@@ -21,6 +21,7 @@ import {
   themeColor,
   buttonColor,
 } from '../utils/Theme/Color';
+import {BackArrow, SearchIcon} from '../assets/Image';
 
 const DATA = [
   {
@@ -124,7 +125,7 @@ const MessageScreen = ({goBack, navigate}) => {
     <View style={styles.conainer}>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={goBack} style={{padding: 10}}>
-          <Icon name="arrow-left" color={buttonColor} size={18} />
+          <BackArrow />
         </TouchableOpacity>
         <View>
           <Text style={styles.headerText}>Messages</Text>
@@ -134,7 +135,7 @@ const MessageScreen = ({goBack, navigate}) => {
           <TouchableOpacity
             style={styles.iconContainer}
             onPress={() => navigate('NewMessage')}>
-            <Icon name="plus" color={themeColor} />
+            <Icon name="plus" color={buttonColor} />
           </TouchableOpacity>
         </View>
       </View>
@@ -142,7 +143,8 @@ const MessageScreen = ({goBack, navigate}) => {
       <ScrollView>
         <View style={styles.body}>
           <View style={styles.searchContainer}>
-            <Icon size={16} name="search" color={themeColor} />
+            {/* <Icon size={16} name="search" color={themeColor} /> */}
+            <SearchIcon />
             <TextInput
               placeholderTextColor={placeHolderColor}
               style={styles.input}

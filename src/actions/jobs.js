@@ -8,6 +8,13 @@ function setIsLoading(isloading) {
   };
 }
 
+function setFavoriteLoading(favoriteLoading) {
+  return {
+    type: types.FAVORITE_LOADING,
+    favoriteLoading,
+  };
+}
+
 function getJobs(jobList) {
   return {
     type: types.JOBS_LIST,
@@ -40,6 +47,20 @@ function getSortBy(sortbyList) {
   return {
     type: types.SORT_BY,
     sortbyList: sortbyList,
+  };
+}
+
+function addFavorite(addFavorite) {
+  return {
+    type: types.ADD_FAVORITE,
+    addFavorite: addFavorite,
+  };
+}
+
+function removeFavoriteJob(removeJob) {
+  return {
+    type: types.REMOVE_FAVORITE,
+    removeJob: removeJob,
   };
 }
 
@@ -158,6 +179,39 @@ export function fetchSortBy(param, sortbyString) {
       })
       .catch(err => {
         dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function addFavoriteJob(job_id, data) {
+  console.log('job_id', data);
+  return dispatch => {
+    dispatch(setFavoriteLoading(true));
+    Api.put(`api/v1/job/${job_id}/`, data)
+      .then(resp => {
+        dispatch(addFavorite(resp));
+        dispatch(setFavoriteLoading(false));
+        console.log('respppp', resp);
+      })
+      .catch(err => {
+        dispatch(setFavoriteLoading(false));
+      });
+  };
+}
+
+export function removeFavorite(job_id, data) {
+  console.log('job_id', data);
+  return dispatch => {
+    dispatch(setFavoriteLoading(true));
+    Api.put(`api/v1/job/${job_id}/`, data)
+      .then(resp => {
+        dispatch(removeFavoriteJob(resp));
+        dispatch(setFavoriteLoading(true));
+        console.log('respppp', resp);
+      })
+      .catch(err => {
+        console.log('err', err);
+        dispatch(setFavoriteLoading(true));
       });
   };
 }

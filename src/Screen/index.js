@@ -13,6 +13,7 @@ import FAQScreen from './FAQScreen';
 import PaymentScreen from './PaymentScreen';
 import CompanyInfoScreen from './CompanyInfoScreen';
 import NotSignedScreen from './NotSignedScreen';
+import HowWorkScreen from './HowWorkScreen';
 
 export {
   SignUpScreen,
@@ -30,4 +31,5 @@ export {
   PaymentScreen,
   CompanyInfoScreen,
   NotSignedScreen,
+  HowWorkScreen,
 };

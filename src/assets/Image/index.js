@@ -11,6 +11,11 @@ import BackArrow from './BackArrow';
 import PaymentImage from './PaymentImage';
 import MainLogo from './MainLogo';
 import FollowIcon from './FollowIcon';
+import ProfileIcon from './ProfileIcon';
+import WhiteSearchIcon from './WhiteSearchIcon';
+import MessageIcon from './MessageIcon';
+import DrawerIcon from './DrawerIcon';
+import EditProfileIcon from './EditProfileIcon';
 export {
   JobsIcon,
   CompanyIcon,
@@ -25,4 +30,9 @@ export {
   PaymentImage,
   MainLogo,
   FollowIcon,
+  ProfileIcon,
+  WhiteSearchIcon,
+  MessageIcon,
+  DrawerIcon,
+  EditProfileIcon,
 };

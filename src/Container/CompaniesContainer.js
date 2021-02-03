@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {CompaniesScreen} from '../Screen';
 import {blackColorText, white} from '../utils/Theme/Color';
 
-import {fetchCompanies} from '../actions/company';
+import {fetchCompanies, fetchCompanyByName} from '../actions/company';
 import {Image} from 'react-native';
 
 const CompaniesContainer = props => {
@@ -33,6 +33,8 @@ const CompaniesContainer = props => {
         navigate={navigate}
         goBack={goBack}
         isloading={isloading}
+        fetchCompanyByName={fetchCompanyByName}
+        dispatch={dispatch}
       />
     </SafeAreaView>
   );

@@ -17,6 +17,7 @@ import {BackHeader} from '../components';
 import primary from '../assets/Image/primary.png';
 import chatUser from '../assets/Image/chatUser.png';
 import {GiftedChat} from 'react-native-gifted-chat';
+import {BackArrow} from '../assets/Image';
 const ChatScreen = ({goBack}) => {
   const [messages, setMessages] = useState([]);
   const [customMessage, setCustomMessage] = useState('');
@@ -126,7 +127,8 @@ const ChatScreen = ({goBack}) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={{padding: 7}} onPress={() => goBack()}>
-          <Icon size={18} color={themeColor} name="arrow-left" />
+          {/* <Icon size={18} color={themeColor} name="arrow-left" /> */}
+          <BackArrow />
         </TouchableOpacity>
 
         <View style={styles.rightContainer}>

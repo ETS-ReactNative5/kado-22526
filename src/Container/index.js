@@ -15,6 +15,7 @@ import CompaniesContainer from './CompaniesContainer';
 import PaymentContainer from './PaymentContainer';
 import CompanyInfoContainer from './CompanyInfoContainer';
 import NotSignedContainer from './NotSignedContainer';
+import HowWorkContainer from './HowWorkContainer';
 
 export {
   SignUpContainer,
@@ -34,4 +35,5 @@ export {
   PaymentContainer,
   CompanyInfoContainer,
   NotSignedContainer,
+  HowWorkContainer,
 };

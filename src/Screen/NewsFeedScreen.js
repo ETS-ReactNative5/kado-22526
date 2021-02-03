@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Tabs, Tab} from 'native-base';
 import {View, Text, TextInput, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -15,14 +15,29 @@ import {
 import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
 
-const NewsFeedContainer = ({navigate, jobList, saveJobsList, isLoading}) => {
- 
+const NewsFeedContainer = ({
+  navigate,
+  jobList,
+  saveJobsList,
+  isLoading,
+  profileDetail,
+  addFavorite,
+  removeFavoriteJob,
+}) => {
+  console.log('profileDetai', profileDetail);
+  const [value, setValue] = useState(true);
   const renderItem = ({item}) => (
     <FeedCard
       title={item.title}
       description={item?.description}
       experience_level={item?.experience_level}
       skills={item?.skills}
+      sent_at={item?.sent_at}
+      time_frame={item?.time_frame}
+      is_favorite={item?.is_favorite}
+      addFavorite={addFavorite}
+      removeFavoriteJob={removeFavoriteJob}
+      id={item?.id}
     />
   );
 
@@ -32,6 +47,7 @@ const NewsFeedContainer = ({navigate, jobList, saveJobsList, isLoading}) => {
       description={item?.description}
       experience_level={item?.experience_level}
       skills={item?.skills}
+      is_favorite={item?.is_favorite}
     />
   );
 
@@ -42,14 +58,27 @@ const NewsFeedContainer = ({navigate, jobList, saveJobsList, isLoading}) => {
         <View style={styles.headerTextContainer}>
           <Text style={styles.helloText}>Hello, </Text>
           <Text numberOfLines={1} style={styles.userName}>
-            Dan Smith
+            {profileDetail?.fullname}
           </Text>
         </View>
 
-        <SearchBar placeHolder="Search for your next jobs..." />
+        {value ? (
+          <SearchBar placeHolder="Search for your next jobs..." />
+        ) : (
+          <SearchBar placeHolder="Search for your next jobs..." />
+        )}
 
         <View style={styles.tabContainer}>
           <Tabs
+            onChangeTab={({i}) => {
+              if (i == 0) {
+                setValue(false);
+              }
+              if (i == 1) {
+                console.log('saleem');
+                setValue(true);
+              }
+            }}
             locked={true}
             tabBarUnderlineStyle={{backgroundColor: buttonColor}}>
             <Tab
@@ -128,6 +157,7 @@ const styles = ScaledSheet.create({
     color: themeColor,
     fontWeight: 'bold',
     width: '65%',
+    textTransform: 'capitalize',
   },
 
   tabContainer: {

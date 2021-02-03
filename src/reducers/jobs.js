@@ -3,6 +3,7 @@ import * as types from '../actions/types';
 
 const INITIAL_STATE = {
   isloading: false,
+  favoriteLoading: false,
 };
 export const jobs = createReducer(INITIAL_STATE, {
   [types.JOBS_LIST](state, action) {
@@ -40,10 +41,31 @@ export const jobs = createReducer(INITIAL_STATE, {
     };
   },
 
+  [types.ADD_FAVORITE](state, action) {
+    return {
+      ...state,
+      addFavorite: action.addFavorite,
+    };
+  },
+
+  [types.REMOVE_FAVORITE](state, action) {
+    return {
+      ...state,
+      removeJob: action.removeJob,
+    };
+  },
+
   [types.IS_LOADING](state, action) {
     return {
       ...state,
       isloading: action.isloading,
+    };
+  },
+
+  [types.FAVORITE_LOADING](state, action) {
+    return {
+      ...state,
+      favoriteLoading: action.favoriteLoading,
     };
   },
 });

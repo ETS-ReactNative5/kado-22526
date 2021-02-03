@@ -21,6 +21,13 @@ export const profile = createReducer(INITIAL_STATE, {
     };
   },
 
+  [types.DELETE_PROFILE](state, action) {
+    return {
+      ...state,
+      userDeleteData: action.userDeleteData,
+    };
+  },
+
   [types.IS_LOADING](state, action) {
     return {
       ...state,

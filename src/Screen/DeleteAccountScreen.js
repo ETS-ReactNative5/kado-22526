@@ -8,17 +8,18 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import { ScaledSheet } from 'react-native-size-matters';
+import {ScaledSheet} from 'react-native-size-matters';
 import ArrowImage from '../assets/Image/Leftarrowicon.png';
 import KadoImage from '../assets/Image/logo.png';
-import { BackHeader } from '../components';
-import { white } from '../utils/Theme/Color';
+import {BackHeader} from '../components';
+import {themeColor, white} from '../utils/Theme/Color';
 
-const DeleteAccountScreen = ({ goBack }) => {
+const DeleteAccountScreen = ({goBack, profileDetail, handleSubmit}) => {
+  console.log('profileDetail profileDetail');
   return (
     <SafeAreaView style={styles.Container}>
       <BackHeader goBack={goBack} />
-      <View style={{ padding: 20, flex: 1 }}>
+      <View style={{padding: 20, flex: 1}}>
         <View style={styles.kadoContainer}>
           <View style={styles.kadoimageContainer}>
             <Image source={KadoImage} />
@@ -28,11 +29,11 @@ const DeleteAccountScreen = ({ goBack }) => {
             Are you sure you want to delete your account?
           </Text>
           <View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleSubmit()}>
               <View
                 style={[
                   styles.button,
-                  { backgroundColor: '#001CD6', marginTop: 30 },
+                  {backgroundColor: '#001CD6', marginTop: 30},
                 ]}>
                 <Text style={[styles.saveText]}>Yes</Text>
               </View>
@@ -40,7 +41,7 @@ const DeleteAccountScreen = ({ goBack }) => {
           </View>
           <View>
             <TouchableOpacity onPress={() => goBack()}>
-              <View style={[styles.button, { backgroundColor: '#03D1F9' }]}>
+              <View style={[styles.button, {backgroundColor: '#03D1F9'}]}>
                 <Text style={styles.saveText}>Cancel</Text>
               </View>
             </TouchableOpacity>
@@ -82,7 +83,7 @@ const styles = ScaledSheet.create({
     lineHeight: '21@s',
     letterSpacing: '1@s',
     textAlign: 'center',
-    color: '#030037',
+    color: themeColor,
   },
   button: {
     padding: 10,

@@ -6,17 +6,17 @@ import {useDispatch, useSelector} from 'react-redux';
 import {CompanyInfoScreen} from '../Screen';
 import {white} from '../utils/Theme/Color';
 
-import {fetchCompanyByName} from '../actions/company';
+import {fetchCompanyByName, fetchCompanies} from '../actions/company';
 
 const CompanyInfoContainer = props => {
   const {params} = props.route;
   const {singleCompany, isloading} = useSelector(state => state.company);
+  const dispatch = useDispatch();
   const goBack = () => {
     const {navigation} = props;
     navigation.goBack();
+    dispatch(fetchCompanies());
   };
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCompanyByName(params));

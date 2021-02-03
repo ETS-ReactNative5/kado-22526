@@ -21,7 +21,14 @@ import carfor from '../assets/Image/carfor.png';
 import eroksi from '../assets/Image/eroksi.png';
 import {ActivityIndicator} from 'react-native';
 
-const CompaniesScreen = ({goBack, navigate, isloading, companyList}) => {
+const CompaniesScreen = ({
+  goBack,
+  navigate,
+  isloading,
+  companyList,
+  fetchCompanyByName,
+  dispatch,
+}) => {
   const renderItem = ({item}) => (
     <CompaniesItem
       image={item.photo}
@@ -35,7 +42,10 @@ const CompaniesScreen = ({goBack, navigate, isloading, companyList}) => {
     <View style={styles.container}>
       <BackHeader goBack={goBack} title="Companies" />
       <View style={styles.searchHeader}>
-        <SearchBar placeHolder="Search companies..." />
+        <SearchBar
+          onChangeText={value => dispatch(fetchCompanyByName(value))}
+          placeHolder="Search companies..."
+        />
       </View>
 
       {isloading ? (

@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {textBlackColor} from '../utils/Theme/Color';
+import {textBlackColor, themeColor} from '../utils/Theme/Color';
 
 const Filters = ({title, refRBSheet}) => {
   return (
@@ -36,7 +36,7 @@ const styles = ScaledSheet.create({
     lineHeight: '20@s',
     letterSpacing: '1@s',
     textAlign: 'left',
-    color: '#030037',
+    color: themeColor,
     marginBottom: '2@s',
   },
 
