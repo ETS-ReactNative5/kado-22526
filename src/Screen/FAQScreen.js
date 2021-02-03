@@ -46,7 +46,7 @@ const FAQScreen = ({
         {isloading ? (
           <ActivityIndicator color={blackColorText} />
         ) : (
-          <View style={{height: 300}}>
+          <View style={{height: 200}}>
             <FlatList renderItem={renderItem} data={faqList?.results} />
           </View>
         )}
