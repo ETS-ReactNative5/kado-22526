@@ -122,7 +122,11 @@ const JobsScreen = ({
             borderTopLeftRadius: 15,
           },
         }}>
-        <BottomHeader refRBSheet={refRBSheet} title="Sort by Category" />
+        <BottomHeader
+          hideCheckIcon={true}
+          refRBSheet={refRBSheet}
+          title="Sort by Category"
+        />
 
         <FlatList renderItem={renderCategory} data={josCategoryList} />
       </RBSheet>
@@ -147,6 +151,7 @@ const JobsScreen = ({
           },
         }}>
         <BottomHeader
+          hideCheckIcon={true}
           refRBSheet={refRBSheetProject}
           title="Sort by Type of Project"
           data={data.location}
