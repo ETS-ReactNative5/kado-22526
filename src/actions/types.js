@@ -26,6 +26,7 @@ export const DELETE_PROFILE = 'DELETE_PROFILE';
 export const SORT_BY = 'SORT_BY';
 export const ADD_FAVORITE = 'ADD_FAVORITE';
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
+export const SEARCH_JOBS = 'SEARCH_JOBS';
 export const SINGLE_COMPANY = 'SINGLE_COMPANY';
 export const ALL_FAQ = 'ALL_FAQ';
 export const ALL_FAQ_LIST = 'ALL_FAQ_LIST';

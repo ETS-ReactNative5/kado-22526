@@ -23,8 +23,11 @@ const NewsFeedContainer = ({
   profileDetail,
   addFavorite,
   removeFavoriteJob,
+  searchJobs,
+  searchSavedJobs,
+  dispatch,
+  dispatchSaved,
 }) => {
-  console.log('profileDetai', profileDetail);
   const [value, setValue] = useState(true);
   const renderItem = ({item}) => (
     <FeedCard
@@ -48,6 +51,9 @@ const NewsFeedContainer = ({
       experience_level={item?.experience_level}
       skills={item?.skills}
       is_favorite={item?.is_favorite}
+      addFavorite={addFavorite}
+      removeFavoriteJob={removeFavoriteJob}
+      id={item?.id}
     />
   );
 
@@ -63,20 +69,26 @@ const NewsFeedContainer = ({
         </View>
 
         {value ? (
-          <SearchBar placeHolder="Search for your next jobs..." />
+          <SearchBar
+            onChangeText={value => dispatch(searchJobs(value))}
+            placeHolder="Search for your next jobs..."
+          />
         ) : (
-          <SearchBar placeHolder="Search for your next jobs..." />
+          <SearchBar
+            onChangeText={value => dispatch(searchSavedJobs(value))}
+            placeHolder="Search for your next jobs... Saved"
+          />
         )}
 
         <View style={styles.tabContainer}>
           <Tabs
             onChangeTab={({i}) => {
               if (i == 0) {
-                setValue(false);
+                setValue(true);
               }
               if (i == 1) {
                 console.log('saleem');
-                setValue(true);
+                setValue(false);
               }
             }}
             locked={true}
@@ -93,11 +105,13 @@ const NewsFeedContainer = ({
               textStyle={{color: '#8E8E8E'}}
               heading="Feed">
               {isLoading ? (
-                <View>
+                <View style={styles.empty}>
                   <ActivityIndicator />
                 </View>
               ) : jobList?.length === 0 ? (
-                <Text>No jobs</Text>
+                <View style={styles.empty}>
+                  <Text>No jobs</Text>
+                </View>
               ) : (
                 <FlatList renderItem={renderItem} data={jobList} />
               )}

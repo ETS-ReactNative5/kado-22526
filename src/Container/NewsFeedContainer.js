@@ -12,12 +12,17 @@ import {
   fetchAllSavedJobs,
   addFavoriteJob,
   removeFavorite,
+  searchJobs,
+  searchSavedJobsByName,
+  getJobsAfter,
+  fetchAllSavedJobsAfter,
 } from '../actions/jobs';
 import {fetchProfile} from '../actions/profile';
 
 const NewsFeedContainer = props => {
   const [state, setState] = useState(false);
   const dispatch = useDispatch();
+  const dispatchSaved = useDispatch();
   const jobList = useSelector(state => state.jobs.jobList);
   const saveJobsList = useSelector(state => state.jobs.saveJobsList);
   const isloading = useSelector(state => state.jobs.isloading);
@@ -44,17 +49,10 @@ const NewsFeedContainer = props => {
     dispatch(fetchAllSavedJobs());
   }, []);
 
-  // useEffect(() => {
-  //   setDataFunc();
-  //   dispatch(fetchAlljOBS());
-  //   dispatch(fetchAllSavedJobs());
-  // }, [addFavorite]);
-
-  // useEffect(() => {
-  //   setDataFunc();
-  //   dispatch(fetchAlljOBS());
-  //   dispatch(fetchAllSavedJobs());
-  // }, [removeJob]);
+  useEffect(() => {
+    dispatch(getJobsAfter());
+    dispatch(fetchAllSavedJobsAfter());
+  }, [state]);
 
   const setDataFunc = async () => {
     let token = '';
@@ -67,7 +65,7 @@ const NewsFeedContainer = props => {
 
   const addFavor = id => {
     setState(!state);
-    console.log('salman', id);
+
     const params = {
       title: 'test',
       favorite: true,
@@ -77,7 +75,7 @@ const NewsFeedContainer = props => {
 
   const removeFavoriteJob = id => {
     setState(!state);
-    console.log('saleem', id);
+
     const params = {
       title: 'test',
       favorite: false,
@@ -94,6 +92,10 @@ const NewsFeedContainer = props => {
         profileDetail={profileDetail}
         addFavorite={addFavor}
         removeFavoriteJob={removeFavoriteJob}
+        searchJobs={searchJobs}
+        searchSavedJobs={searchSavedJobsByName}
+        dispatch={dispatch}
+        dispatchSaved={dispatchSaved}
       />
     </SafeAreaView>
   );

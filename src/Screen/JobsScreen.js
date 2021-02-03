@@ -51,6 +51,10 @@ const JobsScreen = ({
   hideDatePickerSecond,
   handleConfirmSecond,
   endDate,
+  searchJobs,
+  dispatch,
+  addFavorite,
+  removeFavoriteJob,
 }) => {
   console.log(dateText);
   const renderItem = ({item}) => (
@@ -59,6 +63,10 @@ const JobsScreen = ({
       description={item?.description}
       experience_level={item?.experience_level}
       skills={item?.skills}
+      is_favorite={item?.is_favorite}
+      addFavorite={addFavorite}
+      removeFavoriteJob={removeFavoriteJob}
+      id={item?.id}
     />
   );
 
@@ -278,7 +286,10 @@ const JobsScreen = ({
         </View>
       </RBSheet>
       <View style={styles.body}>
-        <SearchBar placeHolder="Search for your next jobs..." />
+        <SearchBar
+          onChangeText={value => dispatch(searchJobs(value))}
+          placeHolder="Search for your next jobs..."
+        />
         <View>
           <DateTimePickerModal
             isVisible={isDatePickerVisible}

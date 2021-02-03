@@ -11,19 +11,21 @@ import {
 } from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
 import {validateRegistration} from '../utils/validation/validateRegister';
+import {ActivityIndicator} from 'react-native';
 const SignUpScreen = ({
   showPassword,
   handlePassword,
   showConPassword,
   handleConPassword,
   submit,
-  userType,
+  user_type,
+  isloading,
 }) => {
   return (
     <Formik
       initialValues={{email: '', password: '', confirmPassword: ''}}
       validate={validateRegistration}
-      onSubmit={values => submit({...values, userType})}>
+      onSubmit={values => submit({...values, user_type})}>
       {({
         handleChange,
         handleSubmit,
@@ -87,9 +89,13 @@ const SignUpScreen = ({
           )}
 
           <TouchableOpacity
-            onPress={handleSubmit}
+            onPress={() => handleSubmit()}
             style={styles.registerBtnContainer}>
-            <Text style={styles.registerText}>Register</Text>
+            {isloading ? (
+              <ActivityIndicator color={white} />
+            ) : (
+              <Text style={styles.registerText}>Register</Text>
+            )}
           </TouchableOpacity>
         </View>
       )}

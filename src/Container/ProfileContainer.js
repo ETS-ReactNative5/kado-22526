@@ -19,7 +19,7 @@ const ProfileContainer = props => {
 
   useEffect(() => {
     dispatch(getUser());
-  });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

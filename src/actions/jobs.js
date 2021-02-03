@@ -64,10 +64,47 @@ function removeFavoriteJob(removeJob) {
   };
 }
 
+function jobSearch(searchJobList) {
+  return {
+    type: types.REMOVE_FAVORITE,
+    searchJobList: searchJobList,
+  };
+}
+
 export function fetchJobs() {
   return dispatch => {
     dispatch(setIsLoading(true));
     Api.get(`api/v1/job/`)
+      .then(resp => {
+        dispatch(getJobs(resp?.results));
+        dispatch(setIsLoading(false));
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function getJobsAfter() {
+  return dispatch => {
+    // dispatch(setIsLoading(true));
+    Api.get(`api/v1/job/`)
+      .then(resp => {
+        dispatch(getJobs(resp?.results));
+        // dispatch(setIsLoading(false));
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        // dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function searchJobs(name) {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/job/?q=${name}`)
       .then(resp => {
         dispatch(getJobs(resp?.results));
         dispatch(setIsLoading(false));
@@ -129,6 +166,37 @@ export function fetchAllSavedJobs() {
   return dispatch => {
     dispatch(setIsLoading(true));
     Api.get(`api/v1/saved/job/`)
+      .then(resp => {
+        dispatch(getSavedJobs(resp?.results));
+        dispatch(setIsLoading(false));
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function fetchAllSavedJobsAfter() {
+  return dispatch => {
+    // dispatch(setIsLoading(true));
+    Api.get(`api/v1/saved/job/`)
+      .then(resp => {
+        dispatch(getSavedJobs(resp?.results));
+        // dispatch(setIsLoading(false));
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        // dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function searchSavedJobsByName(name) {
+  console.log('salmasn saleem', name);
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/saved/job/?q=${name}`)
       .then(resp => {
         dispatch(getSavedJobs(resp?.results));
         dispatch(setIsLoading(false));

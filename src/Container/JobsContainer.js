@@ -14,12 +14,18 @@ import {
   fetchjobsCategory,
   fetchAllJobsDate,
   fetchJobs,
+  searchJobs,
+  addFavoriteJob,
+  removeFavorite,
+  getJobsAfter,
 } from '../actions/jobs';
 
 const JobsContainer = props => {
   const {jobList, saveJobsList, isloading, typeProList} = useSelector(
     state => state.jobs,
   );
+
+  const [state, setState] = useState(false);
   const [dateText, setDateText] = useState('');
   const [endDate, setEndDate] = useState('');
   const sdsds = useSelector(state => console.log('sdadas', state));
@@ -54,6 +60,10 @@ const JobsContainer = props => {
     dispatch(fetchProjectsType());
   }, []);
 
+  useEffect(() => {
+    dispatch(getJobsAfter());
+  }, [state]);
+
   const handleJobFilter = (key, param) => {
     dispatch(fetchAlljOBS(key, param));
   };
@@ -71,8 +81,6 @@ const JobsContainer = props => {
       ...data,
       [name]: value,
     });
-
-    console.log('Moiz Babar', data);
   };
 
   const showDatePicker = () => {
@@ -104,6 +112,26 @@ const JobsContainer = props => {
     console.warn('A date has been picked: ', myDate);
     hideDatePickerSecond();
   };
+
+  const addFavor = id => {
+    setState(!state);
+
+    const params = {
+      title: 'test',
+      favorite: true,
+    };
+    dispatch(addFavoriteJob(id, params));
+  };
+
+  const removeFavoriteJob = id => {
+    setState(!state);
+
+    const params = {
+      title: 'test',
+      favorite: false,
+    };
+    dispatch(removeFavorite(id, params));
+  };
   return (
     <SafeAreaView style={styles.container}>
       <JobsScreen
@@ -130,6 +158,10 @@ const JobsContainer = props => {
         hideDatePickerSecond={hideDatePickerSecond}
         handleConfirmSecond={handleConfirmSecond}
         endDate={endDate}
+        searchJobs={searchJobs}
+        dispatch={dispatch}
+        addFavorite={addFavor}
+        removeFavoriteJob={removeFavoriteJob}
       />
     </SafeAreaView>
   );

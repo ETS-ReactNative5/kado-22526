@@ -8,6 +8,7 @@ import {EditProfileScreen} from '../Screen';
 import {fetchProfile, updateProfile} from '../actions/profile';
 
 const EditProfileContainer = props => {
+  console.log('salman');
   const dispatch = useDispatch();
   const [profileId, setprofileid] = useState('');
   const [data, setData] = useState('');

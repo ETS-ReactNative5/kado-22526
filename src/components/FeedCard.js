@@ -41,7 +41,7 @@ const FeedCard = ({
         <TouchableOpacity style={styles.heartContaine}>
           {is_favorite ? (
             <TouchableOpacity onPress={() => removeFavoriteJob(id)}>
-              <Icon color="red" solid={true} size={18} name="heart" />
+              <Icon color={themeColor} solid={true} size={18} name="heart" />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity onPress={() => addFavorite(id)}>

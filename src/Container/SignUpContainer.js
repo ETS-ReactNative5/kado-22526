@@ -2,13 +2,15 @@ import React from 'react';
 import {useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {SignUpScreen} from '../Screen';
 import {signUp} from '../actions/auth';
 
 const SignUpContainer = props => {
   const [showPassword, setShowPasssword] = useState(true);
   const [showConPassword, setShowConPasssword] = useState(true);
+  const isLoading = useSelector(state => state.auth.isLoading);
+  console.log('salmansa', isLoading);
   const dispatch = useDispatch();
   const navigate = async routeName => {
     const {navigation} = props;
@@ -45,6 +47,7 @@ const SignUpContainer = props => {
         navigate={navigate}
         handleSubmit={handleSubmit}
         goBack={goBack}
+        isloading={isLoading}
       />
     </SafeAreaView>
   );

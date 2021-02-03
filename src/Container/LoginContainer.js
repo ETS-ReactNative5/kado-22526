@@ -19,8 +19,6 @@ const LoginContainer = props => {
     }
   };
 
-  useEffect(() => {});
-
   const goBack = () => {
     const {navigation} = props;
     navigation.goBack();

@@ -78,6 +78,7 @@ export function userDelete(user_id, navigate) {
         dispatch(deleteUser(resp));
         dispatch(setIsLoading(false));
         Storage.removeData('access_token');
+
         navigate('Login');
       })
       .catch(err => {

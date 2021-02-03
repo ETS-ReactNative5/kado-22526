@@ -14,8 +14,12 @@ import KadoImage from '../assets/Image/logo.png';
 import {BackHeader} from '../components';
 import {themeColor, white} from '../utils/Theme/Color';
 
-const DeleteAccountScreen = ({goBack, profileDetail, handleSubmit}) => {
-  console.log('profileDetail profileDetail');
+const DeleteAccountScreen = ({
+  goBack,
+  profileDetail,
+  isloading,
+  handleSubmit,
+}) => {
   return (
     <SafeAreaView style={styles.Container}>
       <BackHeader goBack={goBack} />
@@ -29,18 +33,15 @@ const DeleteAccountScreen = ({goBack, profileDetail, handleSubmit}) => {
             Are you sure you want to delete your account?
           </Text>
           <View>
-            <TouchableOpacity onPress={() => handleSubmit()}>
-              <View
-                style={[
-                  styles.button,
-                  {backgroundColor: '#001CD6', marginTop: 30},
-                ]}>
-                <Text style={[styles.saveText]}>Yes</Text>
-              </View>
+            <TouchableOpacity
+              style={[styles.button, {backgroundColor: '#001CD6'}]}
+              onPress={() => handleSubmit()}>
+              <Text style={[styles.saveText]}>Yes</Text>
+              {/* </View> */}
             </TouchableOpacity>
           </View>
           <View>
-            <TouchableOpacity onPress={() => goBack()}>
+            <TouchableOpacity onPress={() => alert('salman')}>
               <View style={[styles.button, {backgroundColor: '#03D1F9'}]}>
                 <Text style={styles.saveText}>Cancel</Text>
               </View>

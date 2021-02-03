@@ -10,16 +10,16 @@ import {fetchProfile, userDelete} from '../actions/profile';
 const DeleteAccountContainer = props => {
   const dispatch = useDispatch();
   const [profileId, setprofileid] = useState('');
-  const {profileDetail} = useSelector(state => state.profile);
+  const {profileDetail, isloading} = useSelector(state => state.profile);
 
   const goBack = () => {
     const {navigation} = props;
     navigation.goBack();
   };
 
-  const navigate = async routeName => {
+  const navigate = routeName => {
     const {navigation} = props;
-    await navigation.navigate(routeName);
+    navigation.navigate(routeName);
   };
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const DeleteAccountContainer = props => {
   };
 
   const handleSubmit = () => {
+    navigate('Login');
     dispatch(userDelete(profileId, navigate));
   };
 
@@ -46,6 +47,7 @@ const DeleteAccountContainer = props => {
         handleSubmit={handleSubmit}
         goBack={goBack}
         profileDetail={profileDetail}
+        isloading={isloading}
       />
     </SafeAreaView>
   );

@@ -26,7 +26,9 @@ const SignUpScreen = ({
   handleConPassword,
   handleSubmit,
   goBack,
+  isloading,
 }) => {
+  console.log('salman', isloading);
   return (
     <View style={styles.container}>
       {/* <Header navigate={navigate} /> */}
@@ -77,7 +79,8 @@ const SignUpScreen = ({
                   showConPassword={showConPassword}
                   handleConPassword={handleConPassword}
                   submit={handleSubmit}
-                  userType={USER_TYPES.company.name}
+                  user_type={USER_TYPES.company.name}
+                  isloading={isloading}
                 />
               </Tab>
 
@@ -93,7 +96,8 @@ const SignUpScreen = ({
                   showConPassword={showConPassword}
                   handleConPassword={handleConPassword}
                   submit={handleSubmit}
-                  userType={USER_TYPES.student.name}
+                  user_type={USER_TYPES.student.name}
+                  isloading={isloading}
                 />
               </Tab>
             </Tabs>
