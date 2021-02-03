@@ -6,6 +6,66 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {TouchableOpacity} from 'react-native';
 import {buttonColor, feedItemBack, themeColor} from '../utils/Theme/Color';
 
+const RightIconDate = ({onPress}) => {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <Icon name="done" size={24} color={buttonColor} />
+    </TouchableOpacity>
+  );
+};
+
+const RightIconFilter = ({onPress}) => {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <Icon name="done" size={24} color={buttonColor} />
+    </TouchableOpacity>
+  );
+};
+const RightIcon = ({
+  dateClick,
+  refRBSheet,
+  handleAmountFilter,
+  handleJobFilter,
+  handleDateFilter,
+  min_data,
+  max_data,
+  click,
+  data,
+}) => {
+  return (
+    <>
+      {dateClick ? (
+        <RightIconDate
+          onPress={() => {
+            refRBSheet.current.close();
+            handleDateFilter(data?.start_date, data?.end_date);
+          }}
+        />
+      ) : (
+        <View>
+          {click ? (
+            <RightIconFilter
+              refRBSheet={refRBSheet}
+              onPress={() => {
+                refRBSheet.current.close();
+                handleJobFilter('location', data);
+              }}
+            />
+          ) : (
+            <RightIconFilter
+              refRBSheet={refRBSheet}
+              onPress={() => {
+                refRBSheet.current.close();
+
+                handleAmountFilter(min_data, max_data);
+              }}
+            />
+          )}
+        </View>
+      )}
+    </>
+  );
+};
 const BottomHeader = ({
   title,
   refRBSheet,
@@ -17,39 +77,30 @@ const BottomHeader = ({
   max_data,
   dateClick,
   handleDateFilter,
+  hideCheckIcon,
 }) => {
+  const rest = {
+    refRBSheet,
+    click,
+    handleJobFilter,
+    data,
+    handleAmountFilter,
+    min_data,
+    max_data,
+    dateClick,
+    handleDateFilter,
+  };
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => refRBSheet.current.close()}>
         <Icon name="clear" size={24} color={buttonColor} />
       </TouchableOpacity>
       <Text style={styles.text}>{title}</Text>
-      {dateClick ? (
-        <TouchableOpacity
-          onPress={() => {
-            refRBSheet.current.close(),
-              handleDateFilter(data?.start_date, data?.end_date);
-          }}>
-          <Icon name="done" size={24} color={buttonColor} />
-        </TouchableOpacity>
+      {!hideCheckIcon ? (
+        <RightIcon {...rest} />
       ) : (
         <View>
-          {click ? (
-            <TouchableOpacity
-              onPress={() => {
-                refRBSheet.current.close(), handleJobFilter('location', data);
-              }}>
-              <Icon name="done" size={24} color={buttonColor} />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              onPress={() => {
-                refRBSheet.current.close(),
-                  handleAmountFilter(min_data, max_data);
-              }}>
-              <Icon name="done" size={24} color={buttonColor} />
-            </TouchableOpacity>
-          )}
+          <Icon name="clear" size={24} color={'transparent'} />
         </View>
       )}
     </View>

@@ -1,12 +1,12 @@
 from django.db import migrations
-from core.utils.dump_data import create_users
 
 
 def populate_dump_profile_users(_, __):
-    try:
-        create_users()
-    except:
-        pass
+    # TODO: create django admin command to populate data
+    # Function was meant to run once on production, hence commented
+    # from core.utils.user_dump_data import create_users
+    # create_users()
+    pass
 
 
 class Migration(migrations.Migration):
