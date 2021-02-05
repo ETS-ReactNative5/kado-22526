@@ -30,7 +30,6 @@ const FAQScreen = ({
   fetchAllFaq,
   submitLoading,
 }) => {
-  console.log('submitLoading', submitLoading);
   const renderItem = ({item}) => <FaqItems title={item?.question} />;
   return (
     <View style={styles.container}>

@@ -10,7 +10,6 @@ const SignUpContainer = props => {
   const [showPassword, setShowPasssword] = useState(true);
   const [showConPassword, setShowConPasssword] = useState(true);
   const isLoading = useSelector(state => state.auth.isLoading);
-  console.log('salmansa', isLoading);
   const dispatch = useDispatch();
   const navigate = async routeName => {
     const {navigation} = props;

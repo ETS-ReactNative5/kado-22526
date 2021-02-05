@@ -28,7 +28,6 @@ const SignUpScreen = ({
   goBack,
   isloading,
 }) => {
-  console.log('salman', isloading);
   return (
     <View style={styles.container}>
       {/* <Header navigate={navigate} /> */}

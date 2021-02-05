@@ -28,7 +28,6 @@ const JobsContainer = props => {
   const [state, setState] = useState(false);
   const [dateText, setDateText] = useState('');
   const [endDate, setEndDate] = useState('');
-  const sdsds = useSelector(state => console.log('sdadas', state));
   const dispatch = useDispatch();
 
   const [data, setData] = useState('');

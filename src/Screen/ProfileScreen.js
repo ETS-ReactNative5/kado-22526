@@ -14,22 +14,41 @@ import {
   white,
 } from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
+import {ActivityIndicator} from 'react-native';
 
-const ProfileScreen = ({goBack, navigate}) => {
+const ProfileScreen = ({
+  goBack,
+  navigate,
+  profileData,
+  isloading,
+  handleChange,
+  updateLoading,
+  handleSubmit,
+}) => {
   return (
     <View style={styles.container}>
       <BackHeader title="Profile Info" goBack={goBack} />
-      <ScrollView contentContainerStyle={styles.bodyContainer}>
-        <View style={styles.body}>
-          <View style={styles.imageContainer}>
-            <TouchableOpacity>
-              <Image resizeMode="cover" style={styles.image} source={uset} />
-              <TouchableOpacity style={styles.editBtnContainer}>
-                <Image source={editButton} />
-              </TouchableOpacity>
-            </TouchableOpacity>
+      <View style={{flex: 1}}>
+        {isloading ? (
+          <View style={styles.empty}>
+            <ActivityIndicator />
           </View>
-          {/* <View style={{marginTop: 50}}>
+        ) : (
+          <ScrollView contentContainerStyle={styles.bodyContainer}>
+            <View style={styles.body}>
+              <View style={styles.imageContainer}>
+                <TouchableOpacity>
+                  <Image
+                    resizeMode="cover"
+                    style={styles.image}
+                    source={uset}
+                  />
+                  <TouchableOpacity style={styles.editBtnContainer}>
+                    <Image source={editButton} />
+                  </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
+              {/* <View style={{marginTop: 50}}>
             <Input
               secureTextEntry={false}
               iconShow={true}
@@ -37,91 +56,122 @@ const ProfileScreen = ({goBack, navigate}) => {
               placeholder="Undergraduate Student"
             />
           </View> */}
-          <View style={{marginTop: 50}}>
-            <Input
-              secureTextEntry={false}
-              iconShow={false}
-              placeholder="Name of University"
-            />
-          </View>
-          <View>
-            <Input
-              secureTextEntry={false}
-              iconShow={false}
-              placeholder="Field of Study"
-            />
-          </View>
-          <View>
-            <Text style={styles.payMarginText}>
-              Relevant Skills: (Seperate your skill with ; )
-            </Text>
-            <View style={styles.skillContainer}>
-              <View style={styles.skillItem}>
-                <Text style={styles.skillBtnText}>Website Design</Text>
+              <View style={{marginTop: 50}}>
+                <Input
+                  secureTextEntry={false}
+                  iconShow={false}
+                  placeholder="Name of University"
+                  value={`${profileData?.university}`}
+                  onChange={value => handleChange('university', value)}
+                />
               </View>
-              <View style={styles.skillItem}>
-                <Text style={styles.skillBtnText}>UI Design</Text>
+              <View>
+                <Input
+                  secureTextEntry={false}
+                  iconShow={false}
+                  placeholder="Field of Study"
+                  value={`${profileData?.field_of_study}`}
+                  onChange={value => handleChange('field_of_study', value)}
+                />
               </View>
-              <View style={styles.skillItem}>
-                <Text style={styles.skillBtnText}>JS Development</Text>
+              <View>
+                <Text style={styles.payMarginText}>
+                  Relevant Skills: (Seperate your skill with ; )
+                </Text>
+
+                <View style={styles.skillContainer}>
+                  {profileData?.skills.map(item => {
+                    return (
+                      <View style={styles.skillItem}>
+                        <Text style={styles.skillBtnText}>{item} </Text>
+                      </View>
+                    );
+                  })}
+                  {/* <View style={styles.skillItem}>
+                    <Text style={styles.skillBtnText}>Website Design</Text>
+                  </View>
+                  <View style={styles.skillItem}>
+                    <Text style={styles.skillBtnText}>UI Design</Text>
+                  </View>
+                  <View style={styles.skillItem}>
+                    <Text style={styles.skillBtnText}>JS Development</Text>
+                  </View> */}
+                </View>
               </View>
+              <View style={styles.inputCOntainer}>
+                <Input
+                  secureTextEntry={false}
+                  iconShow={true}
+                  placeholder="Years of experience"
+                  value={`${profileData?.years_of_experience}`}
+                  onChange={value => handleChange('years_of_experience', value)}
+                  keyboardType="numeric"
+                />
+              </View>
+              <View style={styles.inputCOntainer}>
+                <Input
+                  secureTextEntry={false}
+                  keyboardType="numeric"
+                  iconShow={true}
+                  placeholder="Work type(full-time,part-time,remote etc)"
+                  value={`${profileData?.work_type}`}
+                  onChange={value => handleChange('work_type', value)}
+                />
+              </View>
+              <View style={styles.inputCOntainer}>
+                <Input
+                  secureTextEntry={false}
+                  iconShow={false}
+                  placeholder="Hours available per week"
+                  value={`${profileData?.hours_per_week}`}
+                  keyboardType="numeric"
+                />
+              </View>
+              <View style={styles.inputCOntainer}>
+                <Input
+                  secureTextEntry={false}
+                  iconShow={true}
+                  placeholder="Allowed to work in the US?"
+                  value={`${profileData?.allowed_to_work}`}
+                />
+              </View>
+              <Text style={styles.payMarginText}>Pay margin:</Text>
+              <View style={styles.ammountContainer}>
+                <View style={{width: '49%'}}>
+                  <Input
+                    secureTextEntry={false}
+                    iconShow={false}
+                    iconName="chevron-down"
+                    placeholder="Min $"
+                    value={`${profileData?.min_pay}`}
+                    onChange={value => handleChange('min_pay', value)}
+                  />
+                </View>
+                <View style={{width: '49%'}}>
+                  <Input
+                    secureTextEntry={false}
+                    iconShow={false}
+                    iconName="chevron-down"
+                    placeholder="Max $"
+                    keyboardType="numeric"
+                    value={`${profileData?.max_pay}`}
+                    onChange={value => handleChange('max_pay', value)}
+                  />
+                </View>
+              </View>
+              <TouchableOpacity
+                onPress={() => handleSubmit()}
+                style={styles.registerBtnContainer}>
+                {updateLoading ? (
+                  <ActivityIndicator color={white} />
+                ) : (
+                  <Text style={styles.registerText}>Save</Text>
+                )}
+              </TouchableOpacity>
             </View>
-          </View>
-          <View style={styles.inputCOntainer}>
-            <Input
-              secureTextEntry={false}
-              iconShow={true}
-              placeholder="Years of experience"
-            />
-          </View>
-          <View style={styles.inputCOntainer}>
-            <Input
-              secureTextEntry={false}
-              keyboardType="numeric"
-              iconShow={true}
-              placeholder="Work type(full-time,part-time,remote etc)"
-            />
-          </View>
-          <View style={styles.inputCOntainer}>
-            <Input
-              secureTextEntry={false}
-              iconShow={false}
-              placeholder="Hours available per week"
-            />
-          </View>
-          <View style={styles.inputCOntainer}>
-            <Input
-              secureTextEntry={false}
-              iconShow={true}
-              placeholder="Allowed to work in the US?"
-            />
-          </View>
-          <Text style={styles.payMarginText}>Pay margin:</Text>
-          <View style={styles.ammountContainer}>
-            <View style={{width: '49%'}}>
-              <Input
-                secureTextEntry={false}
-                iconShow={false}
-                iconName="chevron-down"
-                placeholder="Min $"
-              />
-            </View>
-            <View style={{width: '49%'}}>
-              <Input
-                secureTextEntry={false}
-                iconShow={false}
-                iconName="chevron-down"
-                placeholder="Max $"
-              />
-            </View>
-          </View>
-          <TouchableOpacity
-            onPress={() => navigate('NewsFeed')}
-            style={styles.registerBtnContainer}>
-            <Text style={styles.registerText}>Save</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+          </ScrollView>
+        )}
+      </View>
     </View>
   );
 };
@@ -256,8 +306,10 @@ const styles = ScaledSheet.create({
     marginTop: '3@s',
   },
   skillItem: {
-    backgroundColor: lughtBlue,
-    borderRadius: '50@s',
+    backgroundColor: '#E1E4F6',
+
+    borderRadius: '20@s',
+    marginTop: '5@s',
     padding: '7@s',
     paddingRight: '12@s',
     paddingLeft: '12@s',
@@ -269,8 +321,14 @@ const styles = ScaledSheet.create({
   skillBtnText: {
     fontSize: '11@s',
     lineHeight: '13@s',
-    fontWeight: '600',
-    color: darkBlue,
+    fontWeight: 'bold',
+    color: buttonColor,
+  },
+
+  empty: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

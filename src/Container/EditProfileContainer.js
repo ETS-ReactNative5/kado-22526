@@ -8,7 +8,6 @@ import {EditProfileScreen} from '../Screen';
 import {fetchProfile, updateProfile} from '../actions/profile';
 
 const EditProfileContainer = props => {
-  console.log('salman');
   const dispatch = useDispatch();
   const [profileId, setprofileid] = useState('');
   const [data, setData] = useState('');
@@ -49,7 +48,7 @@ const EditProfileContainer = props => {
 
   const handleUpdateProfile = () => {
     setUpdate(!update);
-    dispatch(updateProfile(profileId, data));
+    dispatch(updateProfile(profileId, data, navigate));
   };
 
   return (

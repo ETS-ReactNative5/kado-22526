@@ -47,7 +47,6 @@ export function fetchCompanyByName(companyName) {
         dispatch(getCompanies(resp));
       })
       .catch(err => {
-        console.log('errpr', err);
         // dispatch(setfetchCommunityGroupError(err.errors));
         dispatch(setIsLoading(false));
       });

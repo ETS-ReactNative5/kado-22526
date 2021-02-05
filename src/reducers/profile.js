@@ -28,6 +28,20 @@ export const profile = createReducer(INITIAL_STATE, {
     };
   },
 
+  [types.GET_USER_DETAIL](state, action) {
+    return {
+      ...state,
+      profileData: action.profileData,
+    };
+  },
+
+  [types.UPDATE_PROFILE_ID](state, action) {
+    return {
+      ...state,
+      profileUpdate: action.profileUpdate,
+    };
+  },
+
   [types.IS_LOADING](state, action) {
     return {
       ...state,

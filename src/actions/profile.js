@@ -38,8 +38,21 @@ function deleteUser(userDeleteData) {
   };
 }
 
+function getProfileId(profileData) {
+  return {
+    type: types.GET_USER_DETAIL,
+    profileData: profileData,
+  };
+}
+
+function updateProfileId(profileUpdate) {
+  return {
+    type: types.UPDATE_PROFILE_ID,
+    profileUpdate: profileUpdate,
+  };
+}
+
 export function fetchProfile(profile_id) {
-  console.log('saladasd', profile_id);
   return dispatch => {
     dispatch(setIsLoading(true));
     Api.get(`api/v1/profile/${profile_id}/`)
@@ -54,13 +67,48 @@ export function fetchProfile(profile_id) {
   };
 }
 
-export function updateProfile(profile_id, param) {
+export function updateProfile(profile_id, param, navigate) {
   return dispatch => {
     dispatch(updateProfileLoading(true));
     Api.put(`api/v1/profile/${profile_id}/`, param)
       .then(resp => {
         dispatch(updateProfileFunc(resp));
         dispatch(updateProfileLoading(false));
+        navigate('Profile');
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(updateProfileLoading(false));
+      });
+  };
+}
+
+export function getProfileById(profile_id) {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/profile/${profile_id}/`)
+      .then(resp => {
+        dispatch(getProfileId(resp));
+        dispatch(setIsLoading(false));
+        navigate('Profile');
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function updateProfileById(profile_id, params, navigate) {
+  console.log('salman Raheel');
+  return dispatch => {
+    dispatch(updateProfileLoading(true));
+    Api.put(`api/v1/profile/${profile_id}/`, params)
+      .then(resp => {
+        console.log('updated profile', resp);
+        dispatch(updateProfileId(resp));
+        dispatch(updateProfileLoading(false));
+        navigate('NewsFeed');
       })
       .catch(err => {
         // dispatch(setfetchCommunityGroupError(err.errors));
@@ -70,7 +118,6 @@ export function updateProfile(profile_id, param) {
 }
 
 export function userDelete(user_id, navigate) {
-  console.log('user_id', user_id);
   return dispatch => {
     dispatch(setIsLoading(true));
     Api.delete(`api/v1/user/${user_id}/`)

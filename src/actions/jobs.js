@@ -147,7 +147,6 @@ export function fetchAllJobsAmount(min_type, min_amount, max_type, max_amount) {
 }
 
 export function fetchAllJobsDate(start_date, from_date, end_date, to_date) {
-  console.log('safasfafasd', start_date, from_date, end_date, to_date);
   return dispatch => {
     dispatch(setIsLoading(true));
     Api.get(`api/v1/job/?${start_date}=${from_date}&${end_date}=${to_date}`)
@@ -193,7 +192,6 @@ export function fetchAllSavedJobsAfter() {
 }
 
 export function searchSavedJobsByName(name) {
-  console.log('salmasn saleem', name);
   return dispatch => {
     dispatch(setIsLoading(true));
     Api.get(`api/v1/saved/job/?q=${name}`)
@@ -252,14 +250,12 @@ export function fetchSortBy(param, sortbyString) {
 }
 
 export function addFavoriteJob(job_id, data) {
-  console.log('job_id', data);
   return dispatch => {
     dispatch(setFavoriteLoading(true));
     Api.put(`api/v1/job/${job_id}/`, data)
       .then(resp => {
         dispatch(addFavorite(resp));
         dispatch(setFavoriteLoading(false));
-        console.log('respppp', resp);
       })
       .catch(err => {
         dispatch(setFavoriteLoading(false));
@@ -268,17 +264,14 @@ export function addFavoriteJob(job_id, data) {
 }
 
 export function removeFavorite(job_id, data) {
-  console.log('job_id', data);
   return dispatch => {
     dispatch(setFavoriteLoading(true));
     Api.put(`api/v1/job/${job_id}/`, data)
       .then(resp => {
         dispatch(removeFavoriteJob(resp));
         dispatch(setFavoriteLoading(true));
-        console.log('respppp', resp);
       })
       .catch(err => {
-        console.log('err', err);
         dispatch(setFavoriteLoading(true));
       });
   };

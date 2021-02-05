@@ -84,12 +84,11 @@ export function fetchAdsBySearchKey(params) {
         dispatch(setIsLoadingGroup(true));
         Api.get(`listing/searchAd?page=1&limit=25&brand=${params.make ? params.make : ''}&brandOrModel=${params.search ? params.search : ''}&featured=${params.feature ? params.feature : ''}&lowestPrice=${params.lowestPrice ? params.lowestPrice : 0}&highestPrice=${params.highestPrice ? params.highestPrice : '1.7976931348623157e%2B308'}&model=${params.model ? params.model : ''}&location=${params.city ? params.city : ''}&colours=${params.color ? params.color : ''}`)
             .then((resp) => {
-                console.log("search results ads", resp)
                 dispatch(fetchSearchAdsAction(resp.ads));
                 dispatch(setIsLoadingGroup(false));
             })
             .catch((err) => {
-                console.log("no response", err)
+                
                 dispatch(fetchSearchAdsAction([]));
                 // dispatch(setfetchCommunityGroupError(err.errors));
                 dispatch(setIsLoadingGroup(false));

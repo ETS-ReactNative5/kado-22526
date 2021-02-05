@@ -87,7 +87,6 @@ const NewsFeedContainer = ({
                 setValue(true);
               }
               if (i == 1) {
-                console.log('saleem');
                 setValue(false);
               }
             }}

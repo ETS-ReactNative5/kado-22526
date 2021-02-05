@@ -17,13 +17,12 @@ const DeleteAccountContainer = props => {
     navigation.goBack();
   };
 
-  const navigate = routeName => {
+  const navigate = async routeName => {
     const {navigation} = props;
-    navigation.navigate(routeName);
+    await navigation.navigate(routeName);
   };
 
   useEffect(() => {
-    console.log('salman');
     setDataFunc();
   }, []);
 

@@ -56,7 +56,6 @@ const JobsScreen = ({
   addFavorite,
   removeFavoriteJob,
 }) => {
-  console.log(dateText);
   const renderItem = ({item}) => (
     <FeedCard
       title={item?.title}

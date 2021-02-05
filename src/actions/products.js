@@ -63,7 +63,6 @@ export function fetchProductsBySearchKey(params) {
       }&colours=${params.color ? params.color : ''}`,
     )
       .then(resp => {
-        console.log('search results', resp);
         dispatch(fetchAllProductsAction(resp.products));
         dispatch(setIsLoadingGroup(false));
       })
@@ -78,7 +77,6 @@ export function fetchUsersOrders(id) {
     dispatch(setIsLoadingGroup(true));
     Api.get(`order/userId/${id}`)
       .then(resp => {
-        console.log('data of user orders', resp);
         dispatch(fetchUserOrdersAction(resp.orders));
         dispatch(setIsLoadingGroup(false));
       })

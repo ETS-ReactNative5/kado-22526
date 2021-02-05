@@ -26,81 +26,93 @@ const EditProfileScreen = ({
   return (
     <View style={styles.container}>
       <BackHeader title="Edit Profile" goBack={goBack} />
-      <ScrollView contentContainerStyle={styles.bodyContainer}>
-        <View style={styles.body}>
-          <View style={styles.imageContainer}>
-            <View>
-              {profileDetail?.photo === null ? (
-                <Image resizeMode="cover" style={styles.image} source={user} />
-              ) : (
-                <Image
-                  resizeMode="cover"
-                  style={styles.image}
-                  source={{uri: profileDetail?.photo}}
-                />
-              )}
+      <View style={{flex: 1}}>
+        {isloading ? (
+          <View style={styles.empty}>
+            <ActivityIndicator color={themeColor} />
+          </View>
+        ) : (
+          <ScrollView contentContainerStyle={styles.bodyContainer}>
+            <View style={styles.body}>
+              <View style={styles.imageContainer}>
+                <View>
+                  {profileDetail?.photo === null ? (
+                    <Image
+                      resizeMode="cover"
+                      style={styles.image}
+                      source={user}
+                    />
+                  ) : (
+                    <Image
+                      resizeMode="cover"
+                      style={styles.image}
+                      source={{uri: profileDetail?.photo}}
+                    />
+                  )}
 
-              <TouchableOpacity style={styles.editBtnContainer}>
-                <EditProfileIcon />
+                  <TouchableOpacity style={styles.editBtnContainer}>
+                    <EditProfileIcon />
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={{marginTop: 50}}>
+                <Input
+                  secureTextEntry={false}
+                  iconShow={false}
+                  placeholder={
+                    isloading ? `Full Name` : `${profileDetail?.fullname}`
+                  }
+                  // value={isloading ? `Full Name` : `${profileDetail?.fullname}`}
+                  onChange={value => handleChange('fullname', value)}
+                />
+              </View>
+
+              <View style={styles.inputCOntainer}>
+                <Input
+                  secureTextEntry={false}
+                  iconShow={true}
+                  placeholder={
+                    isloading ? `Location` : `${profileDetail?.location}`
+                  }
+                  iconName="map-marker-alt"
+                  // value={isloading ? `Location` : `${profileDetail?.location}`}
+                  onChange={value => handleChange('location', value)}
+                />
+              </View>
+              <View style={styles.inputCOntainer}>
+                <Input
+                  secureTextEntry={false}
+                  keyboardType="numeric"
+                  iconShow={false}
+                  placeholder={
+                    isloading ? 'Phone' : `${profileDetail?.mobile_number}`
+                  }
+                  // value={isloading ? 'Phone' : `${profileDetail?.mobile_number}`}
+                  onChange={value => handleChange('mobile_number', value)}
+                />
+              </View>
+              <View style={styles.inputCOntainer}>
+                <Input
+                  secureTextEntry={false}
+                  // iconShow={true}
+                  // iconName="chevron-down"
+                  placeholder="Gender"
+                />
+              </View>
+
+              <TouchableOpacity
+                onPress={() => handleUpdateProfile()}
+                style={styles.registerBtnContainer}>
+                {updateLoading ? (
+                  <ActivityIndicator color={white} />
+                ) : (
+                  <Text style={styles.registerText}>Next</Text>
+                )}
               </TouchableOpacity>
             </View>
-          </View>
-          <View style={{marginTop: 50}}>
-            <Input
-              secureTextEntry={false}
-              iconShow={false}
-              placeholder={
-                isloading ? `Full Name` : `${profileDetail?.fullname}`
-              }
-              // value={isloading ? `Full Name` : `${profileDetail?.fullname}`}
-              onChange={value => handleChange('fullname', value)}
-            />
-          </View>
-
-          <View style={styles.inputCOntainer}>
-            <Input
-              secureTextEntry={false}
-              iconShow={true}
-              placeholder={
-                isloading ? `Location` : `${profileDetail?.location}`
-              }
-              iconName="map-marker-alt"
-              // value={isloading ? `Location` : `${profileDetail?.location}`}
-              onChange={value => handleChange('location', value)}
-            />
-          </View>
-          <View style={styles.inputCOntainer}>
-            <Input
-              secureTextEntry={false}
-              keyboardType="numeric"
-              iconShow={false}
-              placeholder={
-                isloading ? 'Phone' : `${profileDetail?.mobile_number}`
-              }
-              // value={isloading ? 'Phone' : `${profileDetail?.mobile_number}`}
-              onChange={value => handleChange('mobile_number', value)}
-            />
-          </View>
-          <View style={styles.inputCOntainer}>
-            <Input
-              secureTextEntry={false}
-              // iconShow={true}
-              // iconName="chevron-down"
-              placeholder="Gender"
-            />
-          </View>
-
-          <TouchableOpacity
-            onPress={() => handleUpdateProfile()}
-            style={styles.registerBtnContainer}>
-            {updateLoading ? (
-              <ActivityIndicator color={white} />
-            ) : (
-              <Text style={styles.registerText}>Next</Text>
-            )}
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+          </ScrollView>
+        )}
+      </View>
     </View>
   );
 };
@@ -196,6 +208,11 @@ const styles = ScaledSheet.create({
   },
   inputCOntainer: {
     marginTop: '5@s',
+  },
+  empty: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

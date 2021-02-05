@@ -43,7 +43,6 @@ export function fetchFaq() {
       .then(resp => {
         dispatch(getFaq(resp));
         dispatch(setIsLoading(false));
-        console.log('dalmasasdasd', resp);
       })
       .catch(err => {
         // dispatch(setfetchCommunityGroupError(err.errors));

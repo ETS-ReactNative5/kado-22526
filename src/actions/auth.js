@@ -47,7 +47,6 @@ export function login(params, navigate) {
           ToastAndroid.BOTTOM,
         );
         navigate('Home');
-        console.log('respppp', resp);
       })
       .catch(err => {
         console.warn('err', err);
@@ -72,12 +71,11 @@ export function signUp(params, navigate) {
         //   email: params.email,
         // });
         // alert("Account Created Sign In To Continue")
-        console.log('created', resp);
+
         navigate('Login');
         dispatch(setIsLoading(false));
       })
       .catch(err => {
-        console.log(err);
         // console.log("errrorrss", err)
 
         dispatch(setForgotValidationError(err.errors));
@@ -90,12 +88,10 @@ export function getUser() {
     dispatch(setIsLoading(true));
     Api.get(`api/v1/profile/`)
       .then(resp => {
-        console.log('user retrived', resp);
         // dispatch(userInfoAction(resp.user))
         dispatch(setIsLoading(false));
       })
       .catch(err => {
-        console.log(err);
         // if (err.errorDetails.name === 'TokenExpiredError') {
         //   // navigate('Login')
         // }
