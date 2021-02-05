@@ -1,21 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
+import Storage from '../lib/requests/storage';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import Animated from 'react-native-reanimated';
 import {themeColor, white} from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
-import userIcon from '../assets/Image/userIcon.png';
 import aboutIcon from '../assets/Image/aboutIcon.png';
 
 import whiteLogo from '../assets/Image/whiteLogo.png';
-import {ProfileIcon, SearchIcon, WhiteSearchIcon} from '../assets/Image';
+import {
+  PostRideIcon,
+  ProfileIcon,
+  SearchIcon,
+  WhiteSearchIcon,
+} from '../assets/Image';
 
 const Drawer = ({navigation, progress, ...rest}) => {
+  const [user_group, setUser_group] = useState('');
   const translateX = Animated.interpolate(progress, {
     inputRange: [0, 1],
     outputRange: [1, 0.8],
   });
+
+  useEffect(() => {
+    Storage.retrieveData('access_token').then(items => {
+      items?.user_groups.map(item => {
+        setUser_group(item);
+      });
+    });
+  }, []);
   return (
     <DrawerContentScrollView
       scrollEnabled={false}
@@ -43,14 +57,30 @@ const Drawer = ({navigation, progress, ...rest}) => {
               onPress={() => navigation.navigate('HowWork')}>
               <WhiteSearchIcon />
               {/* <Icon color={white} size={17} name="user-alt" /> */}
-              <Text style={styles.btnText}> How it works</Text>
+              <Text style={styles.btnText}>How it works</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => navigation.navigate('EditProfile')}>
-              <ProfileIcon />
-              <Text style={styles.btnText}>Profile</Text>
+              onPress={() => navigation.navigate('HowWork')}>
+              <PostRideIcon />
+              <Text style={styles.btnText}>Post a role</Text>
             </TouchableOpacity>
+
+            {user_group === 'company' ? (
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => navigation.navigate('EditCompanyProfile')}>
+                <ProfileIcon />
+                <Text style={styles.btnText}>Profile</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => navigation.navigate('EditProfile')}>
+                <ProfileIcon />
+                <Text style={styles.btnText}>Profile</Text>
+              </TouchableOpacity>
+            )}
 
             <TouchableOpacity
               style={styles.btn}

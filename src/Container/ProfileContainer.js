@@ -13,7 +13,7 @@ const ProfileContainer = props => {
   const {profileData, isloading, updateLoading} = useSelector(
     store => store.profile,
   );
-  console.log('prifdasdasdasas', profileData);
+
   const [profileId, setprofileid] = useState('');
   const goBack = () => {
     const {navigation} = props;

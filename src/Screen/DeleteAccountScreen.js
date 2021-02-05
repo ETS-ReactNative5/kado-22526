@@ -12,7 +12,7 @@ import {ScaledSheet} from 'react-native-size-matters';
 import ArrowImage from '../assets/Image/Leftarrowicon.png';
 import KadoImage from '../assets/Image/logo.png';
 import {BackHeader} from '../components';
-import {themeColor, white} from '../utils/Theme/Color';
+import {skyBlue, themeColor, white} from '../utils/Theme/Color';
 
 const DeleteAccountScreen = ({
   goBack,
@@ -41,8 +41,8 @@ const DeleteAccountScreen = ({
             </TouchableOpacity>
           </View>
           <View>
-            <TouchableOpacity onPress={() => alert('salman')}>
-              <View style={[styles.button, {backgroundColor: '#03D1F9'}]}>
+            <TouchableOpacity>
+              <View style={[styles.button, {backgroundColor: skyBlue}]}>
                 <Text style={styles.saveText}>Cancel</Text>
               </View>
             </TouchableOpacity>

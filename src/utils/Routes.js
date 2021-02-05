@@ -23,6 +23,7 @@ import {
   CompanyInfoContainer,
   NotSignedContainer,
   HowWorkContainer,
+  EditCompanyPofileContainr,
 } from '../Container';
 import {DrawerContentData} from '../components';
 import Animated from 'react-native-reanimated';
@@ -61,6 +62,12 @@ const App = ({style}) => {
         <Stack.Screen
           name="EditProfile"
           component={EditProfileContainer}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="EditCompanyProfile"
+          component={EditCompanyPofileContainr}
           options={{headerShown: false}}
         />
 

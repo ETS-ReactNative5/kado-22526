@@ -14,6 +14,7 @@ import CompaniesItem from './CompaniesItem';
 import SearchBar from './SearchBar';
 import NotSignedCard from './NotSignedCard';
 import FaqItems from './FaqItems';
+import UserCards from './UserCards';
 
 export {
   Input,
@@ -32,4 +33,5 @@ export {
   SearchBar,
   NotSignedCard,
   FaqItems,
+  UserCards
 };

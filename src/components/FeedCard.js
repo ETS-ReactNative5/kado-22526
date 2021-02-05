@@ -38,7 +38,7 @@ const FeedCard = ({
             Posted {<TimeAgo time={sent_at} />}
           </Text>
         </View>
-        <TouchableOpacity style={styles.heartContaine}>
+        <View style={styles.heartContaine}>
           {is_favorite ? (
             <TouchableOpacity onPress={() => removeFavoriteJob(id)}>
               <Icon color={themeColor} solid={true} size={18} name="heart" />
@@ -48,7 +48,7 @@ const FeedCard = ({
               <Icon color={buttonColor} size={18} name="heart" />
             </TouchableOpacity>
           )}
-        </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.descContainer}>
         <Text>{description}</Text>

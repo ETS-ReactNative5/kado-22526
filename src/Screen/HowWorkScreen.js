@@ -5,7 +5,7 @@ import {Text, View, TextInput, TouchableOpacity, FlatList} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {BackHeader, SearchBar, FaqItems} from '../components';
-import {themeColor} from '../utils/Theme/Color';
+import {skyBlue, themeColor} from '../utils/Theme/Color';
 
 const HowWorkScreen = ({goBack}) => {
   const renderItem = ({item}) => <FaqItems title={item?.question} />;
@@ -97,7 +97,7 @@ const styles = ScaledSheet.create({
   },
   subheading: {
     textAlign: 'center',
-    color: '#03D1F9',
+    color: skyBlue,
     fontSize: '17@s',
     lineHeight: '20@s',
     marginTop: '10@s',

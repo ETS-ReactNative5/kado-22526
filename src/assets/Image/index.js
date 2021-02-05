@@ -16,6 +16,9 @@ import WhiteSearchIcon from './WhiteSearchIcon';
 import MessageIcon from './MessageIcon';
 import DrawerIcon from './DrawerIcon';
 import EditProfileIcon from './EditProfileIcon';
+import PostRideIcon from './PostRideIcon';
+import TalentIcon from './TalentIcon';
+import DollarIcon from './DollarIcon';
 export {
   JobsIcon,
   CompanyIcon,
@@ -35,4 +38,7 @@ export {
   MessageIcon,
   DrawerIcon,
   EditProfileIcon,
+  PostRideIcon,
+  TalentIcon,
+  DollarIcon,
 };

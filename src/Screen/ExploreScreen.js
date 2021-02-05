@@ -8,12 +8,14 @@ import {
   PaymentsIcon,
   LogoutIcon,
   DeleteIcon,
+  TalentIcon,
+  DollarIcon,
 } from '../assets/Image';
 import {BackHeader} from '../components';
 import Storage from '../lib/requests/storage';
 import {themeColor} from '../utils/Theme/Color';
 
-const ExploreScreen = ({goBack, navigate}) => {
+const ExploreScreen = ({goBack, navigate, user_groups}) => {
   const logOut = () => {
     Storage.removeData('access_token');
     navigate('Login');
@@ -24,32 +26,55 @@ const ExploreScreen = ({goBack, navigate}) => {
 
       <View style={styles.body}>
         <View>
-          <TouchableOpacity
-            onPress={() => navigate('Jobs')}
-            style={styles.itemContainer}>
-            <JobsIcon />
-            <Text style={styles.text}>Jobs</Text>
-          </TouchableOpacity>
+          {user_groups === 'company' ? (
+            <View>
+              <TouchableOpacity style={styles.itemContainer}>
+                <TalentIcon />
+                <Text style={styles.text}>Talent pool</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.itemContainer}>
+                <DollarIcon />
+                <Text style={[styles.text, {marginLeft: 30}]}>
+                  Payment & Pricing
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigate('FAQ')}
+                style={styles.itemContainer}>
+                <FaqIcon />
+                <Text style={styles.text}>FAQ</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View>
+              <TouchableOpacity
+                onPress={() => navigate('Jobs')}
+                style={styles.itemContainer}>
+                <JobsIcon />
+                <Text style={styles.text}>Jobs</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => navigate('Company')}
-            style={styles.itemContainer}>
-            <CompanyIcon />
-            <Text style={styles.text}>Companies</Text>
-          </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigate('Company')}
+                style={styles.itemContainer}>
+                <CompanyIcon />
+                <Text style={styles.text}>Companies</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => navigate('Payment')}
-            style={styles.itemContainer}>
-            <PaymentsIcon />
-            <Text style={styles.text}>Payments</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigate('FAQ')}
-            style={styles.itemContainer}>
-            <FaqIcon />
-            <Text style={styles.text}>FAQ</Text>
-          </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigate('Payment')}
+                style={styles.itemContainer}>
+                <PaymentsIcon />
+                <Text style={styles.text}>Payments</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigate('FAQ')}
+                style={styles.itemContainer}>
+                <FaqIcon />
+                <Text style={styles.text}>FAQ</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
         <View>
           <TouchableOpacity style={styles.itemContainer} onPress={logOut}>

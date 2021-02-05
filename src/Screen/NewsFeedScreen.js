@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Tabs, Tab} from 'native-base';
 import {View, Text, TextInput, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {FeedCard, FeedHeader, SearchBar} from '../components';
+import {FeedCard, FeedHeader, SearchBar, UserCards} from '../components';
 import {
   blackColorText,
   buttonColor,
@@ -27,6 +27,8 @@ const NewsFeedContainer = ({
   searchSavedJobs,
   dispatch,
   dispatchSaved,
+  tokenLoading,
+  user_group,
 }) => {
   const [value, setValue] = useState(true);
   const renderItem = ({item}) => (
@@ -57,6 +59,8 @@ const NewsFeedContainer = ({
     />
   );
 
+  const userCardRenderItem = ({item}) => <UserCards />;
+
   return (
     <View style={styles.container}>
       <FeedHeader navigate={navigate} />
@@ -76,7 +80,7 @@ const NewsFeedContainer = ({
         ) : (
           <SearchBar
             onChangeText={value => dispatch(searchSavedJobs(value))}
-            placeHolder="Search for your next jobs... Saved"
+            placeHolder="Search for your next jobs..."
           />
         )}
 
@@ -112,7 +116,17 @@ const NewsFeedContainer = ({
                   <Text>No jobs</Text>
                 </View>
               ) : (
-                <FlatList renderItem={renderItem} data={jobList} />
+                <View>
+                  {user_group === 'company' ? (
+                    <FlatList
+                      showsVerticalScrollIndicator={false}
+                      renderItem={userCardRenderItem}
+                      data={[1, 2, 3, 4, 5]}
+                    />
+                  ) : (
+                    <FlatList renderItem={renderItem} data={jobList} />
+                  )}
+                </View>
               )}
             </Tab>
             <Tab

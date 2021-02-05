@@ -20,6 +20,7 @@ const amountBorder = '#C0BFCD';
 const addressColor = '#817F9B';
 const btnBackColor = '#ECECF6';
 const paragraphColor = '#424069';
+const skyBlue = '#03D1F9';
 
 // font family
 
@@ -46,4 +47,5 @@ export {
   addressColor,
   btnBackColor,
   paragraphColor,
+  skyBlue,
 };

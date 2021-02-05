@@ -14,6 +14,7 @@ import PaymentScreen from './PaymentScreen';
 import CompanyInfoScreen from './CompanyInfoScreen';
 import NotSignedScreen from './NotSignedScreen';
 import HowWorkScreen from './HowWorkScreen';
+import EditCompanyPofileScreen from './EditCompanyPofileScreen';
 
 export {
   SignUpScreen,
@@ -32,4 +33,5 @@ export {
   CompanyInfoScreen,
   NotSignedScreen,
   HowWorkScreen,
+  EditCompanyPofileScreen,
 };
