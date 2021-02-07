@@ -5,7 +5,6 @@ from chat_profile.models import Profile
 from chat_profile.utils import validate_profile_search_params
 from job.models import Job
 
-print(randrange(10))
 JOBS = [
     {
         "title": "Word Press (Front end) Developer Need",
