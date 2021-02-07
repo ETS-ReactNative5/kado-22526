@@ -4,11 +4,11 @@ from core.utils.jobs_dump_data import create_jobs
 
 def populate_dump_jobs(_, __):
     # TODO: create django admin command to populate data
-    # Function was meant to run once on production, hence commented
-    try:
-        create_jobs()
-    except:
-        pass
+    # noqa: Function was meant to run once on production, hence commented
+    # try:
+    #     create_jobs()
+    # except:
+    pass
 
 
 class Migration(migrations.Migration):
