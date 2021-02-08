@@ -5,7 +5,16 @@ import userImageTwo from '../assets/Image/userImageTwo.png';
 import {ScaledSheet} from 'react-native-size-matters';
 import {buttonColor, feedItemBack, themeColor} from '../utils/Theme/Color';
 
-const UserCards = ({bio, image, name, tagline}) => {
+const UserCards = ({
+  bio,
+  image,
+  name,
+  tagline,
+  id,
+  addStudentFav,
+  removeStudentFav,
+  favorite,
+}) => {
   // const myItem = return ()
 
   return (
@@ -31,9 +40,15 @@ const UserCards = ({bio, image, name, tagline}) => {
         </View>
         <View>
           <View style={styles.heartContaine}>
-            <TouchableOpacity>
-              <Icon color={buttonColor} size={18} name="heart" />
-            </TouchableOpacity>
+            {favorite ? (
+              <TouchableOpacity onPress={() => removeStudentFav(id)}>
+                <Icon solid={true} color={buttonColor} size={18} name="heart" />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => addStudentFav(id)}>
+                <Icon color={buttonColor} size={18} name="heart" />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </View>

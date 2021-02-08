@@ -31,8 +31,11 @@ const NewsFeedContainer = ({
   user_group,
   studentsList,
   favStudentList,
+  addStudentFav,
+  removeStudentFav,
+  fetchStudentsByName,
+  fetchFavStudentsByName,
 }) => {
-  console.log('Students listtttt', favStudentList?.results);
   const [value, setValue] = useState(true);
   const renderItem = ({item}) => (
     <FeedCard
@@ -68,6 +71,9 @@ const NewsFeedContainer = ({
       image={item?.photo}
       name={item?.fullname}
       tagline={item?.tagline}
+      id={item?.id}
+      favorite={false}
+      addStudentFav={addStudentFav}
     />
   );
 
@@ -77,6 +83,9 @@ const NewsFeedContainer = ({
       image={item?.photo}
       name={item?.fullname}
       tagline={item?.tagline}
+      favorite={true}
+      removeStudentFav={removeStudentFav}
+      id={item?.id}
     />
   );
   return (
@@ -90,17 +99,39 @@ const NewsFeedContainer = ({
           </Text>
         </View>
 
-        {value ? (
-          <SearchBar
-            onChangeText={value => dispatch(searchJobs(value))}
-            placeHolder="Search for your next jobs..."
-          />
-        ) : (
-          <SearchBar
-            onChangeText={value => dispatch(searchSavedJobs(value))}
-            placeHolder="Search for your next jobs..."
-          />
-        )}
+        <View>
+          {user_group === 'company' ? (
+            <View>
+              {value ? (
+                <SearchBar
+                  onChangeText={value => dispatch(fetchStudentsByName(value))}
+                  placeHolder="Salman "
+                />
+              ) : (
+                <SearchBar
+                  onChangeText={value =>
+                    dispatch(fetchFavStudentsByName(value))
+                  }
+                  placeHolder="Saleem"
+                />
+              )}
+            </View>
+          ) : (
+            <View>
+              {value ? (
+                <SearchBar
+                  onChangeText={value => dispatch(searchJobs(value))}
+                  placeHolder="Search for your next jobs..."
+                />
+              ) : (
+                <SearchBar
+                  onChangeText={value => dispatch(searchSavedJobs(value))}
+                  placeHolder="Search for your next jobs..."
+                />
+              )}
+            </View>
+          )}
+        </View>
 
         <View style={styles.tabContainer}>
           <Tabs

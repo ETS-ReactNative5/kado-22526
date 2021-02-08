@@ -56,6 +56,20 @@ export const profile = createReducer(INITIAL_STATE, {
     };
   },
 
+  [types.ADD_FAV_STUDENTS](state, action) {
+    return {
+      ...state,
+      addFavStudentData: action.addFavStudentData,
+    };
+  },
+
+  [types.REMOVE_FAV_STUDENT](state, action) {
+    return {
+      ...state,
+      removeFavStudentData: action.removeFavStudentData,
+    };
+  },
+
   [types.IS_LOADING](state, action) {
     return {
       ...state,

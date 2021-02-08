@@ -64,7 +64,7 @@ const styles = ScaledSheet.create({
   btnContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '10@s',
+    marginTop: '15@s',
   },
   uploadBtnText: {
     color: buttonColor,

@@ -19,6 +19,12 @@ import {
   fetchProfile,
   fetchStudents,
   fetchFavStudents,
+  addFavStudent,
+  fetchStudentsAfter,
+  fetchFavStudentsAfter,
+  removeFavStudent,
+  fetchStudentsByName,
+  fetchFavStudentsByName,
 } from '../actions/profile';
 
 const NewsFeedContainer = props => {
@@ -60,14 +66,15 @@ const NewsFeedContainer = props => {
     Storage.retrieveData('access_token').then(items => {
       items?.user_groups.map(item => {
         setUser_group(item);
-        setTokenLoading(false);
       });
     });
   }, []);
 
   useEffect(() => {
     dispatch(getJobsAfter());
+    dispatch(fetchStudentsAfter());
     dispatch(fetchAllSavedJobsAfter());
+    dispatch(fetchFavStudentsAfter());
   }, [state]);
 
   const setDataFunc = async () => {
@@ -100,6 +107,22 @@ const NewsFeedContainer = props => {
     };
     dispatch(removeFavorite(id, params));
   };
+
+  const addStudentFav = profile_id => {
+    setState(!state);
+    const params = {
+      favorite: true,
+    };
+    dispatch(addFavStudent(profile_id, params));
+  };
+
+  const removeStudentFav = profile_id => {
+    setState(!state);
+    const params = {
+      favorite: false,
+    };
+    dispatch(removeFavStudent(profile_id, params));
+  };
   return (
     <SafeAreaView style={styles.container}>
       <NewsFeedScreen
@@ -118,6 +141,10 @@ const NewsFeedContainer = props => {
         user_group={user_group}
         studentsList={studentsList}
         favStudentList={favStudentList}
+        addStudentFav={addStudentFav}
+        removeStudentFav={removeStudentFav}
+        fetchStudentsByName={fetchStudentsByName}
+        fetchFavStudentsByName={fetchFavStudentsByName}
       />
     </SafeAreaView>
   );

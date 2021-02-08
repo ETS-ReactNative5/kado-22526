@@ -17,6 +17,12 @@ function updateProfileLoading(updateLoading) {
   };
 }
 
+function setProfileFavLoading(favProfileLoading) {
+  return {
+    type: types.UPDATE_LOADING,
+    favProfileLoading,
+  };
+}
 function getProfile(profileDetail) {
   return {
     type: types.USER_PROFILE,
@@ -63,6 +69,20 @@ function getFavStudents(favStudentList) {
   return {
     type: types.FAV_STUDENTS_LIST,
     favStudentList: favStudentList,
+  };
+}
+
+function submitFavStudent(addFavStudentData) {
+  return {
+    type: types.ADD_FAV_STUDENTS,
+    addFavStudentData: addFavStudentData,
+  };
+}
+
+function removeFavStdnt(removeFavStudentData) {
+  return {
+    type: types.REMOVE_FAV_STUDENT,
+    removeFavStudentData: removeFavStudentData,
   };
 }
 
@@ -164,6 +184,36 @@ export function fetchStudents() {
   };
 }
 
+export function fetchStudentsByName(name) {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/profile/?profile_type=student&search=${name}`)
+      .then(resp => {
+        dispatch(getStudents(resp));
+        dispatch(setIsLoading(false));
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function fetchStudentsAfter() {
+  return dispatch => {
+    dispatch(setProfileFavLoading(true));
+    Api.get(`api/v1/profile/?profile_type=student`)
+      .then(resp => {
+        dispatch(getStudents(resp));
+        dispatch(setProfileFavLoading(false));
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setProfileFavLoading(false));
+      });
+  };
+}
+
 export function fetchFavStudents() {
   return dispatch => {
     dispatch(setIsLoading(true));
@@ -175,6 +225,69 @@ export function fetchFavStudents() {
       .catch(err => {
         // dispatch(setfetchCommunityGroupError(err.errors));
         dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function fetchFavStudentsByName(name) {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/profile/?profile_type=student&favorite=true&search=${name}`)
+      .then(resp => {
+        dispatch(getFavStudents(resp));
+        dispatch(setIsLoading(false));
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function fetchFavStudentsAfter() {
+  return dispatch => {
+    dispatch(setProfileFavLoading(true));
+    Api.get(`api/v1/profile/?profile_type=student&favorite=true`)
+      .then(resp => {
+        dispatch(getFavStudents(resp));
+        dispatch(setProfileFavLoading(false));
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setProfileFavLoading(false));
+      });
+  };
+}
+
+export function addFavStudent(profile_id, body) {
+  return dispatch => {
+    dispatch(setProfileFavLoading(true));
+    Api.put(`api/v1/profile/${profile_id}/`, body)
+      .then(resp => {
+        dispatch(submitFavStudent(resp));
+        dispatch(setProfileFavLoading(false));
+        console.log('resp', resp);
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setProfileFavLoading(false));
+      });
+  };
+}
+
+export function removeFavStudent(profile_id, body) {
+  console.log('salman saleem', profile_id);
+  return dispatch => {
+    dispatch(setProfileFavLoading(true));
+    Api.put(`api/v1/profile/${profile_id}/`, body)
+      .then(resp => {
+        dispatch(removeFavStdnt(resp));
+        dispatch(setProfileFavLoading(false));
+        console.log('resp', resp);
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setProfileFavLoading(false));
       });
   };
 }
