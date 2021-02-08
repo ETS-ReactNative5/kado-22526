@@ -15,7 +15,11 @@ import {
   getJobsAfter,
   fetchAllSavedJobsAfter,
 } from '../actions/jobs';
-import {fetchProfile} from '../actions/profile';
+import {
+  fetchProfile,
+  fetchStudents,
+  fetchFavStudents,
+} from '../actions/profile';
 
 const NewsFeedContainer = props => {
   const [state, setState] = useState(false);
@@ -28,7 +32,9 @@ const NewsFeedContainer = props => {
   // const addFavorite = useSelector(state => state.jobs.addFavorite);
   // const removeJob = useSelector(state => state.jobs.removeJob);
 
-  const {profileDetail} = useSelector(store => store.profile);
+  const {profileDetail, studentsList, favStudentList} = useSelector(
+    store => store.profile,
+  );
 
   const [profileId, setprofileid] = useState('');
 
@@ -48,6 +54,9 @@ const NewsFeedContainer = props => {
     setDataFunc();
     dispatch(fetchAlljOBS());
     dispatch(fetchAllSavedJobs());
+    dispatch(fetchStudents());
+    dispatch(fetchFavStudents());
+    dispatch(fetchProfile(profileId));
     Storage.retrieveData('access_token').then(items => {
       items?.user_groups.map(item => {
         setUser_group(item);
@@ -107,6 +116,8 @@ const NewsFeedContainer = props => {
         dispatchSaved={dispatchSaved}
         tokenLoading={tokenLoading}
         user_group={user_group}
+        studentsList={studentsList}
+        favStudentList={favStudentList}
       />
     </SafeAreaView>
   );

@@ -33,3 +33,5 @@ export const SINGLE_COMPANY = 'SINGLE_COMPANY';
 export const ALL_FAQ = 'ALL_FAQ';
 export const ALL_FAQ_LIST = 'ALL_FAQ_LIST';
 export const ADD_FAQ = 'ADD_FAQ';
+export const STUDENTS_LIST = 'STUDENTS_LIST';
+export const FAV_STUDENTS_LIST = 'FAV_STUDENTS_LIST';

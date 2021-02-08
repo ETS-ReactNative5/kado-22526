@@ -5,19 +5,28 @@ import userImageTwo from '../assets/Image/userImageTwo.png';
 import {ScaledSheet} from 'react-native-size-matters';
 import {buttonColor, feedItemBack, themeColor} from '../utils/Theme/Color';
 
-const UserCards = ({}) => {
+const UserCards = ({bio, image, name, tagline}) => {
   // const myItem = return ()
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.leftContainer}>
-          <Image source={userImageTwo} style={styles.image} />
+          {image === null ? (
+            <Image source={userImageTwo} style={styles.image} />
+          ) : (
+            <Image source={{uri: image}} style={styles.image} />
+          )}
+
           <View style={styles.textContainer}>
             <Text numberOfLines={1} style={styles.heading}>
-              Alena Smith Alena Smith Alena Smith Alena SmithAlena Smith
+              {name}
             </Text>
-            <Text style={styles.position}>Senior Js Developer</Text>
+            {tagline === null ? (
+              <Text style={styles.position}>No Position</Text>
+            ) : (
+              <Text style={styles.position}>{tagline}</Text>
+            )}
           </View>
         </View>
         <View>
@@ -29,10 +38,15 @@ const UserCards = ({}) => {
         </View>
       </View>
       <View style={styles.paragraphContainer}>
-        <Text style={styles.paragraph} numberOfLines={2}>
-          Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-          sint. Velit officia consequat duis enim velit mollit...
-        </Text>
+        {bio === null ? (
+          <Text style={styles.paragraph} numberOfLines={2}>
+            No description here
+          </Text>
+        ) : (
+          <Text style={styles.paragraph} numberOfLines={2}>
+            {bio}
+          </Text>
+        )}
       </View>
     </View>
   );

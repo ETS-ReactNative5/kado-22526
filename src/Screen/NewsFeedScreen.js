@@ -29,7 +29,10 @@ const NewsFeedContainer = ({
   dispatchSaved,
   tokenLoading,
   user_group,
+  studentsList,
+  favStudentList,
 }) => {
+  console.log('Students listtttt', favStudentList?.results);
   const [value, setValue] = useState(true);
   const renderItem = ({item}) => (
     <FeedCard
@@ -59,8 +62,23 @@ const NewsFeedContainer = ({
     />
   );
 
-  const userCardRenderItem = ({item}) => <UserCards />;
+  const userCardRenderItem = ({item}) => (
+    <UserCards
+      bio={item?.bio}
+      image={item?.photo}
+      name={item?.fullname}
+      tagline={item?.tagline}
+    />
+  );
 
+  const favStudentCard = ({item}) => (
+    <UserCards
+      bio={item?.bio}
+      image={item?.photo}
+      name={item?.fullname}
+      tagline={item?.tagline}
+    />
+  );
   return (
     <View style={styles.container}>
       <FeedHeader navigate={navigate} />
@@ -111,20 +129,24 @@ const NewsFeedContainer = ({
                 <View style={styles.empty}>
                   <ActivityIndicator />
                 </View>
-              ) : jobList?.length === 0 ? (
-                <View style={styles.empty}>
-                  <Text>No jobs</Text>
-                </View>
               ) : (
                 <View>
                   {user_group === 'company' ? (
                     <FlatList
                       showsVerticalScrollIndicator={false}
                       renderItem={userCardRenderItem}
-                      data={[1, 2, 3, 4, 5]}
+                      data={studentsList?.results}
                     />
                   ) : (
-                    <FlatList renderItem={renderItem} data={jobList} />
+                    <View>
+                      {jobList?.length === 0 ? (
+                        <View style={styles.empty}>
+                          <Text style={styles.emptytext}>No Jobs</Text>
+                        </View>
+                      ) : (
+                        <FlatList renderItem={renderItem} data={jobList} />
+                      )}
+                    </View>
                   )}
                 </View>
               )}
@@ -144,12 +166,38 @@ const NewsFeedContainer = ({
                 <View style={styles.empty}>
                   <ActivityIndicator color={blackColorText} />
                 </View>
-              ) : saveJobsList?.length === 0 ? (
-                <View style={styles.empty}>
-                  <Text>No saved jobs</Text>
-                </View>
               ) : (
-                <FlatList renderItem={savedRenderItem} data={saveJobsList} />
+                <View style={{flex: 1}}>
+                  {user_group === 'company' ? (
+                    <View style={{flex: 1}}>
+                      {favStudentList?.results?.length === 0 ? (
+                        <View style={styles.empty}>
+                          <Text style={styles.emptytext}>
+                            No favourite students
+                          </Text>
+                        </View>
+                      ) : (
+                        <FlatList
+                          renderItem={favStudentCard}
+                          data={favStudentList?.results}
+                        />
+                      )}
+                    </View>
+                  ) : (
+                    <View>
+                      {saveJobsList?.length === 0 ? (
+                        <View style={styles.empty}>
+                          <Text style={styles.emptytext}>No Saved jobs</Text>
+                        </View>
+                      ) : (
+                        <FlatList
+                          renderItem={savedRenderItem}
+                          data={saveJobsList}
+                        />
+                      )}
+                    </View>
+                  )}
+                </View>
               )}
             </Tab>
           </Tabs>
@@ -196,6 +244,12 @@ const styles = ScaledSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  emptytext: {
+    color: blackColorText,
+    fontSize: '16@s',
+    lineHeight: '22@s',
+    fontWeight: 'bold',
   },
 });
 export default NewsFeedContainer;

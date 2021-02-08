@@ -52,6 +52,20 @@ function updateProfileId(profileUpdate) {
   };
 }
 
+function getStudents(studentsList) {
+  return {
+    type: types.STUDENTS_LIST,
+    studentsList: studentsList,
+  };
+}
+
+function getFavStudents(favStudentList) {
+  return {
+    type: types.FAV_STUDENTS_LIST,
+    favStudentList: favStudentList,
+  };
+}
+
 export function fetchProfile(profile_id) {
   return dispatch => {
     dispatch(setIsLoading(true));
@@ -127,6 +141,36 @@ export function userDelete(user_id, navigate) {
         Storage.removeData('access_token');
 
         navigate('Login');
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function fetchStudents() {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/profile/?profile_type=student`)
+      .then(resp => {
+        dispatch(getStudents(resp));
+        dispatch(setIsLoading(false));
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setIsLoading(false));
+      });
+  };
+}
+
+export function fetchFavStudents() {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/profile/?profile_type=student&favorite=true`)
+      .then(resp => {
+        dispatch(getFavStudents(resp));
+        dispatch(setIsLoading(false));
       })
       .catch(err => {
         // dispatch(setfetchCommunityGroupError(err.errors));
