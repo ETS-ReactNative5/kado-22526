@@ -13,9 +13,10 @@ logger = logging.getLogger(__name__)
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        if not self.scope.get('user').is_authenticated:
+        if self.scope.get('user').is_anonymous:
             # only allow authenticated users to receive messages
             await self.close(code=4123)
+
         self.thread_id = self.scope.get('url_route', {}).get('kwargs', {}).get('thread_id')
         self.room_group_name = 'chat_%s' % self.thread_id
 
@@ -36,7 +37,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # Receive message from WebSocket
     async def receive(self, text_data):
 
-        if not self.scope.get('user').is_authenticated:
+        if self.scope.get('user').is_anonymous:
             # only allow authenticated users to receive messages
             await self.close(code=4123)
 
