@@ -43,7 +43,7 @@ const FAQScreen = ({
 
       <ScrollView>
         {isloading ? (
-          <ActivityIndicator color={blackColorText} />
+          <ActivityIndicator color={buttonColor} />
         ) : (
           <View style={{height: 200}}>
             <FlatList renderItem={renderItem} data={faqList?.results} />

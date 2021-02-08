@@ -323,7 +323,7 @@ const JobsScreen = ({
         <View style={styles.tabContainer}>
           {isloading ? (
             <View style={styles.empty}>
-              <ActivityIndicator color={blackColorText} />
+              <ActivityIndicator color={buttonColor} />
             </View>
           ) : jobList?.length === 0 ? (
             <View style={styles.empty}>

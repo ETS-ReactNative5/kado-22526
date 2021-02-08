@@ -11,67 +11,122 @@ import {
 } from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
 import {EditProfileIcon} from '../assets/Image';
+import {ActivityIndicator} from 'react-native';
 
-const EditCompanyPofileScreen = ({goBack, refRBSheet}) => {
+const EditCompanyPofileScreen = ({
+  goBack,
+  refRBSheet,
+  profileDetail,
+  updateLoading,
+  handleUpdateProfile,
+  handleChange,
+  isloading,
+  image,
+}) => {
   return (
     <View style={styles.container}>
       <BackHeader title="Edit Profile" goBack={goBack} />
       <View style={{flex: 1}}>
-        <ScrollView contentContainerStyle={styles.bodyContainer}>
-          <View style={styles.body}>
-            <View style={styles.imageContainer}>
-              <View>
-                <Image resizeMode="cover" style={styles.image} source={apple} />
-
-                <TouchableOpacity
-                  onPress={() => refRBSheet.current.open()}
-                  style={styles.editBtnContainer}>
-                  <EditProfileIcon />
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={{marginTop: 50}}>
-              <Input
-                secureTextEntry={false}
-                iconShow={false}
-                placeholder="Company or Start-up name"
-              />
-            </View>
-
-            <View style={styles.inputCOntainer}>
-              <Input
-                secureTextEntry={false}
-                iconShow={true}
-                placeholder="Location"
-                iconName="map-marker-alt"
-                // value={isloading ? `Location` : `${profileDetail?.location}`}
-              />
-            </View>
-            <View style={styles.inputCOntainer}>
-              <Input
-                secureTextEntry={false}
-                iconShow={false}
-                placeholder="Industry"
-              />
-            </View>
-            <View style={styles.inputCOntainer}>
-              <Input
-                secureTextEntry={false}
-                // iconShow={true}
-                // iconName="chevron-down"
-                placeholder="Phone"
-              />
-            </View>
-
-            <TouchableOpacity style={styles.registerBtnContainer}>
-              <Text style={styles.registerText}>Save</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={goBack} style={styles.cancelBtn}>
-              <Text style={styles.registerText}>Cancel</Text>
-            </TouchableOpacity>
+        {isloading ? (
+          <View style={styles.empty}>
+            <ActivityIndicator />
           </View>
-        </ScrollView>
+        ) : (
+          <ScrollView contentContainerStyle={styles.bodyContainer}>
+            <View style={styles.body}>
+              <View style={styles.imageContainer}>
+                <View>
+                  {image !== '' ? (
+                    <Image style={styles.image} source={image} />
+                  ) : (
+                    <View>
+                      {profileDetail?.photo === null ? (
+                        <Image
+                          resizeMode="cover"
+                          style={styles.image}
+                          source={image}
+                        />
+                      ) : (
+                        <Image
+                          resizeMode="cover"
+                          style={styles.image}
+                          source={{uri: profileDetail?.photo}}
+                        />
+                      )}
+                    </View>
+                  )}
+
+                  <TouchableOpacity
+                    onPress={() => refRBSheet.current.open()}
+                    style={styles.editBtnContainer}>
+                    <EditProfileIcon />
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={{marginTop: 50}}>
+                <Input
+                  secureTextEntry={false}
+                  iconShow={false}
+                  placeholder={
+                    profileDetail?.fullname === null
+                      ? 'Company or Start-up name'
+                      : profileDetail?.fullname
+                  }
+                  onChange={value => handleChange('fullname', value)}
+                />
+              </View>
+
+              <View style={styles.inputCOntainer}>
+                <Input
+                  secureTextEntry={false}
+                  iconShow={true}
+                  placeholder={
+                    profileDetail?.location === null
+                      ? 'Location'
+                      : profileDetail?.location
+                  }
+                  iconName="map-marker-alt"
+                  onChange={value => handleChange('location', value)}
+                  // value={isloading ? `Location` : `${profileDetail?.location}`}
+                />
+              </View>
+              <View style={styles.inputCOntainer}>
+                <Input
+                  secureTextEntry={false}
+                  iconShow={false}
+                  placeholder="Industry"
+                />
+              </View>
+              <View style={styles.inputCOntainer}>
+                <Input
+                  secureTextEntry={false}
+                  // iconShow={true}
+                  // iconName="chevron-down"
+                  placeholder={
+                    profileDetail?.mobile_number === null
+                      ? 'Phone'
+                      : profileDetail?.mobile_number
+                  }
+                  onChange={value => handleChange('mobile_number', value)}
+                />
+              </View>
+
+              <TouchableOpacity
+                onPress={() => handleUpdateProfile()}
+                style={styles.registerBtnContainer}>
+                {updateLoading ? (
+                  <ActivityIndicator color={white} />
+                ) : (
+                  <Text style={styles.registerText}>Save</Text>
+                )}
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={goBack} style={styles.cancelBtn}>
+                <Text style={styles.registerText}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        )}
       </View>
     </View>
   );

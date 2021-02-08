@@ -59,12 +59,15 @@ const Drawer = ({navigation, progress, ...rest}) => {
               {/* <Icon color={white} size={17} name="user-alt" /> */}
               <Text style={styles.btnText}>How it works</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => navigation.navigate('HowWork')}>
-              <PostRideIcon />
-              <Text style={styles.btnText}>Post a role</Text>
-            </TouchableOpacity>
+
+            {user_group === 'company' ? (
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => navigation.navigate('HowWork')}>
+                <PostRideIcon />
+                <Text style={styles.btnText}>Post a role</Text>
+              </TouchableOpacity>
+            ) : null}
 
             {user_group === 'company' ? (
               <TouchableOpacity

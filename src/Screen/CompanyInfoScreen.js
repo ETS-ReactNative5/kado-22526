@@ -22,7 +22,7 @@ const CompanyInfoScreen = ({goBack, singleCompany, isloading}) => {
     <View style={styles.container}>
       {isloading ? (
         <View style={styles.empty}>
-          <ActivityIndicator />
+          <ActivityIndicator color={buttonColor} />
         </View>
       ) : (
         <ScrollView>

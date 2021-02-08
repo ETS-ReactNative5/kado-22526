@@ -105,14 +105,14 @@ const NewsFeedContainer = ({
               {value ? (
                 <SearchBar
                   onChangeText={value => dispatch(fetchStudentsByName(value))}
-                  placeHolder="Salman "
+                  placeHolder="Search for talent"
                 />
               ) : (
                 <SearchBar
                   onChangeText={value =>
                     dispatch(fetchFavStudentsByName(value))
                   }
-                  placeHolder="Saleem"
+                  placeHolder="Search for talent"
                 />
               )}
             </View>
@@ -158,7 +158,7 @@ const NewsFeedContainer = ({
               heading="Feed">
               {isLoading ? (
                 <View style={styles.empty}>
-                  <ActivityIndicator />
+                  <ActivityIndicator color={buttonColor} />
                 </View>
               ) : (
                 <View>

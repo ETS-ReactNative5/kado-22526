@@ -145,6 +145,12 @@ const App = ({style}) => {
           component={HowWorkContainer}
           options={{headerShown: false}}
         />
+
+        <Stack.Screen
+          name="NewMessage"
+          component={NewMessageContainer}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </Animated.View>
   );

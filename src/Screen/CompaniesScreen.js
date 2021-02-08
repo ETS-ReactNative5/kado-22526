@@ -50,7 +50,7 @@ const CompaniesScreen = ({
 
       {isloading ? (
         <View style={styles.empty}>
-          <ActivityIndicator />
+          <ActivityIndicator color={buttonColor} />
         </View>
       ) : companyList?.count === 0 ? (
         <View style={styles.empty}>

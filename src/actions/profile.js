@@ -101,6 +101,23 @@ export function fetchProfile(profile_id) {
   };
 }
 
+export function updatePhoto(profile_id, param) {
+  console.log('paramsdasdasd', param);
+  return dispatch => {
+    dispatch(updateProfileLoading(true));
+    Api.putMultiForm(`api/v1/profile/${profile_id}/`, param)
+      .then(resp => {
+        dispatch(updateProfileFunc(resp));
+        dispatch(updateProfileLoading(false));
+      })
+      .catch(err => {
+        console.log('error', err);
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(updateProfileLoading(false));
+      });
+  };
+}
+
 export function updateProfile(profile_id, param, navigate) {
   return dispatch => {
     dispatch(updateProfileLoading(true));
@@ -109,8 +126,10 @@ export function updateProfile(profile_id, param, navigate) {
         dispatch(updateProfileFunc(resp));
         dispatch(updateProfileLoading(false));
         navigate('Profile');
+        console.log('alsas', resp);
       })
       .catch(err => {
+        console.log('error', err);
         // dispatch(setfetchCommunityGroupError(err.errors));
         dispatch(updateProfileLoading(false));
       });
@@ -276,7 +295,6 @@ export function addFavStudent(profile_id, body) {
 }
 
 export function removeFavStudent(profile_id, body) {
-  console.log('salman saleem', profile_id);
   return dispatch => {
     dispatch(setProfileFavLoading(true));
     Api.put(`api/v1/profile/${profile_id}/`, body)

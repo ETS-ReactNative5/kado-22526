@@ -21,6 +21,7 @@ import {
 } from '../utils/Theme/Color';
 import primary from '../assets/Image/primary.png';
 import {GiftedChat} from 'react-native-gifted-chat';
+import {BackArrow} from '../assets/Image';
 const NewMessageScreen = ({goBack}) => {
   const [messages, setMessages] = useState([]);
   const [customMessage, setCustomMessage] = useState('');
@@ -59,15 +60,14 @@ const NewMessageScreen = ({goBack}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={{padding: 7}} onPress={() => goBack()}>
-          <Icon size={18} color={buttonColor} name="arrow-left" />
+          {/* <Icon size={18} color={buttonColor} name="arrow-left" /> */}
+          <BackArrow />
         </TouchableOpacity>
 
         <View>
           <TouchableOpacity
             style={styles.leftContainer}
-            onPress={() => {
-              //   navigate('Message');
-            }}>
+            onPress={() => goBack()}>
             <Text style={{color: buttonColor, fontSize: 18}}>Cancel</Text>
           </TouchableOpacity>
         </View>

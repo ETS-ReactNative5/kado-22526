@@ -20,7 +20,7 @@ class Api {
     });
     return {
       'Content-Type': 'multipart/form-data',
-      Authorization: `Token ${token}`,
+      Authorization: token ? `Token ${token.key}` : '',
     };
   }
 

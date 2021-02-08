@@ -17,6 +17,7 @@ import {
 import {ScaledSheet} from 'react-native-size-matters';
 import {USER_TYPES} from '../constants/profile';
 import SignUpForm from './SignUpForm';
+import {BackArrow} from '../assets/Image';
 
 const SignUpScreen = ({
   navigate,
@@ -32,7 +33,7 @@ const SignUpScreen = ({
     <View style={styles.container}>
       {/* <Header navigate={navigate} /> */}
       <TouchableOpacity onPress={goBack} style={styles.goBackButon}>
-        <Icon name="arrow-left" size={18} color={buttonColor} />
+        <BackArrow />
       </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.bodyContainer}>
         <View style={styles.imageContainer}>

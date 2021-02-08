@@ -22,35 +22,45 @@ const EditProfileScreen = ({
   handleChange,
   handleUpdateProfile,
   updateLoading,
+  uploadImage,
+  image,
 }) => {
+  console.log('profile dataaa', profileDetail);
   return (
     <View style={styles.container}>
       <BackHeader title="Edit Profile" goBack={goBack} />
       <View style={{flex: 1}}>
         {isloading ? (
           <View style={styles.empty}>
-            <ActivityIndicator color={themeColor} />
+            <ActivityIndicator color={buttonColor} />
           </View>
         ) : (
           <ScrollView contentContainerStyle={styles.bodyContainer}>
             <View style={styles.body}>
               <View style={styles.imageContainer}>
                 <View>
-                  {profileDetail?.photo === null ? (
-                    <Image
-                      resizeMode="cover"
-                      style={styles.image}
-                      source={user}
-                    />
+                  {image !== '' ? (
+                    <Image style={styles.image} source={image} />
                   ) : (
-                    <Image
-                      resizeMode="cover"
-                      style={styles.image}
-                      source={{uri: profileDetail?.photo}}
-                    />
+                    <View>
+                      {profileDetail?.photo === null ? (
+                        <Image
+                          resizeMode="cover"
+                          style={styles.image}
+                          source={image}
+                        />
+                      ) : (
+                        <Image
+                          resizeMode="cover"
+                          style={styles.image}
+                          source={{uri: profileDetail?.photo}}
+                        />
+                      )}
+                    </View>
                   )}
-
-                  <TouchableOpacity style={styles.editBtnContainer}>
+                  <TouchableOpacity
+                    onPress={() => uploadImage()}
+                    style={styles.editBtnContainer}>
                     <EditProfileIcon />
                   </TouchableOpacity>
                 </View>

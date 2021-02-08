@@ -15,6 +15,7 @@ import {
 } from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
+import {EditProfileIcon} from '../assets/Image';
 
 const ProfileScreen = ({
   goBack,
@@ -24,6 +25,8 @@ const ProfileScreen = ({
   handleChange,
   updateLoading,
   handleSubmit,
+  uploadImage,
+  image,
 }) => {
   return (
     <View style={styles.container}>
@@ -37,16 +40,32 @@ const ProfileScreen = ({
           <ScrollView contentContainerStyle={styles.bodyContainer}>
             <View style={styles.body}>
               <View style={styles.imageContainer}>
-                <TouchableOpacity>
-                  <Image
-                    resizeMode="cover"
-                    style={styles.image}
-                    source={uset}
-                  />
-                  <TouchableOpacity style={styles.editBtnContainer}>
-                    <Image source={editButton} />
+                <View>
+                  {image !== '' ? (
+                    <Image style={styles.image} source={image} />
+                  ) : (
+                    <View>
+                      {profileData?.photo === null ? (
+                        <Image
+                          resizeMode="cover"
+                          style={styles.image}
+                          source={image}
+                        />
+                      ) : (
+                        <Image
+                          resizeMode="cover"
+                          style={styles.image}
+                          source={{uri: profileData?.photo}}
+                        />
+                      )}
+                    </View>
+                  )}
+                  <TouchableOpacity
+                    onPress={() => uploadImage()}
+                    style={styles.editBtnContainer}>
+                    <EditProfileIcon />
                   </TouchableOpacity>
-                </TouchableOpacity>
+                </View>
               </View>
               {/* <View style={{marginTop: 50}}>
             <Input

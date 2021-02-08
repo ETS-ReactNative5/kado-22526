@@ -4,11 +4,16 @@ import Storage from '../lib/requests/storage';
 import {ScaledSheet} from 'react-native-size-matters';
 import {useDispatch, useSelector} from 'react-redux';
 import {ProfileScreen} from '../Screen';
-import {getUser} from '../actions/auth';
-import {getProfileById, updateProfileById} from '../actions/profile';
+import ImagePicker from 'react-native-image-picker';
+import {
+  getProfileById,
+  updateProfileById,
+  updatePhoto,
+} from '../actions/profile';
 const ProfileContainer = props => {
-  // const [loginForm, setLogInForm] = useState({})
   const [data, setData] = useState('');
+  const [count, setCount] = useState(0);
+  const [image, setImage] = useState('');
   const dispatch = useDispatch();
   const {profileData, isloading, updateLoading} = useSelector(
     store => store.profile,
@@ -26,7 +31,7 @@ const ProfileContainer = props => {
   };
 
   useEffect(() => {
-    dispatch(getUser());
+    // dispatch(getUser());
     setDataFunc();
   }, []);
 
@@ -46,6 +51,38 @@ const ProfileContainer = props => {
     dispatch(getProfileById(token));
   };
 
+  const uploadImage = () => {
+    const options = {
+      title: 'Select Avatar',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.showImagePicker(options, async response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        console.log('response', response.path);
+        const file = {
+          uri: response.uri,
+          name: response.fileName,
+          type: 'image/png',
+        };
+
+        setImage(file);
+        const fd = new FormData();
+        fd.append('photo_file', file);
+        dispatch(updatePhoto(profileId, fd));
+        setCount(count + 1);
+      }
+    });
+  };
+
   const handleSubmit = () => {
     dispatch(updateProfileById(profileId, data, navigate));
   };
@@ -60,6 +97,8 @@ const ProfileContainer = props => {
         updateLoading={updateLoading}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
+        image={image}
+        uploadImage={uploadImage}
       />
     </SafeAreaView>
   );

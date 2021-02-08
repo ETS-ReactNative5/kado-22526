@@ -1,20 +1,101 @@
-import React, {useRef} from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
+import React, {useRef, useState, useEffect} from 'react';
+import {
+  SafeAreaView,
+  StatusBar,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import Storage from '../lib/requests/storage';
 import {ScaledSheet} from 'react-native-size-matters';
 import {EditCompanyPofileScreen} from '../Screen';
-
+import {useDispatch, useSelector} from 'react-redux';
+import ImagePicker from 'react-native-image-picker';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {Text} from 'react-native';
-import {View} from 'native-base';
-import {TouchableOpacity} from 'react-native';
 import {buttonColor} from '../utils/Theme/Color';
 
+import {fetchProfile, updateProfile, updatePhoto} from '../actions/profile';
+
 const EditCompanyPofileContainr = props => {
+  const dispatch = useDispatch();
+  const [image, setImage] = useState('');
+  const [count, setCount] = useState(0);
+  const [profileId, setprofileid] = useState('');
+  const [data, setData] = useState('');
+  const [update, setUpdate] = useState(false);
+  const {profileDetail, isloading, updateLoading} = useSelector(
+    store => store.profile,
+  );
   const goBack = () => {
     const {navigation} = props;
     navigation.goBack();
   };
   const refRBSheet = useRef();
+
+  const navigate = routeName => {
+    const {navigation} = props;
+    navigation.navigate(routeName);
+  };
+
+  useEffect(() => {
+    setDataFunc();
+  }, [update]);
+
+  const setDataFunc = async () => {
+    let token = '';
+    await Storage.retrieveData('access_token').then(item => {
+      token = item?.profile_id;
+      setprofileid(item?.profile_id);
+    });
+    dispatch(fetchProfile(token));
+  };
+
+  const handleChange = (name, value) => {
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const uploadImage = () => {
+    const options = {
+      title: 'Select Avatar',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.showImagePicker(options, async response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        console.log('response', response.path);
+        const file = {
+          uri: response.uri,
+          name: response.fileName,
+          type: 'image/png',
+        };
+
+        setImage(file);
+        const fd = new FormData();
+
+        fd.append('photo_file', file);
+
+        dispatch(updatePhoto(profileId, fd));
+        setUpdate(!update);
+        setCount(count + 1);
+      }
+    });
+  };
+
+  const handleUpdateProfile = () => {
+    setUpdate(!update);
+    dispatch(updateProfile(profileId, data, navigate));
+  };
   return (
     <SafeAreaView style={styles.container}>
       <RBSheet
@@ -36,7 +117,9 @@ const EditCompanyPofileContainr = props => {
         }}>
         <View>
           <TouchableOpacity
-            onPress={() => refRBSheet.current.close()}
+            onPress={() => {
+              uploadImage(), refRBSheet.current.close();
+            }}
             style={styles.btnContainer}>
             <Text style={styles.uploadBtnText}>Upload Photo</Text>
           </TouchableOpacity>
@@ -52,7 +135,16 @@ const EditCompanyPofileContainr = props => {
           backgroundColor="rgba(0, 0, 0, 0.4)"
         />
       </RBSheet>
-      <EditCompanyPofileScreen goBack={goBack} refRBSheet={refRBSheet} />
+      <EditCompanyPofileScreen
+        profileDetail={profileDetail}
+        goBack={goBack}
+        handleUpdateProfile={handleUpdateProfile}
+        updateLoading={updateLoading}
+        refRBSheet={refRBSheet}
+        handleChange={handleChange}
+        isloading={isloading}
+        image={image}
+      />
     </SafeAreaView>
   );
 };

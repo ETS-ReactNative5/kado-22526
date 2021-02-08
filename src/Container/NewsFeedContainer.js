@@ -58,17 +58,26 @@ const NewsFeedContainer = props => {
 
   useEffect(() => {
     setDataFunc();
+    setUserId();
     dispatch(fetchAlljOBS());
     dispatch(fetchAllSavedJobs());
     dispatch(fetchStudents());
     dispatch(fetchFavStudents());
-    dispatch(fetchProfile(profileId));
+
+    Storage.retrieveData('access_token').then(item => {
+      token = item?.profile_id;
+
+      setprofileid(item?.profile_id);
+      dispatch(fetchProfile(token));
+    });
     Storage.retrieveData('access_token').then(items => {
       items?.user_groups.map(item => {
         setUser_group(item);
       });
     });
   }, []);
+
+  console.log('profile idddddddddddddddddddddd', profileDetail);
 
   useEffect(() => {
     dispatch(getJobsAfter());
@@ -86,6 +95,12 @@ const NewsFeedContainer = props => {
     });
 
     dispatch(fetchProfile(profileId));
+  };
+
+  const setUserId = () => {
+    Storage.retrieveData('access_token').then(item => {
+      setprofileid(item?.profile_id);
+    });
   };
 
   const addFavor = id => {
