@@ -70,7 +70,9 @@ const EditProfileScreen = ({
                   secureTextEntry={false}
                   iconShow={false}
                   placeholder={
-                    isloading ? `Full Name` : `${profileDetail?.fullname}`
+                    profileDetail?.fullname === null
+                      ? `Full Name`
+                      : `${profileDetail?.fullname}`
                   }
                   // value={isloading ? `Full Name` : `${profileDetail?.fullname}`}
                   onChange={value => handleChange('fullname', value)}
@@ -82,10 +84,11 @@ const EditProfileScreen = ({
                   secureTextEntry={false}
                   iconShow={true}
                   placeholder={
-                    isloading ? `Location` : `${profileDetail?.location}`
+                    profileDetail?.location === null
+                      ? `Location`
+                      : `${profileDetail?.location}`
                   }
                   iconName="map-marker-alt"
-                  // value={isloading ? `Location` : `${profileDetail?.location}`}
                   onChange={value => handleChange('location', value)}
                 />
               </View>
@@ -95,9 +98,10 @@ const EditProfileScreen = ({
                   keyboardType="numeric"
                   iconShow={false}
                   placeholder={
-                    isloading ? 'Phone' : `${profileDetail?.mobile_number}`
+                    profileDetail?.mobile_number === null
+                      ? 'Phone'
+                      : `${profileDetail?.mobile_number}`
                   }
-                  // value={isloading ? 'Phone' : `${profileDetail?.mobile_number}`}
                   onChange={value => handleChange('mobile_number', value)}
                 />
               </View>

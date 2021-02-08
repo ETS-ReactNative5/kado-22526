@@ -161,15 +161,25 @@ const NewsFeedContainer = ({
                   <ActivityIndicator color={buttonColor} />
                 </View>
               ) : (
-                <View>
+                <View style={{flex: 1}}>
                   {user_group === 'company' ? (
-                    <FlatList
-                      showsVerticalScrollIndicator={false}
-                      renderItem={userCardRenderItem}
-                      data={studentsList?.results}
-                    />
+                    <View style={{flex: 1}}>
+                      {studentsList?.results?.length === 0 ? (
+                        <View style={styles.empty}>
+                          <Text style={styles.emptytext}>
+                            No favourite students
+                          </Text>
+                        </View>
+                      ) : (
+                        <FlatList
+                          showsVerticalScrollIndicator={false}
+                          renderItem={userCardRenderItem}
+                          data={studentsList?.results}
+                        />
+                      )}
+                    </View>
                   ) : (
-                    <View>
+                    <View style={{flex: 1}}>
                       {jobList?.length === 0 ? (
                         <View style={styles.empty}>
                           <Text style={styles.emptytext}>No Jobs</Text>
@@ -215,7 +225,7 @@ const NewsFeedContainer = ({
                       )}
                     </View>
                   ) : (
-                    <View>
+                    <View style={{flex: 1}}>
                       {saveJobsList?.length === 0 ? (
                         <View style={styles.empty}>
                           <Text style={styles.emptytext}>No Saved jobs</Text>

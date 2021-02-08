@@ -67,20 +67,17 @@ const ProfileScreen = ({
                   </TouchableOpacity>
                 </View>
               </View>
-              {/* <View style={{marginTop: 50}}>
-            <Input
-              secureTextEntry={false}
-              iconShow={true}
-              iconName="chevron-down"
-              placeholder="Undergraduate Student"
-            />
-          </View> */}
+
               <View style={{marginTop: 50}}>
                 <Input
                   secureTextEntry={false}
                   iconShow={false}
-                  placeholder="Name of University"
-                  value={`${profileData?.university}`}
+                  // placeholder="Name of University"
+                  placeholder={
+                    profileData?.university === null
+                      ? 'Name of University'
+                      : `${profileData?.university}`
+                  }
                   onChange={value => handleChange('university', value)}
                 />
               </View>
@@ -88,8 +85,11 @@ const ProfileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={false}
-                  placeholder="Field of Study"
-                  value={`${profileData?.field_of_study}`}
+                  placeholder={
+                    profileData?.field_of_study === null
+                      ? 'Field of Study'
+                      : `${profileData?.field_of_study}`
+                  }
                   onChange={value => handleChange('field_of_study', value)}
                 />
               </View>
@@ -106,23 +106,18 @@ const ProfileScreen = ({
                       </View>
                     );
                   })}
-                  {/* <View style={styles.skillItem}>
-                    <Text style={styles.skillBtnText}>Website Design</Text>
-                  </View>
-                  <View style={styles.skillItem}>
-                    <Text style={styles.skillBtnText}>UI Design</Text>
-                  </View>
-                  <View style={styles.skillItem}>
-                    <Text style={styles.skillBtnText}>JS Development</Text>
-                  </View> */}
                 </View>
               </View>
               <View style={styles.inputCOntainer}>
                 <Input
                   secureTextEntry={false}
                   iconShow={true}
-                  placeholder="Years of experience"
-                  value={`${profileData?.years_of_experience}`}
+                  // placeholder="Years of experience"
+                  placeholder={
+                    profileData?.years_of_experience === null
+                      ? 'Years of experience'
+                      : `${profileData?.years_of_experience}`
+                  }
                   onChange={value => handleChange('years_of_experience', value)}
                   keyboardType="numeric"
                 />
@@ -132,8 +127,12 @@ const ProfileScreen = ({
                   secureTextEntry={false}
                   keyboardType="numeric"
                   iconShow={true}
-                  placeholder="Work type(full-time,part-time,remote etc)"
-                  value={`${profileData?.work_type}`}
+                  // placeholder="Work type(full-time,part-time,remote etc)"
+                  placeholder={
+                    profileData?.work_type === null
+                      ? 'Work type(full-time,part-time,remote etc)'
+                      : ` ${profileData?.work_type}`
+                  }
                   onChange={value => handleChange('work_type', value)}
                 />
               </View>
@@ -141,8 +140,12 @@ const ProfileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={false}
-                  placeholder="Hours available per week"
-                  value={`${profileData?.hours_per_week}`}
+                  // placeholder="Hours available per week"
+                  placeholder={
+                    profileData?.hours_per_week === null
+                      ? 'Hours available per week'
+                      : `${profileData?.hours_per_week}`
+                  }
                   keyboardType="numeric"
                 />
               </View>
@@ -150,8 +153,11 @@ const ProfileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={true}
-                  placeholder="Allowed to work in the US?"
-                  value={`${profileData?.allowed_to_work}`}
+                  placeholder={
+                    profileData?.allowed_to_work === null
+                      ? 'Allowed to work in the US?'
+                      : `${profileData?.allowed_to_work}`
+                  }
                 />
               </View>
               <Text style={styles.payMarginText}>Pay margin:</Text>
@@ -161,8 +167,11 @@ const ProfileScreen = ({
                     secureTextEntry={false}
                     iconShow={false}
                     iconName="chevron-down"
-                    placeholder="Min $"
-                    value={`${profileData?.min_pay}`}
+                    placeholder={
+                      profileData?.min_pay === null
+                        ? 'Min $'
+                        : `${profileData?.min_pay}`
+                    }
                     onChange={value => handleChange('min_pay', value)}
                   />
                 </View>
@@ -171,9 +180,13 @@ const ProfileScreen = ({
                     secureTextEntry={false}
                     iconShow={false}
                     iconName="chevron-down"
-                    placeholder="Max $"
+                    // placeholder="Max $"
+                    placeholder={
+                      profileData?.max_pay === null
+                        ? 'Max $'
+                        : `${profileData?.max_pay}`
+                    }
                     keyboardType="numeric"
-                    value={`${profileData?.max_pay}`}
                     onChange={value => handleChange('max_pay', value)}
                   />
                 </View>
