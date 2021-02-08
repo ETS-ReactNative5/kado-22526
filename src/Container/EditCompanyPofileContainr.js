@@ -19,6 +19,7 @@ import {fetchProfile, updateProfile, updatePhoto} from '../actions/profile';
 const EditCompanyPofileContainr = props => {
   const dispatch = useDispatch();
   const [image, setImage] = useState('');
+  const [user_group, setUser_group] = useState('');
   const [count, setCount] = useState(0);
   const [profileId, setprofileid] = useState('');
   const [data, setData] = useState('');
@@ -36,6 +37,14 @@ const EditCompanyPofileContainr = props => {
     const {navigation} = props;
     navigation.navigate(routeName);
   };
+
+  useEffect(() => {
+    Storage.retrieveData('access_token').then(items => {
+      items?.user_groups.map(item => {
+        setUser_group(item);
+      });
+    });
+  }, []);
 
   useEffect(() => {
     setDataFunc();
@@ -94,7 +103,7 @@ const EditCompanyPofileContainr = props => {
 
   const handleUpdateProfile = () => {
     setUpdate(!update);
-    dispatch(updateProfile(profileId, data, navigate));
+    dispatch(updateProfile(profileId, data, navigate, user_group));
   };
   return (
     <SafeAreaView style={styles.container}>

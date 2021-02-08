@@ -166,9 +166,7 @@ const NewsFeedContainer = ({
                     <View style={{flex: 1}}>
                       {studentsList?.results?.length === 0 ? (
                         <View style={styles.empty}>
-                          <Text style={styles.emptytext}>
-                            No favourite students
-                          </Text>
+                          <Text style={styles.emptytext}>No students</Text>
                         </View>
                       ) : (
                         <FlatList
@@ -205,7 +203,7 @@ const NewsFeedContainer = ({
               heading="Saved">
               {isLoading ? (
                 <View style={styles.empty}>
-                  <ActivityIndicator color={blackColorText} />
+                  <ActivityIndicator color={buttonColor} />
                 </View>
               ) : (
                 <View style={{flex: 1}}>

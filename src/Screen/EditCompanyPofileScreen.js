@@ -29,7 +29,7 @@ const EditCompanyPofileScreen = ({
       <View style={{flex: 1}}>
         {isloading ? (
           <View style={styles.empty}>
-            <ActivityIndicator />
+            <ActivityIndicator color={buttonColor} />
           </View>
         ) : (
           <ScrollView contentContainerStyle={styles.bodyContainer}>

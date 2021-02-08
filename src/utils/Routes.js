@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet} from 'react-native';
+import Storage from '../lib/requests/storage';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -29,14 +30,23 @@ import {DrawerContentData} from '../components';
 import Animated from 'react-native-reanimated';
 
 import {themeColor, white} from './Theme/Color';
+import AuthLoadingScreen from '../Screen/AuthLoadingScreen';
 
 const Stack = createStackNavigator();
 
 const LoginStack = createStackNavigator();
 
 const Auth = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    Storage.retrieveData('access_token').then(token => {
+      setCurrentUser(token);
+    });
+  }, []);
+
   return (
-    <LoginStack.Navigator initialRouteName="Login">
+    <LoginStack.Navigator initialRouteName="AuthLoadingScreen">
       <Stack.Screen
         name="SignUp"
         component={SignUpContainer}
@@ -45,6 +55,11 @@ const Auth = () => {
       <Stack.Screen
         name="Login"
         component={LoginContainer}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AuthLoadingScreen"
+        component={AuthLoadingScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen

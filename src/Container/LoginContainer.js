@@ -4,6 +4,7 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {useDispatch, useSelector} from 'react-redux';
 import {LoginScreen} from '../Screen';
 import {login} from '../actions/auth';
+import {StackActions} from '@react-navigation/native';
 const LoginContainer = props => {
   const [showPassword, setShowPasssword] = useState(true);
   const [loginForm, setLogInForm] = useState({});
@@ -15,7 +16,7 @@ const LoginContainer = props => {
     if (routeName === 'drawer') {
       navigation.openDrawer();
     } else {
-      await navigation.navigate(routeName);
+      await navigation.dispatch(StackActions.replace(routeName));
     }
   };
 

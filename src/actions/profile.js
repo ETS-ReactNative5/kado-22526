@@ -118,14 +118,19 @@ export function updatePhoto(profile_id, param) {
   };
 }
 
-export function updateProfile(profile_id, param, navigate) {
+export function updateProfile(profile_id, param, navigate, user_group) {
   return dispatch => {
     dispatch(updateProfileLoading(true));
     Api.put(`api/v1/profile/${profile_id}/`, param)
       .then(resp => {
         dispatch(updateProfileFunc(resp));
         dispatch(updateProfileLoading(false));
-        navigate('Profile');
+        if (user_group === 'company') {
+          navigate('NewsFeed');
+        } else {
+          navigate('Profile');
+        }
+
         console.log('alsas', resp);
       })
       .catch(err => {
