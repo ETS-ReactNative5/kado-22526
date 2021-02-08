@@ -1,7 +1,7 @@
-import React, {useState, useCallback, useEffect} from 'react';
-import {Text, TouchableOpacity, View, TextInput, Image} from 'react-native';
+import React, { useState, useCallback, useEffect } from 'react';
+import { Text, TouchableOpacity, View, TextInput, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {ScaledSheet} from 'react-native-size-matters';
+import { ScaledSheet } from 'react-native-size-matters';
 import Bubble from 'react-native-gifted-chat/lib/Bubble';
 import {
   grayColor,
@@ -13,12 +13,12 @@ import {
   darkBlue,
   buttonColor,
 } from '../utils/Theme/Color';
-import {BackHeader} from '../components';
+import { BackHeader } from '../components';
 import primary from '../assets/Image/primary.png';
 import chatUser from '../assets/Image/chatUser.png';
-import {GiftedChat} from 'react-native-gifted-chat';
-import {BackArrow} from '../assets/Image';
-const ChatScreen = ({goBack}) => {
+import { GiftedChat } from 'react-native-gifted-chat';
+import { BackArrow } from '../assets/Image';
+const ChatScreen = ({ goBack, sendMessage }) => {
   const [messages, setMessages] = useState([]);
   const [customMessage, setCustomMessage] = useState('');
   const [textfield, setTextField] = useState('');
@@ -75,10 +75,11 @@ const ChatScreen = ({goBack}) => {
         />
         <TouchableOpacity
           onPress={() => {
-            setMessages(previousMessages =>
-              GiftedChat.append(previousMessages, customMessage),
-            ),
-              setTextField('');
+            // setMessages(previousMessages =>
+            //   GiftedChat.append(previousMessages, customMessage),
+            // ),
+            //   setTextField('');
+            sendMessage()
           }}>
           <Image source={primary} />
         </TouchableOpacity>
@@ -126,7 +127,7 @@ const ChatScreen = ({goBack}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={{padding: 7}} onPress={() => goBack()}>
+        <TouchableOpacity style={{ padding: 7 }} onPress={() => goBack()}>
           {/* <Icon size={18} color={themeColor} name="arrow-left" /> */}
           <BackArrow />
         </TouchableOpacity>
@@ -143,7 +144,7 @@ const ChatScreen = ({goBack}) => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{padding: 10, flex: 1}}>
+      <View style={{ padding: 10, flex: 1 }}>
         <GiftedChat
           messages={messages}
           onSend={messages => onSend(messages)}

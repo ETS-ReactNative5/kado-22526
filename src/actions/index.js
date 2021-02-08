@@ -6,6 +6,7 @@ import * as Jobs from './jobs';
 import * as Profile from './profile';
 import * as Company from './company';
 import * as Faq from './faq';
+import * as Chat from './chat'
 // import * as StoreOfGroup from './store'
 // export const ActionCreators = Object.assign({}, Auth, Groups, GroupsBuySession,StoreOfGroup);
 export const ActionCreators = Object.assign(
@@ -17,4 +18,5 @@ export const ActionCreators = Object.assign(
   Profile,
   Company,
   Faq,
+  Chat
 );

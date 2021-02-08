@@ -1,7 +1,7 @@
 import * as types from './types';
 import Api from '../lib/requests/api';
 import Storage from '../lib/requests/storage';
-import {ToastAndroid} from 'react-native';
+import { ToastAndroid } from 'react-native';
 
 function setIsLoading(isLoading) {
   return {
@@ -40,6 +40,7 @@ export function login(params, navigate) {
       .then(resp => {
         // Storage.storeData("currentUser", resp.user)
         Storage.storeData('access_token', resp);
+        Storage.storeData('userDetails', resp);
         dispatch(setIsLoading(false));
 
         ToastAndroid.showWithGravity(
