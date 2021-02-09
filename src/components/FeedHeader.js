@@ -21,7 +21,7 @@ const FeedHeader = ({navigate, rightBtns}) => {
             {/* <Image source={comment} /> */}
             <MessageIcon />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate('Profile')}>
             <Image style={styles.image} source={user} />
           </TouchableOpacity>
         </View>
