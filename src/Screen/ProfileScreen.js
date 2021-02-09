@@ -11,6 +11,7 @@ import {
 import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
 import {EditProfileIcon} from '../assets/Image';
+import {getPlaceholder} from '../utils/misc';
 
 const ProfileScreen = ({
   goBack,
@@ -22,12 +23,6 @@ const ProfileScreen = ({
   uploadImage,
   image,
 }) => {
-  const getPlaceholder = (value, placeholder) => {
-    if (!value) {
-      return placeholder;
-    }
-    return value.toString() || placeholder;
-  };
   return (
     <View style={styles.container}>
       <BackHeader title="Profile Info" goBack={goBack} />

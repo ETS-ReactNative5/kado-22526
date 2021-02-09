@@ -95,7 +95,6 @@ const EditProfileContainer = props => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {console.log('imageee', image)}
       <EditProfileScreen
         profileDetail={profileDetail}
         navigate={navigate}

@@ -41,7 +41,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "work_type",
             "profile_type",
             "years_of_experience",
-            "company_name", "tagline",
+            "company_name", "tagline", "industry",
             "bio", "favorite"
         )
 

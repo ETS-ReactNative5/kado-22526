@@ -1,13 +1,22 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import comment from '../assets/Image/comment.png';
 import user from '../assets/Image/userImageTwo.png';
 import {ScaledSheet} from 'react-native-size-matters';
-import {buttonColor, themeColor} from '../utils/Theme/Color';
 import {DrawerIcon, MessageIcon} from '../assets/Image';
+import Storage from '../lib/requests/storage';
 
 const FeedHeader = ({navigate, rightBtns}) => {
+  const [user_group, setUser_group] = useState('');
+  useEffect(() => {
+    Storage.retrieveData('access_token').then(items => {
+      items?.user_groups.map(item => {
+        setUser_group(item);
+      });
+    });
+  }, []);
+  const goToProfile = () => {
+    navigate(user_group === 'student' ? 'EditProfile' : 'EditCompanyProfile');
+  };
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -18,10 +27,9 @@ const FeedHeader = ({navigate, rightBtns}) => {
       {rightBtns ? null : (
         <View style={styles.leftContainer}>
           <TouchableOpacity onPress={() => navigate('Message')}>
-            {/* <Image source={comment} /> */}
             <MessageIcon />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigate('Profile')}>
+          <TouchableOpacity onPress={goToProfile}>
             <Image style={styles.image} source={user} />
           </TouchableOpacity>
         </View>
