@@ -13,7 +13,8 @@ import FAQScreen from './FAQScreen';
 import PaymentScreen from './PaymentScreen';
 import CompanyInfoScreen from './CompanyInfoScreen';
 import NotSignedScreen from './NotSignedScreen';
-import HowWorkScreen from './HowWorkScreen';
+import HowWorkScreenCompany from './HowWorkScreen/Companies';
+import HowWorkScreenStudent from './HowWorkScreen/Student';
 import EditCompanyPofileScreen from './EditCompanyPofileScreen';
 
 export {
@@ -32,6 +33,7 @@ export {
   PaymentScreen,
   CompanyInfoScreen,
   NotSignedScreen,
-  HowWorkScreen,
+  HowWorkScreenCompany,
+  HowWorkScreenStudent,
   EditCompanyPofileScreen,
 };

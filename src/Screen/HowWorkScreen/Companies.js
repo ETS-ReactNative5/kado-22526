@@ -4,8 +4,8 @@ import {ActivityIndicator} from 'react-native';
 import {Text, View, TextInput, TouchableOpacity, FlatList} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {BackHeader, SearchBar, FaqItems} from '../components';
-import {skyBlue, themeColor} from '../utils/Theme/Color';
+import {BackHeader, SearchBar, FaqItems} from '../../components';
+import {skyBlue, themeColor} from '../../utils/Theme/Color';
 
 const HowWorkScreen = ({goBack}) => {
   const renderItem = ({item}) => <FaqItems title={item?.question} />;
