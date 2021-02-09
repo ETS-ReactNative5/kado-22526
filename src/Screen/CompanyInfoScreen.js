@@ -2,7 +2,6 @@ import React from 'react';
 import {ImageBackground, Text, View} from 'react-native';
 import IBMBack from '../assets/Image/IBMBack.png';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import IBM from '../assets/Image/ibmBig.png';
 import {ScaledSheet} from 'react-native-size-matters';
 import {
   themeColor,
@@ -12,12 +11,12 @@ import {
   buttonColor,
 } from '../utils/Theme/Color';
 import {TouchableOpacity} from 'react-native';
-import {BackArrow, FollowIcon} from '../assets/Image';
+import {BackArrow} from '../assets/Image';
 import {Image} from 'react-native';
 import {ScrollView} from 'react-native';
 import {ActivityIndicator} from 'react-native';
 
-const CompanyInfoScreen = ({goBack, singleCompany, isloading}) => {
+const CompanyInfoScreen = ({goBack, singleCompany, isloading, navigation}) => {
   return (
     <View style={styles.container}>
       {isloading ? (
@@ -65,7 +64,9 @@ const CompanyInfoScreen = ({goBack, singleCompany, isloading}) => {
             </View>
           </View>
           <View style={styles.footer}>
-            <TouchableOpacity style={styles.footerbtn}>
+            <TouchableOpacity
+              style={styles.footerbtn}
+              onPress={() => navigation.navigate('Chat')}>
               <Icon name="language" size={20} color={buttonColor} />
               <Text style={styles.footerText}>Contact</Text>
             </TouchableOpacity>

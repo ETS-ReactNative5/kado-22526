@@ -1,24 +1,10 @@
 import React from 'react';
 import {FlatList} from 'react-native';
-import {Text, View, TextInput} from 'react-native';
+import {Text, View} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {BackHeader, CompaniesItem, SearchBar} from '../components';
 import {blackColorText, buttonColor, lightGray} from '../utils/Theme/Color';
 
-import IBM from '../assets/Image/IBM.png';
-import cocacola from '../assets/Image/cocacola.png';
-import huwei from '../assets/Image/huwei.png';
-import samsung from '../assets/Image/samsung.png';
-
-import twitter from '../assets/Image/twitter.png';
-
-import cnn from '../assets/Image/cnn.png';
-
-import newyork from '../assets/Image/newyork.png';
-import hp from '../assets/Image/hp.png';
-import carfor from '../assets/Image/carfor.png';
-import eroksi from '../assets/Image/eroksi.png';
 import {ActivityIndicator} from 'react-native';
 
 const CompaniesScreen = ({

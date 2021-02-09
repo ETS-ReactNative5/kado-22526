@@ -27,6 +27,7 @@ const CompanyInfoContainer = props => {
         singleCompany={singleCompany}
         isloading={isloading}
         goBack={goBack}
+        {...props}
       />
     </View>
   );
