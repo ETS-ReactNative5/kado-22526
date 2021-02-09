@@ -81,12 +81,6 @@ const ExploreScreen = ({goBack, navigate, user_groups}) => {
             <LogoutIcon />
             <Text style={styles.text}>Logout</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigate('DeleteAccount')}
-            style={styles.itemContainer}>
-            <DeleteIcon />
-            <Text style={styles.text}>Delete Account</Text>
-          </TouchableOpacity>
         </View>
       </View>
     </View>
