@@ -60,10 +60,8 @@ const EditCompanyPofileContainr = props => {
   };
 
   const handleChange = (name, value) => {
-    setData({
-      ...data,
-      [name]: value,
-    });
+    const tempData = {...data, [name]: value};
+    setData(tempData);
   };
 
   const uploadImage = () => {

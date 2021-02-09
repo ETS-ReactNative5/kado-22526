@@ -1,8 +1,6 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-import user from '../assets/Image/userImageTwo.png';
 import {BackHeader, Input} from '../components';
-import apple from '../assets/Image/apple.png';
 import {
   buttonColor,
   lightBlackColor,
@@ -12,6 +10,7 @@ import {
 import {ScaledSheet} from 'react-native-size-matters';
 import {EditProfileIcon} from '../assets/Image';
 import {ActivityIndicator} from 'react-native';
+import {getPlaceholder} from '../utils/misc';
 
 const EditCompanyPofileScreen = ({
   goBack,
@@ -67,11 +66,10 @@ const EditCompanyPofileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={false}
-                  placeholder={
-                    profileDetail?.fullname === null
-                      ? 'Company or Start-up name'
-                      : profileDetail?.fullname
-                  }
+                  placeholder={getPlaceholder(
+                    profileDetail?.fullname,
+                    'Company or Start-up name',
+                  )}
                   onChange={value => handleChange('fullname', value)}
                 />
               </View>
@@ -80,33 +78,32 @@ const EditCompanyPofileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={true}
-                  placeholder={
-                    profileDetail?.location === null
-                      ? 'Location'
-                      : profileDetail?.location
-                  }
+                  placeholder={getPlaceholder(
+                    profileDetail?.location,
+                    'Location',
+                  )}
                   iconName="map-marker-alt"
                   onChange={value => handleChange('location', value)}
-                  // value={isloading ? `Location` : `${profileDetail?.location}`}
                 />
               </View>
               <View style={styles.inputCOntainer}>
                 <Input
                   secureTextEntry={false}
                   iconShow={false}
-                  placeholder="Industry"
+                  placeholder={getPlaceholder(
+                    profileDetail?.industry,
+                    'Industry',
+                  )}
+                  onChange={value => handleChange('industry', value)}
                 />
               </View>
               <View style={styles.inputCOntainer}>
                 <Input
                   secureTextEntry={false}
-                  // iconShow={true}
-                  // iconName="chevron-down"
-                  placeholder={
-                    profileDetail?.mobile_number === null
-                      ? 'Phone'
-                      : profileDetail?.mobile_number
-                  }
+                  placeholder={getPlaceholder(
+                    profileDetail?.mobile_number,
+                    'Phone',
+                  )}
                   onChange={value => handleChange('mobile_number', value)}
                 />
               </View>

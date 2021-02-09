@@ -89,6 +89,7 @@ class Profile(models.Model):
     birthdate = models.DateField(null=True, blank=True, )
     gender = models.CharField('Select Gender', choices=GENDER_CHOICES, max_length=10, null=True, blank=True)
     university = models.CharField('Name of university ', default=None, null=True, blank=True, max_length=255)
+    industry = models.CharField(default=None, null=True, blank=True, max_length=255)
     field_of_study = models.CharField('Field of study ', default=None, null=True, blank=True, max_length=255)
     skills = ArrayField(models.CharField(max_length=250), verbose_name='Relevant skills', blank=True, default=list)
     services = ArrayField(models.CharField(max_length=250), blank=True, default=list)
