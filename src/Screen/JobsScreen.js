@@ -306,7 +306,7 @@ const JobsScreen = ({
         <View>
           <View style={styles.filtersContainer}>
             <Text style={styles.filterText}>Filters:</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigate('Explore')}>
               <Icons name="clear" size={22} color={buttonColor} />
             </TouchableOpacity>
           </View>

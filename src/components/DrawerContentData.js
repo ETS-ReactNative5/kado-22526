@@ -60,14 +60,14 @@ const Drawer = ({navigation, progress, ...rest}) => {
               <Text style={styles.btnText}>How it works</Text>
             </TouchableOpacity>
 
-            {/* {user_group === 'company' ? (
+            {user_group === 'company' ? (
               <TouchableOpacity
                 style={styles.btn}
-                onPress={() => navigation.navigate('HowWork')}>
+                onPress={() => navigation.navigate('BlankPage')}>
                 <PostRideIcon />
                 <Text style={styles.btnText}>Post a role</Text>
               </TouchableOpacity>
-            ) : null} */}
+            ) : null}
 
             {user_group === 'company' ? (
               <TouchableOpacity
