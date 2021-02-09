@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import {useDispatch, useSelector} from 'react-redux';
-import {HowWorkScreen} from '../Screen';
+import Storage from '../lib/requests/storage';
+import {HowWorkScreenCompany, HowWorkScreenStudent} from '../Screen';
 import {white} from '../utils/Theme/Color';
 
-import {fetchAllFaq, addFaq, fetchFaq} from '../actions/faq';
 
 const HowWorkContainer = props => {
+  const [user_group, setUser_group] = useState('');
   const goBack = () => {
     const {navigation} = props;
     navigation.goBack();
@@ -18,9 +18,21 @@ const HowWorkContainer = props => {
     await navigation.navigate(routeName);
   };
 
+  useEffect(() => {
+    Storage.retrieveData('access_token').then(items => {
+      items?.user_groups.map(item => {
+        setUser_group(item);
+      });
+    });
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
-      <HowWorkScreen goBack={goBack} />
+      {user_group === 'company' ? (
+        <HowWorkScreenCompany goBack={goBack} />
+      ) : (
+        <HowWorkScreenStudent goBack={goBack} />
+      )}
     </SafeAreaView>
   );
 };
