@@ -1,15 +1,10 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-import calander from '../assets/Image/calander.png';
-import uset from '../assets/Image/userImageTwo.png';
-import editButton from '../assets/Image/editbtn.png';
-import {BackHeader, Header, Input} from '../components';
+import {BackHeader, Input} from '../components';
 import {
   buttonColor,
-  darkBlue,
   lightBlackColor,
   lightGray,
-  lughtBlue,
   themeColor,
   white,
 } from '../utils/Theme/Color';
@@ -19,7 +14,6 @@ import {EditProfileIcon} from '../assets/Image';
 
 const ProfileScreen = ({
   goBack,
-  navigate,
   profileData,
   isloading,
   handleChange,
@@ -28,6 +22,12 @@ const ProfileScreen = ({
   uploadImage,
   image,
 }) => {
+  const getPlaceholder = (value, placeholder) => {
+    if (!value) {
+      return placeholder;
+    }
+    return value.toString() || placeholder;
+  };
   return (
     <View style={styles.container}>
       <BackHeader title="Profile Info" goBack={goBack} />
@@ -72,12 +72,10 @@ const ProfileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={false}
-                  // placeholder="Name of University"
-                  placeholder={
-                    profileData?.university === null
-                      ? 'Name of University'
-                      : `${profileData?.university}`
-                  }
+                  placeholder={getPlaceholder(
+                    profileData?.university,
+                    'Name of University',
+                  )}
                   onChange={value => handleChange('university', value)}
                 />
               </View>
@@ -85,11 +83,10 @@ const ProfileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={false}
-                  placeholder={
-                    profileData?.field_of_study === null
-                      ? 'Field of Study'
-                      : `${profileData?.field_of_study}`
-                  }
+                  placeholder={getPlaceholder(
+                    profileData?.field_of_study,
+                    'Field of Study',
+                  )}
                   onChange={value => handleChange('field_of_study', value)}
                 />
               </View>
@@ -101,7 +98,7 @@ const ProfileScreen = ({
                 <View style={styles.skillContainer}>
                   {profileData?.skills.map(item => {
                     return (
-                      <View style={styles.skillItem}>
+                      <View style={styles.skillItem} key={item}>
                         <Text style={styles.skillBtnText}>{item} </Text>
                       </View>
                     );
@@ -112,12 +109,10 @@ const ProfileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={true}
-                  // placeholder="Years of experience"
-                  placeholder={
-                    profileData?.years_of_experience === null
-                      ? 'Years of experience'
-                      : `${profileData?.years_of_experience}`
-                  }
+                  placeholder={getPlaceholder(
+                    profileData?.years_of_experience,
+                    'Years of experience',
+                  )}
                   onChange={value => handleChange('years_of_experience', value)}
                   keyboardType="numeric"
                 />
@@ -127,12 +122,10 @@ const ProfileScreen = ({
                   secureTextEntry={false}
                   keyboardType="numeric"
                   iconShow={true}
-                  // placeholder="Work type(full-time,part-time,remote etc)"
-                  placeholder={
-                    profileData?.work_type === null
-                      ? 'Work type(full-time,part-time,remote etc)'
-                      : ` ${profileData?.work_type}`
-                  }
+                  placeholder={getPlaceholder(
+                    profileData?.work_type,
+                    'Work type(full-time,part-time,remote etc)',
+                  )}
                   onChange={value => handleChange('work_type', value)}
                 />
               </View>
@@ -140,12 +133,10 @@ const ProfileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={false}
-                  // placeholder="Hours available per week"
-                  placeholder={
-                    profileData?.hours_per_week === null
-                      ? 'Hours available per week'
-                      : `${profileData?.hours_per_week}`
-                  }
+                  placeholder={getPlaceholder(
+                    profileData?.hours_per_week,
+                    'Hours available per week',
+                  )}
                   keyboardType="numeric"
                 />
               </View>
@@ -153,11 +144,10 @@ const ProfileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={true}
-                  placeholder={
-                    profileData?.allowed_to_work === null
-                      ? 'Allowed to work in the US?'
-                      : `${profileData?.allowed_to_work}`
-                  }
+                  placeholder={getPlaceholder(
+                    profileData?.allowed_to_work,
+                    'Allowed to work in the US?',
+                  )}
                 />
               </View>
               <Text style={styles.payMarginText}>Pay margin:</Text>
@@ -167,11 +157,7 @@ const ProfileScreen = ({
                     secureTextEntry={false}
                     iconShow={false}
                     iconName="chevron-down"
-                    placeholder={
-                      profileData?.min_pay === null
-                        ? 'Min $'
-                        : `${profileData?.min_pay}`
-                    }
+                    placeholder={getPlaceholder(profileData?.min_pay, 'Min $')}
                     onChange={value => handleChange('min_pay', value)}
                   />
                 </View>
@@ -180,12 +166,9 @@ const ProfileScreen = ({
                     secureTextEntry={false}
                     iconShow={false}
                     iconName="chevron-down"
-                    // placeholder="Max $"
-                    placeholder={
-                      profileData?.max_pay === null
-                        ? 'Max $'
-                        : `${profileData?.max_pay}`
-                    }
+                    placeholder={getPlaceholder(
+                      profileData?.max_pay || 'Max $',
+                    )}
                     keyboardType="numeric"
                     onChange={value => handleChange('max_pay', value)}
                   />
@@ -215,7 +198,6 @@ const styles = ScaledSheet.create({
   },
 
   bodyContainer: {
-    // flex: 1,
     padding: '1@s',
     paddingBottom: '20@s',
     justifyContent: 'space-between',

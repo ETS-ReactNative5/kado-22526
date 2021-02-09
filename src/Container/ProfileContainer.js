@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import Storage from '../lib/requests/storage';
 import {ScaledSheet} from 'react-native-size-matters';
 import {useDispatch, useSelector} from 'react-redux';
