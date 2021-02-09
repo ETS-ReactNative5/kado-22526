@@ -25,6 +25,7 @@ import {
   NotSignedContainer,
   HowWorkContainer,
   EditCompanyPofileContainr,
+  BlankPage,
 } from '../Container';
 import {DrawerContentData} from '../components';
 import Animated from 'react-native-reanimated';
@@ -165,6 +166,11 @@ const App = ({style}) => {
           name="NewMessage"
           component={NewMessageContainer}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="BlankPage"
+          component={BlankPage}
+          options={{headerShown: true}}
         />
       </Stack.Navigator>
     </Animated.View>

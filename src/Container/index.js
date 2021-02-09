@@ -17,6 +17,7 @@ import CompanyInfoContainer from './CompanyInfoContainer';
 import NotSignedContainer from './NotSignedContainer';
 import HowWorkContainer from './HowWorkContainer';
 import EditCompanyPofileContainr from './EditCompanyPofileContainr';
+import BlankPage from './BlankPage';
 
 export {
   SignUpContainer,
@@ -38,4 +39,5 @@ export {
   NotSignedContainer,
   HowWorkContainer,
   EditCompanyPofileContainr,
+  BlankPage,
 };
