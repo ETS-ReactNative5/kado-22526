@@ -14,6 +14,7 @@ const BottomDate = ({
   onPress,
   onChangeText,
   value,
+  editable = false,
 }) => {
   return (
     <View style={styles.container}>
@@ -28,7 +29,7 @@ const BottomDate = ({
             style={styles.input}
             placeholder={placeholder}
             onChangeText={onChangeText}
-            editable={false}
+            editable={editable}
             value={value}
           />
         </TouchableOpacity>
