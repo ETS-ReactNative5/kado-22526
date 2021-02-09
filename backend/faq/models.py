@@ -7,6 +7,7 @@ class Faq(TimestampModel):
     question = models.TextField(unique=True)
     answer = models.TextField(blank=True, null=True)
     user = models.ForeignKey('users.User', verbose_name='Sender', related_name='faqs', on_delete=models.CASCADE)
+    published = models.BooleanField(default=False)
 
     @classmethod
     def search(cls, search_query=None, **kwargs):

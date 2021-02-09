@@ -13,9 +13,9 @@ class FAQViewSet(viewsets.ModelViewSet):
         authentication.SessionAuthentication
     )
     permission_classes = [IsAuthenticated]
-    queryset = Faq.objects.all()
+    queryset = Faq.objects.filter(published=True)
 
     def get_queryset(self):
         search_query = self.request.query_params.get('search', None)
         queryset = Faq.search(search_query)
-        return queryset
+        return queryset.filter(published=True)
