@@ -198,6 +198,7 @@ const JobsScreen = ({
           handleChange={handleChange}
           title="Availability"
           placeholder="Total hours per week"
+          editable={true}
         />
       </RBSheet>
 
