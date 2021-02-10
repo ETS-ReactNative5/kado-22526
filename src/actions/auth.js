@@ -50,7 +50,6 @@ export function login(params, navigate) {
         navigate('Home');
       })
       .catch(err => {
-        console.warn('err', err);
         ToastAndroid.showWithGravity(
           'Email or Password is not valid',
           ToastAndroid.LONG,

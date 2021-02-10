@@ -7,8 +7,19 @@ import * as jobs from './jobs';
 import * as profile from './profile';
 import * as company from './company';
 import * as faq from './faq';
-// import * as sessionStore from './store'
-// export default combineReducers(Object.assign(authReducer, groupsReducer, groupsBuySession,sessionStore));
+import * as thread from './thread';
+import * as message from './message';
+
 export default combineReducers(
-  Object.assign(authReducer, featureAds, products, jobs, profile, company, faq),
+  Object.assign(
+    authReducer,
+    featureAds,
+    products,
+    jobs,
+    profile,
+    company,
+    faq,
+    thread,
+    message,
+  ),
 );

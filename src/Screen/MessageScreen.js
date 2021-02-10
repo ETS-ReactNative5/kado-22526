@@ -9,116 +9,33 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScaledSheet} from 'react-native-size-matters';
-import {BackHeader, MessageCard} from '../components';
-import userImage from '../assets/Image/userImage.png';
+import {MessageCard} from '../components';
 import userImageTwo from '../assets/Image/userImageTwo.png';
-import userImageThre from '../assets/Image/chatUser.png';
 import {
   blackColorText,
-  grayColor,
   lightGrayColor,
   placeHolderColor,
-  themeColor,
   buttonColor,
 } from '../utils/Theme/Color';
 import {BackArrow, SearchIcon} from '../assets/Image';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Theresa Webb',
-    image: userImageThre,
-    position: 'Wordpress Long-term dev',
-    desc:
-      'Theresa, there are some important things I need to discuss with you! Please ping me ASAP so I can set a meeting with you, I really need to get over those topics.',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Jane Cooper',
-    image: userImage,
-    position: 'Wordpress Long-term dev',
-    desc: 'Hello!',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Albert Flores',
-    image: userImageTwo,
-    position: 'Wordpress Long-term dev',
-    desc: 'It was a pleasure to meet you!',
-  },
-  {
-    id: '58694-3da1-471f-bd96-145571e29d72',
-    title: 'Albert Flores',
-    image: userImage,
-    position: 'Wordpress Long-term dev',
-    desc: 'It was a pleasure to meet you!',
-  },
-  {
-    id: '5869f-3da1-471f-bd96-145571e29d72',
-    title: 'Albert Flores',
-    image: userImage,
-    position: 'Wordpress Long-term dev',
-    desc: 'It was a pleasure to meet you!',
-  },
-  {
-    id: '58694a0f1-471f-bd96-145571e29d72',
-    title: 'Albert Flores',
-    image: userImageTwo,
-    position: 'Wordpress Long-term dev',
-    desc: 'It was a pleasure to meet you!',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Albert Flores',
-    image: userImageThre,
-    position: 'Wordpress Long-term dev',
-    desc: 'It was a pleasure to meet you!',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Albert Flores',
-    image: userImage,
-    position: 'Wordpress Long-term dev',
-    desc: 'It was a pleasure to meet you!',
-  },
-  {
-    id: '58694a0f-3da1-471f145571e29d72',
-    title: 'Albert Flores',
-    image: userImageTwo,
-    position: 'Wordpress Long-term dev',
-    desc: 'It was a pleasure to meet you!',
-  },
-  {
-    id: '58694a0f-3145571e29d72',
-    title: 'Albert Flores',
-    image: userImageThre,
-    position: 'Wordpress Long-term dev',
-    desc: 'It was a pleasure to meet you!',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Albert Flores',
-    image: userImage,
-    position: 'Wordpress Long-term dev',
-    desc: 'It was a pleasure to meet you!',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd9',
-    title: 'Salman saleem',
-    image: userImageTwo,
-    position: 'Wordpress Long-term dev',
-    desc: 'It was a pleasure to meet you!',
-  },
-];
-
-const MessageScreen = ({goBack, navigate}) => {
+const MessageScreen = ({
+  goBack,
+  navigate,
+  threads: data,
+  onSearch,
+  ...rest
+}) => {
   const renderItem = ({item}) => (
     <MessageCard
       positon={item.position}
-      image={item.image}
+      image={item.image || userImageTwo}
       title={item.title}
       desc={item.desc}
       navigate={navigate}
+      timeSince={item.time_since || 'Yesterday'}
+      threadId={item.id}
+      {...rest}
     />
   );
   return (
@@ -143,17 +60,19 @@ const MessageScreen = ({goBack, navigate}) => {
       <ScrollView>
         <View style={styles.body}>
           <View style={styles.searchContainer}>
-            {/* <Icon size={16} name="search" color={themeColor} /> */}
             <SearchIcon />
             <TextInput
               placeholderTextColor={placeHolderColor}
               style={styles.input}
               placeholder="Search messages..."
+              onChangeText={e => {
+                onSearch(e);
+              }}
             />
           </View>
         </View>
         <View style={{flex: 1}}>
-          <FlatList renderItem={renderItem} data={DATA} />
+          <FlatList renderItem={renderItem} data={data.results} />
           <Text style={styles.feedMessage}>
             This is the end of your messages feed! 🎉
           </Text>

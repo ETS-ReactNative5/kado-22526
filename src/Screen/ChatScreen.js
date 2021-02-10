@@ -18,32 +18,24 @@ import primary from '../assets/Image/primary.png';
 import chatUser from '../assets/Image/chatUser.png';
 import {GiftedChat} from 'react-native-gifted-chat';
 import {BackArrow} from '../assets/Image';
-const ChatScreen = ({goBack}) => {
+const ChatScreen = ({goBack, messages: remoteMessages, profileId}) => {
   const [messages, setMessages] = useState([]);
   const [customMessage, setCustomMessage] = useState('');
   const [textfield, setTextField] = useState('');
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ]);
-  }, []);
+    if (messages.length !== remoteMessages.messages.length) {
+      setMessages(remoteMessages.messages || []);
+    }
+  }, [remoteMessages]);
 
   const setChatArray = text => {
     const mss = {
       _id: 2,
       text: text,
       createdAt: new Date(),
+      received: true,
       user: {
-        _id: 1,
+        _id: profileId,
         name: 'Developer',
         avatar: 'https://placeimg.com/140/140/any',
       },
@@ -132,9 +124,9 @@ const ChatScreen = ({goBack}) => {
         </TouchableOpacity>
 
         <View style={styles.rightContainer}>
-          <Image style={styles.image} source={chatUser} />
+          <Image style={styles.image} source={remoteMessages.chatUser} />
           <Text numberOfLines={1} style={styles.headerText}>
-            fahad
+            {remoteMessages.fullname}
           </Text>
         </View>
         <View>
@@ -158,7 +150,7 @@ const ChatScreen = ({goBack}) => {
           // quickReplyStyle={{ backgroundColor: 'red' }}
           renderBubble={renderBubble}
           user={{
-            _id: 1,
+            _id: profileId,
           }}
         />
       </View>
