@@ -22,7 +22,7 @@ class Thread(models.Model):
                 models.Q(profiles__user__last_name__icontains=search_query) |
                 models.Q(profiles__user__username__icontains=search_query)
             )
-        return queryset
+        return queryset.distinct()
 
     @classmethod
     def deleted(cls, profile):
@@ -110,7 +110,7 @@ class Message(models.Model):
         return msg
 
     class Meta:
-        ordering = ("sent_at",)
+        ordering = ("-sent_at",)
 
     def get_absolute_url(self):
         return self.thread.get_absolute_url()

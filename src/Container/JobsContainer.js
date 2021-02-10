@@ -93,7 +93,6 @@ const JobsContainer = props => {
   const handleConfirm = date => {
     let myDate = moment(date).format('YYYY-MM-DD');
     setDateText(myDate);
-    console.warn('A date has been picked: ', myDate);
     hideDatePicker();
   };
 
@@ -108,7 +107,6 @@ const JobsContainer = props => {
   const handleConfirmSecond = date => {
     let myDate = moment(date).format('YYYY-MM-DD');
     setEndDate(myDate);
-    console.warn('A date has been picked: ', myDate);
     hideDatePickerSecond();
   };
 

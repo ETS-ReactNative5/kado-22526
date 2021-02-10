@@ -1,10 +1,29 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import {grayColor, positionColor, themeColor} from '../utils/Theme/Color';
-const MessageCard = ({title, image, positon, desc, navigate}) => {
+import {positionColor, themeColor} from '../utils/Theme/Color';
+const MessageCard = ({
+  threadId,
+  title,
+  image,
+  positon,
+  desc,
+  timeSince,
+  navigation,
+  profileId,
+}) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={() => navigate('Chat')}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigation.push('Chat', {
+          threadId,
+          image,
+          title,
+          desc,
+          profileId,
+        });
+      }}>
       <Image source={image} style={styles.image} />
       <View style={styles.textContainer}>
         <View style={styles.headinContainer}>
@@ -17,7 +36,7 @@ const MessageCard = ({title, image, positon, desc, navigate}) => {
             </Text>
           </View>
           <Text numberOfLines={1} style={styles.positonText}>
-            Yesterday
+            {timeSince}
           </Text>
         </View>
 

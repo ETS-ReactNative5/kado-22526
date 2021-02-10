@@ -6,7 +6,6 @@ from django.db import transaction
 
 from chat_user.models import Thread, Message
 from chat_profile.models import Profile
-from chat_profile.api.v1.serializers import ProfileThreadSerializer
 
 
 class MessageSerializer(serializers.ModelSerializer):
@@ -80,42 +79,65 @@ class MessageSerializer(serializers.ModelSerializer):
 
 
 class MessageThreadSerializer(serializers.ModelSerializer):
-    """
-    Thread messages serializer
-    """
-    username = serializers.SerializerMethodField('get_sender_username')
-    time_sent = serializers.SerializerMethodField('get_time_sent')
-    time_since = serializers.SerializerMethodField('get_time_since')
+    text = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
+    createdAt = serializers.SerializerMethodField()
+    user = serializers.SerializerMethodField()
+    _id = serializers.SerializerMethodField()
 
     class Meta:
         model = Message
-        fields = [
-            'sender_id',
-            'thread_id', "content",
-            "attachment",
-            "username",
-            "sent_at",
-            "time_sent",
-            "time_since"
-        ]
+        fields = ['_id', "text", "image", "createdAt", "user"]
 
-    def get_sender_username(self, obj):
-        return obj.sender.fullname()
+    def get_text(self, instance):
+        return instance.content
 
-    def get_time_sent(self, obj):
-        return obj.sent_at.strftime("%H:%M %p")
+    def get_image(self, instance):
+        return instance.attachment
 
-    def get_time_since(self, obj):
-        return timesince(obj.sent_at)
+    def get_createdAt(self, instance):
+        return instance.sent_at
+
+    def get__id(self, instance):
+        return instance.id
+
+    def get_user(self, instance):
+        sender = instance.sender
+        return {
+            "_id": sender.id,
+            "name": sender.fullname(),
+            "avatar": sender.photo
+        }
 
 
 class ThreadSerializer(serializers.ModelSerializer):
     messages = MessageThreadSerializer(many=True, read_only=True)
-    profiles = ProfileThreadSerializer(many=True, read_only=True)
+    avatar = serializers.SerializerMethodField(read_only=True)
+    fullname = serializers.SerializerMethodField()
 
     class Meta:
         model = Thread
-        fields = ["profiles", "subject", "messages", ]
+        fields = ["id", "avatar", "fullname",  "messages", ]
+
+    def get_fullname(self, obj):
+        profile_id = self._get_request().user.profile.id
+        profiles = obj.profiles.exclude(id=profile_id)
+        if profiles.exists():
+            return profiles.first().fullname()
+        instance = obj.messages.last()
+        if instance:
+            return instance.sender.fullname()
+        return ''
+
+    def get_avatar(self, obj):
+        profile_id = self._get_request().user.profile.id
+        profiles = obj.profiles.exclude(id=profile_id)
+        if profiles.exists():
+            return profiles.first().photo
+        instance = obj.messages.last()
+        if instance:
+            return instance.sender.photo
+        return ''
 
     def _get_request(self):
         request = self.context.get("request")
@@ -129,12 +151,65 @@ class ThreadSerializer(serializers.ModelSerializer):
 
 
 class ThreadInboxSerializer(serializers.ModelSerializer):
-    profiles = ProfileThreadSerializer(many=True, read_only=True)
-    latest_message = serializers.SerializerMethodField('get_latest_message')
+    desc = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
+    position = serializers.SerializerMethodField()
+    title = serializers.SerializerMethodField()
+    time_since = serializers.SerializerMethodField()
+    time_sent = serializers.SerializerMethodField()
 
     class Meta:
         model = Thread
-        fields = ["latest_message", "profiles", ]
+        fields = ["id", "title", "image", "desc", "position", "time_since", "time_sent"]
+
+    def get_title(self, obj):
+        profile_id = self.context.get('request').user.profile.id
+        profiles = obj.profiles.exclude(id=profile_id)
+        if profiles.exists():
+            return profiles.first().fullname()
+
+        instance = obj.messages.last()
+        if instance:
+            return instance.sender.fullname()
+        return ''
+
+    def get_position(self, obj):
+        profile_id = self.context.get('request').user.profile.id
+        profiles = obj.profiles.exclude(id=profile_id)
+        if profiles.exists():
+            return profiles.first().tagline
+        instance = obj.messages.last()
+        if instance:
+            return instance.sender.tagline
+        return ''
+
+    def get_image(self, obj):
+        profile_id = self.context.get('request').user.profile.id
+        profiles = obj.profiles.exclude(id=profile_id)
+        if profiles.exists():
+            return profiles.first().photo
+        instance = obj.messages.last()
+        if instance:
+            return instance.sender.photo
+        return ''
+
+    def get_desc(self, obj):
+        instance = obj.messages.last()
+        if instance:
+            return instance.content
+        return ''
+
+    def get_time_since(self, obj):
+        instance = obj.messages.last()
+        if instance:
+            return timesince(instance.sent_at)
+        return ''
+
+    def get_time_sent(self, obj):
+        instance = obj.messages.last()
+        if instance:
+            return instance.sent_at.strftime("%H:%M %p")
+        return ''
 
     def get_latest_message(self, obj):
         instance = obj.messages.last()
