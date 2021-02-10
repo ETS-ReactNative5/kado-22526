@@ -28,7 +28,10 @@ class TokenAuthMiddleware:
         close_old_connections()
 
         # Get the token
-        token = parse_qs(scope["query_string"].decode("utf8"))["token"][0]
+        try:
+            token = parse_qs(scope["query_string"].decode("utf8"))["token"][0]
+        except:
+            token = ''
 
         # Try to authenticate the user
         scope['user'] = await get_user(token)

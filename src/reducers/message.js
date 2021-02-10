@@ -8,6 +8,7 @@ const INITIAL_STATE = {
     id: 0,
     avatar: chatUser,
     fullname: 'Fahad',
+    receiverProfileId: 0,
     messages: [],
   },
 };

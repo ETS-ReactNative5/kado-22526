@@ -18,10 +18,39 @@ import primary from '../assets/Image/primary.png';
 import chatUser from '../assets/Image/chatUser.png';
 import {GiftedChat} from 'react-native-gifted-chat';
 import {BackArrow} from '../assets/Image';
-const ChatScreen = ({goBack, messages: remoteMessages, profileId}) => {
+import {WEBSOCKET_HOST} from '../lib/requests/api';
+import Storage from '../lib/requests/storage';
+import useWebSocket, {ReadyState} from 'react-use-websocket';
+
+const ChatScreen = ({
+  goBack,
+  messages: remoteMessages,
+  profileId,
+  threadId,
+}) => {
   const [messages, setMessages] = useState([]);
   const [customMessage, setCustomMessage] = useState('');
   const [textfield, setTextField] = useState('');
+  const [socketUrl, setSocketUrl] = useState(`${WEBSOCKET_HOST}${threadId}/`);
+  const [token, setToken] = useState('');
+  const {sendMessage} = useWebSocket(socketUrl, {
+    onMessage: e => {
+      const message = JSON.parse(e.data);
+      if (message.user._id !== profileId) {
+        setMessages(previousMessages =>
+          GiftedChat.append(previousMessages, message),
+        );
+      }
+    },
+  });
+  useEffect(() => {
+    if (!token) {
+      Storage.retrieveData('access_token').then(resp => {
+        setSocketUrl(`${socketUrl}?token=${resp.key}`);
+        setToken(resp.key);
+      });
+    }
+  }, []);
   useEffect(() => {
     if (messages.length !== remoteMessages.messages.length) {
       setMessages(remoteMessages.messages || []);
@@ -30,9 +59,10 @@ const ChatScreen = ({goBack, messages: remoteMessages, profileId}) => {
 
   const setChatArray = text => {
     const mss = {
-      _id: 2,
+      _id: messages.length,
       text: text,
       createdAt: new Date(),
+      threadId,
       received: true,
       user: {
         _id: profileId,
@@ -40,6 +70,7 @@ const ChatScreen = ({goBack, messages: remoteMessages, profileId}) => {
         avatar: 'https://placeimg.com/140/140/any',
       },
     };
+
     setCustomMessage(mss);
     setTextField(text);
   };
@@ -67,10 +98,15 @@ const ChatScreen = ({goBack, messages: remoteMessages, profileId}) => {
         />
         <TouchableOpacity
           onPress={() => {
+            const msgData = {
+              message: customMessage.text,
+              to_profile_ids: [remoteMessages.receiverProfileId],
+            };
+            sendMessage(JSON.stringify(msgData));
             setMessages(previousMessages =>
               GiftedChat.append(previousMessages, customMessage),
-            ),
-              setTextField('');
+            );
+            setTextField('');
           }}>
           <Image source={primary} />
         </TouchableOpacity>

@@ -18,7 +18,8 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = [
             'sender_id',
-            'thread_id', "content",
+            'thread_id',
+            "content",
             "attachment",
             "username",
             "sent_at",
@@ -114,30 +115,23 @@ class ThreadSerializer(serializers.ModelSerializer):
     messages = MessageThreadSerializer(many=True, read_only=True)
     avatar = serializers.SerializerMethodField(read_only=True)
     fullname = serializers.SerializerMethodField()
+    receiverProfileId = serializers.SerializerMethodField()
 
     class Meta:
         model = Thread
-        fields = ["id", "avatar", "fullname",  "messages", ]
+        fields = ["id", "avatar", "fullname", "receiverProfileId", "messages", ]
+
+    def get_receiverProfileId(self, instance):
+        profile_id = self._get_request().user.profile.id
+        return instance.receiver_profiles(profile_id, True).id
 
     def get_fullname(self, obj):
         profile_id = self._get_request().user.profile.id
-        profiles = obj.profiles.exclude(id=profile_id)
-        if profiles.exists():
-            return profiles.first().fullname()
-        instance = obj.messages.last()
-        if instance:
-            return instance.sender.fullname()
-        return ''
+        return obj.receiver_profiles(profile_id, True).fullname()
 
     def get_avatar(self, obj):
         profile_id = self._get_request().user.profile.id
-        profiles = obj.profiles.exclude(id=profile_id)
-        if profiles.exists():
-            return profiles.first().photo
-        instance = obj.messages.last()
-        if instance:
-            return instance.sender.photo
-        return ''
+        return obj.receiver_profiles(profile_id, True).photo
 
     def _get_request(self):
         request = self.context.get("request")
@@ -164,34 +158,15 @@ class ThreadInboxSerializer(serializers.ModelSerializer):
 
     def get_title(self, obj):
         profile_id = self.context.get('request').user.profile.id
-        profiles = obj.profiles.exclude(id=profile_id)
-        if profiles.exists():
-            return profiles.first().fullname()
-
-        instance = obj.messages.last()
-        if instance:
-            return instance.sender.fullname()
-        return ''
+        return obj.receiver_profiles(profile_id, True).fullname()
 
     def get_position(self, obj):
         profile_id = self.context.get('request').user.profile.id
-        profiles = obj.profiles.exclude(id=profile_id)
-        if profiles.exists():
-            return profiles.first().tagline
-        instance = obj.messages.last()
-        if instance:
-            return instance.sender.tagline
-        return ''
+        return obj.receiver_profiles(profile_id, True).tagline
 
     def get_image(self, obj):
         profile_id = self.context.get('request').user.profile.id
-        profiles = obj.profiles.exclude(id=profile_id)
-        if profiles.exists():
-            return profiles.first().photo
-        instance = obj.messages.last()
-        if instance:
-            return instance.sender.photo
-        return ''
+        return obj.receiver_profiles(profile_id, True).photo
 
     def get_desc(self, obj):
         instance = obj.messages.last()

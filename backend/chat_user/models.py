@@ -42,6 +42,12 @@ class Thread(models.Model):
     def get_absolute_url(self):
         return reverse("chat:thread", args=[self.pk])
 
+    def receiver_profiles(self, sender_profile_id, get_first=False):
+        profiles = self.profiles.exclude(id=sender_profile_id)
+        if get_first:
+            return profiles.first()
+        return profiles
+
     @property
     @cached_attribute
     def first_message(self):

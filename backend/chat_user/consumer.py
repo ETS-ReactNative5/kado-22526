@@ -1,9 +1,8 @@
 import json
 import logging
 from channels.generic.websocket import AsyncWebsocketConsumer
-
+from django.core.serializers.json import DjangoJSONEncoder
 from chat_user.api.v1.serializers import MessageSerializer
-from chat_profile.models import Profile
 from chat_user.models import Thread, Message
 from core.aws import S3
 from core.utils.file_utils import decode_base64_file
@@ -47,7 +46,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = text_data_json.get('message', '')
         to_profile_ids = text_data_json.get('to_profile_ids', '')
         attachment = text_data_json.get('attachment', '')
-        profile = user.profile if hasattr(user, 'profile') else Profile.objects.create(user=user)
+        profile = user.profile
         data = {
             'thread_id': self.thread_id,
             'to_profile_ids': to_profile_ids,
@@ -60,6 +59,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             data['attachment'] = upload_response
 
         validated_data = MessageSerializer(data=data)
+        msg = Message()
         if validated_data.is_valid():
             subject = 'DEFAULT SUBJECT'
             thread_id = data.get('thread_id')
@@ -90,7 +90,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         else:
             logger.error(msg='Message data not valid: errors' + str(validated_data.errors))
 
-        # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name,
             {
@@ -98,8 +97,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'message': message,
                 'thread_id': self.thread_id,
                 'sender_id': profile.id,
-                'attachment': data.get('attachment'),
-                'username': user.username  # TODO: user profile.fullname
+                'image': data.get('attachment'),
+                'username': user.username,
+                '_id': msg.thread.receiver_profiles(profile.id, True).id,
+                'text': message,
+                'createdAt': msg.sent_at.isoformat(),
+                'threadId': self.thread_id,
+                'user': {
+                    '_id': profile.id,
+                    'name': msg.thread.receiver_profiles(profile.id, True).fullname(),
+                    'avatar': msg.thread.receiver_profiles(profile.id, True).photo,
+                }
+
             }
         )
 
@@ -107,4 +116,4 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
 
         # Send message to WebSocket
-        await self.send(text_data=json.dumps(event))
+        await self.send(text_data=json.dumps(event, cls=DjangoJSONEncoder))

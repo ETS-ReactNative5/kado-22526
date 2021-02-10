@@ -8,7 +8,7 @@ export function setIsLoading(isloading) {
   };
 }
 
-function getMessages(data) {
+export function getMessages(data) {
   return {
     type: types.MESSAGE_LIST,
     data,

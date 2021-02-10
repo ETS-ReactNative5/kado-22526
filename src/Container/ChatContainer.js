@@ -1,6 +1,7 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
+
 import {useDispatch, useSelector} from 'react-redux';
 import ChatScreen from '../Screen/ChatScreen';
 import {fetchMessages} from '../actions/message';
@@ -12,6 +13,7 @@ const ChatContainer = ({route, navigation}) => {
   const dispatch = useDispatch();
   const messages = useSelector(state => state.message.data);
   const isloading = useSelector(state => state.message.isloading);
+
   React.useEffect(() => {
     if (!isloading) {
       dispatch(fetchMessages(threadId));
@@ -28,6 +30,7 @@ const ChatContainer = ({route, navigation}) => {
         goBack={goBack}
         messages={messages}
         profileId={profileId}
+        threadId={threadId}
         {...route}
       />
     </SafeAreaView>
