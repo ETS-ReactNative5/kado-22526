@@ -41,7 +41,7 @@ export function login(params, navigate) {
         // Storage.storeData("currentUser", resp.user)
         Storage.storeData('access_token', resp);
         dispatch(setIsLoading(false));
-        console.log('Auth token ', resp);
+
         ToastAndroid.showWithGravity(
           'Logged In Successes',
           ToastAndroid.LONG,
@@ -68,7 +68,6 @@ export function signUp(params, navigate) {
     dispatch(setIsLoading(true));
     Api.post('rest-auth/registration/', params)
       .then(resp => {
-        console.log('salman');
         // navigation.navigate('SignUpVerification', {
         //   email: params.email,
         // });

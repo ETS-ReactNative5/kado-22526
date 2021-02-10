@@ -77,8 +77,6 @@ const NewsFeedContainer = props => {
     });
   }, []);
 
-  console.log('profile idddddddddddddddddddddd', profileDetail);
-
   useEffect(() => {
     dispatch(getJobsAfter());
     dispatch(fetchStudentsAfter());

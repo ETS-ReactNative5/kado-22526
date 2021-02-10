@@ -102,7 +102,6 @@ export function fetchProfile(profile_id) {
 }
 
 export function updatePhoto(profile_id, param) {
-  console.log('paramsdasdasd', param);
   return dispatch => {
     dispatch(updateProfileLoading(true));
     Api.putMultiForm(`api/v1/profile/${profile_id}/`, param)
@@ -130,8 +129,6 @@ export function updateProfile(profile_id, param, navigate, user_group) {
         } else {
           navigate('Profile');
         }
-
-        console.log('alsas', resp);
       })
       .catch(err => {
         console.log('error', err);
@@ -158,12 +155,10 @@ export function getProfileById(profile_id) {
 }
 
 export function updateProfileById(profile_id, params, navigate) {
-  console.log('salman Raheel');
   return dispatch => {
     dispatch(updateProfileLoading(true));
     Api.put(`api/v1/profile/${profile_id}/`, params)
       .then(resp => {
-        console.log('updated profile', resp);
         dispatch(updateProfileId(resp));
         dispatch(updateProfileLoading(false));
         navigate('NewsFeed');
@@ -290,7 +285,6 @@ export function addFavStudent(profile_id, body) {
       .then(resp => {
         dispatch(submitFavStudent(resp));
         dispatch(setProfileFavLoading(false));
-        console.log('resp', resp);
       })
       .catch(err => {
         // dispatch(setfetchCommunityGroupError(err.errors));
@@ -306,7 +300,6 @@ export function removeFavStudent(profile_id, body) {
       .then(resp => {
         dispatch(removeFavStdnt(resp));
         dispatch(setProfileFavLoading(false));
-        console.log('resp', resp);
       })
       .catch(err => {
         // dispatch(setfetchCommunityGroupError(err.errors));

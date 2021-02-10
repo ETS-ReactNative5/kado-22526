@@ -69,7 +69,6 @@ const EditProfileContainer = props => {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        console.log('response', response.path);
         const file = {
           uri: response.uri,
           name: response.fileName,

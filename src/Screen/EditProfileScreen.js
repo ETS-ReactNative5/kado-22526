@@ -25,7 +25,6 @@ const EditProfileScreen = ({
   uploadImage,
   image,
 }) => {
-  console.log('profile dataaa', profileDetail);
   return (
     <View style={styles.container}>
       <BackHeader title="Edit Profile" goBack={goBack} />
