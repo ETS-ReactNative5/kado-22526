@@ -57,30 +57,31 @@ const ChatContainer = (props) => {
 
   })
 
-  const sendMessage = async () => {
+  const sendMessage = async (text) => {
     const message = {
-      "content": "ok 3",
+      "content": text?text:' ',
       "to_profile_ids": [4],
       "thread_id": 2
     }
-    chatSocket = await new WebSocket(
-      `wss://kado-22526.botics.co/ws/chat/2/?token=${user.key}`
-    );
-    chatSocket.onerror = function (event) {
-      console.error("WebSocket error:", event);
-    };
-    // console.log(chatSocket)
-    chatSocket.onopen = async () => {
-      try {
-        // console.log("mm")
-        chatSocket.send(JSON.stringify({
-          'message': 'helol',
-          'to_profile_ids': [2], // send message to user with profile id 2
-        }))
-      } catch (error) {
-        console.log("erris", error)
-      }
-    }
+    dispatch(intializeChat(message))
+    // chatSocket = await new WebSocket(
+    //   `wss://kado-22526.botics.co/ws/chat/2/?token=${user.key}`
+    // );
+    // chatSocket.onerror = function (event) {
+    //   console.error("WebSocket error:", event);
+    // };
+    // // console.log(chatSocket)
+    // chatSocket.onopen = async () => {
+    //   try {
+    //     // console.log("mm")
+    //     chatSocket.send(JSON.stringify({
+    //       'message': 'helol',
+    //       'to_profile_ids': [2], // send message to user with profile id 2
+    //     }))
+    //   } catch (error) {
+    //     console.log("erris", error)
+      // }
+    //}
 
 
 
@@ -90,7 +91,6 @@ const ChatContainer = (props) => {
     // }
     // console.log(chatSocket.onerror)
 
-    // dispatch(intializeChat(message))
   }
 
   return (

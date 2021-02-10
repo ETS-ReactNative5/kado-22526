@@ -75,11 +75,11 @@ const ChatScreen = ({ goBack, sendMessage }) => {
         />
         <TouchableOpacity
           onPress={() => {
-            // setMessages(previousMessages =>
-            //   GiftedChat.append(previousMessages, customMessage),
-            // ),
-            //   setTextField('');
-            sendMessage()
+            setMessages(previousMessages =>
+              GiftedChat.append(previousMessages, customMessage),
+            ),
+            sendMessage(textfield);
+                 setTextField('');
           }}>
           <Image source={primary} />
         </TouchableOpacity>
