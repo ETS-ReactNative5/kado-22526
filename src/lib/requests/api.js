@@ -1,9 +1,7 @@
 import Storage from './storage';
 
-// const HOST = 'https://kado-22526.botics.co/';
-const HOST = 'http://192.168.1.101:8000/';
-// const WEBSOCKET_HOST = 'ws://kado-22526.botics.co/'
-export const WEBSOCKET_HOST = 'ws://192.168.1.101:8000/ws/chat/';
+const HOST = 'https://kado-22526.botics.co/';
+export const WEBSOCKET_HOST = 'wss://kado-22526.botics.co/ws/chat/';
 class Api {
   static async headers() {
     let token = '';
