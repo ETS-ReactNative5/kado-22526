@@ -9,12 +9,7 @@ import {ScaledSheet} from 'react-native-size-matters';
 import aboutIcon from '../assets/Image/aboutIcon.png';
 
 import whiteLogo from '../assets/Image/whiteLogo.png';
-import {
-  PostRideIcon,
-  ProfileIcon,
-  SearchIcon,
-  WhiteSearchIcon,
-} from '../assets/Image';
+import {PostRideIcon, WhiteSearchIcon} from '../assets/Image';
 
 const Drawer = ({navigation, progress, ...rest}) => {
   const [user_group, setUser_group] = useState('');
@@ -73,15 +68,15 @@ const Drawer = ({navigation, progress, ...rest}) => {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => navigation.navigate('EditCompanyProfile')}>
-                <ProfileIcon />
-                <Text style={styles.btnText}>Profile</Text>
+                <Icon color={white} size={20} name="user-circle" />
+                <Text style={styles.btnText}>Edit Profile</Text>
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => navigation.navigate('EditProfile')}>
-                <ProfileIcon />
-                <Text style={styles.btnText}>Profile</Text>
+                <Icon color={white} size={20} name="user-circle" />
+                <Text style={styles.btnText}>Edit Profile</Text>
               </TouchableOpacity>
             )}
 
@@ -89,7 +84,6 @@ const Drawer = ({navigation, progress, ...rest}) => {
               style={styles.btn}
               onPress={() => navigation.navigate('Explore')}>
               <Icon color={white} size={20} name="compass" />
-
               <Text style={styles.btnText}>Explore</Text>
             </TouchableOpacity>
           </View>

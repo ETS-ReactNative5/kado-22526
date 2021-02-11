@@ -18,6 +18,8 @@ import {
   lightBlue,
   aliceGrey,
   fadeBlue,
+  darkBlue,
+  amountBorder,
 } from '../utils/Theme/Color';
 import primary from '../assets/Image/primary.png';
 import {GiftedChat} from 'react-native-gifted-chat';
@@ -60,38 +62,33 @@ const NewMessageScreen = ({goBack}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={{padding: 7}} onPress={() => goBack()}>
-          {/* <Icon size={18} color={buttonColor} name="arrow-left" /> */}
           <BackArrow />
         </TouchableOpacity>
 
-        <View>
-          <TouchableOpacity
-            style={styles.leftContainer}
-            onPress={() => goBack()}>
-            <Text style={{color: buttonColor, fontSize: 18}}>Cancel</Text>
-          </TouchableOpacity>
+        <View style={{alignContent: 'center'}}>
+          <Text style={styles.filterHeadingText}>New Message</Text>
         </View>
+        <View />
       </View>
       <View style={{padding: 10, flex: 1}}>
         <View>
-          <View style={styles.filterHeaderWrapper}>
-            <Text style={styles.filterHeadingText}>New Message</Text>
-          </View>
           <View style={styles.filterWrapper}>
             <View style={styles.filterRow}>
               <View>
-                <Text style={{color: aliceGrey, fontSize: 18}}>To:</Text>
+                <Text style={styles.atText}>@</Text>
               </View>
-              <View style={{alignSelf: 'flex-start'}}>
+              <View style={styles.flexOne}>
                 <TextInput
-                  style={{width: '90%'}}
+                  style={{height: 40, fontWeight: 'bold'}}
                   underlineColorAndroid="transparent"
+                  placeholder="Candidate name..."
+                  placeholderTextColor={amountBorder}
                 />
               </View>
             </View>
             <View>
               <TouchableOpacity>
-                <Icon name="paperclip" color={fadeBlue} size={22} />
+                <Icon name="paperclip" color={buttonColor} size={22} />
               </TouchableOpacity>
             </View>
           </View>
@@ -121,22 +118,36 @@ const NewMessageScreen = ({goBack}) => {
 };
 
 const styles = ScaledSheet.create({
+  flexOne: {flex: 1},
   filterHeaderWrapper: {padding: 12, marginBottom: 12},
-  filterHeadingText: {fontSize: 18, textAlign: 'center', fontWeight: '400'},
+  filterHeadingText: {
+    fontSize: 18,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: themeColor,
+  },
   filterRow: {
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
+    backgroundColor: lightGrayBack,
+    borderRadius: 12,
+    padding: 0,
+    marginRight: 25,
+    width: '86%',
+  },
+  atText: {
+    color: buttonColor,
+    fontWeight: 'bold',
+    fontSize: 18,
+    padding: 0,
+    marginLeft: 10,
+    marginRight: 10,
   },
   filterWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderTopColor: lightBlue,
-    borderTopWidth: 1,
-    borderBottomColor: lightBlue,
-    borderBottomWidth: 1,
-    justifyContent: 'space-between',
-    padding: 8,
+    // padding: 8,
   },
   textInputWrapper: {
     flexDirection: 'row',
@@ -189,6 +200,7 @@ const styles = ScaledSheet.create({
   rightContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginLeft: '10@s',
     marginLeft: '10@s',
   },
   leftContainer: {

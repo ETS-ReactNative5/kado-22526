@@ -1,9 +1,6 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-import calander from '../assets/Image/calander.png';
-import user from '../assets/Image/userImageTwo.png';
-import editButton from '../assets/Image/editbtn.png';
-import {BackHeader, Header, Input} from '../components';
+import {BackHeader, Input} from '../components';
 import {
   buttonColor,
   lightBlackColor,
@@ -13,6 +10,7 @@ import {
 import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
 import {EditProfileIcon} from '../assets/Image';
+import {getPlaceholder} from '../utils/misc';
 
 const EditProfileScreen = ({
   goBack,
@@ -68,12 +66,10 @@ const EditProfileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={false}
-                  placeholder={
-                    profileDetail?.fullname === null
-                      ? `Full Name`
-                      : `${profileDetail?.fullname}`
-                  }
-                  // value={isloading ? `Full Name` : `${profileDetail?.fullname}`}
+                  placeholder={getPlaceholder(
+                    profileDetail?.fullname,
+                    'Full Name',
+                  )}
                   onChange={value => handleChange('fullname', value)}
                 />
               </View>
@@ -82,11 +78,10 @@ const EditProfileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={true}
-                  placeholder={
-                    profileDetail?.location === null
-                      ? `Location`
-                      : `${profileDetail?.location}`
-                  }
+                  placeholder={getPlaceholder(
+                    profileDetail?.location,
+                    'Location',
+                  )}
                   iconName="map-marker-alt"
                   onChange={value => handleChange('location', value)}
                 />
@@ -96,20 +91,17 @@ const EditProfileScreen = ({
                   secureTextEntry={false}
                   keyboardType="numeric"
                   iconShow={false}
-                  placeholder={
-                    profileDetail?.mobile_number === null
-                      ? 'Phone'
-                      : `${profileDetail?.mobile_number}`
-                  }
+                  placeholder={getPlaceholder(
+                    profileDetail?.mobile_number,
+                    'Phone',
+                  )}
                   onChange={value => handleChange('mobile_number', value)}
                 />
               </View>
               <View style={styles.inputCOntainer}>
                 <Input
                   secureTextEntry={false}
-                  // iconShow={true}
-                  // iconName="chevron-down"
-                  placeholder="Gender"
+                  placeholder={getPlaceholder(profileDetail?.gender, 'Gender')}
                 />
               </View>
 

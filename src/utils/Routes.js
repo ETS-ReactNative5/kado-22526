@@ -105,7 +105,7 @@ const App = ({style}) => {
         <Stack.Screen
           name="Chat"
           component={ChatContainer}
-          initialParams={{ threadId: 42 }}
+          initialParams={{threadId: 42}}
           options={{headerShown: false}}
         />
         <Stack.Screen
