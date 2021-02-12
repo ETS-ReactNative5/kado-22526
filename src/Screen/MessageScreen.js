@@ -29,7 +29,7 @@ const MessageScreen = ({
   const renderItem = ({item}) => (
     <MessageCard
       positon={item.position}
-      image={item.image || userImageTwo}
+      image={item.image}
       title={item.title}
       desc={item.desc}
       navigate={navigate}

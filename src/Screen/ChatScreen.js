@@ -185,7 +185,6 @@ const ChatScreen = ({
       GiftedChat.append(previousMessages, messages),
     );
   }, []);
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -194,7 +193,9 @@ const ChatScreen = ({
         </TouchableOpacity>
 
         <View style={styles.rightContainer}>
-          <Image style={styles.image} source={{uri: remoteMessages.avatar}} />
+          {remoteMessages.avatar && (
+            <Image style={styles.image} source={{uri: remoteMessages.avatar}} />
+          )}
 
           <Text numberOfLines={1} style={styles.headerText}>
             {remoteMessages.fullname}

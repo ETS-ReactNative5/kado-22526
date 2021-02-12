@@ -8,6 +8,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Storage from '../lib/requests/storage';
 import {ScaledSheet} from 'react-native-size-matters';
 import {
   lightBlackColor,
@@ -15,10 +16,6 @@ import {
   white,
   lightGrayBack,
   buttonColor,
-  lightBlue,
-  aliceGrey,
-  fadeBlue,
-  darkBlue,
   amountBorder,
 } from '../utils/Theme/Color';
 import primary from '../assets/Image/primary.png';
@@ -27,8 +24,15 @@ import {BackArrow} from '../assets/Image';
 const NewMessageScreen = ({goBack}) => {
   const [messages, setMessages] = useState([]);
   const [customMessage, setCustomMessage] = useState('');
+  const [user_group, setUser_group] = useState('');
   const [textfield, setTextField] = useState('');
   useEffect(() => {
+    Storage.retrieveData('access_token').then(items => {
+      items?.user_groups.map(item => {
+        setUser_group(item);
+      });
+    });
+
     setMessages([
       {
         _id: 1,
@@ -81,7 +85,11 @@ const NewMessageScreen = ({goBack}) => {
                 <TextInput
                   style={{height: 40, fontWeight: 'bold'}}
                   underlineColorAndroid="transparent"
-                  placeholder="Candidate name..."
+                  placeholder={
+                    user_group === 'company'
+                      ? 'Candidate name...'
+                      : 'Company name...'
+                  }
                   placeholderTextColor={amountBorder}
                 />
               </View>

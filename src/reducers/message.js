@@ -1,12 +1,11 @@
 import createReducer from '../store/createReducer';
 import * as types from '../actions/types';
-import chatUser from '../assets/Image/chatUser.png';
 
 const INITIAL_STATE = {
   isloading: false,
   data: {
     id: 0,
-    avatar: chatUser,
+    avatar: '',
     fullname: 'Fahad',
     receiverProfileId: 0,
     messages: [],

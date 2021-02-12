@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import NewMessageScreen from '../Screen/NewMessageScreen';

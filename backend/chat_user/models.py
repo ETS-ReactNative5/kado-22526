@@ -13,7 +13,7 @@ class Thread(models.Model):
 
     @classmethod
     def inbox(cls, profile, search_query=None):
-        queryset = cls.objects.filter(thread_member__profile=profile, thread_member__deleted=False)
+        queryset = cls.objects.filter(thread_member__profile=profile, )
         if search_query:
             # Filter messages by content, profile first, last and user names
             queryset = queryset.filter(

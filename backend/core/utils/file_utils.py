@@ -13,7 +13,7 @@ def get_file_extension(file_name, decoded_file):
 
 def decode_base64_file(data):
     """
-    Fuction to convert base 64 to readable IO bytes and auto-generate file name with extension
+    Function to convert base 64 to readable IO bytes and auto-generate file name with extension
     :param data: base64 file input
     :return: tuple containing IO bytes file and filename
     """
