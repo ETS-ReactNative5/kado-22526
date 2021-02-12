@@ -53,6 +53,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'content': message,
             'attachment': attachment
         }
+
         if attachment:
             io_file, file_name = decode_base64_file(attachment)
             upload_response = S3.upload_file({'data': io_file, 'file_name': file_name})
@@ -99,13 +100,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'sender_id': profile.id,
                 'image': data.get('attachment'),
                 'username': user.username,
-                '_id': msg.thread.receiver_profiles(profile.id, True).id,
+                '_id': msg.id,
                 'text': message,
                 'createdAt': msg.sent_at.isoformat(),
                 'threadId': self.thread_id,
                 'user': {
                     '_id': profile.id,
-                    'name': msg.thread.receiver_profiles(profile.id, True).fullname(),
+                    'name':  msg.thread.receiver_profiles(profile.id, True).fullname(),
                     'avatar': msg.thread.receiver_profiles(profile.id, True).photo,
                 }
 

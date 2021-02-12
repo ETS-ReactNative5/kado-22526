@@ -48,10 +48,9 @@ class Thread(models.Model):
             return profiles.first()
         return profiles
 
-    @property
     @cached_attribute
     def first_message(self):
-        return self.messages.all()[0]
+        return self.messages.exclude(attachment__icontains='http').first()
 
     @property
     @cached_attribute
@@ -82,7 +81,7 @@ class Message(models.Model):
 
     sender = models.ForeignKey('chat_profile.Profile', related_name="sent_messages", on_delete=models.CASCADE)
     sent_at = models.DateTimeField(default=timezone.now)
-    content = models.TextField()
+    content = models.TextField(null=True, blank=True)
     attachment = models.URLField(null=True, blank=True, )
 
     @classmethod

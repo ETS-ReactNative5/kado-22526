@@ -12,6 +12,7 @@ const MessageCard = ({
   navigation,
   profileId,
 }) => {
+
   return (
     <TouchableOpacity
       style={styles.container}
@@ -24,7 +25,7 @@ const MessageCard = ({
           profileId,
         });
       }}>
-      <Image source={image} style={styles.image} />
+      <Image source={{uri: image}} style={styles.image} />
       <View style={styles.textContainer}>
         <View style={styles.headinContainer}>
           <View>

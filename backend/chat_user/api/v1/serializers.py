@@ -169,19 +169,16 @@ class ThreadInboxSerializer(serializers.ModelSerializer):
         return obj.receiver_profiles(profile_id, True).photo
 
     def get_desc(self, obj):
-        instance = obj.messages.last()
-        if instance:
-            return instance.content
-        return ''
+        return obj.first_message().content
 
     def get_time_since(self, obj):
-        instance = obj.messages.last()
+        instance = obj.first_message()
         if instance:
             return timesince(instance.sent_at)
         return ''
 
     def get_time_sent(self, obj):
-        instance = obj.messages.last()
+        instance = obj.first_message()
         if instance:
             return instance.sent_at.strftime("%H:%M %p")
         return ''

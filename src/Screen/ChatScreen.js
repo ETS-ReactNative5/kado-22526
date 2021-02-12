@@ -3,6 +3,7 @@ import {Text, TouchableOpacity, View, TextInput, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScaledSheet} from 'react-native-size-matters';
 import Bubble from 'react-native-gifted-chat/lib/Bubble';
+import ImagePicker from 'react-native-image-picker';
 import {
   grayColor,
   lightBlackColor,
@@ -20,7 +21,7 @@ import {GiftedChat} from 'react-native-gifted-chat';
 import {BackArrow} from '../assets/Image';
 import {WEBSOCKET_HOST} from '../lib/requests/api';
 import Storage from '../lib/requests/storage';
-import useWebSocket, {ReadyState} from 'react-use-websocket';
+import useWebSocket from 'react-use-websocket';
 
 const ChatScreen = ({
   goBack,
@@ -37,6 +38,11 @@ const ChatScreen = ({
     onMessage: e => {
       const message = JSON.parse(e.data);
       if (message.user._id !== profileId) {
+        setMessages(previousMessages =>
+          GiftedChat.append(previousMessages, message),
+        );
+      }
+      if (message.image) {
         setMessages(previousMessages =>
           GiftedChat.append(previousMessages, message),
         );
@@ -114,14 +120,6 @@ const ChatScreen = ({
     );
   };
 
-  // const quickReply = () => {
-  //   return (
-  //     <View style={{ backgroundColor: 'red' }}>
-  //       <Text>test</Text>
-  //     </View>
-  //   )
-  // }
-
   const renderBubble = props => {
     return (
       <Bubble
@@ -146,27 +144,64 @@ const ChatScreen = ({
     );
   };
 
+  const uploadImage = () => {
+    const options = {
+      title: 'Select Attachment',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.showImagePicker(options, async response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        console.log('response', response.path);
+        const file = {
+          uri: response.uri,
+          name: response.fileName,
+          type: 'image/png',
+        };
+
+        const msgData = {
+          message: '',
+          attachment: response.data,
+          thread_id: threadId,
+          to_profile_ids: [remoteMessages.receiverProfileId],
+        };
+        sendMessage(JSON.stringify(msgData));
+
+        return file;
+      }
+    });
+  };
+
   const onSend = useCallback((messages = []) => {
     setMessages(previousMessages =>
       GiftedChat.append(previousMessages, messages),
     );
   }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={{padding: 7}} onPress={() => goBack()}>
-          {/* <Icon size={18} color={themeColor} name="arrow-left" /> */}
           <BackArrow />
         </TouchableOpacity>
 
         <View style={styles.rightContainer}>
-          <Image style={styles.image} source={remoteMessages.chatUser} />
+          <Image style={styles.image} source={{uri: remoteMessages.avatar}} />
+
           <Text numberOfLines={1} style={styles.headerText}>
             {remoteMessages.fullname}
           </Text>
         </View>
         <View>
-          <TouchableOpacity style={styles.leftContainer}>
+          <TouchableOpacity style={styles.leftContainer} onPress={uploadImage}>
             <Icon name="paperclip" size={20} color={buttonColor} />
           </TouchableOpacity>
         </View>
