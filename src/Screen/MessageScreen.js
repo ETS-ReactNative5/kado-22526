@@ -10,7 +10,6 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScaledSheet} from 'react-native-size-matters';
 import {MessageCard} from '../components';
-import userImageTwo from '../assets/Image/userImageTwo.png';
 import {
   blackColorText,
   lightGrayColor,
@@ -24,6 +23,7 @@ const MessageScreen = ({
   navigate,
   threads: data,
   onSearch,
+  resetMessages,
   ...rest
 }) => {
   const renderItem = ({item}) => (
@@ -51,7 +51,10 @@ const MessageScreen = ({
         <View style={{width: 35}}>
           <TouchableOpacity
             style={styles.iconContainer}
-            onPress={() => navigate('NewMessage')}>
+            onPress={() => {
+              resetMessages();
+              navigate('Chat');
+            }}>
             <Icon name="plus" color={buttonColor} />
           </TouchableOpacity>
         </View>

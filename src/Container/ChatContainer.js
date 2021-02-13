@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 
 import {useDispatch, useSelector} from 'react-redux';
 import ChatScreen from '../Screen/ChatScreen';
-import {fetchMessages} from '../actions/message';
+import {fetchMessages, getMessages} from '../actions/message';
+import {fetchCompanies} from '../actions/company';
+import Storage from '../lib/requests/storage';
 
 const ChatContainer = ({route, navigation}) => {
   const {
@@ -14,12 +16,49 @@ const ChatContainer = ({route, navigation}) => {
   const messages = useSelector(state => state.message.data);
   const isloading = useSelector(state => state.message.isloading);
 
+  const {isloading: isFetching, companyList: profiles} = useSelector(
+    state => state.company,
+  );
+  const [profileType, setProfileType] = useState('');
+  const [searchProfileValue, setSearchProfileValue] = useState('');
   React.useEffect(() => {
-    if (!isloading) {
+    if (!profileType) {
+      Storage.retrieveData('access_token').then(resp => {
+        resp?.user_groups.map(item => {
+          setProfileType(item);
+        });
+      });
+    }
+  });
+
+  React.useEffect(() => {
+    if (!isloading && threadId) {
       dispatch(fetchMessages(threadId));
     }
-  }, [dispatch, threadId]);
+  }, [threadId]);
 
+  React.useEffect(() => {
+    if (!isFetching) {
+      dispatch(
+        fetchCompanies(
+          profileType === 'student' ? 'company' : 'student',
+          searchProfileValue,
+        ),
+      );
+    }
+  }, [profileType, searchProfileValue]);
+
+  const resetMessages = (id = undefined, fullname = '', avatar = '') => {
+    dispatch(
+      getMessages({
+        id: id,
+        avatar,
+        fullname,
+        receiverProfileId: id,
+        messages: [],
+      }),
+    );
+  };
   const goBack = () => {
     navigation.goBack();
   };
@@ -31,6 +70,9 @@ const ChatContainer = ({route, navigation}) => {
         messages={messages}
         profileId={profileId}
         threadId={threadId}
+        profiles={profiles}
+        setSearchProfileValue={setSearchProfileValue}
+        resetMessages={resetMessages}
         {...route}
       />
     </SafeAreaView>

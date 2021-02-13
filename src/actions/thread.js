@@ -8,7 +8,7 @@ export function setIsLoading(isloading) {
   };
 }
 
-function getThreads(data) {
+export function getThreads(data) {
   return {
     type: types.THREAD_LIST,
     data,

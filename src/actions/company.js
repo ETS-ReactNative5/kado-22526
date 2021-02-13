@@ -22,10 +22,10 @@ function getSingleCompanies(singleCompany) {
   };
 }
 
-export function fetchCompanies() {
+export function fetchCompanies(profile_type = 'company', search = '') {
   return dispatch => {
     dispatch(setIsLoading(true));
-    Api.get(`api/v1/profile/?profile_type=company`)
+    Api.get(`api/v1/profile/?profile_type=${profile_type}&search=${search}`)
       .then(resp => {
         dispatch(getCompanies(resp));
         dispatch(setIsLoading(false));

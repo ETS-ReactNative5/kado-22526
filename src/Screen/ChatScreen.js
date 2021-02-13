@@ -5,7 +5,6 @@ import {ScaledSheet} from 'react-native-size-matters';
 import Bubble from 'react-native-gifted-chat/lib/Bubble';
 import ImagePicker from 'react-native-image-picker';
 import {
-  grayColor,
   lightBlackColor,
   themeColor,
   white,
@@ -13,30 +12,43 @@ import {
   chatBackColor,
   darkBlue,
   buttonColor,
+  amountBorder,
 } from '../utils/Theme/Color';
-import {BackHeader} from '../components';
 import primary from '../assets/Image/primary.png';
-import chatUser from '../assets/Image/chatUser.png';
 import {GiftedChat} from 'react-native-gifted-chat';
 import {BackArrow} from '../assets/Image';
 import {WEBSOCKET_HOST} from '../lib/requests/api';
 import Storage from '../lib/requests/storage';
 import useWebSocket from 'react-use-websocket';
-
+import DropDownPicker from '../components/DropdownPicker';
 const ChatScreen = ({
   goBack,
   messages: remoteMessages,
-  profileId,
-  threadId,
+  profileId: profileID,
+  threadId: threadID,
+  setSearchProfileValue,
+  profiles,
+  resetMessages,
 }) => {
   const [messages, setMessages] = useState([]);
   const [customMessage, setCustomMessage] = useState('');
   const [textfield, setTextField] = useState('');
-  const [socketUrl, setSocketUrl] = useState(`${WEBSOCKET_HOST}${threadId}/`);
+  const [threadId, setThreadId] = useState(threadID);
+  const [socketUrl, setSocketUrl] = useState(
+    `${WEBSOCKET_HOST}${threadId ? threadId : 0}/`,
+  );
+  const [profileId, setProfileId] = useState(profileID);
   const [token, setToken] = useState('');
+  const [user_group, setUser_group] = useState('');
+
   const {sendMessage} = useWebSocket(socketUrl, {
     onMessage: e => {
       const message = JSON.parse(e.data);
+
+      if (threadId === 0 || !threadId) {
+        setThreadId(message.threadId);
+        setSocketUrl(`${WEBSOCKET_HOST}${message.threadId}/?token=${token}`);
+      }
       if (message.user._id !== profileId) {
         setMessages(previousMessages =>
           GiftedChat.append(previousMessages, message),
@@ -54,6 +66,10 @@ const ChatScreen = ({
       Storage.retrieveData('access_token').then(resp => {
         setSocketUrl(`${socketUrl}?token=${resp.key}`);
         setToken(resp.key);
+        setProfileId(resp?.profile_id);
+        resp?.user_groups.map(item => {
+          setUser_group(item);
+        });
       });
     }
   }, []);
@@ -191,22 +207,62 @@ const ChatScreen = ({
         <TouchableOpacity style={{padding: 7}} onPress={() => goBack()}>
           <BackArrow />
         </TouchableOpacity>
+        {!remoteMessages.receiverProfileId ? (
+          <View style={{alignContent: 'center'}}>
+            <Text style={styles.filterHeadingTextM}>New Message</Text>
+          </View>
+        ) : null}
+        {!remoteMessages.receiverProfileId ? <View /> : null}
+        {remoteMessages.receiverProfileId ? (
+          <View style={styles.rightContainer}>
+            {remoteMessages.avatar ? (
+              <Image
+                style={styles.image}
+                source={{uri: remoteMessages.avatar}}
+              />
+            ) : null}
 
-        <View style={styles.rightContainer}>
-          {remoteMessages.avatar && (
-            <Image style={styles.image} source={{uri: remoteMessages.avatar}} />
-          )}
-
-          <Text numberOfLines={1} style={styles.headerText}>
-            {remoteMessages.fullname}
-          </Text>
-        </View>
-        <View>
+            <Text numberOfLines={1} style={styles.headerText}>
+              {remoteMessages.fullname}
+            </Text>
+          </View>
+        ) : null}
+        {remoteMessages.receiverProfileId ? (
           <TouchableOpacity style={styles.leftContainer} onPress={uploadImage}>
             <Icon name="paperclip" size={20} color={buttonColor} />
           </TouchableOpacity>
-        </View>
+        ) : null}
       </View>
+      {!remoteMessages.receiverProfileId ? (
+        <View style={{padding: 10, flex: 1}}>
+          <View>
+            <View style={styles.filterWrapper}>
+              <View style={styles.filterRow}>
+                <View style={styles.filterRowItem}>
+                  <Text style={styles.atText}>@</Text>
+                </View>
+                <View style={styles.flexOne}>
+                  <DropDownPicker
+                    placeholder={
+                      user_group === 'company'
+                        ? 'Candidate name...'
+                        : 'Company name...'
+                    }
+                    setSearchProfileValue={setSearchProfileValue}
+                    profiles={profiles}
+                    resetMessages={resetMessages}
+                  />
+                </View>
+              </View>
+              <View style={styles.filterRowItem}>
+                <TouchableOpacity>
+                  <Icon name="paperclip" color={buttonColor} size={22} />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
+      ) : null}
       <View style={{padding: 10, flex: 1}}>
         <GiftedChat
           messages={messages}
@@ -231,6 +287,41 @@ const ChatScreen = ({
 };
 
 const styles = ScaledSheet.create({
+  flexOne: {flex: 1},
+  filterHeaderWrapper: {padding: 12, marginBottom: 12},
+  filterHeadingTextM: {
+    fontSize: 18,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: themeColor,
+  },
+  filterRow: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: lightGrayBack,
+    borderRadius: 12,
+    padding: 0,
+    marginRight: 25,
+    width: '86%',
+  },
+  filterRowItem: {
+    alignSelf: 'flex-start',
+    paddingTop: 7,
+  },
+  atText: {
+    color: buttonColor,
+    fontWeight: 'bold',
+    fontSize: 18,
+    padding: 0,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  filterWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // padding: 8,
+  },
   container: {
     flex: 1,
     backgroundColor: white,
@@ -248,7 +339,12 @@ const styles = ScaledSheet.create({
     textAlign: 'center',
     color: lightBlackColor,
   },
-
+  filterHeadingText: {
+    fontSize: 18,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: themeColor,
+  },
   heading: {
     fontSize: '18@s',
     lineHeight: '21@s',

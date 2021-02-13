@@ -6,6 +6,7 @@ import Storage from '../lib/requests/storage';
 import {MessageScreen} from '../Screen';
 import {white} from '../utils/Theme/Color';
 import {fetchThreads} from '../actions/thread';
+import {getMessages} from '../actions/message';
 
 const MessageContainer = props => {
   const dispatch = useDispatch();
@@ -22,6 +23,17 @@ const MessageContainer = props => {
       dispatch(fetchThreads(querySearch));
     }
   }, [dispatch, querySearch]);
+  const resetMessages = (id = undefined) => {
+    dispatch(
+      getMessages({
+        id: 0,
+        avatar: '',
+        fullname: '',
+        receiverProfileId: id,
+        messages: [],
+      }),
+    );
+  };
   const goBack = () => {
     const {navigation} = props;
     navigation.goBack();
@@ -41,6 +53,7 @@ const MessageContainer = props => {
         profileId={profileId}
         onSearch={setSearchQuerySearch}
         querySearch={querySearch}
+        resetMessages={resetMessages}
         {...props}
       />
     </SafeAreaView>

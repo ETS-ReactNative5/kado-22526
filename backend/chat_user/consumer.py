@@ -63,7 +63,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
         msg = Message()
         if validated_data.is_valid():
             subject = 'DEFAULT SUBJECT'
-            thread_id = data.get('thread_id')
+            thread_id = data.get('thread_id', 0)
+            if int(thread_id) == 0:  # two profiles should always have one thread
+                thread_qs = Thread.objects.filter(thread_member__profile__in=[profile.id]).filter(
+                    profiles__in=to_profile_ids)
+                if thread_qs.exists():
+                    thread_id = thread_qs.first().id
             thread = None
             if thread_id:
                 thread_qs = Thread.objects.filter(id=thread_id)
@@ -96,17 +101,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
             {
                 'type': 'chat_message',
                 'message': message,
-                'thread_id': self.thread_id,
+                'thread_id': msg.thread.id,
                 'sender_id': profile.id,
                 'image': data.get('attachment'),
                 'username': user.username,
                 '_id': msg.id,
                 'text': message,
                 'createdAt': msg.sent_at.isoformat(),
-                'threadId': self.thread_id,
+                'threadId': msg.thread.id,
                 'user': {
                     '_id': profile.id,
-                    'name':  msg.thread.receiver_profiles(profile.id, True).fullname(),
+                    'name': msg.thread.receiver_profiles(profile.id, True).fullname(),
                     'avatar': msg.thread.receiver_profiles(profile.id, True).photo,
                 }
 

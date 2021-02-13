@@ -20,6 +20,7 @@ class Thread(models.Model):
                 models.Q(messages__content__icontains=search_query) |
                 models.Q(profiles__user__first_name__icontains=search_query) |
                 models.Q(profiles__user__last_name__icontains=search_query) |
+                models.Q(profiles__company_name__icontains=search_query) |
                 models.Q(profiles__user__username__icontains=search_query)
             )
         return queryset.distinct()
@@ -78,7 +79,6 @@ class ThreadMember(models.Model):
 
 class Message(models.Model):
     thread = models.ForeignKey(Thread, related_name="messages", on_delete=models.CASCADE)
-
     sender = models.ForeignKey('chat_profile.Profile', related_name="sent_messages", on_delete=models.CASCADE)
     sent_at = models.DateTimeField(default=timezone.now)
     content = models.TextField(null=True, blank=True)

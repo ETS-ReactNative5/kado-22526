@@ -6,8 +6,8 @@ const INITIAL_STATE = {
   data: {
     id: 0,
     avatar: '',
-    fullname: 'Fahad',
-    receiverProfileId: 0,
+    fullname: '',
+    receiverProfileId: undefined,
     messages: [],
   },
 };

@@ -155,7 +155,6 @@ const styles = ScaledSheet.create({
   filterWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    // padding: 8,
   },
   textInputWrapper: {
     flexDirection: 'row',
