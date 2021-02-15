@@ -19,26 +19,17 @@ function userInfoAction(userInfo) {
 
 function setForgotValidationError(errors) {
   return {
-    type: types.IS_FORGOT_VALIDATION_ERROR,
+    type: types.LOGIN_ERRORS,
     errors,
   };
 }
 
-// export function test(text) {
-//   return (dispatch) => {
-//     dispatch(setIsLoading(true));
-//     console.log("saving text: ", text)
-//     dispatch(storeText(text))
-//   }
-// }
-
-export function login(params, navigate) {
+export function login(params, navigate, callBackFn) {
   return dispatch => {
     dispatch(setIsLoading(true));
 
     Api.post('rest-auth/login/', params)
       .then(resp => {
-        // Storage.storeData("currentUser", resp.user)
         Storage.storeData('access_token', resp);
         dispatch(setIsLoading(false));
 
@@ -50,11 +41,7 @@ export function login(params, navigate) {
         navigate('Home');
       })
       .catch(err => {
-        ToastAndroid.showWithGravity(
-          'Email or Password is not valid',
-          ToastAndroid.LONG,
-          ToastAndroid.BOTTOM,
-        );
+        callBackFn && callBackFn(true);
         dispatch(setForgotValidationError(err.errors));
 
         dispatch(setIsLoading(false));

@@ -40,3 +40,4 @@ export const ADD_FAV_STUDENTS = 'ADD_FAV_STUDENTS';
 export const REMOVE_FAV_STUDENT = 'REMOVE_FAV_STUDENT';
 export const THREAD_LIST = 'THREAD_LIST';
 export const MESSAGE_LIST = 'MESSAGE_LIST';
+export const LOGIN_ERRORS = 'LOGIN_ERRORS';

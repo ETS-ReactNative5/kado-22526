@@ -5,9 +5,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {LoginScreen} from '../Screen';
 import {login} from '../actions/auth';
 import {StackActions} from '@react-navigation/native';
+import {AlertModal} from '../components';
+
 const LoginContainer = props => {
   const [showPassword, setShowPasssword] = useState(true);
   const [loginForm, setLogInForm] = useState({});
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const isloading = useSelector(state => state.auth.isLoading);
 
@@ -34,10 +37,17 @@ const LoginContainer = props => {
     });
   };
   const handleSubmit = () => {
-    dispatch(login(loginForm, navigate));
+    dispatch(login(loginForm, navigate, setShowModal));
   };
+
   return (
     <SafeAreaView style={styles.container}>
+      <AlertModal
+        title="Login Error"
+        message="Sorry, the email or password you entered is incorrect. Please try again."
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
       <LoginScreen
         handlePassword={handlePassword}
         showPassword={showPassword}

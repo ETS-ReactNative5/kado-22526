@@ -15,6 +15,7 @@ import SearchBar from './SearchBar';
 import NotSignedCard from './NotSignedCard';
 import FaqItems from './FaqItems';
 import UserCards from './UserCards';
+import AlertModal from './AlertModal';
 
 export {
   Input,
@@ -33,5 +34,6 @@ export {
   SearchBar,
   NotSignedCard,
   FaqItems,
-  UserCards
+  UserCards,
+  AlertModal,
 };
