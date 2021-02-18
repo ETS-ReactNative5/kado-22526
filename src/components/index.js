@@ -16,6 +16,8 @@ import NotSignedCard from './NotSignedCard';
 import FaqItems from './FaqItems';
 import UserCards from './UserCards';
 import AlertModal from './AlertModal';
+import DropdownPicker from './DropdownPicker';
+import TextArea from './TextArea';
 
 export {
   Input,
@@ -36,4 +38,6 @@ export {
   FaqItems,
   UserCards,
   AlertModal,
+  DropdownPicker,
+  TextArea,
 };

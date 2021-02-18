@@ -3,13 +3,10 @@ import {SafeAreaView} from 'react-native';
 import moment from 'moment';
 import {useDispatch, useSelector} from 'react-redux';
 import {ScaledSheet} from 'react-native-size-matters';
-import {JobsScreen} from '../Screen';
+import {TalentPoolScreen} from '../Screen';
 import {white} from '../utils/Theme/Color';
 
 import {
-  fetchAllSavedJobs,
-  fetchAllJobsAmount,
-  fetchAlljOBS,
   fetchProjectsType,
   fetchjobsCategory,
   fetchAllJobsDate,
@@ -19,11 +16,15 @@ import {
   removeFavorite,
   getJobsAfter,
 } from '../actions/jobs';
+import {
+  fetchStudents,
+  fetchStudentsAfter,
+  filterStudents,
+} from '../actions/profile';
 
-const JobsContainer = props => {
-  const {jobList, saveJobsList, isloading, typeProList} = useSelector(
-    state => state.jobs,
-  );
+const TalentPoolContainer = props => {
+  const {isloading, typeProList} = useSelector(state => state.jobs);
+  const {profileDetail, studentsList} = useSelector(store => store.profile);
 
   const [state, setState] = useState(false);
   const [dateText, setDateText] = useState('');
@@ -37,7 +38,6 @@ const JobsContainer = props => {
     false,
   );
   const josCategoryList = useSelector(state => state.jobs.josCategoryList);
-  const {profileDetail} = useSelector(store => store.profile);
 
   const goBack = () => {
     const {navigation} = props;
@@ -54,22 +54,22 @@ const JobsContainer = props => {
 
   useEffect(() => {
     dispatch(fetchJobs());
-    dispatch(fetchAlljOBS());
-    dispatch(fetchAllSavedJobs());
+    dispatch(fetchStudents());
     dispatch(fetchjobsCategory());
     dispatch(fetchProjectsType());
   }, []);
 
   useEffect(() => {
     dispatch(getJobsAfter());
+    dispatch(fetchStudentsAfter());
   }, [state]);
 
   const handleJobFilter = (key, param) => {
-    dispatch(fetchAlljOBS(key, param));
+    dispatch(filterStudents([{[key]: param}]));
   };
 
   const handleAmountFilter = (min_value = 0, max_value = 0) => {
-    dispatch(fetchAllJobsAmount('min_pay', min_value, 'max_pay', max_value));
+    dispatch(filterStudents([{min_pay: min_value}, {max_pay: max_value}]));
   };
 
   const handleDateFilter = (from_date, min_date) => {
@@ -132,9 +132,8 @@ const JobsContainer = props => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <JobsScreen
-        saveJobsList={saveJobsList}
-        jobList={jobList}
+      <TalentPoolScreen
+        studentsList={studentsList?.results || []}
         navigate={navigate}
         goBack={goBack}
         josCategoryList={josCategoryList}
@@ -173,4 +172,4 @@ const styles = ScaledSheet.create({
   },
 });
 
-export default JobsContainer;
+export default TalentPoolContainer;

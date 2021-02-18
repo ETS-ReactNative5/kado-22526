@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
-import user from '../assets/Image/userImageTwo.png';
 import {ScaledSheet} from 'react-native-size-matters';
 import {DrawerIcon, MessageIcon} from '../assets/Image';
 import Storage from '../lib/requests/storage';
 
-const FeedHeader = ({navigate, rightBtns}) => {
+const FeedHeader = ({navigate, rightBtns, profileDetail}) => {
   const [user_group, setUser_group] = useState('');
   useEffect(() => {
     Storage.retrieveData('access_token').then(items => {
@@ -15,7 +14,7 @@ const FeedHeader = ({navigate, rightBtns}) => {
     });
   }, []);
   const goToProfile = () => {
-    navigate(user_group === 'student' ? 'EditProfile' : 'EditCompanyProfile');
+    navigate(user_group === 'student' ? 'StudentProfile' : 'CompanyProfile');
   };
   return (
     <View style={styles.container}>
@@ -30,7 +29,10 @@ const FeedHeader = ({navigate, rightBtns}) => {
             <MessageIcon />
           </TouchableOpacity>
           <TouchableOpacity onPress={goToProfile}>
-            <Image style={styles.image} source={user} />
+            <Image
+              style={styles.image}
+              source={{uri: profileDetail?.photo || ''}}
+            />
           </TouchableOpacity>
         </View>
       )}

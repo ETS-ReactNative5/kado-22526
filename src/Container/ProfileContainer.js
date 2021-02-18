@@ -10,6 +10,7 @@ import {
   updateProfileById,
   updatePhoto,
 } from '../actions/profile';
+import {JOBS_ENUM} from '../constants/jobs';
 const ProfileContainer = props => {
   const [data, setData] = useState('');
   const [count, setCount] = useState(0);
@@ -20,6 +21,50 @@ const ProfileContainer = props => {
   );
 
   const [profileId, setprofileid] = useState('');
+  const [workTypes] = useState(JOBS_ENUM.work_types);
+  const [selectedWorkTypes, setSelectedWorkTypes] = useState(
+    profileData?.work_types || [],
+  );
+
+  const [selectedAvailability, setSelectedAvailability] = useState(
+    profileData?.availability || '',
+  );
+  const [selectedTimePerWeek, setSelectedTimePerWeek] = useState(
+    profileData?.time_per_week || '',
+  );
+
+  const handleSelectTimePerWeek = value => {
+    if (selectedTimePerWeek === value) {
+      setSelectedTimePerWeek('');
+    } else {
+      setSelectedTimePerWeek(value);
+    }
+    handleChange('time_per_week', value);
+  };
+
+  const handleSelectAvailability = availability => {
+    if (selectedAvailability === availability) {
+      setSelectedWorkTypes('');
+    } else {
+      setSelectedAvailability(availability);
+    }
+
+    handleChange('availability', availability);
+  };
+
+  const handleSelectWorkType = workType => {
+    if (selectedWorkTypes.indexOf(workType) === -1) {
+      handleChange('work_types', [...selectedWorkTypes, workType]);
+      setSelectedWorkTypes([...selectedWorkTypes, workType]);
+    } else {
+      setSelectedWorkTypes([
+        ...selectedWorkTypes.filter(item => item !== workType),
+      ]);
+      handleChange('work_types', [
+        ...selectedWorkTypes.filter(item => item !== workType),
+      ]);
+    }
+  };
   const goBack = () => {
     const {navigation} = props;
     navigation.goBack();
@@ -99,6 +144,15 @@ const ProfileContainer = props => {
         handleSubmit={handleSubmit}
         image={image}
         uploadImage={uploadImage}
+        workTypes={workTypes}
+        handleSelectWorkType={handleSelectWorkType}
+        selectedWorkTypes={selectedWorkTypes}
+        handleSelectAvailability={handleSelectAvailability}
+        availabilityDutations={JOBS_ENUM.availability_duration}
+        timePerWeekValues={JOBS_ENUM.time_per_week}
+        selectedAvailability={selectedAvailability}
+        handleSelectTimePerWeek={handleSelectTimePerWeek}
+        selectedTimePerWeek={selectedTimePerWeek}
       />
     </SafeAreaView>
   );

@@ -28,11 +28,15 @@ const ExploreScreen = ({goBack, navigate, user_groups}) => {
         <View>
           {user_groups === 'company' ? (
             <View>
-              <TouchableOpacity style={styles.itemContainer}>
+              <TouchableOpacity
+                style={styles.itemContainer}
+                onPress={() => navigate('TalentPool')}>
                 <TalentIcon />
                 <Text style={styles.text}>Talent pool</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.itemContainer}>
+              <TouchableOpacity
+                style={styles.itemContainer}
+                onPress={() => navigate('CompanyPayment')}>
                 <DollarIcon />
                 <Text style={[styles.text, {marginLeft: 30}]}>
                   Payment & Pricing

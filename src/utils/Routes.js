@@ -26,6 +26,10 @@ import {
   HowWorkContainer,
   EditCompanyPofileContainr,
   BlankPage,
+  StudentProfileContainer,
+  CompanyProfileContainer,
+  TalentPoolContainer,
+  CompanyPaymentContainer,
 } from '../Container';
 import {DrawerContentData} from '../components';
 import Animated from 'react-native-reanimated';
@@ -128,6 +132,11 @@ const App = ({style}) => {
           component={JobsContainer}
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          name="TalentPool"
+          component={TalentPoolContainer}
+          options={{headerShown: false}}
+        />
 
         <Stack.Screen
           name="Company"
@@ -143,6 +152,11 @@ const App = ({style}) => {
         <Stack.Screen
           name="Payment"
           component={PaymentContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="CompanyPayment"
+          component={CompanyPaymentContainer}
           options={{headerShown: false}}
         />
         <Stack.Screen
@@ -166,6 +180,16 @@ const App = ({style}) => {
         <Stack.Screen
           name="NewMessage"
           component={NewMessageContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="StudentProfile"
+          component={StudentProfileContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="CompanyProfile"
+          component={CompanyProfileContainer}
           options={{headerShown: false}}
         />
         <Stack.Screen

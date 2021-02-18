@@ -12,7 +12,6 @@ const MessageCard = ({
   navigation,
   profileId,
 }) => {
-
   return (
     <TouchableOpacity
       style={styles.container}

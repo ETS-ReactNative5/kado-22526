@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import {BackHeader, Input} from '../components';
 import {
+  dimGrey,
   buttonColor,
   lightBlackColor,
   lightGray,
@@ -12,6 +13,7 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
 import {EditProfileIcon} from '../assets/Image';
 import {getPlaceholder} from '../utils/misc';
+import TextArea from '../components/TextArea';
 
 const ProfileScreen = ({
   goBack,
@@ -22,7 +24,18 @@ const ProfileScreen = ({
   handleSubmit,
   uploadImage,
   image,
+  workTypes,
+  handleSelectWorkType,
+  selectedWorkTypes,
+  availabilityDutations,
+  handleSelectAvailability,
+  selectedAvailability,
+  selectedTimePerWeek,
+  handleSelectTimePerWeek,
+  timePerWeekValues,
 }) => {
+  const selectedBtnStyle = (items, itemName) =>
+    items.indexOf(itemName) === -1 ? styles.skillBtnTextInactive : {};
   return (
     <View style={styles.container}>
       <BackHeader title="Profile Info" goBack={goBack} />
@@ -85,66 +98,138 @@ const ProfileScreen = ({
                   onChange={value => handleChange('field_of_study', value)}
                 />
               </View>
+              <Text style={styles.payMarginText}>My Story</Text>
+              <View>
+                <TextArea
+                  secureTextEntry={false}
+                  iconShow={false}
+                  placeholder={getPlaceholder(
+                    profileData?.tagline,
+                    'Tell us a little about yourself',
+                  )}
+                  onChange={value => handleChange('tagline', value)}
+                  customStyles={styles.textArea}
+                />
+              </View>
+              <Text style={styles.payMarginText}>Work Experience</Text>
+              <View>
+                <TextArea
+                  secureTextEntry={false}
+                  iconShow={false}
+                  placeholder={getPlaceholder(
+                    profileData?.work_experience,
+                    'Tell us a little about experience',
+                  )}
+                  onChange={value => handleChange('work_experience', value)}
+                />
+              </View>
+              <Text style={styles.payMarginText}>
+                Add relevant skills (separate with ; )
+              </Text>
+              <View>
+                <TextArea
+                  secureTextEntry={false}
+                  iconShow={false}
+                  placeholder={getPlaceholder(
+                    profileData?.skills?.toString().replace(/,/g, '; '),
+                    'Tell us a little about experience',
+                  )}
+                  onChange={value => handleChange('skills', value?.split(';'))}
+                />
+              </View>
+              <Text style={styles.payMarginText}>
+                Add language (separate with ; )
+              </Text>
+              <View>
+                <TextArea
+                  secureTextEntry={false}
+                  iconShow={false}
+                  placeholder={getPlaceholder(
+                    profileData?.languages?.toString().replace(/,/g, '; '),
+                    '',
+                  )}
+                  onChange={value =>
+                    handleChange('languages', value?.split(';'))
+                  }
+                />
+              </View>
               <View>
                 <Text style={styles.payMarginText}>
-                  Relevant Skills: (Seperate your skill with ; )
+                  Select work type (one or more)
                 </Text>
 
                 <View style={styles.skillContainer}>
-                  {profileData?.skills.map(item => {
+                  {workTypes.map(item => {
                     return (
-                      <View style={styles.skillItem} key={item}>
-                        <Text style={styles.skillBtnText}>{item} </Text>
+                      <View style={styles.skillItem} key={item.id}>
+                        <TouchableOpacity
+                          onPress={() => handleSelectWorkType(item.name)}>
+                          <Text
+                            style={{
+                              ...styles.skillBtnText,
+                              ...selectedBtnStyle(selectedWorkTypes, item.name),
+                            }}>
+                            {item.name}
+                          </Text>
+                        </TouchableOpacity>
                       </View>
                     );
                   })}
                 </View>
               </View>
-              <View style={styles.inputCOntainer}>
-                <Input
-                  secureTextEntry={false}
-                  iconShow={true}
-                  placeholder={getPlaceholder(
-                    profileData?.years_of_experience,
-                    'Years of experience',
-                  )}
-                  onChange={value => handleChange('years_of_experience', value)}
-                  keyboardType="numeric"
-                />
+              <View>
+                <Text style={styles.payMarginText}>Select availability</Text>
+
+                <View style={styles.skillContainer}>
+                  {availabilityDutations.map(item => {
+                    return (
+                      <View style={styles.skillItem} key={item.id}>
+                        <TouchableOpacity
+                          onPress={() => handleSelectAvailability(item.name)}>
+                          <Text
+                            style={{
+                              ...styles.skillBtnText,
+                              ...selectedBtnStyle(
+                                [selectedAvailability],
+                                item.name,
+                              ),
+                            }}>
+                            {item.name}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  })}
+                </View>
               </View>
-              <View style={styles.inputCOntainer}>
-                <Input
-                  secureTextEntry={false}
-                  keyboardType="numeric"
-                  iconShow={true}
-                  placeholder={getPlaceholder(
-                    profileData?.work_type,
-                    'Work type(full-time,part-time,remote etc)',
-                  )}
-                  onChange={value => handleChange('work_type', value)}
-                />
+              <View>
+                <Text style={styles.payMarginText}>
+                  Select time commitment per week
+                </Text>
+
+                <View style={styles.skillContainer}>
+                  {timePerWeekValues.map(item => {
+                    return (
+                      <View style={styles.skillItem} key={item.id}>
+                        <TouchableOpacity
+                          onPress={() => handleSelectTimePerWeek(item.name)}>
+                          <Text
+                            style={{
+                              ...styles.skillBtnText,
+                              ...selectedBtnStyle(
+                                [selectedTimePerWeek],
+                                item.name,
+                              ),
+                            }}>
+                            {item.name}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  })}
+                </View>
               </View>
-              <View style={styles.inputCOntainer}>
-                <Input
-                  secureTextEntry={false}
-                  iconShow={false}
-                  placeholder={getPlaceholder(
-                    profileData?.hours_per_week,
-                    'Hours available per week',
-                  )}
-                  keyboardType="numeric"
-                />
-              </View>
-              <View style={styles.inputCOntainer}>
-                <Input
-                  secureTextEntry={false}
-                  iconShow={true}
-                  placeholder={getPlaceholder(
-                    profileData?.allowed_to_work,
-                    'Allowed to work in the US?',
-                  )}
-                />
-              </View>
+
               <Text style={styles.payMarginText}>Pay margin:</Text>
               <View style={styles.ammountContainer}>
                 <View style={{width: '49%'}}>
@@ -168,6 +253,20 @@ const ProfileScreen = ({
                     onChange={value => handleChange('max_pay', value)}
                   />
                 </View>
+              </View>
+              <Text style={styles.payMarginText}>
+                Allowed to work in the US?
+              </Text>
+              <View style={styles.inputCOntainer}>
+                <Input
+                  secureTextEntry={false}
+                  iconShow={true}
+                  placeholder={getPlaceholder(
+                    profileData?.allowed_to_work,
+                    'Type in Yes or No',
+                  )}
+                  onChange={value => handleChange('allowed_to_work', value)}
+                />
               </View>
               <TouchableOpacity
                 onPress={() => handleSubmit()}
@@ -326,6 +425,9 @@ const styles = ScaledSheet.create({
     alignItems: 'center',
     marginLeft: '3@s',
     marginRight: '3@s',
+  },
+  skillBtnTextInactive: {
+    color: dimGrey,
   },
   skillBtnText: {
     fontSize: '11@s',

@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-from .enums import StudentEnum, CompanyEnum, WorkTypeEnum
+from .enums import StudentEnum, CompanyEnum, WorkTypeEnum, AvailabilityDurationEnum, TimePerWeekRange
 from .utils import validate_profile_search_params
 
 
@@ -31,7 +31,9 @@ Work_types = (
     (WorkTypeEnum.full_time.name, WorkTypeEnum.full_time.value),
     (WorkTypeEnum.remote.name, WorkTypeEnum.remote.value),
     (WorkTypeEnum.one_time.name, WorkTypeEnum.one_time.value),
-    (WorkTypeEnum.ongoing_project.name, WorkTypeEnum.ongoing_project.value)
+    (WorkTypeEnum.ongoing_project.name, WorkTypeEnum.ongoing_project.value),
+    (WorkTypeEnum.short_term_project.name, WorkTypeEnum.short_term_project.value),
+    (WorkTypeEnum.long_term_project.name, WorkTypeEnum.long_term_project.value)
 )
 
 """
@@ -49,6 +51,18 @@ Profile_types = (
     (StudentEnum.international.name, StudentEnum.international.value),
     (CompanyEnum.companies.name, CompanyEnum.companies.value),
     (CompanyEnum.start_up.name, CompanyEnum.start_up.value),
+)
+
+Time_Availability = (
+    (AvailabilityDurationEnum.less_than_two_weeks.name, AvailabilityDurationEnum.less_than_two_weeks.value),
+    (AvailabilityDurationEnum.two_to_four_weeks.name, AvailabilityDurationEnum.two_to_four_weeks.value),
+    (AvailabilityDurationEnum.more_than_four_weeks.name, AvailabilityDurationEnum.more_than_four_weeks.value),
+)
+
+Time_per_week_range = (
+    (TimePerWeekRange.less_than_10_hours.name, TimePerWeekRange.less_than_10_hours.value),
+    (TimePerWeekRange.ten_to_twenty_hours.name, TimePerWeekRange.ten_to_twenty_hours.value),
+    (TimePerWeekRange.more_than_20_hours.name, TimePerWeekRange.more_than_20_hours.value),
 )
 
 
@@ -69,6 +83,7 @@ class Profile(models.Model):
     profile_type = models.CharField('Profile Type', choices=Profile_types, default=None, null=True, blank=True,
                                     max_length=15)
     bio = models.TextField(null=True, blank=True, )
+    work_experience = models.TextField(null=True, blank=True, )
     mobile_number = models.CharField(
         max_length=20, null=True, blank=True,
     )
@@ -92,6 +107,12 @@ class Profile(models.Model):
     industry = models.CharField(default=None, null=True, blank=True, max_length=255)
     field_of_study = models.CharField('Field of study ', default=None, null=True, blank=True, max_length=255)
     skills = ArrayField(models.CharField(max_length=250), verbose_name='Relevant skills', blank=True, default=list)
+    work_types = ArrayField(models.CharField(max_length=250), verbose_name='Work Type', blank=True, default=list)
+    work_type = models.CharField('Work Type', choices=Work_types, default=None, null=True, blank=True,
+                                 max_length=15)  # Todo: remove after migrations
+    availability = models.CharField('Availability', default=None, null=True, blank=True, max_length=255)
+    time_per_week = models.CharField('Time commitment per week ', default=None, null=True, blank=True, max_length=255)
+    languages = ArrayField(models.CharField(max_length=250), blank=True, default=list)
     services = ArrayField(models.CharField(max_length=250), blank=True, default=list)
     years_of_experience = models.IntegerField(
         verbose_name='Years of experience',
@@ -131,11 +152,13 @@ class Profile(models.Model):
         null=True,
         default=0
     )
-    work_type = models.CharField('Work Type', choices=Work_types, default=None, null=True, blank=True, max_length=15)
-    allowed_to_work = models.BooleanField(
-        default=False,
-        verbose_name='Allowed to work in US'
+
+    allowed_to_work = models.CharField(
+        default='Yes',
+        verbose_name='Allowed to work in US?',
+        max_length=20,
     )
+
     timestamp_created = models.DateTimeField(
         auto_now_add=True,
     )
@@ -145,8 +168,9 @@ class Profile(models.Model):
     last_login = models.DateTimeField(null=True, blank=True, )
 
     @classmethod
-    def search(cls, search_query=None,  **kwargs):
+    def search(cls, search_query=None, **kwargs):
         params = validate_profile_search_params(kwargs.get('params', {}))
+        print(params, '*'*123)
 
         queryset = cls.objects.all()
         if search_query:

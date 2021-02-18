@@ -233,6 +233,27 @@ export function fetchStudentsAfter() {
   };
 }
 
+export const filterStudents = params => {
+  let q = '';
+  params.map(item => {
+    for (const [key, value] of Object.entries(item)) {
+      q += `&${key}=${value}`;
+    }
+  });
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/profile/?profile_type=student&${q}`)
+      .then(resp => {
+        dispatch(getStudents(resp));
+        dispatch(setIsLoading(false));
+      })
+      .catch(err => {
+        console.error(err);
+        dispatch(setIsLoading(false));
+      });
+  };
+};
+
 export function fetchFavStudents() {
   return dispatch => {
     dispatch(setIsLoading(true));

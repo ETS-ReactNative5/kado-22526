@@ -6,6 +6,7 @@ import {
   FlatList,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScaledSheet} from 'react-native-size-matters';
@@ -24,6 +25,7 @@ const MessageScreen = ({
   threads: data,
   onSearch,
   resetMessages,
+  isloading,
   ...rest
 }) => {
   const renderItem = ({item}) => (
@@ -38,6 +40,13 @@ const MessageScreen = ({
       {...rest}
     />
   );
+  if (isloading) {
+    return (
+      <View style={styles.empty}>
+        <ActivityIndicator color={buttonColor} />
+      </View>
+    );
+  }
   return (
     <View style={styles.conainer}>
       <View style={styles.headerContainer}>
@@ -134,6 +143,11 @@ const styles = ScaledSheet.create({
     borderRadius: '100@s',
     borderWidth: 2,
     borderColor: buttonColor,
+  },
+  empty: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import Storage from '../lib/requests/storage';
-import {View, Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {ExploreScreen} from '../Screen';
 import {white} from '../utils/Theme/Color';

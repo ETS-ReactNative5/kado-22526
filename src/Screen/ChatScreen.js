@@ -12,7 +12,6 @@ import {
   chatBackColor,
   darkBlue,
   buttonColor,
-  amountBorder,
 } from '../utils/Theme/Color';
 import primary from '../assets/Image/primary.png';
 import {GiftedChat} from 'react-native-gifted-chat';
@@ -49,7 +48,7 @@ const ChatScreen = ({
         setThreadId(message.threadId);
         setSocketUrl(`${WEBSOCKET_HOST}${message.threadId}/?token=${token}`);
       }
-      if (message.user._id !== profileId) {
+      if (message?.user?._id !== profileId) {
         setMessages(previousMessages =>
           GiftedChat.append(previousMessages, message),
         );
@@ -80,6 +79,7 @@ const ChatScreen = ({
   }, [remoteMessages]);
 
   const setChatArray = text => {
+    if (!text) return;
     const mss = {
       _id: messages.length,
       text: text,
@@ -120,6 +120,9 @@ const ChatScreen = ({
         />
         <TouchableOpacity
           onPress={() => {
+            if (!customMessage.text) {
+              return;
+            }
             const msgData = {
               message: customMessage.text,
               to_profile_ids: [remoteMessages.receiverProfileId],
@@ -249,7 +252,13 @@ const ChatScreen = ({
                         : 'Company name...'
                     }
                     setSearchProfileValue={setSearchProfileValue}
-                    profiles={profiles}
+                    items={
+                      profiles?.results?.map(profile => ({
+                        id: profile.id,
+                        name: profile.fullname,
+                        avatar: profile.photo,
+                      })) || []
+                    }
                     resetMessages={resetMessages}
                   />
                 </View>

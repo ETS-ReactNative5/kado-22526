@@ -68,6 +68,11 @@ class Thread(models.Model):
         objs.sort(key=lambda o: o.latest_message.sent_at, reverse=True)
         return objs
 
+    @classmethod
+    def get_profile_thread(cls, sender_profile_id, receipient_profile_ids=[]):
+        return cls.objects.filter(thread_member__profile__in=[sender_profile_id]).filter(
+                    profiles__in=receipient_profile_ids)
+
 
 class ThreadMember(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE, related_name='thread_member')

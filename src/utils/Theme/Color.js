@@ -21,7 +21,8 @@ const addressColor = '#817F9B';
 const btnBackColor = '#ECECF6';
 const paragraphColor = '#424069';
 const skyBlue = '#03D1F9';
-
+const dimGrey = '#696969';
+const fadedBlue = '#00D1F9';
 // font family
 
 export {
@@ -48,4 +49,6 @@ export {
   btnBackColor,
   paragraphColor,
   skyBlue,
+  dimGrey,
+  fadedBlue,
 };

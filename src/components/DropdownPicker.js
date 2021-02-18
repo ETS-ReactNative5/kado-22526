@@ -3,9 +3,10 @@ import SearchableDropdown from './SearchableDropDown';
 
 const DropdownPicker = ({
   placeholder,
-  profiles,
+  items,
   setSearchProfileValue,
   resetMessages,
+  onItemSelect = arg => {},
 }) => {
   const [selected, setSelected] = useState(placeholder);
 
@@ -14,7 +15,8 @@ const DropdownPicker = ({
       <SearchableDropdown
         onItemSelect={item => {
           setSelected(item.name);
-          resetMessages(item.id, item.name, item.avatar);
+          onItemSelect(item.name);
+          resetMessages && resetMessages(item.id, item.name, item.avatar);
         }}
         containerStyle={{padding: 5}}
         itemStyle={{
@@ -23,13 +25,7 @@ const DropdownPicker = ({
         }}
         itemTextStyle={{color: '#222'}}
         itemsContainerStyle={{maxHeight: 140}}
-        items={
-          profiles?.results?.map(profile => ({
-            id: profile.id,
-            name: profile.fullname,
-            avatar: profile.photo,
-          })) || []
-        }
+        items={items}
         resetValue={false}
         textInputProps={{
           placeholder: selected,
@@ -38,7 +34,8 @@ const DropdownPicker = ({
             padding: 2,
             borderRadius: 5,
           },
-          onTextChange: text => setSearchProfileValue(text),
+          onTextChange: text =>
+            setSearchProfileValue && setSearchProfileValue(text),
         }}
         listProps={{
           nestedScrollEnabled: true,

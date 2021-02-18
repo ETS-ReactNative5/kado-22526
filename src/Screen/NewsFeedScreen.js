@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
 import {Tabs, Tab} from 'native-base';
-import {View, Text, TextInput, FlatList} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import {View, Text, FlatList} from 'react-native';
 import {FeedCard, FeedHeader, SearchBar, UserCards} from '../components';
 import {
   blackColorText,
   buttonColor,
-  lightBlackColor,
-  lightGray,
   textBlackColor,
   themeColor,
   white,
@@ -90,7 +87,7 @@ const NewsFeedContainer = ({
   );
   return (
     <View style={styles.container}>
-      <FeedHeader navigate={navigate} />
+      <FeedHeader navigate={navigate} profileDetail={profileDetail} />
       <View style={styles.body}>
         <View style={styles.headerTextContainer}>
           <Text style={styles.helloText}>Hello, </Text>

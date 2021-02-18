@@ -35,9 +35,6 @@ const NewsFeedContainer = props => {
   const saveJobsList = useSelector(state => state.jobs.saveJobsList);
   const isloading = useSelector(state => state.jobs.isloading);
 
-  // const addFavorite = useSelector(state => state.jobs.addFavorite);
-  // const removeJob = useSelector(state => state.jobs.removeJob);
-
   const {profileDetail, studentsList, favStudentList} = useSelector(
     store => store.profile,
   );

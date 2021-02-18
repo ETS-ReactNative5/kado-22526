@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from chat_profile.models import VerificationCode, Profile, Contact
 from kado_22526.utils import update_object
 from core.aws import S3
+from chat_user.models import Thread
 
 
 class VerificationCodeSerializer(serializers.ModelSerializer):
@@ -24,13 +25,14 @@ class ProfileSerializer(serializers.ModelSerializer):
     fullname = serializers.CharField(required=False)
     photo_file = serializers.FileField(required=False)
     favorite = serializers.BooleanField(required=False)
+    thread_id = serializers.SerializerMethodField(required=False)
 
     class Meta:
         model = Profile
         fields = (
             "id", "photo", "photo_file", "fullname",
             "location", "mobile_number", "gender", "birthdate",
-            "allowed_to_work",
+            "allowed_to_work", "work_experience",
             "field_of_study",
             "hours_per_week",
             "max_pay",
@@ -38,11 +40,14 @@ class ProfileSerializer(serializers.ModelSerializer):
             "services",
             "skills",
             "university",
-            "work_type",
+            "work_types",
             "profile_type",
+            "time_per_week",
+            "languages",
+            "availability",
             "years_of_experience",
-            "company_name", "tagline", "industry",
-            "bio", "favorite"
+            "company_name", "tagline", "industry", "thread_id",
+            "bio", "favorite",
         )
 
     def _get_request(self):
@@ -54,6 +59,13 @@ class ProfileSerializer(serializers.ModelSerializer):
         ):
             request = request._request
         return request
+
+    def get_thread_id(self, instance):
+        user = self._get_request().user
+        thread_qs = Thread.get_profile_thread(user.profile.id, [instance.id])
+        if thread_qs.exists():
+            return thread_qs.first().id
+        return None
 
     def validate(self, data):
         return super().validate(data)

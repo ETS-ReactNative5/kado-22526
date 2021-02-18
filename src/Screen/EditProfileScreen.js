@@ -127,9 +127,7 @@ const styles = ScaledSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-
   bodyContainer: {
-    // flex: 1,
     padding: '1@s',
     paddingBottom: '20@s',
     justifyContent: 'space-between',

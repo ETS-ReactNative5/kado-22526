@@ -3,9 +3,7 @@ import {Tabs, Tab} from 'native-base';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 // import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {Formik} from 'formik';
 import logo from '../assets/Image/logo.png';
-import {Header, Input} from '../components';
 import {
   buttonColor,
   lightBlackColor,

@@ -9,6 +9,7 @@ import {
   Filters,
   SearchBar,
   SheetItems,
+  UserCards,
 } from '../components';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {
@@ -26,9 +27,9 @@ import {TouchableOpacity} from 'react-native';
 import {ActivityIndicator} from 'react-native';
 import {ScrollView} from 'react-native';
 
-const JobsScreen = ({
+const TalentPoolScreen = ({
   navigate,
-  jobList,
+  studentsList,
   isloading,
   josCategoryList,
   typeProList,
@@ -54,15 +55,14 @@ const JobsScreen = ({
   profileDetail,
 }) => {
   const renderItem = ({item}) => (
-    <FeedCard
-      title={item?.title}
-      description={item?.description}
-      experience_level={item?.experience_level}
-      skills={item?.skills}
-      is_favorite={item?.is_favorite}
-      addFavorite={addFavorite}
-      removeFavoriteJob={removeFavoriteJob}
+    <UserCards
+      bio={item?.bio}
+      image={item?.photo}
+      name={item?.fullname}
+      tagline={item?.tagline}
       id={item?.id}
+      favorite={item?.is_favorite}
+      addStudentFav={addFavorite}
     />
   );
 
@@ -80,8 +80,8 @@ const JobsScreen = ({
       handleJobFilter={handleJobFilter}
       refRBSheet={refRBSheetProject}
       title={item?.value}
-      name={item?.name}
-      paramName="job_type"
+      name={item?.value}
+      paramName="work_types"
     />
   );
   const refRBSheet = useRef();
@@ -289,7 +289,7 @@ const JobsScreen = ({
       <View style={styles.body}>
         <SearchBar
           onChangeText={value => dispatch(searchJobs(value))}
-          placeHolder="Search for your next jobs..."
+          placeHolder="Search for the talent..."
         />
         <View>
           <DateTimePickerModal
@@ -327,15 +327,15 @@ const JobsScreen = ({
             <View style={styles.empty}>
               <ActivityIndicator color={buttonColor} />
             </View>
-          ) : jobList?.length === 0 ? (
+          ) : studentsList?.length === 0 ? (
             <View style={styles.empty}>
-              <Text>No jobs</Text>
+              <Text>No talents</Text>
             </View>
           ) : (
             <FlatList
               showsVerticalScrollIndicator={false}
               renderItem={renderItem}
-              data={jobList}
+              data={studentsList}
             />
           )}
         </View>
@@ -421,4 +421,4 @@ const styles = ScaledSheet.create({
     alignItems: 'center',
   },
 });
-export default JobsScreen;
+export default TalentPoolScreen;

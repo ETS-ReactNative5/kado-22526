@@ -1,12 +1,11 @@
 import React, {useEffect} from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {useDispatch, useSelector} from 'react-redux';
 import {CompaniesScreen} from '../Screen';
-import {blackColorText, white} from '../utils/Theme/Color';
+import {white} from '../utils/Theme/Color';
 
 import {fetchCompanies, fetchCompanyByName} from '../actions/company';
-import {Image} from 'react-native';
 
 const CompaniesContainer = props => {
   const {isloading, companyList} = useSelector(state => state.company);
