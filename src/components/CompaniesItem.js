@@ -24,7 +24,7 @@ const CompaniesItem = ({title, image, navigate, subtitle, id}) => {
       </View>
       <View>
         <TouchableOpacity
-          onPress={() => navigate('CompanyInfo', title)}
+          onPress={() => navigate('CompanyProfile', {id, title})}
           style={styles.infoContainer}>
           <InfoIcon />
         </TouchableOpacity>

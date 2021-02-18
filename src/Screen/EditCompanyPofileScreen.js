@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-import {BackHeader, Input} from '../components';
+import {BackHeader, Input, TextArea} from '../components';
 import {
   buttonColor,
   lightBlackColor,
@@ -95,6 +95,18 @@ const EditCompanyPofileScreen = ({
                     'Industry',
                   )}
                   onChange={value => handleChange('industry', value)}
+                />
+              </View>
+              <View>
+                <TextArea
+                  secureTextEntry={false}
+                  iconShow={false}
+                  placeholder={getPlaceholder(
+                    profileDetail?.bio,
+                    'Tell us about your company',
+                  )}
+                  onChange={value => handleChange('bio', value)}
+                  customStyles={styles.textArea}
                 />
               </View>
               <View style={styles.inputCOntainer}>

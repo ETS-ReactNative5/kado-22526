@@ -18,6 +18,10 @@ import NotSignedContainer from './NotSignedContainer';
 import HowWorkContainer from './HowWorkContainer';
 import EditCompanyPofileContainr from './EditCompanyPofileContainr';
 import BlankPage from './BlankPage';
+import StudentProfileContainer from './StudentProfileContainer';
+import CompanyProfileContainer from './CompanyProfileContainer';
+import TalentPoolContainer from './TalentPoolContainer';
+import CompanyPaymentContainer from './CompanyPaymentContainer';
 
 export {
   SignUpContainer,
@@ -40,4 +44,8 @@ export {
   HowWorkContainer,
   EditCompanyPofileContainr,
   BlankPage,
+  StudentProfileContainer,
+  CompanyProfileContainer,
+  TalentPoolContainer,
+  CompanyPaymentContainer,
 };

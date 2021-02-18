@@ -16,6 +16,10 @@ import NotSignedScreen from './NotSignedScreen';
 import HowWorkScreenCompany from './HowWorkScreen/Companies';
 import HowWorkScreenStudent from './HowWorkScreen/Student';
 import EditCompanyPofileScreen from './EditCompanyPofileScreen';
+import StudentProfileScreen from './StudentProfileScreen';
+import CompanyProfileScreen from './CompanyProfileScreen';
+import TalentPoolScreen from './TalentPoolScreen';
+import CompanyPaymentScreen from './CompanyPaymentScreen';
 
 export {
   SignUpScreen,
@@ -36,4 +40,8 @@ export {
   HowWorkScreenCompany,
   HowWorkScreenStudent,
   EditCompanyPofileScreen,
+  StudentProfileScreen,
+  CompanyProfileScreen,
+  TalentPoolScreen,
+  CompanyPaymentScreen,
 };

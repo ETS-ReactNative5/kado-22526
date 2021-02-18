@@ -54,6 +54,7 @@ const MessageContainer = props => {
         onSearch={setSearchQuerySearch}
         querySearch={querySearch}
         resetMessages={resetMessages}
+        isloading={isloading}
         {...props}
       />
     </SafeAreaView>

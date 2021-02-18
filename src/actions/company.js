@@ -52,3 +52,18 @@ export function fetchCompanyByName(companyName) {
       });
   };
 }
+
+export function fetchCompanyById(id) {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/profile/${id}/`)
+      .then(resp => {
+        dispatch(getSingleCompanies(resp));
+        dispatch(setIsLoading(false));
+        dispatch(getCompanies(resp));
+      })
+      .catch(err => {
+        dispatch(setIsLoading(false));
+      });
+  };
+}

@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import userImageTwo from '../assets/Image/userImageTwo.png';
 import {ScaledSheet} from 'react-native-size-matters';
 import {buttonColor, feedItemBack, themeColor} from '../utils/Theme/Color';
+import {useNavigation} from '@react-navigation/native';
 
 const UserCards = ({
   bio,
@@ -15,29 +16,34 @@ const UserCards = ({
   removeStudentFav,
   favorite,
 }) => {
-  // const myItem = return ()
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.leftContainer}>
-          {image === null ? (
-            <Image source={userImageTwo} style={styles.image} />
-          ) : (
-            <Image source={{uri: image}} style={styles.image} />
-          )}
-
-          <View style={styles.textContainer}>
-            <Text numberOfLines={1} style={styles.heading}>
-              {name}
-            </Text>
-            {tagline === null ? (
-              <Text style={styles.position}>No Position</Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('StudentProfile', {id, name, image})
+          }>
+          <View style={styles.leftContainer}>
+            {image === null ? (
+              <Image source={userImageTwo} style={styles.image} />
             ) : (
-              <Text style={styles.position}>{tagline}</Text>
+              <Image source={{uri: image}} style={styles.image} />
             )}
+
+            <View style={styles.textContainer}>
+              <Text numberOfLines={1} style={styles.heading}>
+                {name}
+              </Text>
+              {tagline === null ? (
+                <Text style={styles.position}>No Position</Text>
+              ) : (
+                <Text style={styles.position}>{tagline}</Text>
+              )}
+            </View>
           </View>
-        </View>
+        </TouchableOpacity>
         <View>
           <View style={styles.heartContaine}>
             {favorite ? (

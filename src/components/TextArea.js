@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import {ScaledSheet} from 'react-native-size-matters';
 
-const Input = ({
+const TextArea = ({
   placeholder,
   iconShow,
   secureTextEntry,
@@ -17,6 +17,7 @@ const Input = ({
   fromImage,
   onChange,
   value,
+  numberOfLines = 3,
   ...rest
 }) => {
   return (
@@ -29,6 +30,8 @@ const Input = ({
         keyboardType={keyboardType}
         onChangeText={onChange}
         defaultValue={value}
+        multiline={true}
+        numberOfLines={numberOfLines}
         {...rest}
       />
       {iconShow ? (
@@ -62,9 +65,11 @@ const styles = ScaledSheet.create({
     fontSize: '14@s',
     lineHeight: '18@s',
     width: '90%',
+    textAlign: 'left',
+    textAlignVertical: 'top',
     padding: Platform.OS === 'ios' ? 10 : null,
     height: Platform.OS === 'ios' ? 40 : null,
   },
 });
 
-export default Input;
+export default TextArea;

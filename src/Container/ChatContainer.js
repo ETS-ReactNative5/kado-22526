@@ -71,6 +71,7 @@ const ChatContainer = ({route, navigation}) => {
         profileId={profileId}
         threadId={threadId}
         profiles={profiles}
+        isloading={isloading || isFetching}
         setSearchProfileValue={setSearchProfileValue}
         resetMessages={resetMessages}
         {...route}
