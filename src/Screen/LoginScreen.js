@@ -3,16 +3,14 @@ import React from 'react';
 import {
   View,
   Text,
-  Image,
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import logo from '../assets/Image/logo.png';
-import {Header, Input} from '../components';
+import MainLogo from '../assets/Image/MainLogo';
+import {Input} from '../components';
 import {
   buttonColor,
   lightBlackColor,
@@ -35,7 +33,7 @@ const LoginScreen = ({
         <View>{/* <Image source={logo} /> */}</View>
         <View style={styles.body}>
           <View style={styles.imageContainer}>
-            <Image source={logo} />
+            <MainLogo />
           </View>
           <Input
             secureTextEntry={false}

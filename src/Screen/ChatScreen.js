@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {Text, TouchableOpacity, View, TextInput, Image} from 'react-native';
+import {Text, TouchableOpacity, View, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScaledSheet} from 'react-native-size-matters';
 import Bubble from 'react-native-gifted-chat/lib/Bubble';
@@ -13,7 +13,8 @@ import {
   darkBlue,
   buttonColor,
 } from '../utils/Theme/Color';
-import primary from '../assets/Image/primary.png';
+import {ImageView} from '../components';
+import SendBtnSvgComponent from '../assets/Image/SendBtnSvgComponent';
 import {GiftedChat} from 'react-native-gifted-chat';
 import {BackArrow} from '../assets/Image';
 import {WEBSOCKET_HOST} from '../lib/requests/api';
@@ -133,7 +134,7 @@ const ChatScreen = ({
             );
             setTextField('');
           }}>
-          <Image source={primary} />
+          <SendBtnSvgComponent />
         </TouchableOpacity>
       </View>
     );
@@ -219,7 +220,7 @@ const ChatScreen = ({
         {remoteMessages.receiverProfileId ? (
           <View style={styles.rightContainer}>
             {remoteMessages.avatar ? (
-              <Image
+              <ImageView
                 style={styles.image}
                 source={{uri: remoteMessages.avatar}}
               />

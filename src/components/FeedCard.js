@@ -59,7 +59,7 @@ const FeedCard = ({
           <Text style={styles.monthText}>Experience Level</Text>
         </View>
         <View>
-          <Text style={styles.monthHeading}>{time_frame} +</Text>
+          <Text style={styles.monthHeading}>{time_frame}</Text>
           <Text style={styles.monthText}>Time Frame</Text>
         </View>
       </View>

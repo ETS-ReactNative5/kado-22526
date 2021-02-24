@@ -1,13 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Tabs, Tab} from 'native-base';
-import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-// import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import logo from '../assets/Image/logo.png';
+import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import MainLogo from '../assets/Image/MainLogo';
 import {
   buttonColor,
   lightBlackColor,
-  lightButtonColor,
   themeColor,
   white,
   textBlackColor,
@@ -16,6 +13,7 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {USER_TYPES} from '../constants/profile';
 import SignUpForm from './SignUpForm';
 import {BackArrow} from '../assets/Image';
+import {useNavigation} from '@react-navigation/native';
 
 const SignUpScreen = ({
   navigate,
@@ -27,15 +25,20 @@ const SignUpScreen = ({
   goBack,
   isloading,
 }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       {/* <Header navigate={navigate} /> */}
-      <TouchableOpacity onPress={goBack} style={styles.goBackButon}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Login');
+        }}
+        style={styles.goBackButon}>
         <BackArrow />
       </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.bodyContainer}>
         <View style={styles.imageContainer}>
-          <Image source={logo} />
+          <MainLogo />
           <Text style={styles.text}>Remote freelance jobs for students</Text>
         </View>
         <View style={styles.body}>

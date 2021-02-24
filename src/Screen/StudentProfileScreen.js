@@ -62,12 +62,6 @@ const StudentProfileScreen = ({
                 <Text style={styles.profileName}>{profileData?.fullname}</Text>
                 <View style={styles.profileAvailability}>
                   <Switch
-                    style={{
-                      transform: [
-                        {scaleX: moderateScale(1, 3)},
-                        {scaleY: moderateScale(1, 3)},
-                      ],
-                    }}
                     thumbColor="white"
                     trackColor={{true: '#36C559'}}
                     value={true}

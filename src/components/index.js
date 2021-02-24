@@ -18,6 +18,7 @@ import UserCards from './UserCards';
 import AlertModal from './AlertModal';
 import DropdownPicker from './DropdownPicker';
 import TextArea from './TextArea';
+import ImageView from './ImageView';
 
 export {
   Input,
@@ -40,4 +41,5 @@ export {
   AlertModal,
   DropdownPicker,
   TextArea,
+  ImageView,
 };
