@@ -2,6 +2,8 @@ import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {positionColor, themeColor} from '../utils/Theme/Color';
+import {ImageView} from '../components';
+
 const MessageCard = ({
   threadId,
   title,
@@ -24,7 +26,7 @@ const MessageCard = ({
           profileId,
         });
       }}>
-      <Image source={{uri: image}} style={styles.image} />
+      <ImageView source={{uri: image}} style={styles.image} />
       <View style={styles.textContainer}>
         <View style={styles.headinContainer}>
           <View>

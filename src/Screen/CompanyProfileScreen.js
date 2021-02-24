@@ -3,7 +3,7 @@ import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import {Switch} from 'native-base';
 import {moderateScale} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {BackHeader} from '../components';
+import {BackHeader, ImageView} from '../components';
 import {
   dimGrey,
   buttonColor,
@@ -38,7 +38,7 @@ const CompanyProfileScreen = ({
               <View style={styles.imageContainer}>
                 <View>
                   {image !== '' ? (
-                    <Image style={styles.image} source={image} />
+                    <ImageView style={styles.image} source={image} />
                   ) : (
                     <View>
                       {profileData?.photo === null ? (
@@ -63,12 +63,6 @@ const CompanyProfileScreen = ({
                 <Text style={styles.profileName}>{profileData?.fullname}</Text>
                 <View style={styles.profileAvailability}>
                   <Switch
-                    style={{
-                      transform: [
-                        {scaleX: moderateScale(1, 3)},
-                        {scaleY: moderateScale(1, 3)},
-                      ],
-                    }}
                     thumbColor="white"
                     trackColor={{true: '#36C559'}}
                     value={true}
@@ -78,7 +72,9 @@ const CompanyProfileScreen = ({
                 <Text style={styles.subTitleText}>{profileData?.location}</Text>
               </View>
               <View style={styles.headingContianer}>
-                <Text style={styles.subHeader}>10</Text>
+                <Text style={styles.subHeader}>
+                  {profileData?.total_jobs || 0}
+                </Text>
                 <Text style={styles.adderess}>Jobs Posted</Text>
               </View>
               <Text style={styles.fieldTitleText}>About Company</Text>

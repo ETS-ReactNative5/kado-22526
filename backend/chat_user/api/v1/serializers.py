@@ -131,7 +131,10 @@ class ThreadSerializer(serializers.ModelSerializer):
 
     def get_avatar(self, obj):
         profile_id = self._get_request().user.profile.id
-        return obj.receiver_profiles(profile_id, True).photo
+        avatar = obj.receiver_profiles(profile_id, True).photo
+        if avatar:
+            return avatar
+        return ''
 
     def _get_request(self):
         request = self.context.get("request")
@@ -166,7 +169,10 @@ class ThreadInboxSerializer(serializers.ModelSerializer):
 
     def get_image(self, obj):
         profile_id = self.context.get('request').user.profile.id
-        return obj.receiver_profiles(profile_id, True).photo
+        avatar = obj.receiver_profiles(profile_id, True).photo
+        if avatar:
+            return avatar
+        return ''
 
     def get_desc(self, obj):
         return obj.first_message().content

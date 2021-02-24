@@ -1,11 +1,9 @@
 import React from 'react';
 import {ScrollView} from 'react-native';
-import {ActivityIndicator} from 'react-native';
-import {Text, View, TextInput, TouchableOpacity, FlatList} from 'react-native';
+import {Text, View} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {BackHeader, SearchBar, FaqItems} from '../../components';
-import {skyBlue, themeColor} from '../../utils/Theme/Color';
+import {BackHeader, FaqItems} from '../../components';
+import {skyBlue} from '../../utils/Theme/Color';
 
 const HowWorkScreen = ({goBack}) => {
   const renderItem = ({item}) => <FaqItems title={item?.question} />;

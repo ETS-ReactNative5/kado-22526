@@ -26,6 +26,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     photo_file = serializers.FileField(required=False)
     favorite = serializers.BooleanField(required=False)
     thread_id = serializers.SerializerMethodField(required=False)
+    total_jobs = serializers.SerializerMethodField(required=False)
 
     class Meta:
         model = Profile
@@ -47,7 +48,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "availability",
             "years_of_experience",
             "company_name", "tagline", "industry", "thread_id",
-            "bio", "favorite",
+            "bio", "favorite", 'total_jobs'
         )
 
     def _get_request(self):
@@ -59,6 +60,9 @@ class ProfileSerializer(serializers.ModelSerializer):
         ):
             request = request._request
         return request
+
+    def get_total_jobs(self, instance):
+        return instance.jobs.count()
 
     def get_thread_id(self, instance):
         user = self._get_request().user

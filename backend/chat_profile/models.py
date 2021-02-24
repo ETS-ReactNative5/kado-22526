@@ -170,7 +170,6 @@ class Profile(models.Model):
     @classmethod
     def search(cls, search_query=None, **kwargs):
         params = validate_profile_search_params(kwargs.get('params', {}))
-        print(params, '*'*123)
 
         queryset = cls.objects.all()
         if search_query:

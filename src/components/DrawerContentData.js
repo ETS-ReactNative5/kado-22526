@@ -43,7 +43,6 @@ const Drawer = ({navigation, progress, ...rest}) => {
             <TouchableOpacity
               style={styles.btn}
               onPress={() => navigation.navigate('AboutUs')}>
-              {/* <Icon color={white} size={17} name="info-circle" /> */}
               <Image source={aboutIcon} />
               <Text style={styles.btnText}>About us</Text>
             </TouchableOpacity>
@@ -51,7 +50,6 @@ const Drawer = ({navigation, progress, ...rest}) => {
               style={styles.btn}
               onPress={() => navigation.navigate('HowWork')}>
               <WhiteSearchIcon />
-              {/* <Icon color={white} size={17} name="user-alt" /> */}
               <Text style={styles.btnText}>How it works</Text>
             </TouchableOpacity>
 

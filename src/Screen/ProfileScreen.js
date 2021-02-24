@@ -239,6 +239,7 @@ const ProfileScreen = ({
                     iconName="chevron-down"
                     placeholder={getPlaceholder(profileData?.min_pay, 'Min $')}
                     onChange={value => handleChange('min_pay', value)}
+                    keyboardType="numeric"
                   />
                 </View>
                 <View style={{width: '49%'}}>

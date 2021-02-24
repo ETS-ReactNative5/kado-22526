@@ -12,8 +12,9 @@ const FeedHeader = ({navigate, rightBtns, profileDetail}) => {
         setUser_group(item);
       });
     });
-  }, []);
+  }, [user_group]);
   const goToProfile = () => {
+    // console.warn(user_group);
     navigate(user_group === 'student' ? 'StudentProfile' : 'CompanyProfile');
   };
   return (
