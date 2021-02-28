@@ -1,16 +1,19 @@
 import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScaledSheet} from 'react-native-size-matters';
+import {useNavigation} from '@react-navigation/native';
 import {buttonColor, themeColor} from '../utils/Theme/Color';
 
-import logo from '../assets/Image/logo.png';
 import {BackArrow, MainLogo} from '../assets/Image';
 
-const BackHeader = ({goBack, image, title, right}) => {
+const BackHeader = ({image, title, right, rightCloseIcon}) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={goBack} style={{padding: 10}}>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={{padding: 10}}>
         <BackArrow />
         {/* <Icon name="arrow-left" color={buttonColor} size={18} /> */}
       </TouchableOpacity>
@@ -22,6 +25,13 @@ const BackHeader = ({goBack, image, title, right}) => {
         {right ? (
           <TouchableOpacity style={styles.iconContainer}>
             <Icon name="plus" color={themeColor} />
+          </TouchableOpacity>
+        ) : null}
+        {rightCloseIcon ? (
+          <TouchableOpacity
+            style={styles.closeIconContainer}
+            onPress={() => navigation.goBack()}>
+            <Icon size={20} name="times" color={buttonColor} />
           </TouchableOpacity>
         ) : null}
       </View>
@@ -48,6 +58,13 @@ const styles = ScaledSheet.create({
     width: '20@s',
     borderRadius: '100@s',
     borderWidth: 2,
+    borderColor: buttonColor,
+  },
+  closeIconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '20@s',
+    width: '20@s',
     borderColor: buttonColor,
   },
 });

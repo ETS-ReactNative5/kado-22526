@@ -56,7 +56,7 @@ const Drawer = ({navigation, progress, ...rest}) => {
             {user_group === 'company' ? (
               <TouchableOpacity
                 style={styles.btn}
-                onPress={() => navigation.navigate('BlankPage')}>
+                onPress={() => navigation.navigate('PostRole')}>
                 <PostRideIcon />
                 <Text style={styles.btnText}>Post a role</Text>
               </TouchableOpacity>

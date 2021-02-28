@@ -3,7 +3,7 @@ from django.http import HttpRequest
 from django.utils.timesince import timesince
 
 from kado_22526.utils import update_object
-from job.models import Job
+from job.models import Job, JobCategory
 from chat_profile.models import Profile
 
 
@@ -21,6 +21,11 @@ class JobSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "description",
+            "category",
+            "location",
+            'responsibilities',
+            "duration",
+            "time",
             "skills",
             "experience_level",
             "job_category",
@@ -94,3 +99,16 @@ class JobSerializer(serializers.ModelSerializer):
         instance = Job(owner=profile)
         instance_updated = update_object(instance, validated_data)
         return instance_updated
+
+
+class JobCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobCategory
+        fields = "__all__"
+
+    # no job category CRUD operations at the moment
+    def create(self, validated_data):
+        return JobCategory()
+
+    def update(self, instance, validated_data):
+        return instance

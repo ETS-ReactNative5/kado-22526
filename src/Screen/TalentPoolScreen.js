@@ -4,7 +4,6 @@ import Icons from 'react-native-vector-icons/MaterialIcons';
 import {
   BottomDate,
   BottomHeader,
-  FeedCard,
   FeedHeader,
   Filters,
   SearchBar,
@@ -51,7 +50,6 @@ const TalentPoolScreen = ({
   searchJobs,
   dispatch,
   addFavorite,
-  removeFavoriteJob,
   profileDetail,
 }) => {
   const renderItem = ({item}) => (

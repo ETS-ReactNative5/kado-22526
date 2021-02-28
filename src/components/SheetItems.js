@@ -1,15 +1,8 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Icons from 'react-native-vector-icons/FontAwesome5';
 import {ScaledSheet} from 'react-native-size-matters';
 import {TouchableOpacity} from 'react-native';
-import {
-  buttonColor,
-  feedItemBack,
-  textBlackColor,
-  themeColor,
-} from '../utils/Theme/Color';
+import {textBlackColor} from '../utils/Theme/Color';
 
 const SheetItems = ({title, refRBSheet, handleJobFilter, name, paramName}) => {
   return (

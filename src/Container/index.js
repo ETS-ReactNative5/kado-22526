@@ -22,6 +22,13 @@ import StudentProfileContainer from './StudentProfileContainer';
 import CompanyProfileContainer from './CompanyProfileContainer';
 import TalentPoolContainer from './TalentPoolContainer';
 import CompanyPaymentContainer from './CompanyPaymentContainer';
+import PostRoleContainer from './Post/PostRoleContainer';
+import PostCategoriesContainter from './Post/PostCategoriesContainter';
+import PostDescriptionContainer from './Post/PostDescriptionContainer';
+import PostSkillsContainer from './Post/PostSkillsContainer';
+import PostBudgetContainer from './Post/PostBudgetContainer';
+import PostDurationContainer from './Post/PostDurationContainer';
+import PostPeopleContainer from './Post/PostPeopleContainer';
 
 export {
   SignUpContainer,
@@ -48,4 +55,11 @@ export {
   CompanyProfileContainer,
   TalentPoolContainer,
   CompanyPaymentContainer,
+  PostRoleContainer,
+  PostCategoriesContainter,
+  PostDescriptionContainer,
+  PostSkillsContainer,
+  PostBudgetContainer,
+  PostDurationContainer,
+  PostPeopleContainer,
 };

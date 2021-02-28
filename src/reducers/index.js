@@ -9,6 +9,7 @@ import * as company from './company';
 import * as faq from './faq';
 import * as thread from './thread';
 import * as message from './message';
+import * as category from './category';
 
 export default combineReducers(
   Object.assign(
@@ -21,5 +22,6 @@ export default combineReducers(
     faq,
     thread,
     message,
+    category,
   ),
 );
