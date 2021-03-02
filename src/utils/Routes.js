@@ -30,12 +30,20 @@ import {
   CompanyProfileContainer,
   TalentPoolContainer,
   CompanyPaymentContainer,
+  PostRoleContainer,
+  PostCategoriesContainter,
+  PostDescriptionContainer,
+  PostSkillsContainer,
+  PostBudgetContainer,
+  PostDurationContainer,
+  PostPeopleContainer,
 } from '../Container';
 import {DrawerContentData} from '../components';
 import Animated from 'react-native-reanimated';
 
 import {themeColor, white} from './Theme/Color';
 import AuthLoadingScreen from '../Screen/AuthLoadingScreen';
+import PostReviewContainer from '../Container/Post/PostReviewContainer';
 
 const Stack = createStackNavigator();
 
@@ -190,6 +198,46 @@ const App = ({style}) => {
         <Stack.Screen
           name="CompanyProfile"
           component={CompanyProfileContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PostRole"
+          component={PostRoleContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PostCategories"
+          component={PostCategoriesContainter}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PostDescription"
+          component={PostDescriptionContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PostSkills"
+          component={PostSkillsContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PostBudget"
+          component={PostBudgetContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PostDuration"
+          component={PostDurationContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PostPeople"
+          component={PostPeopleContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PostReview"
+          component={PostReviewContainer}
           options={{headerShown: false}}
         />
         <Stack.Screen

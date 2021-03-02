@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
+import {useNavigation} from '@react-navigation/native';
 import {DrawerIcon, MessageIcon} from '../assets/Image';
 import Storage from '../lib/requests/storage';
+import MainLogo from '../assets/Image/MainLogo';
 
-const FeedHeader = ({navigate, rightBtns, profileDetail}) => {
+const FeedHeader = ({rightBtns, profileDetail, image = false}) => {
+  const navigation = useNavigation();
   const [user_group, setUser_group] = useState('');
   useEffect(() => {
     Storage.retrieveData('access_token').then(items => {
@@ -14,19 +17,26 @@ const FeedHeader = ({navigate, rightBtns, profileDetail}) => {
     });
   }, [user_group]);
   const goToProfile = () => {
-    // console.warn(user_group);
-    navigate(user_group === 'student' ? 'StudentProfile' : 'CompanyProfile');
+    navigation.navigate(
+      user_group === 'student' ? 'StudentProfile' : 'CompanyProfile',
+    );
   };
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.drawerIconContainer}
-        onPress={() => navigate('drawer')}>
+        onPress={() => navigation.openDrawer()}>
         <DrawerIcon />
       </TouchableOpacity>
+      {image ? (
+        <View>
+          <MainLogo />
+        </View>
+      ) : null}
+      {image ? <View /> : null}
       {rightBtns ? null : (
         <View style={styles.leftContainer}>
-          <TouchableOpacity onPress={() => navigate('Message')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Message')}>
             <MessageIcon />
           </TouchableOpacity>
           <TouchableOpacity onPress={goToProfile}>

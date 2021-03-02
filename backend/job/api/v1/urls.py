@@ -2,12 +2,14 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .viewsets import (
     JobViewSet, JobSavedViewSet, ListJobCategoryOptionsOptionsView,
-    ListJobExperienceLevelOptionsView, ListJobTypesOptionsView
+    ListJobExperienceLevelOptionsView, ListJobTypesOptionsView,
+JobCategoryViewSet
 )
 
 app_name = 'job'
 router = DefaultRouter()
 router.register('job', JobViewSet)
+router.register('category/job', JobCategoryViewSet)
 router.register('saved/job', JobSavedViewSet)
 
 urlpatterns = [

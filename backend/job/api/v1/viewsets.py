@@ -3,9 +3,18 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from chat_profile.models import Profile
-from job.models import Job
+from job.models import Job, JobCategory
 from job.enums import job_experience_level_options, job_category_options, job_type_options
-from .serializers import JobSerializer
+from .serializers import JobSerializer, JobCategorySerializer
+
+
+class JobCategoryViewSet(viewsets.ModelViewSet):
+    serializer_class = JobCategorySerializer
+    authentication_classes = (
+        authentication.TokenAuthentication,
+        authentication.SessionAuthentication
+    )
+    queryset = JobCategory.objects.all()
 
 
 class JobViewSet(viewsets.ModelViewSet):

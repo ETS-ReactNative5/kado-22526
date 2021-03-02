@@ -19,6 +19,7 @@ import AlertModal from './AlertModal';
 import DropdownPicker from './DropdownPicker';
 import TextArea from './TextArea';
 import ImageView from './ImageView';
+import FieldError from './FieldError';
 
 export {
   Input,
@@ -42,4 +43,5 @@ export {
   DropdownPicker,
   TextArea,
   ImageView,
+  FieldError,
 };

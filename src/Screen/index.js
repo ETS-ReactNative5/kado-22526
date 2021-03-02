@@ -20,6 +20,14 @@ import StudentProfileScreen from './StudentProfileScreen';
 import CompanyProfileScreen from './CompanyProfileScreen';
 import TalentPoolScreen from './TalentPoolScreen';
 import CompanyPaymentScreen from './CompanyPaymentScreen';
+import PostRoleScreen from './Post/PostRoleScreen';
+import PostCategoryScreen from './Post/PostCategoryScreen';
+import PostDescriptionScreen from './Post/PostDescriptionScreen';
+import PostSkillsScreen from './Post/PostSkillsScreen';
+import PostBudgetScreen from './Post/PostBudgetScreen';
+import PostDurationScreen from './Post/PostDurationScreen';
+import PostPeopleScreen from './Post/PostPeopleScreen';
+import PostReviewScreen from './Post/PostReviewScreen';
 
 export {
   SignUpScreen,
@@ -44,4 +52,12 @@ export {
   CompanyProfileScreen,
   TalentPoolScreen,
   CompanyPaymentScreen,
+  PostRoleScreen,
+  PostCategoryScreen,
+  PostDescriptionScreen,
+  PostSkillsScreen,
+  PostBudgetScreen,
+  PostDurationScreen,
+  PostPeopleScreen,
+  PostReviewScreen,
 };
