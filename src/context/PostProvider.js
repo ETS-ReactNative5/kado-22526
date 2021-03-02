@@ -23,7 +23,7 @@ const PostProvider = ({children}) => {
 
   React.useEffect(() => {
     setCategories(categoryList);
-  }, []);
+  }, [categoryList]);
 
   React.useEffect(() => {
     dispatch(fetchCategories());
@@ -37,7 +37,7 @@ const PostProvider = ({children}) => {
   };
   const value = React.useMemo(
     () => ({data, setData, setDataItem, categories}),
-    [data, categories],
+    [data, categories, categoryList],
   );
   return <PostContext.Provider value={value}>{children}</PostContext.Provider>;
 };
