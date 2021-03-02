@@ -68,7 +68,7 @@ const FeedCard = ({
           showsHorizontalScrollIndicator={false}
           horizontal={true}
           renderItem={renderItem}
-          data={skills}
+          data={skills?.split(';')}
         />
         {/* <FeedButton title="Website Redesign" />
         <FeedButton title="Website Development" /> */}
