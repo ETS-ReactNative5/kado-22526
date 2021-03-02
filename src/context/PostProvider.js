@@ -12,7 +12,6 @@ export const PostContext = React.createContext({
 const PostProvider = ({children}) => {
   const [data, setData] = React.useState({
     budget_type: 'negotiable',
-    people: 1,
     location: 'USA',
   });
   const [categories, setCategories] = React.useState([]);

@@ -127,7 +127,7 @@ const styles = ScaledSheet.create({
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '60@s',
+    // marginTop: '60@s',
   },
   text: {
     textAlign: 'center',
