@@ -21,6 +21,7 @@ import {WEBSOCKET_HOST} from '../lib/requests/api';
 import Storage from '../lib/requests/storage';
 import useWebSocket from 'react-use-websocket';
 import DropDownPicker from '../components/DropdownPicker';
+
 const ChatScreen = ({
   goBack,
   messages: remoteMessages,
@@ -44,6 +45,7 @@ const ChatScreen = ({
   const {sendMessage} = useWebSocket(socketUrl, {
     onMessage: e => {
       const message = JSON.parse(e.data);
+      console.warn(message, 'is the message');
 
       if (threadId === 0 || !threadId) {
         setThreadId(message.threadId);
@@ -162,6 +164,31 @@ const ChatScreen = ({
         }}
       />
     );
+  };
+
+  const uploadCallBackFn = response => {
+    const message = {
+      type: 'chat_message',
+      message: '',
+      image: response.path,
+      threadId: threadID,
+      user: {
+        _id: profileID,
+        name: '',
+        avatar: '',
+      },
+    };
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, message),
+    );
+
+    const msgData = {
+      message: '',
+      attachment: response.data,
+      thread_id: threadId,
+      to_profile_ids: [remoteMessages.receiverProfileId],
+    };
+    sendMessage(msgData);
   };
 
   const uploadImage = () => {

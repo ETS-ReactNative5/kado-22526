@@ -104,6 +104,7 @@ const EditProfileContainer = props => {
         updateLoading={updateLoading}
         uploadImage={uploadImage}
         image={image}
+        data={data}
       />
     </SafeAreaView>
   );

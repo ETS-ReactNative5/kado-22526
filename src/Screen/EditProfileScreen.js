@@ -1,16 +1,27 @@
-import React from 'react';
-import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-import {BackHeader, Input} from '../components';
+import React, {useRef} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  FlatList,
+} from 'react-native';
+import {BackHeader, Input, BottomHeader} from '../components';
 import {
   buttonColor,
   lightBlackColor,
   themeColor,
   white,
+  feedItemBack,
+  amountBorder,
 } from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
 import {EditProfileIcon} from '../assets/Image';
 import {getPlaceholder} from '../utils/misc';
+import {USER_TYPES} from '../constants/profile';
+import RBSheet from 'react-native-raw-bottom-sheet';
 
 const EditProfileScreen = ({
   goBack,
@@ -23,6 +34,22 @@ const EditProfileScreen = ({
   uploadImage,
   image,
 }) => {
+  const [gender, setGender] = React.useState(profileDetail?.gender);
+  const refRBSheet = useRef();
+  const renderItem = ({item}) => (
+    <View>
+      <TouchableOpacity
+        style={styles.rbItem}
+        onPress={() => {
+          setGender(item);
+          handleChange('gender', item);
+          refRBSheet.current.close();
+        }}>
+        <Text style={styles.categoryBtnText}>{item}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <BackHeader title="Edit Profile" goBack={goBack} />
@@ -99,10 +126,13 @@ const EditProfileScreen = ({
                 />
               </View>
               <View style={styles.inputCOntainer}>
-                <Input
-                  secureTextEntry={false}
-                  placeholder={getPlaceholder(profileDetail?.gender, 'Gender')}
-                />
+                <TouchableOpacity
+                  style={styles.textAreaContainer}
+                  onPress={() => refRBSheet.current.open()}>
+                  <Text style={styles.textAreaText}>
+                    {getPlaceholder(gender, 'Gender')}
+                  </Text>
+                </TouchableOpacity>
               </View>
 
               <TouchableOpacity
@@ -115,6 +145,39 @@ const EditProfileScreen = ({
                 )}
               </TouchableOpacity>
             </View>
+            <RBSheet
+              ref={refRBSheet}
+              closeOnPressMask={true}
+              animationType="fade"
+              height={180}
+              customStyles={{
+                wrapper: {
+                  backgroundColor: 'rgba(0,0,0,0.5)',
+                },
+                draggableIcon: {
+                  backgroundColor: '#000',
+                  borderTopRightRadius: 30,
+                  borderTopLeftRadius: 30,
+                },
+                container: {
+                  borderTopRightRadius: 15,
+                  borderTopLeftRadius: 15,
+                },
+              }}>
+              <BottomHeader
+                hideCheckIcon={true}
+                refRBSheet={refRBSheet}
+                title="Select Category"
+              />
+
+              <FlatList
+                renderItem={renderItem}
+                keyExtractor={(item, index) => {
+                  return index;
+                }}
+                data={USER_TYPES.genderOptions}
+              />
+            </RBSheet>
           </ScrollView>
         )}
       </View>
@@ -131,6 +194,34 @@ const styles = ScaledSheet.create({
     padding: '1@s',
     paddingBottom: '20@s',
     justifyContent: 'space-between',
+  },
+  textAreaText: {
+    fontSize: 16,
+    color: '#9a9a9a',
+  },
+  textAreaContainer: {
+    paddingLeft: '26@s',
+    paddingRight: '10@s',
+    paddingTop: '8@s',
+    paddingBottom: '8@s',
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: feedItemBack,
+    borderRadius: '8@s',
+    marginTop: '3@s',
+    borderColor: amountBorder,
+    borderWidth: 1,
+  },
+  rbItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '15@s',
+    borderBottomColor: feedItemBack,
+    borderBottomWidth: 1,
+  },
+  rbBtnContainer: {
+    justifyContent: 'center',
   },
   imageContainer: {
     justifyContent: 'center',

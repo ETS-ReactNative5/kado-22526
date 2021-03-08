@@ -64,3 +64,11 @@ buck-out/
 *.ipa
 *.dSYM.zip
 *.dSYM
+
+# Compiled Python modules
+*.pyo
+*.pyc
+
+# cached files
+*/__pycache__/*
+
