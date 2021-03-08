@@ -47,11 +47,7 @@ export const uploadImagePicker = async callBackFn => {
       console.log('response', response.path);
       // upload image
       const formData = new FormData();
-      const file = {
-        uri: response.uri,
-        name: response.fileName,
-        type: 'image/png',
-      };
+
       formData.append('file', response);
       Api.post('api/v1/media/', formData)
         .then(res => {
@@ -62,11 +58,6 @@ export const uploadImagePicker = async callBackFn => {
         callBackFn(response);
       }
       return response;
-      // return {
-      //   uri: response.uri,
-      //   name: response.fileName,
-      //   type: 'image/png',
-      // };
     }
   });
 };
