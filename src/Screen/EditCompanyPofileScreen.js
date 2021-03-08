@@ -14,13 +14,13 @@ import {getPlaceholder} from '../utils/misc';
 
 const EditCompanyPofileScreen = ({
   goBack,
-  refRBSheet,
   profileDetail,
   updateLoading,
   handleUpdateProfile,
   handleChange,
   isloading,
   image,
+  uploadImage,
 }) => {
   return (
     <View style={styles.container}>
@@ -56,7 +56,7 @@ const EditCompanyPofileScreen = ({
                   )}
 
                   <TouchableOpacity
-                    onPress={() => refRBSheet.current.open()}
+                    onPress={() => uploadImage()}
                     style={styles.editBtnContainer}>
                     <EditProfileIcon />
                   </TouchableOpacity>

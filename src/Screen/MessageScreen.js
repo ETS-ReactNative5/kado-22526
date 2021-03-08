@@ -70,26 +70,34 @@ const MessageScreen = ({
       </View>
 
       <ScrollView>
-        <View style={styles.body}>
-          <View style={styles.searchContainer}>
-            <SearchIcon />
-            <TextInput
-              placeholderTextColor={placeHolderColor}
-              style={styles.input}
-              placeholder="Search messages..."
-              onChangeText={e => {
-                onSearch(e);
-              }}
-            />
+        {data?.results.length === 0 ? (
+          <View style={styles.empty}>
+            <Text style={styles.emptytext}>No messages</Text>
           </View>
-        </View>
-        <View style={{flex: 1}}>
-          <FlatList renderItem={renderItem} data={data.results} />
-          <Text style={styles.feedMessage}>
-            This is the end of your messages feed! 🎉
-          </Text>
-          <View />
-        </View>
+        ) : (
+          <View style={styles.body}>
+            <View style={styles.searchContainer}>
+              <SearchIcon />
+              <TextInput
+                placeholderTextColor={placeHolderColor}
+                style={styles.input}
+                placeholder="Search messages..."
+                onChangeText={e => {
+                  onSearch(e);
+                }}
+              />
+            </View>
+          </View>
+        )}
+        {data?.results.length !== 0 ? (
+          <View style={{flex: 1}}>
+            <FlatList renderItem={renderItem} data={data.results} />
+            <Text style={styles.feedMessage}>
+              This is the end of your messages feed! 🎉
+            </Text>
+            <View />
+          </View>
+        ) : null}
       </ScrollView>
     </View>
   );
@@ -148,6 +156,8 @@ const styles = ScaledSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    height: '100@s',
+    paddingTop: '80@s',
   },
 });
 

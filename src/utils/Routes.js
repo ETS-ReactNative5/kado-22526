@@ -13,7 +13,6 @@ import {
   NewsFeedContainer,
   MessageContainer,
   ChatContainer,
-  NewMessageContainer,
   ExploreContainer,
   DeleteAccountContainer,
   ProfileContainer,
@@ -185,11 +184,6 @@ const App = ({style}) => {
           options={{headerShown: false}}
         />
 
-        <Stack.Screen
-          name="NewMessage"
-          component={NewMessageContainer}
-          options={{headerShown: false}}
-        />
         <Stack.Screen
           name="StudentProfile"
           component={StudentProfileContainer}

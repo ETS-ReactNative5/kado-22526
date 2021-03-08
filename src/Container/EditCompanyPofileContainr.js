@@ -151,6 +151,7 @@ const EditCompanyPofileContainr = props => {
         handleChange={handleChange}
         isloading={isloading}
         image={image}
+        uploadImage={uploadImage}
       />
     </SafeAreaView>
   );

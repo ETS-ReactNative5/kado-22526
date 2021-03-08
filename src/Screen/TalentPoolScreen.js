@@ -311,7 +311,7 @@ const TalentPoolScreen = ({
           </View>
           <View style={styles.categoryContainer}>
             <ScrollView contentContainerStyle={styles.categoryContainer}>
-              <Filters refRBSheet={refRBSheet} title="Catetgory" />
+              <Filters refRBSheet={refRBSheet} title="Category" />
               <Filters refRBSheet={refRBSheetProject} title="Type of project" />
               <Filters refRBSheet={refRBSheetDate} title="Date" />
               <Filters refRBSheet={refRBSheetLocation} title="Location" />

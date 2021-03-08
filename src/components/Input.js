@@ -64,6 +64,7 @@ const styles = ScaledSheet.create({
     width: '90%',
     padding: Platform.OS === 'ios' ? 10 : null,
     height: Platform.OS === 'ios' ? 40 : null,
+    color: 'black',
   },
 });
 

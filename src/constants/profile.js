@@ -11,4 +11,11 @@ export const USER_TYPES = {
       {international: 'International Students “i/s”'},
     ],
   },
+  profileFields: {
+    fullname: 'fullname',
+    location: 'location',
+    mobile_number: 'mobile_number',
+    gender: 'gender',
+  },
+  genderOptions: ['Male', 'Female'],
 };
