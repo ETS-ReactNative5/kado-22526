@@ -11,12 +11,10 @@ import {
   white,
   feedItemBack,
   fadedBlue,
+  dimGrey,
 } from '../../utils/Theme/Color';
 import {JOBS_ENUM, jobsFields} from '../../constants/jobs';
-import {
-  validateBudget,
-  validateDuration,
-} from '../../utils/validation/postValidation';
+import {validateDuration} from '../../utils/validation/postValidation';
 
 const PostDurationScreen = () => {
   const navigation = useNavigation();
@@ -35,7 +33,14 @@ const PostDurationScreen = () => {
       validateOnChange
       validate={validateDuration}
       onSubmit={values => setData({...data, ...values})}>
-      {({handleChange, setFieldValue, handleSubmit, values, errors}) => {
+      {({
+        handleChange,
+        setFieldValue,
+        handleSubmit,
+        values,
+        errors,
+        touched,
+      }) => {
         const renderItem = ({item}) => (
           <View>
             <TouchableOpacity
@@ -99,7 +104,11 @@ const PostDurationScreen = () => {
                     style={styles.flatlist}
                     keyExtractor={item => item.name}
                   />
-                  <FieldError errors={errors} field={jobsFields.duration} />
+                  <FieldError
+                    errors={errors}
+                    field={jobsFields.duration}
+                    touched={touched}
+                  />
                 </View>
                 <View style={styles.formField}>
                   <Text style={styles.text}>Add time commitment</Text>
@@ -110,7 +119,11 @@ const PostDurationScreen = () => {
                     style={styles.flatlist}
                     keyExtractor={item => item.name}
                   />
-                  <FieldError errors={errors} field={jobsFields.time} />
+                  <FieldError
+                    errors={errors}
+                    field={jobsFields.time}
+                    touched={touched}
+                  />
                 </View>
                 <RBSheet
                   ref={refRBSheet}
@@ -184,6 +197,7 @@ const styles = ScaledSheet.create({
   buttonText: {
     fontWeight: '700',
     fontSize: '16@s',
+    color: dimGrey,
   },
   button: {
     padding: '10@s',

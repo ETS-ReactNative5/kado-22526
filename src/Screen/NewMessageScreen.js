@@ -8,7 +8,6 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Storage from '../lib/requests/storage';
 import {ScaledSheet} from 'react-native-size-matters';
 import {
   lightBlackColor,
@@ -21,18 +20,14 @@ import {
 import primary from '../assets/Image/primary.png';
 import {GiftedChat} from 'react-native-gifted-chat';
 import {BackArrow} from '../assets/Image';
+import {KadoContext} from '../context/KadoProvider';
+
 const NewMessageScreen = ({goBack}) => {
   const [messages, setMessages] = useState([]);
   const [customMessage, setCustomMessage] = useState('');
-  const [user_group, setUser_group] = useState('');
+  const {userGroup} = React.useContext(KadoContext);
   const [textfield, setTextField] = useState('');
   useEffect(() => {
-    Storage.retrieveData('access_token').then(items => {
-      items?.user_groups.map(item => {
-        setUser_group(item);
-      });
-    });
-
     setMessages([
       {
         _id: 1,
@@ -86,7 +81,7 @@ const NewMessageScreen = ({goBack}) => {
                   style={{height: 40, fontWeight: 'bold'}}
                   underlineColorAndroid="transparent"
                   placeholder={
-                    user_group === 'company'
+                    userGroup === 'company'
                       ? 'Candidate name...'
                       : 'Company name...'
                   }

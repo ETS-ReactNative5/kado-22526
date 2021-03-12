@@ -6,17 +6,22 @@ import {View} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {InfoIcon} from '../assets/Image';
 import {themeColor} from '../utils/Theme/Color';
+import {ImageView} from '../components';
 
 const CompaniesItem = ({title, image, navigate, subtitle, id}) => {
   return (
     <TouchableOpacity style={styles.container}>
       <View style={styles.leftContainer}>
-        <Image
-          resizeMode="center"
-          resizeMethod="resize"
-          source={{uri: image}}
-          style={styles.image}
-        />
+        {image ? (
+          <ImageView
+            resizeMode="center"
+            resizeMethod="resize"
+            source={{uri: image}}
+            style={styles.image}
+          />
+        ) : (
+          <View style={{paddingRight: 42}} />
+        )}
         <View style={styles.textContainer}>
           <Text style={styles.heading}>{title}</Text>
           <Text style={styles.subHeading}>{subtitle}</Text>

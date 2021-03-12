@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
-import Storage from '../lib/requests/storage';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import Animated from 'react-native-reanimated';
@@ -10,21 +9,16 @@ import aboutIcon from '../assets/Image/aboutIcon.png';
 
 import whiteLogo from '../assets/Image/whiteLogo.png';
 import {PostRideIcon, WhiteSearchIcon} from '../assets/Image';
+import {KadoContext} from '../context/KadoProvider';
 
 const Drawer = ({navigation, progress, ...rest}) => {
-  const [user_group, setUser_group] = useState('');
+  const {userGroup} = React.useContext(KadoContext);
+
   const translateX = Animated.interpolate(progress, {
     inputRange: [0, 1],
     outputRange: [1, 0.8],
   });
 
-  useEffect(() => {
-    Storage.retrieveData('access_token').then(items => {
-      items?.user_groups.map(item => {
-        setUser_group(item);
-      });
-    });
-  }, []);
   return (
     <DrawerContentScrollView
       scrollEnabled={false}
@@ -53,7 +47,7 @@ const Drawer = ({navigation, progress, ...rest}) => {
               <Text style={styles.btnText}>How it works</Text>
             </TouchableOpacity>
 
-            {user_group === 'company' ? (
+            {userGroup === 'company' ? (
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => navigation.navigate('PostRole')}>
@@ -62,7 +56,7 @@ const Drawer = ({navigation, progress, ...rest}) => {
               </TouchableOpacity>
             ) : null}
 
-            {user_group === 'company' ? (
+            {userGroup === 'company' ? (
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => navigation.navigate('EditCompanyProfile')}>

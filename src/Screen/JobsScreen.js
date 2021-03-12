@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {View, Text, TextInput, FlatList} from 'react-native';
+import {View, Text, TextInput, FlatList, Platform} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import {
   BottomDate,
@@ -307,7 +307,7 @@ const JobsScreen = ({
         <View>
           <View style={styles.filtersContainer}>
             <Text style={styles.filterText}>Filters:</Text>
-            <TouchableOpacity onPress={() => navigate('Explore')}>
+            <TouchableOpacity onPress={() => dispatch(searchJobs(''))}>
               <Icons name="clear" size={22} color={buttonColor} />
             </TouchableOpacity>
           </View>
@@ -401,6 +401,8 @@ const styles = ScaledSheet.create({
     color: blackColorText,
     fontSize: '15@s',
     lineHeight: '18@s',
+    padding: Platform.OS === 'ios' ? 10 : null,
+    height: Platform.OS === 'ios' ? 40 : null,
   },
   paymentContainer: {
     flexDirection: 'row',

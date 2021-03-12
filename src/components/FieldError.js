@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 
-const FieldError = ({errors, field, dirty}) => {
-  if ( field in errors) {
+const FieldError = ({errors, field, touched}) => {
+  if (field in errors && field in touched) {
     return <Text style={styles.errorText}>{errors[field]}</Text>;
   }
   return null;

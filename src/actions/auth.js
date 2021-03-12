@@ -31,6 +31,7 @@ export function login(params, navigate, callBackFn) {
     Api.post('rest-auth/login/', params)
       .then(resp => {
         Storage.storeData('access_token', resp);
+        callBackFn(resp, false);
         dispatch(setIsLoading(false));
 
         ToastAndroid.showWithGravity(
@@ -41,7 +42,7 @@ export function login(params, navigate, callBackFn) {
         navigate('Home');
       })
       .catch(err => {
-        callBackFn && callBackFn(true);
+        callBackFn && callBackFn(null, true);
         dispatch(setForgotValidationError(err.errors));
 
         dispatch(setIsLoading(false));

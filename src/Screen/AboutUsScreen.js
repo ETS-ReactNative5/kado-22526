@@ -26,7 +26,7 @@ const AboutUsScreen = ({goBack}) => {
           <Text style={[styles.paragraph, {marginBottom: 60}]}>
             Gladymir is a founding member of PandoLabs, an entrepreneurial group
             in Park City, Utah. High schools and Universities often reach out to
-            his group asking if there are any startups looking to hire students
+            this group asking if there are any startups looking to hire students
             for any projects they may have. Philippe saw the demand for a
             service that connects students with employers for freelance
             projects, motivating him to build Kado.

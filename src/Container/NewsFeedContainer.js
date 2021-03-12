@@ -26,6 +26,7 @@ import {
   fetchStudentsByName,
   fetchFavStudentsByName,
 } from '../actions/profile';
+import {KadoContext} from '../context/KadoProvider';
 
 const NewsFeedContainer = props => {
   const [state, setState] = useState(false);
@@ -41,7 +42,7 @@ const NewsFeedContainer = props => {
 
   const [profileId, setprofileid] = useState('');
 
-  const [user_group, setUser_group] = useState('');
+  const {userGroup} = React.useContext(KadoContext);
   const [tokenLoading, setTokenLoading] = useState(true);
   // const [favorite, setFavorite] = useState(false);
   const navigate = async routeName => {
@@ -62,15 +63,10 @@ const NewsFeedContainer = props => {
     dispatch(fetchFavStudents());
 
     Storage.retrieveData('access_token').then(item => {
-      token = item?.profile_id;
+      const token = item?.profile_id;
 
       setprofileid(item?.profile_id);
       dispatch(fetchProfile(token));
-    });
-    Storage.retrieveData('access_token').then(items => {
-      items?.user_groups.map(item => {
-        setUser_group(item);
-      });
     });
   }, []);
 
@@ -148,7 +144,7 @@ const NewsFeedContainer = props => {
         dispatch={dispatch}
         dispatchSaved={dispatchSaved}
         tokenLoading={tokenLoading}
-        user_group={user_group}
+        user_group={userGroup}
         studentsList={studentsList}
         favStudentList={favStudentList}
         addStudentFav={addStudentFav}
