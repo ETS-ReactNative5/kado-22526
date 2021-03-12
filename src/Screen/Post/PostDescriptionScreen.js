@@ -22,7 +22,6 @@ const PostDescriptionScreen = () => {
         [jobsFields.description]: data.description || '',
       }}
       validationSchema={descriptionValidationSchema}
-      validateOnChange
       onSubmit={values => {
         setData({...data, ...values});
       }}>
@@ -33,6 +32,7 @@ const PostDescriptionScreen = () => {
         errors,
         isValid,
         values,
+        touched,
       }) => (
         <View style={styles.container}>
           <BackHeader rightBtns={true} image rightCloseIcon />
@@ -54,7 +54,11 @@ const PostDescriptionScreen = () => {
                     setFieldValue(jobsFields.title, value);
                   }}
                 />
-                <FieldError errors={errors} field={jobsFields.title} />
+                <FieldError
+                  errors={errors}
+                  field={jobsFields.title}
+                  touched={touched}
+                />
               </View>
               <View>
                 <TextArea
@@ -71,7 +75,11 @@ const PostDescriptionScreen = () => {
                     setFieldValue(jobsFields.description, value);
                   }}
                 />
-                <FieldError errors={errors} field={jobsFields.description} />
+                <FieldError
+                  errors={errors}
+                  field={jobsFields.description}
+                  touched={touched}
+                />
               </View>
               <View>
                 <TextArea
@@ -91,6 +99,7 @@ const PostDescriptionScreen = () => {
                 <FieldError
                   errors={errors}
                   field={jobsFields.responsibilities}
+                  touched={touched}
                 />
               </View>
 

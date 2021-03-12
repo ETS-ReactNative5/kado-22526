@@ -29,6 +29,7 @@ const PostSkillsScreen = () => {
         errors,
         values,
         isValid,
+        touched,
       }) => (
         <View style={styles.container}>
           <BackHeader rightBtns={true} image rightCloseIcon />
@@ -57,7 +58,11 @@ const PostSkillsScreen = () => {
                   }}
                   customStyles={styles.textArea}
                 />
-                <FieldError errors={errors} field={jobsFields.skills} />
+                <FieldError
+                  errors={errors}
+                  field={jobsFields.skills}
+                  touched={touched}
+                />
               </View>
 
               <TouchableOpacity

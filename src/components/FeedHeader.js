@@ -1,24 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {useNavigation} from '@react-navigation/native';
 import {DrawerIcon, MessageIcon} from '../assets/Image';
-import Storage from '../lib/requests/storage';
 import MainLogo from '../assets/Image/MainLogo';
+import {KadoContext} from '../context/KadoProvider';
 
 const FeedHeader = ({rightBtns, profileDetail, image = false}) => {
   const navigation = useNavigation();
-  const [user_group, setUser_group] = useState('');
-  useEffect(() => {
-    Storage.retrieveData('access_token').then(items => {
-      items?.user_groups.map(item => {
-        setUser_group(item);
-      });
-    });
-  }, [user_group]);
+  const {userGroup} = React.useContext(KadoContext);
+
   const goToProfile = () => {
     navigation.navigate(
-      user_group === 'student' ? 'StudentProfile' : 'CompanyProfile',
+      userGroup === 'student' ? 'StudentProfile' : 'CompanyProfile',
     );
   };
   return (

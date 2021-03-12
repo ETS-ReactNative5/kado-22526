@@ -28,9 +28,15 @@ const PostBudgetScreen = () => {
         [jobsFields.max_pay]: data.max_pay || '',
       }}
       validate={validateBudget}
-      validateOnChange
       onSubmit={values => setData({...data, ...values})}>
-      {({handleChange, setFieldValue, handleSubmit, errors, values}) => (
+      {({
+        handleChange,
+        setFieldValue,
+        handleSubmit,
+        errors,
+        values,
+        touched,
+      }) => (
         <View style={styles.container}>
           <BackHeader rightBtns={true} image rightCloseIcon />
           <ScrollView contentContainerStyle={styles.bodyContainer}>
@@ -85,6 +91,7 @@ const PostBudgetScreen = () => {
                     <FieldError
                       errors={errors}
                       field={jobsFields.fixed_price}
+                      touched={touched}
                     />
                   </View>
                 </View>
@@ -154,7 +161,11 @@ const PostBudgetScreen = () => {
                   </View>
                 </View>
               </View>
-              <FieldError errors={errors} field={jobsFields.min_pay} />
+              <FieldError
+                errors={errors}
+                field={jobsFields.min_pay}
+                touched={touched}
+              />
               <View>
                 <View style={styles.formField}>
                   <TouchableOpacity

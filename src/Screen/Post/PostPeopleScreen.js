@@ -5,7 +5,12 @@ import {useNavigation} from '@react-navigation/native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {BackHeader, Input} from '../../components';
 
-import {buttonColor, white, feedItemBack} from '../../utils/Theme/Color';
+import {
+  buttonColor,
+  white,
+  feedItemBack,
+  dimGrey,
+} from '../../utils/Theme/Color';
 import {getPlaceholder} from '../../utils/misc';
 import {PostContext} from '../../context/PostProvider';
 
@@ -101,6 +106,7 @@ const styles = ScaledSheet.create({
   buttonText: {
     fontWeight: '700',
     fontSize: '16@s',
+    color: dimGrey,
   },
   button: {
     padding: '10@s',
