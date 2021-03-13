@@ -11,7 +11,6 @@ import {
   fetchjobsCategory,
   fetchAllJobsDate,
   fetchJobs,
-  searchJobs,
   addFavoriteJob,
   removeFavorite,
   getJobsAfter,
@@ -20,6 +19,7 @@ import {
   fetchStudents,
   fetchStudentsAfter,
   filterStudents,
+  fetchStudentsByName,
 } from '../actions/profile';
 
 const TalentPoolContainer = props => {
@@ -155,7 +155,7 @@ const TalentPoolContainer = props => {
         hideDatePickerSecond={hideDatePickerSecond}
         handleConfirmSecond={handleConfirmSecond}
         endDate={endDate}
-        searchJobs={searchJobs}
+        searchJobs={fetchStudentsByName}
         dispatch={dispatch}
         addFavorite={addFavor}
         removeFavoriteJob={removeFavoriteJob}

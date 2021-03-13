@@ -55,16 +55,19 @@ export function signUp(params, navigate) {
     dispatch(setIsLoading(true));
     Api.post('rest-auth/registration/', params)
       .then(resp => {
-        // navigation.navigate('SignUpVerification', {
-        //   email: params.email,
-        // });
-        // alert("Account Created Sign In To Continue")
+        ToastAndroid.showWithGravity(
+          'Signed Up Successfully',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+        );
 
         navigate('Login');
         dispatch(setIsLoading(false));
       })
       .catch(err => {
-        // console.log("errrorrss", err)
+        for (const [key, value] of Object.entries(err)) {
+          alert(`${key}: ${value}`);
+        }
 
         dispatch(setForgotValidationError(err.errors));
         dispatch(setIsLoading(false));

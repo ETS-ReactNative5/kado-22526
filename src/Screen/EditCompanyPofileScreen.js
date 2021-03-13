@@ -116,6 +116,7 @@ const EditCompanyPofileScreen = ({
                     profileDetail?.mobile_number,
                     'Phone',
                   )}
+                  keyboardType="numeric"
                   onChange={value => handleChange('mobile_number', value)}
                 />
               </View>

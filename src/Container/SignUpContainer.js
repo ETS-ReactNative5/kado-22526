@@ -34,7 +34,6 @@ const SignUpContainer = props => {
   };
   const handleSubmit = signUpData => {
     dispatch(signUp(signUpData, navigate));
-    // console.log("form data", params)
   };
   return (
     <SafeAreaView style={styles.container}>
