@@ -25,6 +25,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     fullname = serializers.CharField(required=False)
     photo_file = serializers.FileField(required=False)
     favorite = serializers.BooleanField(required=False)
+    is_favorite = serializers.SerializerMethodField(required=False)
     thread_id = serializers.SerializerMethodField(required=False)
     total_jobs = serializers.SerializerMethodField(required=False)
 
@@ -48,7 +49,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "availability",
             "years_of_experience",
             "company_name", "tagline", "industry", "thread_id",
-            "bio", "favorite", 'total_jobs'
+            "bio", "favorite", "is_favorite", 'total_jobs'
         )
 
     def _get_request(self):
@@ -60,6 +61,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         ):
             request = request._request
         return request
+
+    def get_is_favorite(self, instance):
+        user = self._get_request().user
+        return user.profile.favorite_profiles.filter(id=instance.id).exists()
 
     def get_total_jobs(self, instance):
         return instance.jobs.count()
@@ -87,7 +92,8 @@ class ProfileSerializer(serializers.ModelSerializer):
             else:
                 instance.favorites.remove(user.profile)
         if instance.user.id != user.id:
-            return instance
+            if not user.is_superuser:
+                return instance
         fullname = validated_data.get('fullname', False)
         if validated_data.get('photo_file'):
             photo = validated_data.get('photo_file')

@@ -146,6 +146,12 @@ const App = ({style}) => {
         />
 
         <Stack.Screen
+          name="CompaniesList"
+          component={CompaniesContainer}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
           name="Company"
           component={CompaniesContainer}
           options={{headerShown: false}}

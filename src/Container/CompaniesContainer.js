@@ -4,11 +4,16 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {useDispatch, useSelector} from 'react-redux';
 import {CompaniesScreen} from '../Screen';
 import {white} from '../utils/Theme/Color';
-
+import {useIsFocused} from '@react-navigation/native';
 import {fetchCompanies, fetchCompanyByName} from '../actions/company';
 
 const CompaniesContainer = props => {
   const {isloading, companyList} = useSelector(state => state.company);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    dispatch(fetchCompanies());
+  }, [isFocused]);
 
   const dispatch = useDispatch();
   const goBack = () => {

@@ -50,18 +50,12 @@ export function login(params, navigate, callBackFn) {
   };
 }
 
-export function signUp(params, navigate) {
+export function signUp(params, callBackFn) {
   return dispatch => {
     dispatch(setIsLoading(true));
     Api.post('rest-auth/registration/', params)
       .then(resp => {
-        ToastAndroid.showWithGravity(
-          'Signed Up Successfully',
-          ToastAndroid.LONG,
-          ToastAndroid.BOTTOM,
-        );
-
-        navigate('Login');
+        callBackFn && callBackFn();
         dispatch(setIsLoading(false));
       })
       .catch(err => {

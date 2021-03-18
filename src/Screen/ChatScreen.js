@@ -45,7 +45,6 @@ const ChatScreen = ({
   const {sendMessage} = useWebSocket(socketUrl, {
     onMessage: e => {
       const message = JSON.parse(e.data);
-      console.warn(message, 'is the message');
 
       if (threadId === 0 || !threadId) {
         setThreadId(message.threadId);
@@ -251,7 +250,12 @@ const ChatScreen = ({
                 style={styles.image}
                 source={{uri: remoteMessages.avatar}}
               />
-            ) : null}
+            ) : (
+              <ImageView
+                style={styles.image}
+                source={{uri: 'https://kado-22526.s3.amazonaws.com/1.png'}}
+              />
+            )}
 
             <Text numberOfLines={1} style={styles.headerText}>
               {remoteMessages.fullname}
@@ -314,6 +318,7 @@ const ChatScreen = ({
           // renderQuickReplySend={() => quickReply}
           // quickReplyStyle={{ backgroundColor: 'red' }}
           renderBubble={renderBubble}
+          renderAvatar={() => null}
           user={{
             _id: profileId,
           }}

@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {useState} from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, Button} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {useDispatch, useSelector} from 'react-redux';
 import {SignUpScreen} from '../Screen';
 import {signUp} from '../actions/auth';
+import {Toast} from '../components/Toast';
 
 const SignUpContainer = props => {
   const [showPassword, setShowPasssword] = useState(true);
   const [showConPassword, setShowConPasssword] = useState(true);
   const isLoading = useSelector(state => state.auth.isLoading);
+  const toastRef = useRef();
   const dispatch = useDispatch();
   const navigate = async routeName => {
     const {navigation} = props;
@@ -32,11 +34,19 @@ const SignUpContainer = props => {
   const handleConPassword = () => {
     setShowConPasssword(!showConPassword);
   };
-  const handleSubmit = signUpData => {
-    dispatch(signUp(signUpData, navigate));
+  const signUpCallback = () => {
+    toastRef.current.show('Signup successful.', '#fff', 1000);
+    setTimeout(() => {
+      navigate('Login');
+    }, 2000);
   };
+  const handleSubmit = signUpData => {
+    dispatch(signUp(signUpData, signUpCallback));
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+      <Toast ref={toastRef} />
       <SignUpScreen
         showPassword={showPassword}
         showConPassword={showConPassword}

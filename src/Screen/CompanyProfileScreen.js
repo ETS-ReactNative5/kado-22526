@@ -26,7 +26,7 @@ const CompanyProfileScreen = ({
 }) => {
   return (
     <View style={styles.container}>
-      <BackHeader title="" goBack={goBack} />
+      <BackHeader title="" />
       <View style={{flex: 1}}>
         {isloading ? (
           <View style={styles.empty}>
@@ -45,13 +45,19 @@ const CompanyProfileScreen = ({
                         <Image
                           resizeMode="cover"
                           style={styles.image}
-                          source={image}
+                          source={{
+                            uri: 'https://kado-22526.s3.amazonaws.com/1.png',
+                          }}
                         />
                       ) : (
                         <Image
                           resizeMode="cover"
                           style={styles.image}
-                          source={{uri: profileData?.photo}}
+                          source={{
+                            uri:
+                              profileData?.photo ||
+                              'https://kado-22526.s3.amazonaws.com/1.png',
+                          }}
                         />
                       )}
                     </View>
@@ -80,7 +86,7 @@ const CompanyProfileScreen = ({
               <Text style={styles.fieldTitleText}>About Company</Text>
               <View>
                 <View style={styles.textAreaContainer}>
-                  <Text>{profileData?.bio}</Text>
+                  <Text >{profileData?.bio}</Text>
                 </View>
               </View>
 
@@ -256,7 +262,7 @@ const styles = ScaledSheet.create({
     backgroundColor: feedItemBack,
     borderRadius: '8@s',
     marginTop: '3@s',
-    height: 70,
+    minHeight: 70,
   },
   inputText: {fontSize: 15},
   contact: {

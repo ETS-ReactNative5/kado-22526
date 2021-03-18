@@ -4,6 +4,7 @@ import Storage from '../lib/requests/storage';
 export const KadoContext = React.createContext({
   userGroup: '',
   setUserGroup: () => {},
+  company: {}
 });
 
 const KadoProvider = ({children}) => {

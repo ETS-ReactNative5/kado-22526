@@ -20,6 +20,8 @@ import {
   fetchStudentsAfter,
   filterStudents,
   fetchStudentsByName,
+  addFavStudent,
+  removeFavStudent,
 } from '../actions/profile';
 
 const TalentPoolContainer = props => {
@@ -115,20 +117,18 @@ const TalentPoolContainer = props => {
     setState(!state);
 
     const params = {
-      title: 'test',
       favorite: true,
     };
-    dispatch(addFavoriteJob(id, params));
+    dispatch(addFavStudent(id, params));
   };
 
   const removeFavoriteJob = id => {
     setState(!state);
 
     const params = {
-      title: 'test',
       favorite: false,
     };
-    dispatch(removeFavorite(id, params));
+    dispatch(removeFavStudent(id, params));
   };
   return (
     <SafeAreaView style={styles.container}>

@@ -4,14 +4,8 @@ import {Image} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 
 const ImageView = ({source, style}) => {
-  const imageURI = source !== null ? source : '';
-  if (!imageURI.uri === null) return null;
-  return (
-    <Image
-      style={style ? style : styles.image}
-      source={imageURI ? imageURI : ''}
-    />
-  );
+  const uri = source?.uri || 'https://kado-22526.s3.amazonaws.com/1.png';
+  return <Image style={style ? style : styles.image} source={{uri}} />;
 };
 
 const styles = ScaledSheet.create({

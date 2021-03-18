@@ -1,5 +1,4 @@
 import React from 'react';
-import {Image} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import {Text} from 'react-native';
 import {View} from 'react-native';
@@ -10,7 +9,9 @@ import {ImageView} from '../components';
 
 const CompaniesItem = ({title, image, navigate, subtitle, id}) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigate('CompanyProfile', {id, title})}>
       <View style={styles.leftContainer}>
         {image ? (
           <ImageView

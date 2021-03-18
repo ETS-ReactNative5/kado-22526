@@ -40,13 +40,13 @@ const MessageScreen = ({
       {...rest}
     />
   );
-  if (isloading) {
-    return (
-      <View style={styles.empty}>
-        <ActivityIndicator color={buttonColor} />
-      </View>
-    );
-  }
+  // if (isloading) {
+  //   return (
+  //     <View style={styles.empty}>
+  //       <ActivityIndicator color={buttonColor} />
+  //     </View>
+  //   );
+  // }
   return (
     <View style={styles.conainer}>
       <View style={styles.headerContainer}>
@@ -68,6 +68,19 @@ const MessageScreen = ({
           </TouchableOpacity>
         </View>
       </View>
+      <View style={styles.body}>
+        <View style={styles.searchContainer}>
+          <SearchIcon />
+          <TextInput
+            placeholderTextColor={placeHolderColor}
+            style={styles.input}
+            placeholder="Search messages..."
+            onChangeText={e => {
+              onSearch(e);
+            }}
+          />
+        </View>
+      </View>
 
       <ScrollView>
         {data?.results.length === 0 ? (
@@ -75,19 +88,7 @@ const MessageScreen = ({
             <Text style={styles.emptytext}>No messages</Text>
           </View>
         ) : (
-          <View style={styles.body}>
-            <View style={styles.searchContainer}>
-              <SearchIcon />
-              <TextInput
-                placeholderTextColor={placeHolderColor}
-                style={styles.input}
-                placeholder="Search messages..."
-                onChangeText={e => {
-                  onSearch(e);
-                }}
-              />
-            </View>
-          </View>
+          <View />
         )}
         {data?.results.length !== 0 ? (
           <View style={{flex: 1}}>

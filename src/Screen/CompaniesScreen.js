@@ -17,7 +17,7 @@ const CompaniesScreen = ({
 }) => {
   const renderItem = ({item}) => (
     <CompaniesItem
-      image={item.photo}
+      image={item.photo || 'https://kado-22526.s3.amazonaws.com/1.png'}
       title={item.fullname}
       navigate={navigate}
       subtitle={item.location}

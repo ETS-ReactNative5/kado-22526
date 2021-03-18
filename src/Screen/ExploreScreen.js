@@ -59,7 +59,7 @@ const ExploreScreen = ({goBack, navigate, user_groups}) => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => navigate('Company')}
+                onPress={() => navigate('CompaniesList')}
                 style={styles.itemContainer}>
                 <CompanyIcon />
                 <Text style={styles.text}>Companies</Text>

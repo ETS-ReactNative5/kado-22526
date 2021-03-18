@@ -51,6 +51,7 @@ const TalentPoolScreen = ({
   dispatch,
   addFavorite,
   profileDetail,
+  removeFavoriteJob,
 }) => {
   const renderItem = ({item}) => (
     <UserCards
@@ -61,6 +62,7 @@ const TalentPoolScreen = ({
       id={item?.id}
       favorite={item?.is_favorite}
       addStudentFav={addFavorite}
+      removeStudentFav={removeFavoriteJob}
     />
   );
 

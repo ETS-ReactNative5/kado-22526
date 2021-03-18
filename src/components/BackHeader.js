@@ -12,7 +12,9 @@ const BackHeader = ({image, title, right, rightCloseIcon}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() => navigation.goBack()}
+        onPress={() => {
+          navigation.goBack();
+        }}
         style={{padding: 10}}>
         <BackArrow />
         {/* <Icon name="arrow-left" color={buttonColor} size={18} /> */}

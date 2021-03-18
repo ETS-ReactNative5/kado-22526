@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, TouchableOpacity, View, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import userImageTwo from '../assets/Image/userImageTwo.png';
 import {ScaledSheet} from 'react-native-size-matters';
 import {buttonColor, feedItemBack, themeColor} from '../utils/Theme/Color';
 import {useNavigation} from '@react-navigation/native';
+import {ImageView} from '../components';
 
 const UserCards = ({
   bio,
@@ -17,6 +18,7 @@ const UserCards = ({
   favorite,
 }) => {
   const navigation = useNavigation();
+  const [stateFavorite, setFavorite] = useState(favorite);
 
   return (
     <View style={styles.container}>
@@ -26,11 +28,10 @@ const UserCards = ({
             navigation.navigate('StudentProfile', {id, name, image})
           }>
           <View style={styles.leftContainer}>
-            {image === null ? (
-              <Image source={userImageTwo} style={styles.image} />
-            ) : (
-              <Image source={{uri: image}} style={styles.image} />
-            )}
+            <ImageView
+              source={{uri: image || undefined}}
+              style={styles.image}
+            />
 
             <View style={styles.textContainer}>
               <Text numberOfLines={1} style={styles.heading}>
@@ -47,12 +48,30 @@ const UserCards = ({
         <View>
           <View style={styles.heartContaine}>
             {favorite ? (
-              <TouchableOpacity onPress={() => removeStudentFav(id)}>
-                <Icon solid={true} color={buttonColor} size={18} name="heart" />
+              <TouchableOpacity
+                onPress={() => {
+                  removeStudentFav(id);
+                  setFavorite(!stateFavorite);
+                }}>
+                <Icon
+                  solid={stateFavorite}
+                  color={buttonColor}
+                  size={18}
+                  name="heart"
+                />
               </TouchableOpacity>
             ) : (
-              <TouchableOpacity onPress={() => addStudentFav(id)}>
-                <Icon color={buttonColor} size={18} name="heart" />
+              <TouchableOpacity
+                onPress={() => {
+                  addStudentFav(id);
+                  setFavorite(!stateFavorite);
+                }}>
+                <Icon
+                  solid={stateFavorite}
+                  color={buttonColor}
+                  size={18}
+                  name="heart"
+                />
               </TouchableOpacity>
             )}
           </View>

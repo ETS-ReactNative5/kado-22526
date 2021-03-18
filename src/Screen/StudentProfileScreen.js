@@ -36,25 +36,17 @@ const StudentProfileScreen = ({
             <View style={styles.body}>
               <View style={styles.imageContainer}>
                 <View>
-                  {image !== '' ? (
-                    <Image style={styles.image} source={image} />
-                  ) : (
-                    <View>
-                      {profileData?.photo === null ? (
-                        <Image
-                          resizeMode="cover"
-                          style={styles.image}
-                          source={image}
-                        />
-                      ) : (
-                        <Image
-                          resizeMode="cover"
-                          style={styles.image}
-                          source={{uri: profileData?.photo}}
-                        />
-                      )}
-                    </View>
-                  )}
+                  <View>
+                    <Image
+                      resizeMode="cover"
+                      style={styles.image}
+                      source={{
+                        uri:
+                          profileData?.photo ||
+                          'https://kado-22526.s3.amazonaws.com/1.png',
+                      }}
+                    />
+                  </View>
                 </View>
               </View>
 
@@ -398,6 +390,7 @@ const styles = ScaledSheet.create({
     backgroundColor: feedItemBack,
     borderRadius: '8@s',
     marginTop: '3@s',
+    minHeight: '60@s',
   },
   skillItem: {
     backgroundColor: '#E1E4F6',

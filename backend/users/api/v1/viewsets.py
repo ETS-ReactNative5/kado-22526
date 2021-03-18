@@ -19,9 +19,10 @@ class UserViewSet(viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         if instance != request.user:
-            raise serializers.ValidationError(
-                {"errors": _("You don't have permission to delete this account. You can only delete your own account.")}
-            )
+            if not request.user.is_superuser:
+                raise serializers.ValidationError(
+                    {"errors": _("You don't have permission to delete this account. You can only delete your own account.")}
+                )
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
 

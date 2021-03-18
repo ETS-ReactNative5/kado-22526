@@ -50,9 +50,7 @@ export const uploadImagePicker = async callBackFn => {
 
       formData.append('file', response);
       Api.post('api/v1/media/', formData)
-        .then(res => {
-          console.warn(res, 'after upload');
-        })
+        .then(res => {})
         .catch(err => console.warn(err));
       if (callBackFn) {
         callBackFn(response);

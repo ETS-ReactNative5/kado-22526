@@ -69,8 +69,10 @@ const NewsFeedContainer = ({
       name={item?.fullname}
       tagline={item?.tagline}
       id={item?.id}
-      favorite={false}
+      favorite={item?.is_favorite}
+      removeFavoriteJob={removeFavoriteJob}
       addStudentFav={addStudentFav}
+      removeStudentFav={removeStudentFav}
     />
   );
 

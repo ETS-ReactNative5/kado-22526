@@ -26,7 +26,10 @@ const MessageCard = ({
           profileId,
         });
       }}>
-      <ImageView source={{uri: image}} style={styles.image} />
+      <ImageView
+        source={{uri: image || 'https://kado-22526.s3.amazonaws.com/1.png'}}
+        style={styles.image}
+      />
       <View style={styles.textContainer}>
         <View style={styles.headinContainer}>
           <View>

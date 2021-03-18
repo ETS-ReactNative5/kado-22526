@@ -25,7 +25,7 @@ const FeedCard = ({
   id,
   removeFavoriteJob,
 }) => {
-  // const myItem = return ()
+  const [stateFavorite, setFavorite] = React.useState(is_favorite);
   const renderItem = ({item}) => <FeedButton title={item} />;
   return (
     <View style={styles.container}>
@@ -40,12 +40,30 @@ const FeedCard = ({
         </View>
         <View style={styles.heartContaine}>
           {is_favorite ? (
-            <TouchableOpacity onPress={() => removeFavoriteJob(id)}>
-              <Icon color={buttonColor} solid={true} size={18} name="heart" />
+            <TouchableOpacity
+              onPress={() => {
+                removeFavoriteJob(id);
+                setFavorite(!stateFavorite);
+              }}>
+              <Icon
+                color={buttonColor}
+                solid={stateFavorite}
+                size={18}
+                name="heart"
+              />
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity onPress={() => addFavorite(id)}>
-              <Icon color={buttonColor} size={18} name="heart" />
+            <TouchableOpacity
+              onPress={() => {
+                addFavorite(id);
+                setFavorite(!stateFavorite);
+              }}>
+              <Icon
+                color={buttonColor}
+                solid={stateFavorite}
+                size={18}
+                name="heart"
+              />
             </TouchableOpacity>
           )}
         </View>

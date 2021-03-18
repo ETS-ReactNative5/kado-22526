@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {CompanyProfileScreen} from '../Screen';
 import {getProfileById} from '../actions/profile';
 import {fetchCompanyById} from '../actions/company';
+
 const CompanyProfileContainer = props => {
   const [image] = useState('');
   const dispatch = useDispatch();
