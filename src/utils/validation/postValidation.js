@@ -32,6 +32,10 @@ export const validateBudget = values => {
     if (!values.min_pay || !values.max_pay) {
       errors.min_pay = 'Min and Max price required';
     }
+
+    if (parseInt(values.min_pay) > parseInt(values.max_pay)) {
+      errors.min_pay = 'Min pay can not be more than max pay';
+    }
   }
 
   return errors;

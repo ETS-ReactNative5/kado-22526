@@ -107,6 +107,7 @@ export function updatePhoto(profile_id, param) {
     Api.putMultiForm(`api/v1/profile/${profile_id}/`, param)
       .then(resp => {
         dispatch(updateProfileFunc(resp));
+        dispatch(fetchProfile(profile_id));
         dispatch(updateProfileLoading(false));
       })
       .catch(err => {

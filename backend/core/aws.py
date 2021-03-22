@@ -3,6 +3,8 @@ import os
 import boto3
 from botocore.config import Config
 from django.conf import settings
+from PIL import Image
+import os
 
 AWS_ACCESS_KEY_ID = settings.AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
@@ -60,14 +62,39 @@ class S3(AWS):
 
     def _upload_file(self, payload):
         try:
-            self.client.upload_fileobj(
-                payload.get('data'),
+            file_name = compress_file(payload)
+            self.client.upload_file(
+                file_name,
                 self.bucket_name,
                 payload.get('file_name'),
                 ExtraArgs={'ACL': 'public-read'}
-
             )
+            try:
+                os.remove(file_name)
+            except:
+                pass
             return f"https://{self.bucket_name}.s3.amazonaws.com/{payload.get('file_name')}"
         except Exception as e:
             logger.warning(msg=e)
             return ''
+
+
+def compress_file(payload):
+    try:
+        ext = get_extension(payload.get('data'))
+        im = Image.open(payload.get('data').file)
+        file_name = payload.get('file_name') + '.' + ext
+        im.save(file_name, format=ext, quality=40)
+        return file_name
+    except Exception as e:
+        logger.warning(msg=e)
+        return payload.get('file_name')
+
+
+def get_extension(data):
+    data = str(data)
+    if 'png' in data:
+        return 'png'
+    if 'jpg' in data:
+        return 'jpg'
+    return 'jpeg'
