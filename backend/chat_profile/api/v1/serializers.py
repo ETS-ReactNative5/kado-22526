@@ -99,7 +99,8 @@ class ProfileSerializer(serializers.ModelSerializer):
             photo = validated_data.get('photo_file')
             payload = {'file_name': photo._name, 'data': photo}
             upload_response = S3.upload_file(payload)
-            validated_data['photo'] = upload_response
+            if upload_response:
+                validated_data['photo'] = upload_response
         updated_instance = update_object(instance, validated_data)
 
         if validated_data.get('fullname'):

@@ -81,10 +81,12 @@ class S3(AWS):
 
 def compress_file(payload):
     try:
-        ext = get_extension(payload.get('data'))
+        ext = get_extension(payload)
         im = Image.open(payload.get('data').file)
+        height, width = im.size
+        im = im.resize((int(height/3), int(width/3)), resample=1)
         file_name = payload.get('file_name') + '.' + ext
-        im.save(file_name, format=ext, quality=40)
+        im.save(file_name, format=ext, quality=10,  optimize=True,)
         return file_name
     except Exception as e:
         logger.warning(msg=e)
