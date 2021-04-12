@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {
@@ -16,9 +17,13 @@ import Storage from '../lib/requests/storage';
 import {themeColor} from '../utils/Theme/Color';
 
 const ExploreScreen = ({goBack, navigate, user_groups}) => {
+  const navigation = useNavigation();
   const logOut = () => {
     Storage.removeData('access_token');
-    navigate('Login');
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Login'}],
+    });
   };
   return (
     <View style={styles.container}>

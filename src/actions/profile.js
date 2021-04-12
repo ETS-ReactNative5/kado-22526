@@ -126,9 +126,9 @@ export function updateProfile(profile_id, param, navigate, user_group) {
         dispatch(updateProfileFunc(resp));
         dispatch(updateProfileLoading(false));
         if (user_group === 'company') {
-          navigate('NewsFeed');
+          navigate && navigate('NewsFeed');
         } else {
-          navigate('Profile');
+          navigate && navigate('Profile');
         }
       })
       .catch(err => {
@@ -162,7 +162,7 @@ export function updateProfileById(profile_id, params, navigate) {
       .then(resp => {
         dispatch(updateProfileId(resp));
         dispatch(updateProfileLoading(false));
-        navigate('NewsFeed');
+        navigate && navigate('NewsFeed');
       })
       .catch(err => {
         // dispatch(setfetchCommunityGroupError(err.errors));

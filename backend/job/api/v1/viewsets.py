@@ -81,3 +81,4 @@ class ListJobTypesOptionsView(APIView):
 
     def get(self, request, format=None):
         return Response(job_type_options)
+

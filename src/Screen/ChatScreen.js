@@ -21,6 +21,7 @@ import {WEBSOCKET_HOST} from '../lib/requests/api';
 import Storage from '../lib/requests/storage';
 import useWebSocket from 'react-use-websocket';
 import DropDownPicker from '../components/DropdownPicker';
+import {DEFAULT_PIC} from '../constants/profile';
 
 const ChatScreen = ({
   goBack,
@@ -81,7 +82,7 @@ const ChatScreen = ({
   }, [remoteMessages]);
 
   const setChatArray = text => {
-    if (!text) return;
+    // if (!text) return;
     const mss = {
       _id: messages.length,
       text: text,
@@ -165,31 +166,6 @@ const ChatScreen = ({
     );
   };
 
-  const uploadCallBackFn = response => {
-    const message = {
-      type: 'chat_message',
-      message: '',
-      image: response.path,
-      threadId: threadID,
-      user: {
-        _id: profileID,
-        name: '',
-        avatar: '',
-      },
-    };
-    setMessages(previousMessages =>
-      GiftedChat.append(previousMessages, message),
-    );
-
-    const msgData = {
-      message: '',
-      attachment: response.data,
-      thread_id: threadId,
-      to_profile_ids: [remoteMessages.receiverProfileId],
-    };
-    sendMessage(msgData);
-  };
-
   const uploadImage = () => {
     const options = {
       title: 'Select Attachment',
@@ -251,10 +227,7 @@ const ChatScreen = ({
                 source={{uri: remoteMessages.avatar}}
               />
             ) : (
-              <ImageView
-                style={styles.image}
-                source={{uri: 'https://kado-22526.s3.amazonaws.com/1.png'}}
-              />
+              <ImageView style={styles.image} source={{uri: DEFAULT_PIC}} />
             )}
 
             <Text numberOfLines={1} style={styles.headerText}>
@@ -314,9 +287,6 @@ const ChatScreen = ({
             paddingRight: 10,
           }}
           renderInputToolbar={props => customtInputToolbar(props)}
-          // renderMessageText={() => <View style={{ backgroundColor: 'red' }}></View>}
-          // renderQuickReplySend={() => quickReply}
-          // quickReplyStyle={{ backgroundColor: 'red' }}
           renderBubble={renderBubble}
           renderAvatar={() => null}
           user={{

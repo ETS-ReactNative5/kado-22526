@@ -1,6 +1,13 @@
 import Api from '../lib/requests/api';
 import * as types from './types';
 
+function fetchJob(payload) {
+  return {
+    type: types.FETCH_JOB,
+    payload,
+  };
+}
+
 function setIsLoading(isloading) {
   return {
     type: types.IS_LOADING,
@@ -70,6 +77,16 @@ function jobSearch(searchJobList) {
     searchJobList: searchJobList,
   };
 }
+
+export const getJob = id => {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/job/${id}/`).then(resp => {
+      dispatch(fetchJob(resp));
+      dispatch(setIsLoading(false));
+    });
+  };
+};
 
 export function fetchJobs() {
   return dispatch => {

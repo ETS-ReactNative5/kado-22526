@@ -23,7 +23,12 @@ const SignUpScreen = ({
 }) => {
   return (
     <Formik
-      initialValues={{email: '', password: '', confirmPassword: ''}}
+      initialValues={{
+        first_name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      }}
       validate={validateRegistration}
       onSubmit={values => submit({...values, user_type})}>
       {({
@@ -35,6 +40,24 @@ const SignUpScreen = ({
         setFieldValue,
       }) => (
         <View style={styles.formWrapper}>
+          <View style={styles.inputWrapper}>
+            <Input
+              secureTextEntry={false}
+              iconShow={false}
+              placeholder="Name"
+              name="first_name"
+              onChange={value => {
+                handleChange('first_name');
+                setFieldValue('first_name', value);
+              }}
+              value={values.first_name}
+            />
+          </View>
+          {errors.email && touched.email && (
+            <View>
+              <Text style={styles.errorText}>{errors.email}</Text>
+            </View>
+          )}
           <View style={styles.inputWrapper}>
             <Input
               secureTextEntry={false}

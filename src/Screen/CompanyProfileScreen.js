@@ -16,6 +16,7 @@ import {
 } from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
+import {DEFAULT_PIC} from '../constants/profile';
 
 const CompanyProfileScreen = ({
   goBack,
@@ -23,6 +24,8 @@ const CompanyProfileScreen = ({
   isloading,
   image,
   navigation,
+  available,
+  updateProfileStatus,
 }) => {
   return (
     <View style={styles.container}>
@@ -46,7 +49,7 @@ const CompanyProfileScreen = ({
                           resizeMode="cover"
                           style={styles.image}
                           source={{
-                            uri: 'https://kado-22526.s3.amazonaws.com/1.png',
+                            uri: DEFAULT_PIC,
                           }}
                         />
                       ) : (
@@ -54,9 +57,7 @@ const CompanyProfileScreen = ({
                           resizeMode="cover"
                           style={styles.image}
                           source={{
-                            uri:
-                              profileData?.photo ||
-                              'https://kado-22526.s3.amazonaws.com/1.png',
+                            uri: profileData?.photo || DEFAULT_PIC,
                           }}
                         />
                       )}
@@ -71,7 +72,8 @@ const CompanyProfileScreen = ({
                   <Switch
                     thumbColor="white"
                     trackColor={{true: '#36C559'}}
-                    value={true}
+                    value={available}
+                    onValueChange={() => updateProfileStatus()}
                   />
                   <Text style={styles.availabilityText}>Hiring</Text>
                 </View>
@@ -86,7 +88,7 @@ const CompanyProfileScreen = ({
               <Text style={styles.fieldTitleText}>About Company</Text>
               <View>
                 <View style={styles.textAreaContainer}>
-                  <Text >{profileData?.bio}</Text>
+                  <Text>{profileData?.bio}</Text>
                 </View>
               </View>
 

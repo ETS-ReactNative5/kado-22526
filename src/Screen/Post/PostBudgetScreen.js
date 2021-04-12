@@ -149,7 +149,7 @@ const PostBudgetScreen = () => {
                         name="max_pay"
                         onChange={value => {
                           handleChange(jobsFields.max_pay);
-                          setFieldValue(jobsFields.max_pay, value);
+                          setFieldValue(jobsFields.max_pay, parseInt(value));
                           handleChange(jobsFields.budget_type);
                           setFieldValue(
                             jobsFields.budget_type,

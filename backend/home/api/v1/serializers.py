@@ -22,7 +22,7 @@ class SignupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "email", "password", "user_type")
+        fields = ("id", "email", "password", "user_type", "first_name")
         extra_kwargs = {
             "password": {"write_only": True, "style": {"input_type": "password"}},
             "email": {
@@ -54,6 +54,8 @@ class SignupSerializer(serializers.ModelSerializer):
         user = User(
             email=validated_data.get("email"),
             name=validated_data.get("name"),
+            first_name=validated_data.get("first_name"),
+            last_name=" ",
             username=generate_unique_username(
                 [validated_data.get("name"), validated_data.get("email"), "user"]
             ),

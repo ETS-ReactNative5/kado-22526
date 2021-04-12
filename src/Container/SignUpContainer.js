@@ -37,7 +37,7 @@ const SignUpContainer = props => {
   const signUpCallback = () => {
     toastRef.current.show('Signup successful.', '#fff', 1000);
     setTimeout(() => {
-      navigate('Login');
+      navigate('Home');
     }, 2000);
   };
   const handleSubmit = signUpData => {

@@ -41,7 +41,11 @@ class JobSerializer(serializers.ModelSerializer):
             "time_sent",
             "is_favorite",
             "favorite",
-            "time_frame"
+            "time_frame",
+            "budget_type",
+            "people",
+            "min_pay",
+            "max_pay"
         )
 
     def get_is_favorite(self, instance):

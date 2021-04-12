@@ -19,3 +19,4 @@ export const USER_TYPES = {
   },
   genderOptions: ['Male', 'Female'],
 };
+export const DEFAULT_PIC = 'https://kado-22526.s3.amazonaws.com/1.png';

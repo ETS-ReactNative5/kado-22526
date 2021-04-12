@@ -40,13 +40,7 @@ const MessageScreen = ({
       {...rest}
     />
   );
-  // if (isloading) {
-  //   return (
-  //     <View style={styles.empty}>
-  //       <ActivityIndicator color={buttonColor} />
-  //     </View>
-  //   );
-  // }
+
   return (
     <View style={styles.conainer}>
       <View style={styles.headerContainer}>
@@ -83,7 +77,12 @@ const MessageScreen = ({
       </View>
 
       <ScrollView>
-        {data?.results.length === 0 ? (
+        {isloading && data?.results.length === 0 ? (
+          <View style={styles.empty}>
+            <ActivityIndicator color={buttonColor} />
+          </View>
+        ) : null}
+        {data?.results.length === 0 && !isloading ? (
           <View style={styles.empty}>
             <Text style={styles.emptytext}>No messages</Text>
           </View>

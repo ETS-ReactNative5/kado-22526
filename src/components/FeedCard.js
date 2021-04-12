@@ -12,6 +12,7 @@ import {
   themeColor,
 } from '../utils/Theme/Color';
 import {FeedButton} from './index';
+import {useNavigation} from '@react-navigation/native';
 
 const FeedCard = ({
   title,
@@ -25,19 +26,24 @@ const FeedCard = ({
   id,
   removeFavoriteJob,
 }) => {
+  const navigation = useNavigation();
   const [stateFavorite, setFavorite] = React.useState(is_favorite);
   const renderItem = ({item}) => <FeedButton title={item} />;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View>
+        <TouchableOpacity
+          onPress={() => {
+            console.warn('hello world');
+            navigation.navigate('PostView', {id, title});
+          }}>
           <Text numberOfLines={1} style={styles.heading}>
             {title}
           </Text>
           <Text style={styles.postColor}>
             Posted {<TimeAgo time={sent_at} />}
           </Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.heartContaine}>
           {is_favorite ? (
             <TouchableOpacity

@@ -60,6 +60,24 @@ class S3(AWS):
     def upload_file(cls, payload):
         return cls()._upload_file(payload)
 
+    @classmethod
+    def upload_base64(cls, payload):
+        return cls()._upload_base64(payload)
+
+    def _upload_base64(self, payload):
+        try:
+            self.client.upload_fileobj(
+                payload.get('data'),
+                self.bucket_name,
+                payload.get('file_name'),
+                ExtraArgs={'ACL': 'public-read'}
+
+            )
+            return f"https://{self.bucket_name}.s3.amazonaws.com/{payload.get('file_name')}"
+        except Exception as e:
+            logger.warning(msg=e)
+            return ''
+
     def _upload_file(self, payload):
         try:
             file_name = compress_file(payload)
@@ -84,9 +102,9 @@ def compress_file(payload):
         ext = get_extension(payload)
         im = Image.open(payload.get('data').file)
         height, width = im.size
-        im = im.resize((int(height/3), int(width/3)), resample=1)
+        im = im.resize((int(height / 3), int(width / 3)), resample=1)
         file_name = payload.get('file_name') + '.' + ext
-        im.save(file_name, format=ext, quality=10,  optimize=True,)
+        im.save(file_name, format=ext, quality=60, optimize=True, )
         return file_name
     except Exception as e:
         logger.warning(msg=e)

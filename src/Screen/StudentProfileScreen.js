@@ -15,6 +15,7 @@ import {
 } from '../utils/Theme/Color';
 import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
+import {DEFAULT_PIC} from '../constants/profile';
 
 const StudentProfileScreen = ({
   goBack,
@@ -22,6 +23,9 @@ const StudentProfileScreen = ({
   isloading,
   image,
   navigation,
+  updateProfileStatus,
+  available,
+  user_group,
 }) => {
   return (
     <View style={styles.container}>
@@ -41,9 +45,7 @@ const StudentProfileScreen = ({
                       resizeMode="cover"
                       style={styles.image}
                       source={{
-                        uri:
-                          profileData?.photo ||
-                          'https://kado-22526.s3.amazonaws.com/1.png',
+                        uri: profileData?.photo || DEFAULT_PIC,
                       }}
                     />
                   </View>
@@ -56,7 +58,9 @@ const StudentProfileScreen = ({
                   <Switch
                     thumbColor="white"
                     trackColor={{true: '#36C559'}}
-                    value={true}
+                    value={available}
+                    disabled={user_group === 'company'}
+                    onValueChange={() => updateProfileStatus()}
                   />
                   <Text style={styles.availabilityText}>Available</Text>
                 </View>

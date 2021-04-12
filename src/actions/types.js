@@ -42,3 +42,4 @@ export const THREAD_LIST = 'THREAD_LIST';
 export const MESSAGE_LIST = 'MESSAGE_LIST';
 export const LOGIN_ERRORS = 'LOGIN_ERRORS';
 export const ALL_CATEGORIES = 'ALL_CATEGORIES';
+export const FETCH_JOB = 'FETCH_JOB';

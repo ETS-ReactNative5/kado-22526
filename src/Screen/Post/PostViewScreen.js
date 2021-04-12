@@ -12,8 +12,9 @@ import {
 } from '../../utils/Theme/Color';
 import {PostContext} from '../../context/PostProvider';
 import {JOBS_ENUM} from '../../constants/jobs';
-const PostReviewScreen = ({loading, handleSubmit}) => {
-  const {data, categories} = React.useContext(PostContext);
+
+const PostViewScreen = ({loading, handleSubmit, data}) => {
+  const {data: postData, categories} = React.useContext(PostContext);
 
   const getItemName = (arr, value, key) => {
     const item = _.find(arr, key, value);
@@ -35,7 +36,7 @@ const PostReviewScreen = ({loading, handleSubmit}) => {
       <BackHeader rightBtns={true} image rightCloseIcon />
       <ScrollView contentContainerStyle={styles.bodyContainer}>
         <View style={styles.contentContainer}>
-          <Text style={styles.text}>Review your role</Text>
+          <Text style={styles.text}>Job details</Text>
         </View>
         <View style={styles.body}>
           <Text style={styles.fieldTitleText}>Category</Text>
@@ -122,7 +123,7 @@ const PostReviewScreen = ({loading, handleSubmit}) => {
             style={styles.postBtnContainer}
             loading={loading}
             onPress={() => handleSubmit()}>
-            <Text style={styles.postText}>Publish</Text>
+            <Text style={styles.postText}>Apply</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -218,4 +219,4 @@ const styles = ScaledSheet.create({
   },
 });
 
-export default PostReviewScreen;
+export default PostViewScreen;

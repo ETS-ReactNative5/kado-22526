@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {DrawerIcon, MessageIcon} from '../assets/Image';
 import MainLogo from '../assets/Image/MainLogo';
 import {KadoContext} from '../context/KadoProvider';
+import {DEFAULT_PIC} from '../constants/profile';
 
 const FeedHeader = ({rightBtns, profileDetail, image = false}) => {
   const navigation = useNavigation();
@@ -36,7 +37,7 @@ const FeedHeader = ({rightBtns, profileDetail, image = false}) => {
           <TouchableOpacity onPress={goToProfile}>
             <Image
               style={styles.image}
-              source={{uri: profileDetail?.photo || ''}}
+              source={{uri: profileDetail?.photo || DEFAULT_PIC}}
             />
           </TouchableOpacity>
         </View>

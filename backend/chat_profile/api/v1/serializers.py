@@ -49,7 +49,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "availability",
             "years_of_experience",
             "company_name", "tagline", "industry", "thread_id",
-            "bio", "favorite", "is_favorite", 'total_jobs'
+            "bio", "favorite", "is_favorite", 'total_jobs', "status"
         )
 
     def _get_request(self):

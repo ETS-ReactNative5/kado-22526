@@ -43,6 +43,7 @@ import Animated from 'react-native-reanimated';
 import {themeColor, white} from './Theme/Color';
 import AuthLoadingScreen from '../Screen/AuthLoadingScreen';
 import PostReviewContainer from '../Container/Post/PostReviewContainer';
+import PostViewContainer from '../Container/Post/PostViewContainer';
 
 const Stack = createStackNavigator();
 
@@ -238,6 +239,11 @@ const App = ({style}) => {
         <Stack.Screen
           name="PostReview"
           component={PostReviewContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PostView"
+          component={PostViewContainer}
           options={{headerShown: false}}
         />
         <Stack.Screen

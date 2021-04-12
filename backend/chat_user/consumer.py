@@ -56,7 +56,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         if attachment:
             io_file, file_name = decode_base64_file(attachment)
-            upload_response = S3.upload_file({'data': io_file, 'file_name': file_name})
+            upload_response = S3.upload_base64({'data': io_file, 'file_name': file_name})
             data['attachment'] = upload_response
 
         validated_data = MessageSerializer(data=data)

@@ -6,6 +6,7 @@ import {BackHeader, CompaniesItem, SearchBar} from '../components';
 import {blackColorText, buttonColor, lightGray} from '../utils/Theme/Color';
 
 import {ActivityIndicator} from 'react-native';
+import {DEFAULT_PIC} from '../constants/profile';
 
 const CompaniesScreen = ({
   goBack,
@@ -17,7 +18,7 @@ const CompaniesScreen = ({
 }) => {
   const renderItem = ({item}) => (
     <CompaniesItem
-      image={item.photo || 'https://kado-22526.s3.amazonaws.com/1.png'}
+      image={item.photo || DEFAULT_PIC}
       title={item.fullname}
       navigate={navigate}
       subtitle={item.location}

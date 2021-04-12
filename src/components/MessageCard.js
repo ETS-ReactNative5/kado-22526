@@ -3,6 +3,7 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {positionColor, themeColor} from '../utils/Theme/Color';
 import {ImageView} from '../components';
+import {DEFAULT_PIC} from '../constants/profile';
 
 const MessageCard = ({
   threadId,
@@ -26,10 +27,7 @@ const MessageCard = ({
           profileId,
         });
       }}>
-      <ImageView
-        source={{uri: image || 'https://kado-22526.s3.amazonaws.com/1.png'}}
-        style={styles.image}
-      />
+      <ImageView source={{uri: image || DEFAULT_PIC}} style={styles.image} />
       <View style={styles.textContainer}>
         <View style={styles.headinContainer}>
           <View>

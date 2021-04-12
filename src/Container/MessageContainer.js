@@ -19,9 +19,9 @@ const MessageContainer = props => {
     Storage.retrieveData('access_token').then(item => {
       setProfileId(item?.profile_id);
     });
-    if (!isloading) {
+    // if (!isloading) {
       dispatch(fetchThreads(querySearch));
-    }
+    // }
   }, [dispatch, querySearch]);
   const resetMessages = (id = undefined) => {
     dispatch(

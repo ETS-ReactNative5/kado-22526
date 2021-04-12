@@ -4,8 +4,12 @@ import * as types from '../actions/types';
 const INITIAL_STATE = {
   isloading: false,
   favoriteLoading: false,
+  job: {},
 };
 export const jobs = createReducer(INITIAL_STATE, {
+  [types.FETCH_JOB](state, action) {
+    return {...state, job: action.payload};
+  },
   [types.JOBS_LIST](state, action) {
     return {
       ...state,

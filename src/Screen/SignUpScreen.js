@@ -28,7 +28,6 @@ const SignUpScreen = ({
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      {/* <Header navigate={navigate} /> */}
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('Login');
@@ -42,28 +41,6 @@ const SignUpScreen = ({
           <Text style={styles.text}>Remote freelance jobs for students</Text>
         </View>
         <View style={styles.body}>
-          {/* <DropDownPicker
-            items={[
-              { label: 'Undergraduate Students', value: 'undergraduate', selected: true },
-              { label: 'Graduate Students', value: 'graduate' },
-              { label: 'International Students', value: 'international Students' },
-              { label: 'Companies ', value: 'companies' },
-              { label: 'Start-up', value: 'start_up' },
-            ]}
-            containerStyle={{ height: 40 }}
-            style={{ backgroundColor: '#fafafa' }}
-            itemStyle={{
-              justifyContent: 'flex-start'
-            }}
-            dropDownStyle={{ backgroundColor: '#fafafa' }}
-            labelStyle={{
-              fontSize: 14,
-              textAlign: 'left',
-              color: '#000'
-            }}
-            onChangeItem={item => handleChange('user_type', item.value)}
-          /> */}
-
           <View style={styles.tabContainer}>
             <Tabs
               locked={true}

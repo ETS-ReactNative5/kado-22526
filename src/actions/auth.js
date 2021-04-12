@@ -55,8 +55,9 @@ export function signUp(params, callBackFn) {
     dispatch(setIsLoading(true));
     Api.post('rest-auth/registration/', params)
       .then(resp => {
-        callBackFn && callBackFn();
+        Storage.storeData('access_token', resp);
         dispatch(setIsLoading(false));
+        callBackFn && callBackFn();
       })
       .catch(err => {
         for (const [key, value] of Object.entries(err)) {
