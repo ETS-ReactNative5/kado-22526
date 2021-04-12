@@ -53,9 +53,9 @@ const SignUpScreen = ({
               value={values.first_name}
             />
           </View>
-          {errors.email && touched.email && (
+          {errors.email && touched.first_name && (
             <View>
-              <Text style={styles.errorText}>{errors.email}</Text>
+              <Text style={styles.errorText}>{errors.first_name}</Text>
             </View>
           )}
           <View style={styles.inputWrapper}>

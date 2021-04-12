@@ -14,7 +14,7 @@ import {PostContext} from '../../context/PostProvider';
 import {JOBS_ENUM} from '../../constants/jobs';
 
 const PostViewScreen = ({loading, handleSubmit, data}) => {
-  const {data: postData, categories} = React.useContext(PostContext);
+  const {categories} = React.useContext(PostContext);
 
   const getItemName = (arr, value, key) => {
     const item = _.find(arr, key, value);
@@ -120,10 +120,16 @@ const PostViewScreen = ({loading, handleSubmit, data}) => {
           </View>
 
           <TouchableOpacity
-            style={styles.postBtnContainer}
+            style={{
+              ...styles.postBtnContainer,
+              ...(data?.is_applied ? {backgroundColor: 'grey'} : {}),
+            }}
             loading={loading}
+            disabled={data?.is_applied}
             onPress={() => handleSubmit()}>
-            <Text style={styles.postText}>Apply</Text>
+            <Text style={styles.postText}>
+              {data?.is_applied ? 'Applied' : 'Apply'}
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -174,10 +180,11 @@ const styles = ScaledSheet.create({
     lineHeight: '18@s',
     marginLeft: '5@s',
   },
+
   postBtnContainer: {
     padding: '10@s',
     backgroundColor: buttonColor,
-    marginTop: '80@s',
+    marginTop: '50@s',
     borderRadius: '5@s',
     justifyContent: 'center',
     alignItems: 'center',

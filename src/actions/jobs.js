@@ -273,6 +273,7 @@ export function addFavoriteJob(job_id, data) {
       .then(resp => {
         dispatch(addFavorite(resp));
         dispatch(setFavoriteLoading(false));
+        dispatch(getJob(job_id));
       })
       .catch(err => {
         dispatch(setFavoriteLoading(false));

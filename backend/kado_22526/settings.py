@@ -194,7 +194,7 @@ EMAIL_HOST_PASSWORD = env.str("SENDGRID_PASSWORD", "")
 EMAIL_PORT = env.str("EMAIL_PORT", 587)
 EMAIL_USE_TLS = env.str("EMAIL_USE_TLS", True)
 SERVER_EMAIL = 'root@my-domain.com'
-DEFAULT_FROM_EMAIL = 'info@kado-backend-22526.com'
+DEFAULT_FROM_EMAIL = 'gladymir@kadoinc.com'
 
 # AWS S3 config
 AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", "")

@@ -72,3 +72,6 @@ buck-out/
 # cached files
 */__pycache__/*
 
+# enviroment
+.env
+

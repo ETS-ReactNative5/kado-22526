@@ -80,6 +80,7 @@ class Job(models.Model):
     field = models.CharField(max_length=150, null=True, blank=True, )
     owner = models.ForeignKey('chat_profile.Profile', related_name='jobs', on_delete=models.CASCADE)
     favorites = models.ManyToManyField('chat_profile.Profile', related_name='favorite_jobs', blank=True, )
+    applied = models.ManyToManyField('chat_profile.Profile', related_name='applied_jobs', blank=True, )
     sent_at = models.DateTimeField(default=timezone.now)
     deleted = models.BooleanField(default=False)
     min_pay = models.IntegerField(
@@ -104,6 +105,12 @@ class Job(models.Model):
     @classmethod
     def is_favorite(cls, instance, profile):
         if cls.objects.filter(pk=instance.id, favorites__id=profile.id).exists():
+            return True
+        return False
+
+    @classmethod
+    def is_applied(cls, instance, profile):
+        if cls.objects.filter(pk=instance.id, applied__id=profile.id).exists():
             return True
         return False
 

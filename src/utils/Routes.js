@@ -36,6 +36,7 @@ import {
   PostBudgetContainer,
   PostDurationContainer,
   PostPeopleContainer,
+  ForgotPasswordContainer,
 } from '../Container';
 import {DrawerContentData} from '../components';
 import Animated from 'react-native-reanimated';
@@ -68,6 +69,11 @@ const Auth = () => {
       <Stack.Screen
         name="Login"
         component={LoginContainer}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPasswordContainer}
         options={{headerShown: false}}
       />
       <Stack.Screen

@@ -24,6 +24,22 @@ function setForgotValidationError(errors) {
   };
 }
 
+export function resetPassword(params, callBackFn) {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.post('rest-auth/password/reset/', params)
+      .then(resp => {
+        dispatch(setIsLoading(false));
+        callBackFn && callBackFn(resp, true);
+      })
+      .catch(err => {
+        callBackFn && callBackFn(err, false);
+
+        dispatch(setIsLoading(false));
+      });
+  };
+}
+
 export function login(params, navigate, callBackFn) {
   return dispatch => {
     dispatch(setIsLoading(true));

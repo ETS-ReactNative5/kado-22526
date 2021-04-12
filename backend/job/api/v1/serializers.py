@@ -13,7 +13,9 @@ class JobSerializer(serializers.ModelSerializer):
     time_sent = serializers.SerializerMethodField()
     time_frame = serializers.SerializerMethodField()
     is_favorite = serializers.SerializerMethodField()
+    is_applied = serializers.SerializerMethodField()
     favorite = serializers.BooleanField(required=False)
+    apply = serializers.BooleanField(required=False)
 
     class Meta:
         model = Job
@@ -40,12 +42,14 @@ class JobSerializer(serializers.ModelSerializer):
             "time_since",
             "time_sent",
             "is_favorite",
+            "is_applied",
             "favorite",
             "time_frame",
             "budget_type",
             "people",
             "min_pay",
-            "max_pay"
+            "max_pay",
+            "apply"
         )
 
     def get_is_favorite(self, instance):
@@ -53,7 +57,11 @@ class JobSerializer(serializers.ModelSerializer):
         if hasattr(user, 'profile'):
             return Job.is_favorite(instance, user.profile)
         return False
-
+    def get_is_applied(self, instance):
+        user = self._get_request().user
+        if hasattr(user, 'profile'):
+            return Job.is_applied(instance, user.profile)
+        return False
     def get_owner(self, obj):
         return obj.owner.id
 
@@ -84,6 +92,9 @@ class JobSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         user = self._get_request().user
         favorite = validated_data.get('favorite', -1)
+        apply = validated_data.get('apply', -1)
+        if apply != -1:
+            instance.applied.add(user.profile) if apply else instance.applied.remove(user.profile)
         if favorite != -1:
             instance.favorites.add(user.profile) if favorite else instance.favorites.remove(user.profile)
         if user.id != instance.owner.user.id:

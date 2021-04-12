@@ -12,6 +12,11 @@ export const auth = createReducer(INITIAL_STATE, {
       isLoading: action.isLoading,
     };
   },
+  [types.RESET_PASSWORD](state, action) {
+    return {
+      ...state,
+    };
+  },
   [types.IS_FORGOT_VALIDATION_ERROR](state, action) {
     return {
       ...state,

@@ -43,3 +43,4 @@ export const MESSAGE_LIST = 'MESSAGE_LIST';
 export const LOGIN_ERRORS = 'LOGIN_ERRORS';
 export const ALL_CATEGORIES = 'ALL_CATEGORIES';
 export const FETCH_JOB = 'FETCH_JOB';
+export const RESET_PASSWORD = 'RESET_PASSWORD';

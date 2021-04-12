@@ -29,6 +29,7 @@ import PostSkillsContainer from './Post/PostSkillsContainer';
 import PostBudgetContainer from './Post/PostBudgetContainer';
 import PostDurationContainer from './Post/PostDurationContainer';
 import PostPeopleContainer from './Post/PostPeopleContainer';
+import ForgotPasswordContainer from './ForgotPasswordContainer';
 
 export {
   SignUpContainer,
@@ -62,4 +63,5 @@ export {
   PostBudgetContainer,
   PostDurationContainer,
   PostPeopleContainer,
+  ForgotPasswordContainer,
 };

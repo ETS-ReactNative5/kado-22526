@@ -22,6 +22,9 @@ import {EditProfileIcon} from '../assets/Image';
 import {getPlaceholder} from '../utils/misc';
 import {USER_TYPES} from '../constants/profile';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {PLACES_API_KEY} from '../lib/requests/api';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const EditProfileScreen = ({
   goBack,
@@ -59,7 +62,9 @@ const EditProfileScreen = ({
             <ActivityIndicator color={buttonColor} />
           </View>
         ) : (
-          <ScrollView contentContainerStyle={styles.bodyContainer}>
+          <ScrollView
+            contentContainerStyle={styles.bodyContainer}
+            keyboardShouldPersistTaps={'handled'}>
             <View style={styles.body}>
               <View style={styles.imageContainer}>
                 <View>
@@ -101,18 +106,31 @@ const EditProfileScreen = ({
                 />
               </View>
 
-              <View style={styles.inputCOntainer}>
-                <Input
-                  secureTextEntry={false}
-                  iconShow={true}
+              <View style={styles.inputContainer}>
+                <GooglePlacesAutocomplete
                   placeholder={getPlaceholder(
                     profileDetail?.location,
                     'Location',
                   )}
-                  iconName="map-marker-alt"
-                  onChange={value => handleChange('location', value)}
+                  onPress={(data, details = null) => {
+                    console.log(data, details);
+                    handleChange('location', data.description);
+                  }}
+                  query={{
+                    key: PLACES_API_KEY,
+                    language: 'en',
+                  }}
+                  style={styles.input}
+                  renderRightButton={() => (
+                    <Icon
+                      name="map-marker-alt"
+                      style={{marginTop: 12}}
+                      size={18}
+                    />
+                  )}
                 />
               </View>
+
               <View style={styles.inputCOntainer}>
                 <Input
                   secureTextEntry={false}
@@ -307,6 +325,22 @@ const styles = ScaledSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  inputContainer: {
+    backgroundColor: '#FAFAFA',
+    paddingLeft: '15@s',
+    borderColor: '#CBCBCB',
+    borderWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: '10@s',
+    marginTop: '10@s',
+    borderRadius: '8@s',
+  },
+  input: {
+    fontSize: '14@s',
+    color: 'black',
   },
 });
 
