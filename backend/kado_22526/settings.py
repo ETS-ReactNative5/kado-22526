@@ -17,7 +17,7 @@ import logging
 env = environ.Env()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DEBUG", default=True)
+DEBUG = env.bool("DEBUG", default=False)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -196,6 +196,9 @@ EMAIL_USE_TLS = env.str("EMAIL_USE_TLS", True)
 SERVER_EMAIL = 'root@my-domain.com'
 DEFAULT_FROM_EMAIL = 'gladymir@kadoinc.com'
 
+SENDGRID_API_KEY = env.str("SENDGRID_PASSWORD", "")
+SENDGRID_ECHO_TO_STDOUT = True
+
 # AWS S3 config
 AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", "")
@@ -238,7 +241,8 @@ if DEBUG or not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD):
             "You should setup `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` env vars to send emails."
         )
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
+else:
+    EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     "https://web.postman.co",
