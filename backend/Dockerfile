@@ -19,6 +19,7 @@ WORKDIR /opt/webapp
 COPY . .
 RUN pip3 install --no-cache-dir -q 'pipenv==2018.11.26' && pipenv install --deploy --system
 RUN pip3 install Pillow
+RUN pip3 install django-sendgrid-v5
 RUN python3 manage.py collectstatic --no-input
 
 # Run the image as a non-root user
