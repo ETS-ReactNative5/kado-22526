@@ -29,6 +29,7 @@ const FAQScreen = ({
   dispatch,
   fetchAllFaq,
   submitLoading,
+  data
 }) => {
   const renderItem = ({item}) => <FaqItems title={item?.question} />;
   return (
@@ -65,6 +66,7 @@ const FAQScreen = ({
               placeholder="Type your question to submit..."
               placeholderTextColor="#C0BFCD"
               multiline={true}
+              value={data?.question}
               onChangeText={value => handleChange('question', value)}
             />
           </View>

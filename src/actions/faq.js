@@ -66,17 +66,19 @@ export function fetchAllFaq(text) {
   };
 }
 
-export function addFaq(data) {
+export function addFaq(data, callbackFn) {
   return dispatch => {
     dispatch(setSubmitLoaing(true));
     Api.post(`api/v1/faq/`, data)
       .then(resp => {
-        dispatch(setSubmitLoaing(resp));
+        dispatch(setSubmitLoaing(false));
         dispatch(setIsLoading(false));
+        callbackFn(resp, true);
       })
       .catch(err => {
         // dispatch(setfetchCommunityGroupError(err.errors));
         dispatch(setSubmitLoaing(false));
+        callbackFn(err, false);
       });
   };
 }
