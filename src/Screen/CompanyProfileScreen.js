@@ -26,6 +26,7 @@ const CompanyProfileScreen = ({
   navigation,
   available,
   updateProfileStatus,
+  user_group
 }) => {
   return (
     <View style={styles.container}>
@@ -68,15 +69,17 @@ const CompanyProfileScreen = ({
 
               <View style={styles.profileHeader}>
                 <Text style={styles.profileName}>{profileData?.fullname}</Text>
-                <View style={styles.profileAvailability}>
-                  <Switch
-                    thumbColor="white"
-                    trackColor={{true: '#36C559'}}
-                    value={available}
-                    onValueChange={() => updateProfileStatus()}
-                  />
-                  <Text style={styles.availabilityText}>Hiring</Text>
-                </View>
+                { user_group === 'company' ? 
+                  <View style={styles.profileAvailability}>
+                    <Switch
+                      thumbColor="white"
+                      trackColor={{true: '#36C559'}}
+                      value={available}
+                      onValueChange={() => updateProfileStatus()}
+                    />
+                    <Text style={styles.availabilityText}>Hiring</Text>
+                  </View> : <></> }
+
                 <Text style={styles.subTitleText}>{profileData?.location}</Text>
               </View>
               <View style={styles.headingContianer}>
