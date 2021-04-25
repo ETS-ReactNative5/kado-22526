@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   View,
   Text,
@@ -20,7 +20,7 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
 import {EditProfileIcon} from '../assets/Image';
 import {getPlaceholder} from '../utils/misc';
-import {USER_TYPES} from '../constants/profile';
+import {DEFAULT_PIC, USER_TYPES} from '../constants/profile';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {PLACES_API_KEY} from '../lib/requests/api';
@@ -68,15 +68,12 @@ const EditProfileScreen = ({
             <View style={styles.body}>
               <View style={styles.imageContainer}>
                 <View>
-                  {image !== '' ? (
-                    <Image style={styles.image} source={image} />
-                  ) : (
                     <View>
                       {profileDetail?.photo === null ? (
                         <Image
                           resizeMode="cover"
                           style={styles.image}
-                          source={image}
+                          source={image ? image : { uri: DEFAULT_PIC }}
                         />
                       ) : (
                         <Image
@@ -86,7 +83,6 @@ const EditProfileScreen = ({
                         />
                       )}
                     </View>
-                  )}
                   <TouchableOpacity
                     onPress={() => uploadImage()}
                     style={styles.editBtnContainer}>
