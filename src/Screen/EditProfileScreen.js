@@ -99,9 +99,9 @@ const EditProfileScreen = ({
                   secureTextEntry={false}
                   iconShow={false}
                   placeholder={getPlaceholder(
-                    profileDetail?.fullname,
-                    'Full Name',
+                    'Full Name'
                   )}
+                  value={profileDetail?.fullname}
                   onChange={value => handleChange('fullname', value)}
                 />
               </View>
@@ -137,9 +137,9 @@ const EditProfileScreen = ({
                   keyboardType="numeric"
                   iconShow={false}
                   placeholder={getPlaceholder(
-                    profileDetail?.mobile_number,
-                    'Phone',
+                    'Phone'
                   )}
+                  value={profileDetail?.mobile_number}
                   onChange={value => handleChange('mobile_number', value)}
                 />
               </View>
@@ -215,7 +215,7 @@ const styles = ScaledSheet.create({
   },
   textAreaText: {
     fontSize: 16,
-    color: '#9a9a9a',
+    color: '#000',
   },
   textAreaContainer: {
     paddingLeft: '26@s',

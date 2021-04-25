@@ -73,9 +73,9 @@ const EditCompanyPofileScreen = ({
                   secureTextEntry={false}
                   iconShow={false}
                   placeholder={getPlaceholder(
-                    profileDetail?.fullname,
-                    'Company or Start-up name',
+                    'Company or Start-up name'
                   )}
+                  value={profileDetail?.fullname}
                   onChange={value => handleChange('fullname', value)}
                 />
               </View>
@@ -111,9 +111,9 @@ const EditCompanyPofileScreen = ({
                   secureTextEntry={false}
                   iconShow={false}
                   placeholder={getPlaceholder(
-                    profileDetail?.industry,
-                    'Industry',
+                    'Industry'
                   )}
+                  value={profileDetail?.industry}
                   onChange={value => handleChange('industry', value)}
                 />
               </View>
@@ -122,9 +122,9 @@ const EditCompanyPofileScreen = ({
                   secureTextEntry={false}
                   iconShow={false}
                   placeholder={getPlaceholder(
-                    profileDetail?.bio,
-                    'Tell us about your company',
+                    'Tell us about your company'
                   )}
+                  value={profileDetail?.bio}
                   onChange={value => handleChange('bio', value)}
                   customStyles={styles.textArea}
                 />
@@ -133,9 +133,9 @@ const EditCompanyPofileScreen = ({
                 <Input
                   secureTextEntry={false}
                   placeholder={getPlaceholder(
-                    profileDetail?.mobile_number,
-                    'Phone',
+                    'Phone'
                   )}
+                  value={profileDetail?.mobile_number}
                   keyboardType="numeric"
                   onChange={value => handleChange('mobile_number', value)}
                 />
