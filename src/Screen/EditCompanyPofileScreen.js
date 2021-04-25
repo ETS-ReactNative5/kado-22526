@@ -15,6 +15,7 @@ import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {PLACES_API_KEY} from '../lib/requests/api';
+import { DEFAULT_PIC } from '../constants/profile';
 
 const EditCompanyPofileScreen = ({
   goBack,
@@ -41,25 +42,22 @@ const EditCompanyPofileScreen = ({
             <View style={styles.body}>
               <View style={styles.imageContainer}>
                 <View>
-                  {image !== '' ? (
-                    <Image style={styles.image} source={image} />
-                  ) : (
-                    <View>
-                      {profileDetail?.photo === null ? (
-                        <Image
-                          resizeMode="cover"
-                          style={styles.image}
-                          source={image}
-                        />
-                      ) : (
-                        <Image
-                          resizeMode="cover"
-                          style={styles.image}
-                          source={{uri: profileDetail?.photo}}
-                        />
-                      )}
-                    </View>
-                  )}
+
+                  <View>
+                    {profileDetail?.photo === null ? (
+                      <Image
+                        resizeMode="cover"
+                        style={styles.image}
+                        source={image ? image : {uri: DEFAULT_PIC}}
+                      />
+                    ) : (
+                      <Image
+                        resizeMode="cover"
+                        style={styles.image}
+                        source={{uri: profileDetail?.photo}}
+                      />
+                    )}
+                  </View>
 
                   <TouchableOpacity
                     onPress={() => uploadImage()}
