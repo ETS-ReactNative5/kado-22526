@@ -7,13 +7,16 @@ import {buttonColor, themeColor} from '../utils/Theme/Color';
 
 import {BackArrow, MainLogo} from '../assets/Image';
 
-const BackHeader = ({image, title, right, rightCloseIcon}) => {
+const BackHeader = ({image, title, right, rightCloseIcon, openDrawer=false}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
+          if (openDrawer) {
+            navigation.openDrawer();
+          }
         }}
         style={{padding: 10}}>
         <BackArrow />

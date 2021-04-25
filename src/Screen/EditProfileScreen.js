@@ -55,7 +55,7 @@ const EditProfileScreen = ({
 
   return (
     <View style={styles.container}>
-      <BackHeader title="Edit Profile" goBack={goBack} />
+      <BackHeader title="Edit Profile" goBack={goBack} openDrawer={true} />
       <View style={{flex: 1}}>
         {isloading ? (
           <View style={styles.empty}>

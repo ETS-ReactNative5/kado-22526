@@ -14,7 +14,7 @@ import {ScrollView} from 'react-native';
 const AboutUsScreen = ({goBack}) => {
   return (
     <View style={styles.container}>
-      <BackHeader goBack={goBack} image={true} />
+      <BackHeader goBack={goBack} image={true} openDrawer={true} />
       <View style={styles.body}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.heading}>About Us</Text>
