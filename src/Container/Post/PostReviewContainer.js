@@ -14,7 +14,19 @@ const PostReviewContainer = props => {
 
   const handleSubmit = () => {
     setLoading(true);
-    Api.post('api/v1/job/', data)
+
+    let requestBody = {...data};
+
+    if ( requestBody.budget_type === 'per_hour' || requestBody.budget_type === 'negotiable' ) {
+        delete requestBody.fixed_price;
+    }
+
+    if ( requestBody.budget_type === 'fixed_price' || requestBody.budget_type === 'negotiable' ) {
+      delete requestBody.min_pay;
+      delete requestBody.max_pay;
+    }
+
+    Api.post('api/v1/job/', requestBody)
       .then(res => {
         setLoading(false);
         navigation.navigate('NewsFeed');

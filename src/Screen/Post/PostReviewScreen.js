@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import _ from 'lodash';
 import {View, ScrollView, Text, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
@@ -15,10 +15,10 @@ import {JOBS_ENUM} from '../../constants/jobs';
 const PostReviewScreen = ({loading, handleSubmit}) => {
   const {data, categories} = React.useContext(PostContext);
 
-  const getItemName = (arr, value, key) => {
-    const item = _.find(arr, key, value);
-    return item[key];
-  };
+  const getObjectName = (arr, value) => {
+    const item = arr.find(obj => obj.id === value);
+    return item ? item['name'] : '';
+  }
 
   const getSalary = () => {
     if (data.budget_type === 'per_hour') {
@@ -42,7 +42,7 @@ const PostReviewScreen = ({loading, handleSubmit}) => {
           <View>
             <View style={styles.inputContainer}>
               <Text style={styles.textAreaText}>
-                {getItemName(categories, data.category, 'name')}
+                {getObjectName(categories, data.category)}
               </Text>
             </View>
           </View>
@@ -86,11 +86,7 @@ const PostReviewScreen = ({loading, handleSubmit}) => {
           <View>
             <View style={styles.textAreaContainer}>
               <Text style={styles.textAreaText}>
-                {getItemName(
-                  JOBS_ENUM.availability_duration,
-                  data.duration,
-                  'name',
-                )}
+                {getObjectName(JOBS_ENUM.availability_duration, data.duration)}
               </Text>
             </View>
           </View>
@@ -99,7 +95,7 @@ const PostReviewScreen = ({loading, handleSubmit}) => {
           <View>
             <View style={styles.textAreaContainer}>
               <Text style={styles.textAreaText}>
-                {getItemName(JOBS_ENUM.time_per_week, data.time, 'name')}
+                {getObjectName(JOBS_ENUM.time_per_week, data.time)}
               </Text>
             </View>
           </View>
