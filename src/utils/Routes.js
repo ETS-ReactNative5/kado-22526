@@ -278,9 +278,9 @@ const MyDrawer = props => {
   });
 
   const borderRadius = Animated.interpolate(state, {
-    inputRange: [0, 0],
-    outputRange: [0, 20],
-    easing: Easing.linear
+    inputRange: [0, 1],
+    outputRange: [0, 30],
+    extrapolate: Animated.Extrapolate.CLAMP
   });
   
   const animatedStyle = {borderRadius, transform: [{scale}]};
