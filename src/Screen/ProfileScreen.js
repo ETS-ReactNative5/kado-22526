@@ -217,10 +217,8 @@ const ProfileScreen = ({
                 <View style={{width: '49%'}}>
                   <Input
                     secureTextEntry={false}
-                    iconShow={false}
-                    iconName="chevron-down"
                     placeholder="Min $"
-                    value={profileData?.min_pay}
+                    value={typeof profileData?.min_pay === 'number' ? profileData?.min_pay.toString() : ''}
                     onChange={value => handleChange('min_pay', value)}
                     keyboardType="numeric"
                   />
@@ -228,10 +226,8 @@ const ProfileScreen = ({
                 <View style={{width: '49%'}}>
                   <Input
                     secureTextEntry={false}
-                    iconShow={false}
-                    iconName="chevron-down"
                     placeholder="Max $"
-                    value={profileData?.max_pay}
+                    value={typeof profileData?.max_pay === 'number' ? profileData?.max_pay.toString() : ''}
                     keyboardType="numeric"
                     onChange={value => handleChange('max_pay', value)}
                   />
