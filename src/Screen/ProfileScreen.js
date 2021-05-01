@@ -14,6 +14,7 @@ import {ActivityIndicator} from 'react-native';
 import {EditProfileIcon} from '../assets/Image';
 import {getPlaceholder} from '../utils/misc';
 import TextArea from '../components/TextArea';
+import { DEFAULT_PIC } from '../constants/profile';
 
 const ProfileScreen = ({
   goBack,
@@ -49,25 +50,21 @@ const ProfileScreen = ({
             <View style={styles.body}>
               <View style={styles.imageContainer}>
                 <View>
-                  {image !== '' ? (
-                    <Image style={styles.image} source={image} />
-                  ) : (
-                    <View>
-                      {profileData?.photo === null ? (
-                        <Image
-                          resizeMode="cover"
-                          style={styles.image}
-                          source={image}
-                        />
-                      ) : (
-                        <Image
-                          resizeMode="cover"
-                          style={styles.image}
-                          source={{uri: profileData?.photo}}
-                        />
-                      )}
-                    </View>
-                  )}
+                  <View>
+                    {profileData?.photo === null ? (
+                      <Image
+                        resizeMode="cover"
+                        style={styles.image}
+                        source={image ? image : { uri: DEFAULT_PIC }}
+                      />
+                    ) : (
+                      <Image
+                        resizeMode="cover"
+                        style={styles.image}
+                        source={{uri: profileData?.photo}}
+                      />
+                    )}
+                  </View>
                   <TouchableOpacity
                     onPress={() => uploadImage()}
                     style={styles.editBtnContainer}>
