@@ -12,7 +12,6 @@ import {
 import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
 import {EditProfileIcon} from '../assets/Image';
-import {getPlaceholder} from '../utils/misc';
 import TextArea from '../components/TextArea';
 import { DEFAULT_PIC } from '../constants/profile';
 
@@ -77,10 +76,8 @@ const ProfileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={false}
-                  placeholder={getPlaceholder(
-                    profileData?.university,
-                    'Name of University',
-                  )}
+                  placeholder="Name of University"
+                  value={profileData?.university}
                   onChange={value => handleChange('university', value)}
                 />
               </View>
@@ -88,10 +85,8 @@ const ProfileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={false}
-                  placeholder={getPlaceholder(
-                    profileData?.field_of_study,
-                    'Field of Study',
-                  )}
+                  placeholder="Field of Study"
+                  value={profileData?.field_of_study}
                   onChange={value => handleChange('field_of_study', value)}
                 />
               </View>
@@ -100,10 +95,8 @@ const ProfileScreen = ({
                 <TextArea
                   secureTextEntry={false}
                   iconShow={false}
-                  placeholder={getPlaceholder(
-                    profileData?.tagline,
-                    'Tell us a little about yourself',
-                  )}
+                  placeholder="Tell us a little about yourself"
+                  value={profileData?.tagline}
                   onChange={value => handleChange('tagline', value)}
                   customStyles={styles.textArea}
                 />
@@ -113,10 +106,8 @@ const ProfileScreen = ({
                 <TextArea
                   secureTextEntry={false}
                   iconShow={false}
-                  placeholder={getPlaceholder(
-                    profileData?.work_experience,
-                    'Tell us a little about experience',
-                  )}
+                  placeholder="Tell us a little about experience"
+                  value={profileData?.work_experience}
                   onChange={value => handleChange('work_experience', value)}
                 />
               </View>
@@ -127,10 +118,7 @@ const ProfileScreen = ({
                 <TextArea
                   secureTextEntry={false}
                   iconShow={false}
-                  placeholder={getPlaceholder(
-                    profileData?.skills?.toString().replace(/,/g, '; '),
-                    'Tell us a little about experience',
-                  )}
+                  value={profileData?.skills?.toString().replace(/,/g, '; ')}
                   onChange={value => handleChange('skills', value?.split(';'))}
                 />
               </View>
@@ -141,10 +129,7 @@ const ProfileScreen = ({
                 <TextArea
                   secureTextEntry={false}
                   iconShow={false}
-                  placeholder={getPlaceholder(
-                    profileData?.languages?.toString().replace(/,/g, '; '),
-                    '',
-                  )}
+                  value={profileData?.languages?.toString().replace(/,/g, '; ')}
                   onChange={value =>
                     handleChange('languages', value?.split(';'))
                   }
@@ -234,7 +219,8 @@ const ProfileScreen = ({
                     secureTextEntry={false}
                     iconShow={false}
                     iconName="chevron-down"
-                    placeholder={getPlaceholder(profileData?.min_pay, 'Min $')}
+                    placeholder="Min $"
+                    value={profileData?.min_pay}
                     onChange={value => handleChange('min_pay', value)}
                     keyboardType="numeric"
                   />
@@ -244,9 +230,8 @@ const ProfileScreen = ({
                     secureTextEntry={false}
                     iconShow={false}
                     iconName="chevron-down"
-                    placeholder={getPlaceholder(
-                      profileData?.max_pay || 'Max $',
-                    )}
+                    placeholder="Max $"
+                    value={profileData?.max_pay}
                     keyboardType="numeric"
                     onChange={value => handleChange('max_pay', value)}
                   />
@@ -259,10 +244,8 @@ const ProfileScreen = ({
                 <Input
                   secureTextEntry={false}
                   iconShow={true}
-                  placeholder={getPlaceholder(
-                    profileData?.allowed_to_work,
-                    'Type in Yes or No',
-                  )}
+                  placeholder="Type in Yes or No"
+                  value={profileData?.allowed_to_work}
                   onChange={value => handleChange('allowed_to_work', value)}
                 />
               </View>
