@@ -90,6 +90,7 @@ const FeedCard = ({
       <View style={styles.footer}>
         <FlatList
           showsHorizontalScrollIndicator={false}
+          scrollEnabled={false}
           horizontal={true}
           renderItem={renderItem}
           data={skills?.split(';')}
