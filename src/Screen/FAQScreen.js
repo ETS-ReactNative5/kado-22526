@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {ScrollView} from 'react-native';
 import {ActivityIndicator} from 'react-native';
 import {Text, View, TextInput, TouchableOpacity, FlatList} from 'react-native';
@@ -32,6 +32,11 @@ const FAQScreen = ({
   data
 }) => {
   const renderItem = ({item}) => <FaqItems title={item?.question} />;
+
+  useEffect(() => {
+    console.log("FAQ: ", faqList);
+  }, [faqList]);
+
   return (
     <View style={styles.container}>
       <BackHeader goBack={goBack} title="FAQ's" />
@@ -54,9 +59,6 @@ const FAQScreen = ({
         <View style={styles.centerContainer}>
           <View style={styles.questionContainer}>
             <Text style={styles.questionText}>Don’t see your question?</Text>
-            <TouchableOpacity>
-              <Text style={styles.visitText}>Visit our Help Center</Text>
-            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.inputfieldcontainerPadding}>
