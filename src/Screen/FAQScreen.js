@@ -3,6 +3,7 @@ import {ScrollView} from 'react-native';
 import {ActivityIndicator} from 'react-native';
 import {Text, View, TextInput, TouchableOpacity, FlatList} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
+import {AccordionList} from "accordion-collapse-react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   BackHeader,
@@ -37,6 +38,23 @@ const FAQScreen = ({
     console.log("FAQ: ", faqList);
   }, [faqList]);
 
+  const _head = (item) => {
+    return(
+        <View
+          style={styles.questionHead}>
+          <Text style={styles.questionHeadText}>{item.question.trim()}</Text>
+        </View>
+    );
+  };
+
+  const _body = (item) => {
+    return (
+        <View style={styles.answerContainer}>
+          <Text style={styles.answerText}>{item.answer.trim()}</Text>
+        </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <BackHeader goBack={goBack} title="FAQ's" />
@@ -48,13 +66,21 @@ const FAQScreen = ({
       </View>
 
       <ScrollView>
+
+
         {isloading ? (
           <ActivityIndicator color={buttonColor} />
         ) : (
-          <View style={{height: 200}}>
-            <FlatList renderItem={renderItem} data={faqList?.results} />
+          <View>
+            <AccordionList
+              list={faqList?.results}
+              header={_head}
+              body={_body}
+              keyExtractor={item => `${item.id}`}
+            />
           </View>
         )}
+
 
         <View style={styles.centerContainer}>
           <View style={styles.questionContainer}>
@@ -177,6 +203,24 @@ const styles = ScaledSheet.create({
     fontSize: '14@s',
     lineHeight: '18@s',
   },
+  questionHead: {
+    borderBottomColor: '#F2F1F8',
+    borderBottomWidth: 0.5,
+    padding: '15@s'
+  },
+  questionHeadText: {
+    fontSize: '14@s',
+    fontStyle: 'normal',
+    fontWeight: '600',
+  },
+  answerContainer: {
+    padding: '15@s',
+    backgroundColor: '#F7F7F9'
+  },
+  answerText: {
+    fontStyle: 'normal',
+    fontSize: '14@s',
+  }
 });
 
 export default FAQScreen;
