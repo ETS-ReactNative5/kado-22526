@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Faq
 
-# Register your models here.
+class FAQAdminModel(admin.ModelAdmin):
+    list_display = ('id', 'question', 'answer', 'user', 'published')
+
+admin.site.register(Faq, FAQAdminModel)
