@@ -42,10 +42,10 @@ const CompanyProfileContainer = props => {
   };
 
   useEffect(() => {
-    if (params) {
-      dispatch(fetchCompanyById(params?.id));
-    }
-  }, []);
+    
+      setAvailable(profileDetail?.status);
+    
+  }, [profileDetail]);
 
   useEffect(() => {
     setDataFunc();

@@ -29,7 +29,6 @@ const StudentProfileContainer = props => {
   };
 
   const updateProfileStatus = () => {
-    if (user_group !== 'company') return;
     dispatch(
       updateProfileById(profileData?.id, {
         status: !profileData?.status,
