@@ -17,6 +17,7 @@ const PostViewContainer = props => {
 
   const handleSubmit = () => {
     dispatch(addFavoriteJob(params?.id, {title: job?.title, apply: true}));
+    console.log("Applying");
   };
 
   useEffect(() => {
