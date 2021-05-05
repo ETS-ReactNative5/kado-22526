@@ -172,20 +172,25 @@ const StudentProfileScreen = ({
                   {profileData?.allowed_to_work}
                 </Text>
               </View>
+              
+              {
+                user_group === 'company' ? (
+                  <View style={styles.contact}>
+                    <TouchableOpacity
+                      style={styles.footerbtn}
+                      onPress={() =>
+                        navigation.navigate('Chat', {
+                          threadId: profileData?.thread_id,
+                          profileId: profileData?.id,
+                        })
+                      }>
+                      <Icon name="language" size={20} color={buttonColor} />
+                      <Text style={styles.footerText}>Contact</Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : <></>
+              }
 
-              <View style={styles.contact}>
-                <TouchableOpacity
-                  style={styles.footerbtn}
-                  onPress={() =>
-                    navigation.navigate('Chat', {
-                      threadId: profileData?.thread_id,
-                      profileId: profileData?.id,
-                    })
-                  }>
-                  <Icon name="language" size={20} color={buttonColor} />
-                  <Text style={styles.footerText}>Contact</Text>
-                </TouchableOpacity>
-              </View>
             </View>
           </ScrollView>
         )}

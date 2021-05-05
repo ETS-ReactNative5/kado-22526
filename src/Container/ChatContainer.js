@@ -7,6 +7,7 @@ import ChatScreen from '../Screen/ChatScreen';
 import {fetchMessages, getMessages} from '../actions/message';
 import {fetchCompanies} from '../actions/company';
 import Storage from '../lib/requests/storage';
+import { getProfileInfoById } from '../actions/profile';
 
 const ChatContainer = ({route, navigation}) => {
   const {
@@ -36,6 +37,14 @@ const ChatContainer = ({route, navigation}) => {
       dispatch(fetchMessages(threadId));
     }
   }, [threadId]);
+
+  React.useEffect(() => {
+    if (!threadId) {
+      dispatch(getProfileInfoById(profileId, (response) => {
+        resetMessages(response.id, response.fullname, response.photo);
+      }));
+    }
+  }, [threadId, profileId]);
 
   React.useEffect(() => {
     if (!isFetching) {

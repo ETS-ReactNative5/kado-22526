@@ -155,6 +155,21 @@ export function getProfileById(profile_id) {
   };
 }
 
+export function getProfileInfoById(profile_id, callbackFn) {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    Api.get(`api/v1/profile/${profile_id}/`)
+      .then(resp => {
+        callbackFn(resp);
+        dispatch(setIsLoading(false));
+      })
+      .catch(err => {
+        // dispatch(setfetchCommunityGroupError(err.errors));
+        dispatch(setIsLoading(false));
+      });
+  };  
+}
+
 export function updateProfileById(profile_id, params, navigate) {
   return dispatch => {
     dispatch(updateProfileLoading(true));
