@@ -4,6 +4,8 @@ import Storage from './storage';
 const HOST = 'https://kado-22526.botics.co/';
 export const WEBSOCKET_HOST = 'wss://kado-22526.botics.co/ws/chat/';
 export const PLACES_API_KEY = apiKey;
+
+
 class Api {
   static async headers() {
     let token = '';

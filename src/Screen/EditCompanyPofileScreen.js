@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import {BackHeader, Input, TextArea} from '../components';
 import {
@@ -27,6 +27,16 @@ const EditCompanyPofileScreen = ({
   image,
   uploadImage,
 }) => {
+
+  const googlePlacesRef = useCallback(node => {
+    if (node !== null) {
+        if (!node.getAddressText()) {
+          node.setAddressText(profileDetail?.location);
+        }
+    }
+  }, []);
+
+
   return (
     <View style={styles.container}>
       <BackHeader title="Edit Profile" goBack={goBack} openDrawer={true} />
@@ -80,10 +90,8 @@ const EditCompanyPofileScreen = ({
 
               <View style={styles.inputContainer}>
                 <GooglePlacesAutocomplete
-                  placeholder={getPlaceholder(
-                    profileDetail?.location,
-                    'Location',
-                  )}
+                  placeholder="Location"
+                  ref={googlePlacesRef}
                   onPress={(data, details = null) => {
                     console.log(data, details);
                     handleChange('location', data.description);

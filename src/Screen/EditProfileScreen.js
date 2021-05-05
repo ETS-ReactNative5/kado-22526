@@ -25,6 +25,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {PLACES_API_KEY} from '../lib/requests/api';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { useIsFocused } from '@react-navigation/native';
 
 const EditProfileScreen = ({
   goBack,
@@ -39,6 +40,13 @@ const EditProfileScreen = ({
 }) => {
   const [gender, setGender] = React.useState(profileDetail?.gender);
   const refRBSheet = useRef();
+  const googlePlacesRef = useRef();
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    googlePlacesRef.current?.setAddressText(profileDetail?.location)
+  }, [profileDetail, isFocused]);
+
   const renderItem = ({item}) => (
     <View>
       <TouchableOpacity
@@ -104,10 +112,8 @@ const EditProfileScreen = ({
 
               <View style={styles.inputContainer}>
                 <GooglePlacesAutocomplete
-                  placeholder={getPlaceholder(
-                    profileDetail?.location,
-                    'Location',
-                  )}
+                  placeholder="Location"
+                  ref={googlePlacesRef}
                   onPress={(data, details = null) => {
                     console.log(data, details);
                     handleChange('location', data.description);
