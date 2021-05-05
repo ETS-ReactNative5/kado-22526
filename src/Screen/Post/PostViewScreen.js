@@ -12,6 +12,7 @@ import {
 } from '../../utils/Theme/Color';
 import {PostContext} from '../../context/PostProvider';
 import {JOBS_ENUM} from '../../constants/jobs';
+import { ActivityIndicator } from 'react-native';
 
 const PostViewScreen = ({loading, handleSubmit, data}) => {
   const {categories} = React.useContext(PostContext);
@@ -126,9 +127,14 @@ const PostViewScreen = ({loading, handleSubmit, data}) => {
             loading={loading}
             disabled={data?.is_applied}
             onPress={() => handleSubmit()}>
-            <Text style={styles.postText}>
-              {data?.is_applied ? 'Applied' : 'Apply'}
-            </Text>
+            {
+              loading ?
+                <ActivityIndicator color={white} />
+              :
+                <Text style={styles.postText}>
+                  {data?.is_applied ? 'Applied' : 'Apply'}
+                </Text>
+            }
           </TouchableOpacity>
         </View>
       </ScrollView>

@@ -266,7 +266,7 @@ export function fetchSortBy(param, sortbyString) {
   };
 }
 
-export function addFavoriteJob(job_id, data) {
+export function addFavoriteJob(job_id, data, callbackFn) {
   return dispatch => {
     dispatch(setFavoriteLoading(true));
     Api.put(`api/v1/job/${job_id}/`, data)
@@ -274,9 +274,11 @@ export function addFavoriteJob(job_id, data) {
         dispatch(addFavorite(resp));
         dispatch(setFavoriteLoading(false));
         dispatch(getJob(job_id));
+        callbackFn && callbackFn(resp, true);
       })
       .catch(err => {
         dispatch(setFavoriteLoading(false));
+        callbackFn && callbackFn(err, false);
       });
   };
 }
