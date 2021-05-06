@@ -6,10 +6,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import {CompanyProfileScreen} from '../Screen';
 import {getProfileById, updateProfileById} from '../actions/profile';
 import {fetchCompanyById} from '../actions/company';
+import {KadoContext} from '../context/KadoProvider';
 
 const CompanyProfileContainer = props => {
   const [image] = useState('');
-  const [user_group, setUser_group] = useState('');
+
+  const {userGroup} = React.useContext(KadoContext);
+
   const [available, setAvailable] = useState(false)
   const dispatch = useDispatch();
   const {profileDetail, isloading} = useSelector(store => store.profile);
@@ -30,7 +33,6 @@ const CompanyProfileContainer = props => {
   };
 
   const updateProfileStatus = () => {
-    if (user_group === 'student') return;
     dispatch(
       updateProfileById(profileDetail?.id, {
         status: !profileDetail?.status,
@@ -40,10 +42,10 @@ const CompanyProfileContainer = props => {
   };
 
   useEffect(() => {
-    if (params) {
-      dispatch(fetchCompanyById(params?.id));
-    }
-  }, []);
+    
+      setAvailable(profileDetail?.status);
+    
+  }, [profileDetail]);
 
   useEffect(() => {
     setDataFunc();
@@ -68,6 +70,7 @@ const CompanyProfileContainer = props => {
         navigation={navigation}
         updateProfileStatus={updateProfileStatus}
         available={available}
+        user_group={userGroup}
       />
     </SafeAreaView>
   );

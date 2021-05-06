@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import {BackHeader, Input, TextArea} from '../components';
 import {
@@ -15,6 +15,7 @@ import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {PLACES_API_KEY} from '../lib/requests/api';
+import { DEFAULT_PIC } from '../constants/profile';
 
 const EditCompanyPofileScreen = ({
   goBack,
@@ -26,9 +27,19 @@ const EditCompanyPofileScreen = ({
   image,
   uploadImage,
 }) => {
+
+  const googlePlacesRef = useCallback(node => {
+    if (node !== null) {
+        if (!node.getAddressText()) {
+          node.setAddressText(profileDetail?.location);
+        }
+    }
+  }, []);
+
+
   return (
     <View style={styles.container}>
-      <BackHeader title="Edit Profile" goBack={goBack} />
+      <BackHeader title="Edit Profile" goBack={goBack} openDrawer={true} />
       <View style={{flex: 1}}>
         {isloading ? (
           <View style={styles.empty}>
@@ -41,25 +52,22 @@ const EditCompanyPofileScreen = ({
             <View style={styles.body}>
               <View style={styles.imageContainer}>
                 <View>
-                  {image !== '' ? (
-                    <Image style={styles.image} source={image} />
-                  ) : (
-                    <View>
-                      {profileDetail?.photo === null ? (
-                        <Image
-                          resizeMode="cover"
-                          style={styles.image}
-                          source={image}
-                        />
-                      ) : (
-                        <Image
-                          resizeMode="cover"
-                          style={styles.image}
-                          source={{uri: profileDetail?.photo}}
-                        />
-                      )}
-                    </View>
-                  )}
+
+                  <View>
+                    {profileDetail?.photo === null ? (
+                      <Image
+                        resizeMode="cover"
+                        style={styles.image}
+                        source={image ? image : {uri: DEFAULT_PIC}}
+                      />
+                    ) : (
+                      <Image
+                        resizeMode="cover"
+                        style={styles.image}
+                        source={{uri: profileDetail?.photo}}
+                      />
+                    )}
+                  </View>
 
                   <TouchableOpacity
                     onPress={() => uploadImage()}
@@ -73,19 +81,17 @@ const EditCompanyPofileScreen = ({
                   secureTextEntry={false}
                   iconShow={false}
                   placeholder={getPlaceholder(
-                    profileDetail?.fullname,
-                    'Company or Start-up name',
+                    'Company or Start-up name'
                   )}
+                  value={profileDetail?.fullname}
                   onChange={value => handleChange('fullname', value)}
                 />
               </View>
 
               <View style={styles.inputContainer}>
                 <GooglePlacesAutocomplete
-                  placeholder={getPlaceholder(
-                    profileDetail?.location,
-                    'Location',
-                  )}
+                  placeholder="Location"
+                  ref={googlePlacesRef}
                   onPress={(data, details = null) => {
                     console.log(data, details);
                     handleChange('location', data.description);
@@ -111,9 +117,9 @@ const EditCompanyPofileScreen = ({
                   secureTextEntry={false}
                   iconShow={false}
                   placeholder={getPlaceholder(
-                    profileDetail?.industry,
-                    'Industry',
+                    'Industry'
                   )}
+                  value={profileDetail?.industry}
                   onChange={value => handleChange('industry', value)}
                 />
               </View>
@@ -122,9 +128,9 @@ const EditCompanyPofileScreen = ({
                   secureTextEntry={false}
                   iconShow={false}
                   placeholder={getPlaceholder(
-                    profileDetail?.bio,
-                    'Tell us about your company',
+                    'Tell us about your company'
                   )}
+                  value={profileDetail?.bio}
                   onChange={value => handleChange('bio', value)}
                   customStyles={styles.textArea}
                 />
@@ -133,9 +139,9 @@ const EditCompanyPofileScreen = ({
                 <Input
                   secureTextEntry={false}
                   placeholder={getPlaceholder(
-                    profileDetail?.mobile_number,
-                    'Phone',
+                    'Phone'
                   )}
+                  value={profileDetail?.mobile_number}
                   keyboardType="numeric"
                   onChange={value => handleChange('mobile_number', value)}
                 />

@@ -29,7 +29,6 @@ const styles = ScaledSheet.create({
     alignContent: 'center',
   },
   filterText: {
-    fontFamily: 'SF Pro Display',
     fontSize: '14@s',
     fontStyle: 'normal',
     fontWeight: '500',
@@ -55,7 +54,6 @@ const styles = ScaledSheet.create({
     borderRadius: '8@s',
   },
   buttonsText: {
-    fontFamily: 'SF Pro Display',
     fontSize: '15@s',
     fontStyle: 'normal',
     fontWeight: '400',

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   View,
   Text,
@@ -20,11 +20,12 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
 import {EditProfileIcon} from '../assets/Image';
 import {getPlaceholder} from '../utils/misc';
-import {USER_TYPES} from '../constants/profile';
+import {DEFAULT_PIC, USER_TYPES} from '../constants/profile';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {PLACES_API_KEY} from '../lib/requests/api';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { useIsFocused } from '@react-navigation/native';
 
 const EditProfileScreen = ({
   goBack,
@@ -39,6 +40,13 @@ const EditProfileScreen = ({
 }) => {
   const [gender, setGender] = React.useState(profileDetail?.gender);
   const refRBSheet = useRef();
+  const googlePlacesRef = useRef();
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    googlePlacesRef.current?.setAddressText(profileDetail?.location)
+  }, [profileDetail, isFocused]);
+
   const renderItem = ({item}) => (
     <View>
       <TouchableOpacity
@@ -55,7 +63,7 @@ const EditProfileScreen = ({
 
   return (
     <View style={styles.container}>
-      <BackHeader title="Edit Profile" goBack={goBack} />
+      <BackHeader title="Edit Profile" goBack={goBack} openDrawer={true} />
       <View style={{flex: 1}}>
         {isloading ? (
           <View style={styles.empty}>
@@ -68,15 +76,12 @@ const EditProfileScreen = ({
             <View style={styles.body}>
               <View style={styles.imageContainer}>
                 <View>
-                  {image !== '' ? (
-                    <Image style={styles.image} source={image} />
-                  ) : (
                     <View>
                       {profileDetail?.photo === null ? (
                         <Image
                           resizeMode="cover"
                           style={styles.image}
-                          source={image}
+                          source={image ? image : { uri: DEFAULT_PIC }}
                         />
                       ) : (
                         <Image
@@ -86,7 +91,6 @@ const EditProfileScreen = ({
                         />
                       )}
                     </View>
-                  )}
                   <TouchableOpacity
                     onPress={() => uploadImage()}
                     style={styles.editBtnContainer}>
@@ -99,19 +103,17 @@ const EditProfileScreen = ({
                   secureTextEntry={false}
                   iconShow={false}
                   placeholder={getPlaceholder(
-                    profileDetail?.fullname,
-                    'Full Name',
+                    'Full Name'
                   )}
+                  value={profileDetail?.fullname}
                   onChange={value => handleChange('fullname', value)}
                 />
               </View>
 
               <View style={styles.inputContainer}>
                 <GooglePlacesAutocomplete
-                  placeholder={getPlaceholder(
-                    profileDetail?.location,
-                    'Location',
-                  )}
+                  placeholder="Location"
+                  ref={googlePlacesRef}
                   onPress={(data, details = null) => {
                     console.log(data, details);
                     handleChange('location', data.description);
@@ -137,9 +139,9 @@ const EditProfileScreen = ({
                   keyboardType="numeric"
                   iconShow={false}
                   placeholder={getPlaceholder(
-                    profileDetail?.mobile_number,
-                    'Phone',
+                    'Phone'
                   )}
+                  value={profileDetail?.mobile_number}
                   onChange={value => handleChange('mobile_number', value)}
                 />
               </View>
@@ -215,7 +217,7 @@ const styles = ScaledSheet.create({
   },
   textAreaText: {
     fontSize: 16,
-    color: '#9a9a9a',
+    color: '#000',
   },
   textAreaContainer: {
     paddingLeft: '26@s',

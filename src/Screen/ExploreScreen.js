@@ -27,7 +27,7 @@ const ExploreScreen = ({goBack, navigate, user_groups}) => {
   };
   return (
     <View style={styles.container}>
-      <BackHeader goBack={goBack} title="Explore" />
+      <BackHeader goBack={goBack} title="Explore" openDrawer={true} />
 
       <View style={styles.body}>
         <View>

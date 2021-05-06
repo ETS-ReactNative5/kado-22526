@@ -5,7 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "postinstall": "npx jetify && rndebugger-open",
+    "postinstall": "npx jetify && rndebugger-open && patch-package",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest"
@@ -23,11 +23,14 @@
     "@react-navigation/drawer": "^5.11.5",
     "@react-navigation/native": "^5.9.0",
     "@react-navigation/stack": "^5.13.0",
+    "accordion-collapse-react-native": "^1.0.0",
     "axios": "^0.21.1",
     "formik": "^2.2.6",
     "lodash": "4.17.20",
     "moment": "2.27.0",
     "native-base": "^2.15.2",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "react": "16.11.0",
     "react-native": "0.62.0",
     "react-native-datepicker": "^1.7.2",

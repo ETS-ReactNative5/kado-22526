@@ -12,13 +12,14 @@ import {
 } from '../../utils/Theme/Color';
 import {PostContext} from '../../context/PostProvider';
 import {JOBS_ENUM} from '../../constants/jobs';
+import { ActivityIndicator } from 'react-native';
 
 const PostViewScreen = ({loading, handleSubmit, data}) => {
   const {categories} = React.useContext(PostContext);
 
-  const getItemName = (arr, value, key) => {
-    const item = _.find(arr, key, value);
-    return item[key];
+  const getObjectName = (arr, value) => {
+    const item = arr.find(obj => obj.id === value);
+    return item ? item['name'] : '';
   };
 
   const getSalary = () => {
@@ -43,7 +44,7 @@ const PostViewScreen = ({loading, handleSubmit, data}) => {
           <View>
             <View style={styles.inputContainer}>
               <Text style={styles.textAreaText}>
-                {getItemName(categories, data.category, 'name')}
+                {getObjectName(categories, data.category)}
               </Text>
             </View>
           </View>
@@ -87,10 +88,9 @@ const PostViewScreen = ({loading, handleSubmit, data}) => {
           <View>
             <View style={styles.textAreaContainer}>
               <Text style={styles.textAreaText}>
-                {getItemName(
+                {getObjectName(
                   JOBS_ENUM.availability_duration,
-                  data.duration,
-                  'name',
+                  data.duration
                 )}
               </Text>
             </View>
@@ -100,7 +100,7 @@ const PostViewScreen = ({loading, handleSubmit, data}) => {
           <View>
             <View style={styles.textAreaContainer}>
               <Text style={styles.textAreaText}>
-                {getItemName(JOBS_ENUM.time_per_week, data.time, 'name')}
+                {getObjectName(JOBS_ENUM.time_per_week, data.time)}
               </Text>
             </View>
           </View>
@@ -127,9 +127,14 @@ const PostViewScreen = ({loading, handleSubmit, data}) => {
             loading={loading}
             disabled={data?.is_applied}
             onPress={() => handleSubmit()}>
-            <Text style={styles.postText}>
-              {data?.is_applied ? 'Applied' : 'Apply'}
-            </Text>
+            {
+              loading ?
+                <ActivityIndicator color={white} />
+              :
+                <Text style={styles.postText}>
+                  {data?.is_applied ? 'Applied' : 'Apply'}
+                </Text>
+            }
           </TouchableOpacity>
         </View>
       </ScrollView>

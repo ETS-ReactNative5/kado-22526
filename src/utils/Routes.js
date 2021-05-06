@@ -39,7 +39,7 @@ import {
   ForgotPasswordContainer,
 } from '../Container';
 import {DrawerContentData} from '../components';
-import Animated from 'react-native-reanimated';
+import Animated, { Easing, withTiming } from 'react-native-reanimated';
 
 import {themeColor, white} from './Theme/Color';
 import AuthLoadingScreen from '../Screen/AuthLoadingScreen';
@@ -278,10 +278,11 @@ const MyDrawer = props => {
   });
 
   const borderRadius = Animated.interpolate(state, {
-    inputRange: [0, 10],
-    outputRange: [10, 20],
+    inputRange: [0, 1],
+    outputRange: [0, 30],
+    extrapolate: Animated.Extrapolate.CLAMP
   });
-
+  
   const animatedStyle = {borderRadius, transform: [{scale}]};
   return (
     <Drawer.Navigator

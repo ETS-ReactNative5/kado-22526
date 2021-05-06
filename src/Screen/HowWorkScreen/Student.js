@@ -11,7 +11,7 @@ const HowWorkScreen = ({goBack}) => {
   const renderItem = ({item}) => <FaqItems title={item?.question} />;
   return (
     <View style={styles.container}>
-      <BackHeader goBack={goBack} image={true} />
+      <BackHeader goBack={goBack} image={true} openDrawer={true} />
       <View style={styles.body}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.heading}>How it works</Text>
