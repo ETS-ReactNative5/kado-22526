@@ -20,6 +20,7 @@ import {
   white,
 } from '../utils/Theme/Color';
 
+import { getHourlyPayString } from '../utils/misc';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {ScaledSheet} from 'react-native-size-matters';
 import {TouchableOpacity} from 'react-native';
@@ -59,6 +60,9 @@ const TalentPoolScreen = ({
       image={item?.photo}
       name={item?.fullname}
       tagline={item?.tagline}
+      skills={item?.skills}
+      hourly_pay={getHourlyPayString(item?.min_pay, item?.max_pay)}
+      availability={item?.availability}
       id={item?.id}
       favorite={item?.is_favorite}
       addStudentFav={addFavorite}
