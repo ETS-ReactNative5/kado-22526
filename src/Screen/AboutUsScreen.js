@@ -35,17 +35,17 @@ const AboutUsScreen = ({goBack}) => {
           <Text style={styles.subheading}>What is Kado?</Text>
 
           <Text style={styles.paragraph}>
-            Kado is the #1 way college students get projects. Receive
-            personalized recommendations based on your major, interests, and
-            skills. Skip the lines and connect with employers at exclusive
-            career fairs and events. Get an inside look at projects, employers,
-            and more with thousands of student reviews.
-          </Text>
+            Kado is a marketplace for undergrad and new grad students to work on 
+            projects and get hired by breakout startups, incorporated in 2021. 
+            Our mission is to help you foster genuine connections with leaders at 
+            career-defining startups. No resume dumps, no impersonal outreach, 
+            just real conversations with real people.
 
-          <Text style={styles.paragraph}>
-            Kado aims to help every college student find the right project for
-            them, no matter where they go to school, what they are majoring in,
-            or what they know.
+            Our platform increases efficiencies associated with searching for, 
+            contracting and collaborating with, and paying highly skilled college 
+            students for short and long term projects. Our expansive repository 
+            of data, combined with machine learning capabilities, enable us to 
+            better connect startups with college students.
           </Text>
         </ScrollView>
         {/* <Text style={styles.text}>
