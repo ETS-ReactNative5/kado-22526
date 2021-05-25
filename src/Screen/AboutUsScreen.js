@@ -34,13 +34,18 @@ const AboutUsScreen = ({goBack}) => {
 
           <Text style={styles.subheading}>What is Kado?</Text>
 
-          <Text style={styles.paragraph}>
+          <Text style={[styles.paragraph, {marginBottom: 60}]}>
             Kado is a marketplace for undergrad and new grad students to work on 
             projects and get hired by breakout startups, incorporated in 2021. 
+          </Text>
+          <Text style={styles.subheading}>Our Mission</Text>
+          <Text style={[styles.paragraph, {marginBottom: 60}]}>
             Our mission is to help you foster genuine connections with leaders at 
             career-defining startups. No resume dumps, no impersonal outreach, 
             just real conversations with real people.
-
+          </Text>
+          <Text style={styles.subheading}>Our Platform</Text>
+          <Text style={[styles.paragraph, {marginBottom: 60}]}>
             Our platform increases efficiencies associated with searching for, 
             contracting and collaborating with, and paying highly skilled college 
             students for short and long term projects. Our expansive repository 
