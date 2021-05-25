@@ -9,6 +9,7 @@ import {
   themeColor,
   white,
 } from '../utils/Theme/Color';
+import { getHourlyPayString } from '../utils/misc';
 import {ScaledSheet} from 'react-native-size-matters';
 import {ActivityIndicator} from 'react-native';
 
@@ -68,13 +69,15 @@ const NewsFeedContainer = ({
       image={item?.photo}
       name={item?.fullname}
       tagline={item?.tagline}
+      skills={item?.skills}
+      hourly_pay={getHourlyPayString(item?.min_pay, item?.max_pay)}
+      availability={item?.availability}
       id={item?.id}
       favorite={item?.is_favorite}
       removeFavoriteJob={removeFavoriteJob}
       addStudentFav={addStudentFav}
       removeStudentFav={removeStudentFav}
-    />
-  );
+    />);
 
   const favStudentCard = ({item}) => (
     <UserCards
@@ -82,6 +85,9 @@ const NewsFeedContainer = ({
       image={item?.photo}
       name={item?.fullname}
       tagline={item?.tagline}
+      skills={item?.skills}
+      hourly_pay={getHourlyPayString(item?.min_pay, item?.max_pay)}
+      availability={item?.availability}
       favorite={true}
       removeStudentFav={removeStudentFav}
       id={item?.id}

@@ -66,3 +66,10 @@ export const getPlaceholder = (value, placeholder) => {
   }
   return value.toString() || placeholder;
 };
+
+export const getHourlyPayString = (min, max) => {
+  if (!min && !max) {
+    return "";
+  }
+  return `$${min||0}-$${max||0}`;
+}
